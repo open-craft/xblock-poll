@@ -1,0 +1,12 @@
+<script id="results" type="text/html">
+    <h2>{{question}}</h2>
+    <ul>
+    {{#each tally}}
+        <li class="poll-result">
+            <span class="percentage-guage" style="width:{{percentage}}%;"></span>
+            <span>{{answer}}</span>
+            <span class="poll-percent-display{{#if top}} poll-top-choice{{/if}}">{{percent}}%</span>
+        </li>
+    {{/each}}
+    </ul>
+</script>

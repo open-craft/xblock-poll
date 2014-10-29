@@ -1,0 +1,18 @@
+{{ js_template|safe }}
+<div class="poll_block">
+{# If no form is present, the Javascript will load the results instead. #}
+{% if not choice %}
+  <form>
+      <h2>{{ question }}</h2>
+      <ul>
+      {% for number, answer in answers %}
+          <li class="poll-answer">
+              <label for="answer-{{number}}">{{answer}}</label>
+              <input type="radio" name="choice" id="answer-{{number}}" value="{{number}}">
+          </li>
+      {% endfor %}
+      </ul>
+      <input type="submit" name="poll-submit" onclick="return false;">
+</form>
+{% endif %}
+</div>
