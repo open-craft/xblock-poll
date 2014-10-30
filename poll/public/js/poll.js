@@ -5,10 +5,8 @@ function PollBlock(runtime, element) {
     var tallyURL = runtime.handlerUrl(element, 'get_results');
 
     var submit = $('input[type=submit]', element);
-
     var resultsTemplate = Handlebars.compile($("#results", element).html());
-
-    function getResults() {
+    function getResults(data) {
         $.ajax({
             // Semantically, this would be better as GET, but I can use helper
             // functions with POST.
@@ -16,9 +14,6 @@ function PollBlock(runtime, element) {
             url: tallyURL,
             data: JSON.stringify({}),
             success: function (data) {
-                result = resultsTemplate(data);
-                console.log("Running...");
-                console.log(result);
                 element.innerHTML = resultsTemplate(data);
             }
         })
@@ -27,6 +22,8 @@ function PollBlock(runtime, element) {
     if (submit.length) {
         var radios = $('input[name=choice]:checked', element);
         submit.click(function (event) {
+            // Refresh.
+            radios = $(radios.selector);
             var choice = radios.val();
             console.log(choice);
             $.ajax({

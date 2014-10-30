@@ -5,14 +5,14 @@
   <form>
       <h2>{{ question }}</h2>
       <ul>
-      {% for number, answer in answers %}
+      {% for key, answer in answers %}
           <li class="poll-answer">
               <label for="answer-{{number}}">{{answer}}</label>
-              <input type="radio" name="choice" id="answer-{{number}}" value="{{number}}">
+              <input type="radio" name="choice" id="answer-{{number}}" value="{{key}}">
           </li>
       {% endfor %}
       </ul>
-      <input type="submit" name="poll-submit" onclick="return false;">
+      <input type="submit" name="poll-submit" onclick="return false;" disabled>
 </form>
 {% endif %}
 </div>

@@ -1,4 +1,5 @@
 """TO-DO: Write a description of what this XBlock is."""
+from collections import OrderedDict
 from django.template import Template, Context
 
 import pkg_resources
@@ -15,16 +16,18 @@ class PollBlock(XBlock):
     """
     question = String(default='What is your favorite color?')
     answers = List(
-        default=['Red', 'Blue', 'Green', 'Other'],
+        default=(('Red', 'Red'), ('Blue', 'Blue'), ('Green', 'Green'),
+                 ('Other', 'Other')),
         scope=Scope.settings, help="The questions on this poll."
     )
-    tally = Dict(default={1: 0, 2: 0, 3: 0, 4: 0}, scope=Scope.user_state_summary,
+    tally = Dict(default={'Red': 0, 'Blue': 0, 'Green': 0, 'Other': 0},
+                 scope=Scope.user_state_summary,
                  help="Total tally of answers from students.")
     # No default. Hopefully this will yield 'None', or do something
     # distinctive when queried.
     # Choices are always one above their place in the index so that choice
     # is never false if it's provided.
-    choice = Integer(scope=Scope.user_state, help="The student's answer")
+    choice = String(scope=Scope.user_state, help="The student's answer")
 
     def resource_string(self, path):
         """Handy helper for getting resources from our kit."""
@@ -39,15 +42,17 @@ class PollBlock(XBlock):
         """
         Tally all results.
         """
-        # TODO: Cache this.
-        tally = [{'count': 0, 'answer': answer, 'top': False}
-                 for answer in self.answers
-        ]
+        tally = []
+        answers = OrderedDict(self.answers)
         total = 0
-        for key, value in self.tally.items():
-            key, value = int(key), int(value)
-            tally[key - 1]['count'] = value
-            total += value
+        for key, value in answers.items():
+            tally.append({
+                'count': int(self.tally.get(key, 0)),
+                'answer': value,
+                'key': key,
+                'top': False
+            })
+            total += tally[-1]['count']
 
         for answer in tally:
             try:
@@ -71,15 +76,15 @@ class PollBlock(XBlock):
         when viewing courses.
         """
         if not context:
-            context = Context()
+            context = {}
 
         js_template = self.resource_string(
-            '/static/handlebars/results.handlebars')
+            '/public/handlebars/results.handlebars')
 
         context.update({
             'choice': self.choice,
             # Offset so choices will always be True.
-            'answers': zip(range(1, len(self.answers) + 1), self.answers),
+            'answers': self.answers,
             'question': self.question,
             'js_template': js_template,
         })
@@ -87,23 +92,91 @@ class PollBlock(XBlock):
         if self.choice:
             context.update({'tally': self.tally_detail()})
 
-        html = self.resource_string("static/html/poll.html")
+        context = Context(context)
+        html = self.resource_string("public/html/poll.html")
         html = Template(html).render(context)
         frag = Fragment(html)
-        frag.add_css(self.resource_string("static/css/poll.css"))
-        frag.add_javascript(self.resource_string("static/js/vendor/handlebars.js"))
-        frag.add_javascript(self.resource_string("static/js/src/poll.js"))
+        frag.add_css(self.resource_string("public/css/poll.css"))
+        frag.add_javascript_url(
+            self.runtime.local_resource_url(
+                self, 'public/js/vendor/handlebars.js'))
+        frag.add_javascript(self.resource_string("public/js/poll.js"))
         frag.initialize_js('PollBlock')
         return frag
 
-    # TO-DO: change this handler to perform your own actions.  You may need more
-    # than one handler, or you may not need any handlers at all.
+    @XBlock.json_handler
+    def load_answers(self, data, suffix=''):
+        return {'answers': [{'key': key, 'text': answer}
+                            for key, answer in self.answers
+        ]}
+
+    def studio_view(self, context=None):
+        if not context:
+            context = {}
+
+        js_template = self.resource_string('/public/handlebars/studio.handlebars')
+        context.update({
+            'question': self.question,
+            'js_template': js_template
+        })
+        context = Context(context)
+        html = self.resource_string("public/html/poll_edit.html")
+        html = Template(html).render(context)
+        frag = Fragment(html)
+        frag.add_javascript_url(
+            self.runtime.local_resource_url(
+                self, 'public/js/vendor/handlebars.js'))
+        frag.add_css(self.resource_string('/public/css/poll_edit.css'))
+        frag.add_javascript(self.resource_string("public/js/poll_edit.js"))
+        frag.initialize_js('PollEditBlock')
+
+        return frag
+
+    @XBlock.json_handler
+    def studio_submit(self, data, suffix=''):
+        # I wonder if there's something for live validation feedback already.
+        result = {'success': True, 'errors': {'fields': {}, 'general': []}}
+        if 'question' not in data or not data['question']:
+            result['errors']['question'] = "This field is required."
+            result['success'] = False
+
+        # Aggressively clean/sanity check answers list.
+        answers = OrderedDict(
+            (key.replace('answer-', '', 1), value.strip()[:250])
+            for key, value in data.items()
+            if (key.startswith('answer-') and not key == 'answer-')
+            and not value.isspace()
+        )
+        if not len(answers) > 1:
+            result['errors']['general'].append(
+                "You must include at least two answers.")
+            result['success'] = False
+
+        if not result['success']:
+            return result
+
+        self.answers = answers.items()
+        self.question = data['question']
+
+        tally = self.tally
+
+        # Update tracking schema.
+        for key, value in answers.items():
+            if key not in tally:
+                tally[key] = 0
+
+        for key, value in tally.items():
+            if key not in answers:
+                del tally[key]
+
+        return result
+
     @XBlock.json_handler
     def vote(self, data, suffix=''):
         """
         An example handler, which increments the data.
         """
-        result = {'result': 'error'}
+        result = {'success': False}
         if self.choice is not None:
             result['message'] = 'You cannot vote twice.'
             return result
@@ -114,15 +187,14 @@ class PollBlock(XBlock):
             return result
         # Just to show data coming in...
         try:
-            choice = int(choice)
-            self.answers[choice]
-        except (IndexError, ValueError):
-            result['message'] = 'No index "{choice}" in answers list.'.format(choice=choice)
+            OrderedDict(self.answers)[choice]
+        except KeyError:
+            result['message'] = 'No key "{choice}" in answers table.'.format(choice=choice)
             return result
 
         self.choice = choice
-        self.tally[choice - 1] += 1
-        result['result'] = 'success'
+        self.tally[choice] += 1
+        result['success'] = True
 
         return result
 

@@ -1,0 +1,27 @@
+{{js_template|safe}}
+<div class="wrapper-comp-settings is-active editor-with-buttons" id="settings-tab">
+    <form id="poll-form">
+    <ul class="list-input settings-list" id="poll-line-items">
+        <li class="field comp-setting-entry is-set">
+            <div class="wrapper-comp-setting">
+                <label class="label setting-label" for="question">Question</label>
+                <input class="input setting-input" name="question" id="question" value="{{question}}" type="text" />
+            </div>
+            <span class="tip setting-help">Example: 'What is your favorite color?'</span>
+        </li>
+    </ul>
+    <div class="xblock-actions">
+        <ul>
+            <li class="action-item" id="poll-add-question">
+                <a href="#" class="button action-button" onclick="return false;">Add Question</a>
+            </li>
+            <li class="action-item">
+                <input type="submit" class="button action-primary save-button" value="Save" onclick="return false;" />
+            </li>
+            <li class="action-item">
+                <a href="#" class="button cancel-button">Cancel</a>
+            </li>
+        </ul>
+    </div>
+    </form>
+</div>

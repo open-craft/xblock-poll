@@ -1,0 +1,12 @@
+<script id="answer-form-component" type="text/html">
+{{#each answers}}
+<li class="field comp-setting-entry is-set">
+    <div class="wrapper-comp-setting">
+        <label class="label setting-label" for="answer-{{key}}">Answer</label>
+        <input class="input setting-input" name="answer-{{key}}" id="answer-{{key}}" value="{{text}}" type="text" />
+    </div>
+    <span class="tip setting-help">Enter an answer for the user to select.</span>
+    <a href="#" class="button action-button poll-delete-answer" onclick="return false;">Delete</a>
+</li>
+{{/each}}
+</script>
