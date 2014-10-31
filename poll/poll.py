@@ -1,11 +1,14 @@
 """TO-DO: Write a description of what this XBlock is."""
 from collections import OrderedDict
+
 from django.template import Template, Context
+from bleach import clean
+from markdown import markdown
 
 import pkg_resources
 
 from xblock.core import XBlock
-from xblock.fields import Scope, List, Integer, String, Dict
+from xblock.fields import Scope, List, String, Dict, UserScope, BlockScope
 from xblock.fragment import Fragment
 
 
@@ -21,12 +24,8 @@ class PollBlock(XBlock):
         scope=Scope.settings, help="The questions on this poll."
     )
     tally = Dict(default={'Red': 0, 'Blue': 0, 'Green': 0, 'Other': 0},
-                 scope=Scope.user_state_summary,
+                 scope=Scope.content,
                  help="Total tally of answers from students.")
-    # No default. Hopefully this will yield 'None', or do something
-    # distinctive when queried.
-    # Choices are always one above their place in the index so that choice
-    # is never false if it's provided.
     choice = String(scope=Scope.user_state, help="The student's answer")
 
     def resource_string(self, path):
@@ -36,7 +35,7 @@ class PollBlock(XBlock):
 
     @XBlock.json_handler
     def get_results(self, data, suffix=''):
-        return {'question': self.question, 'tally': self.tally_detail()}
+        return {'question': markdown(clean(self.question)), 'tally': self.tally_detail()}
 
     def tally_detail(self):
         """
@@ -44,13 +43,15 @@ class PollBlock(XBlock):
         """
         tally = []
         answers = OrderedDict(self.answers)
+        choice = self.get_choice()
         total = 0
         for key, value in answers.items():
             tally.append({
                 'count': int(self.tally.get(key, 0)),
                 'answer': value,
                 'key': key,
-                'top': False
+                'top': False,
+                'choice': False
             })
             total += tally[-1]['count']
 
@@ -58,6 +59,8 @@ class PollBlock(XBlock):
             try:
                 percent = (answer['count'] / float(total))
                 answer['percent'] = int(percent * 100)
+                if answer['key'] == choice:
+                    answer['choice'] = True
             except ZeroDivisionError:
                 answer['percent'] = 0
 
@@ -68,6 +71,17 @@ class PollBlock(XBlock):
             # Mark the top item to make things easier for Handlebars.
             tally[0]['top'] = True
         return tally
+
+    def get_choice(self):
+        """
+        It's possible for the choice to have been removed since
+        the student answered the poll. We don't want to take away
+        the user's progress, but they should be able to vote again.
+        """
+        if self.choice and self.choice in OrderedDict(self.answers):
+            return self.choice
+        else:
+            return None
 
     # TO-DO: change this view to display your data your own way.
     def student_view(self, context=None):
@@ -81,11 +95,13 @@ class PollBlock(XBlock):
         js_template = self.resource_string(
             '/public/handlebars/results.handlebars')
 
+        choice = self.get_choice()
+
         context.update({
-            'choice': self.choice,
+            'choice': choice,
             # Offset so choices will always be True.
             'answers': self.answers,
-            'question': self.question,
+            'question': markdown(clean(self.question)),
             'js_template': js_template,
         })
 
@@ -116,7 +132,7 @@ class PollBlock(XBlock):
 
         js_template = self.resource_string('/public/handlebars/studio.handlebars')
         context.update({
-            'question': self.question,
+            'question': clean(self.question),
             'js_template': js_template
         })
         context = Context(context)
@@ -126,6 +142,15 @@ class PollBlock(XBlock):
         frag.add_javascript_url(
             self.runtime.local_resource_url(
                 self, 'public/js/vendor/handlebars.js'))
+        frag.add_javascript_url(
+            self.runtime.local_resource_url(
+                self, 'public/js/vendor/pen.js'))
+        frag.add_javascript_url(
+            self.runtime.local_resource_url(
+                self, 'public/js/vendor/markdown.js'))
+        frag.add_css_url(
+            self.runtime.local_resource_url(
+                self, 'public/css/vendor/pen.css'))
         frag.add_css(self.resource_string('/public/css/poll_edit.css'))
         frag.add_javascript(self.resource_string("public/js/poll_edit.js"))
         frag.initialize_js('PollEditBlock')
@@ -135,31 +160,49 @@ class PollBlock(XBlock):
     @XBlock.json_handler
     def studio_submit(self, data, suffix=''):
         # I wonder if there's something for live validation feedback already.
-        result = {'success': True, 'errors': {'fields': {}, 'general': []}}
+        result = {'success': True, 'errors': []}
         if 'question' not in data or not data['question']:
-            result['errors']['question'] = "This field is required."
+            result['errors'].append("You must specify a question.")
             result['success'] = False
 
+        # Need this meta information, otherwise the questions will be
+        # shuffled by Python's dictionary data type.
+        poll_order = [key.strip().replace('answer-', '')
+                      for key in data.get('poll_order', [])
+        ]
         # Aggressively clean/sanity check answers list.
-        answers = OrderedDict(
-            (key.replace('answer-', '', 1), value.strip()[:250])
-            for key, value in data.items()
-            if (key.startswith('answer-') and not key == 'answer-')
-            and not value.isspace()
-        )
+        answers = []
+        for key, value in data.items():
+            if not key.startswith('answer-'):
+                continue
+            key = key.replace('answer-', '')
+            if not key or key.isspace():
+                continue
+            value = value.strip()[:250]
+            if not value or value.isspace():
+                continue
+            if key in poll_order:
+                answers.append((key, value))
+
         if not len(answers) > 1:
-            result['errors']['general'].append(
+            result['errors'].append(
                 "You must include at least two answers.")
             result['success'] = False
 
         if not result['success']:
             return result
 
-        self.answers = answers.items()
+        # Need to sort the answers.
+        answers.sort(key=lambda x: poll_order.index(x[0]), reverse=True)
+
+        self.answers = answers
         self.question = data['question']
+
+        print answers
 
         tally = self.tally
 
+        answers = OrderedDict(answers)
         # Update tracking schema.
         for key, value in answers.items():
             if key not in tally:
@@ -176,24 +219,28 @@ class PollBlock(XBlock):
         """
         An example handler, which increments the data.
         """
-        result = {'success': False}
-        if self.choice is not None:
-            result['message'] = 'You cannot vote twice.'
+        result = {'success': False, 'errors': []}
+        if self.get_choice() is not None:
+            result['errors'].append('You have already voted in this poll.')
             return result
         try:
             choice = data['choice']
         except KeyError:
-            result['message'] = 'Answer not included with request.'
+            result['errors'].append('Answer not included with request.')
             return result
         # Just to show data coming in...
         try:
             OrderedDict(self.answers)[choice]
         except KeyError:
-            result['message'] = 'No key "{choice}" in answers table.'.format(choice=choice)
+            result['errors'].append('No key "{choice}" in answers table.'.format(choice=choice))
             return result
 
         self.choice = choice
-        self.tally[choice] += 1
+        tally = self.tally.copy()
+        tally[choice] = self.tally.get(choice, 0)
+        self.tally = tally
+        # Let the LMS know the user has answered the poll.
+        self.runtime.publish(self, 'progress', {})
         result['success'] = True
 
         return result

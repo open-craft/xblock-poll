@@ -1,4 +1,3 @@
-/* Javascript for ReferenceBlock. */
 function PollEditBlock(runtime, element) {
     var loadAnswers = runtime.handlerUrl(element, 'load_answers');
     var temp = $('#answer-form-component', element).html();
@@ -40,14 +39,26 @@ function PollEditBlock(runtime, element) {
     $(element).find('.save-button').bind('click', function() {
         var handlerUrl = runtime.handlerUrl(element, 'studio_submit');
         var data = {};
-        $('#poll-form input', element).each(function() {
+        var poll_order = []
+        $('#poll-form input', element).each(function(i) {
             data[this.name] = this.value;
+            if (this.name.indexOf('answer-') >= 0){
+                poll_order.push(this.name);
+            }
         });
+        data['poll_order'] = poll_order;
+        function check_return(data) {
+            if (data['success']) {
+                window.location.reload(false);
+                return;
+            }
+            alert(data['errors'].join('\n'));
+        }
         $.ajax({
             type: "POST",
             url: handlerUrl,
             data: JSON.stringify(data),
-            success: function () {}
+            success: check_return
         });
     });
 
@@ -58,5 +69,7 @@ function PollEditBlock(runtime, element) {
             data: JSON.stringify({}),
             success: displayAnswers
         });
+        var pen = new Pen("#question-editor");
+        $.focus(pen)
     });
 }

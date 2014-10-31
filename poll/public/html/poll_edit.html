@@ -2,12 +2,21 @@
 <div class="wrapper-comp-settings is-active editor-with-buttons" id="settings-tab">
     <form id="poll-form">
     <ul class="list-input settings-list" id="poll-line-items">
+        <h2><label for="question-editor">Question/Prompt</label></h2>
+        Select text to bring up formatting options.
         <li class="field comp-setting-entry is-set">
-            <div class="wrapper-comp-setting">
-                <label class="label setting-label" for="question">Question</label>
-                <input class="input setting-input" name="question" id="question" value="{{question}}" type="text" />
-            </div>
-            <span class="tip setting-help">Example: 'What is your favorite color?'</span>
+          <div id="question-editor-container">
+            <div class="input setting-input" name="question" id="question-editor">{{question|safe}}</div>
+          </div>
+        </li>
+        <li class="field comp-setting-entry is-set">
+            <p>
+                <strong>Notes:</strong>
+                If you change an answer's text, all students who voted for that choice will have their votes updated to
+                the new text. You'll want to avoid changing an answer from something like 'True' to 'False', accordingly.
+                If you delete an answer, any votes for that answer will also be deleted. Students whose choices are deleted
+                may vote again, but will not lose course progress.
+            </p>
         </li>
     </ul>
     <div class="xblock-actions">

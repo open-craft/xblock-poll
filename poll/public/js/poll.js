@@ -7,6 +7,9 @@ function PollBlock(runtime, element) {
     var submit = $('input[type=submit]', element);
     var resultsTemplate = Handlebars.compile($("#results", element).html());
     function getResults(data) {
+        if (! data['success']) {
+            alert(data['errors'].join('\n'));
+        }
         $.ajax({
             // Semantically, this would be better as GET, but I can use helper
             // functions with POST.
@@ -44,7 +47,7 @@ function PollBlock(runtime, element) {
             enableSubmit();
         }
     } else {
-        getResults();
+        getResults({'success': true});
     }
 
     $(function ($) {

@@ -3,3 +3,24 @@
 .poll-delete-answer {
     float: right;
 }
+#question-editor-container{
+    width: 100%;
+    text-align: center;
+}
+#question-editor{
+    width: 98%;
+    height: 7em;
+    text-align: left;
+    color: #4C4C4C;
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+    box-shadow: 0px 0px 9px #555 inset;
+    border: 1px solid #B2B2B2;
+    border-radius: 3px;
+    padding: 10px;
+}
+
+h2 label {
+    font-weight: bold;
+    font-size: 16pt;
+}

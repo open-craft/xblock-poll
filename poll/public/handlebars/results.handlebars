@@ -3,8 +3,9 @@
     <ul>
     {{#each tally}}
         <li class="poll-result">
+            <input id="answer-{{key}}" type="radio" disabled {{#if choice}}checked="True"{{/if}} />
             <span class="percentage-guage" style="width:{{percentage}}%;"></span>
-            <span>{{answer}}</span>
+            <label for="answer-{{key}}">{{answer}}</label>
             <span class="poll-percent-display{{#if top}} poll-top-choice{{/if}}">{{percent}}%</span>
         </li>
     {{/each}}
