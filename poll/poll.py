@@ -142,15 +142,6 @@ class PollBlock(XBlock):
         frag.add_javascript_url(
             self.runtime.local_resource_url(
                 self, 'public/js/vendor/handlebars.js'))
-        frag.add_javascript_url(
-            self.runtime.local_resource_url(
-                self, 'public/js/vendor/pen.js'))
-        frag.add_javascript_url(
-            self.runtime.local_resource_url(
-                self, 'public/js/vendor/markdown.js'))
-        frag.add_css_url(
-            self.runtime.local_resource_url(
-                self, 'public/css/vendor/pen.css'))
         frag.add_css(self.resource_string('/public/css/poll_edit.css'))
         frag.add_javascript(self.resource_string("public/js/poll_edit.js"))
         frag.initialize_js('PollEditBlock')

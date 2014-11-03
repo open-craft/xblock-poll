@@ -39,13 +39,14 @@ function PollEditBlock(runtime, element) {
     $(element).find('.save-button').bind('click', function() {
         var handlerUrl = runtime.handlerUrl(element, 'studio_submit');
         var data = {};
-        var poll_order = []
+        var poll_order = [];
         $('#poll-form input', element).each(function(i) {
             data[this.name] = this.value;
             if (this.name.indexOf('answer-') >= 0){
                 poll_order.push(this.name);
             }
         });
+        data['question'] = $('#question-editor').val();
         data['poll_order'] = poll_order;
         function check_return(data) {
             if (data['success']) {
@@ -69,7 +70,5 @@ function PollEditBlock(runtime, element) {
             data: JSON.stringify({}),
             success: displayAnswers
         });
-        var pen = new Pen("#question-editor");
-        $.focus(pen)
     });
 }

@@ -2,11 +2,11 @@
 <div class="wrapper-comp-settings is-active editor-with-buttons" id="settings-tab">
     <form id="poll-form">
     <ul class="list-input settings-list" id="poll-line-items">
-        <h2><label for="question-editor">Question/Prompt</label></h2>
-        Select text to bring up formatting options.
         <li class="field comp-setting-entry is-set">
+          <h2><label for="question-editor">Question/Prompt</label></h2>
+          <a href="//daringfireball.net/projects/markdown/syntax" target="_blank">Markdown Syntax</a> is supported.
           <div id="question-editor-container">
-            <div class="input setting-input" name="question" id="question-editor">{{question|safe}}</div>
+            <textarea class="input setting-input" name="question" id="question-editor">{{question|safe}}</textarea>
           </div>
         </li>
         <li class="field comp-setting-entry is-set">
