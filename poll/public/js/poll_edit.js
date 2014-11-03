@@ -26,7 +26,7 @@ function PollEditBlock(runtime, element) {
         empowerDeletes();
     }
 
-    $('#poll-add-question', element).click(function () {
+    $('#poll-add-answer', element).click(function () {
         pollLineItems.append(answerTemplate({'answers': [{'key': generateUUID(), 'text': ''}]}));
         empowerDeletes();
         pollLineItems.last().scrollTop();
