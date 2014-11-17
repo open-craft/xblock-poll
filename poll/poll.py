@@ -227,9 +227,8 @@ class PollBlock(XBlock):
             return result
 
         self.choice = choice
-        tally = self.tally.copy()
-        tally[choice] = self.tally.get(choice, 0)
-        self.tally = tally
+        running_total = self.tally.get(choice, 0)
+        self.tally[choice] = running_total + 1
         # Let the LMS know the user has answered the poll.
         self.runtime.publish(self, 'progress', {})
         result['success'] = True
