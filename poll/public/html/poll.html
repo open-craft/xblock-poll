@@ -5,7 +5,7 @@
   <form>
       <h2>Poll</h2>
       {{question|safe}}
-      <ul>
+      <ul class="poll-answers">
       {% for key, answer in answers %}
           <li class="poll-answer">
               <input type="radio" name="choice" id="answer-{{number}}" value="{{key}}">

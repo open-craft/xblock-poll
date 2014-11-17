@@ -2,3 +2,33 @@
     margin-left: 1em;
     font-weight: bold;
 }
+.percentage-gauge {
+    display: inline-block;
+    background-color: #e5ebee;
+    float:right;
+    height: 1.2em;
+}
+
+.poll-result-input-container {
+    float: left;
+}
+
+.percentage-gauge-container {
+    width: auto;
+    overflow: hidden;
+}
+
+ul.poll-answers, ul.poll-answers-results {
+    list-style-type: none;
+}
+
+.poll-answer-text-container {
+    position: relative;
+    top: -1.2em;
+    left: .2em;
+    font-weight: bold;
+}
+
+.poll-percent-container {
+    float: right;
+}
