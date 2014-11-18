@@ -5,30 +5,50 @@
 .percentage-gauge {
     display: inline-block;
     background-color: #e5ebee;
-    float:right;
-    height: 1.2em;
 }
 
 .poll-result-input-container {
-    float: left;
+    display: table-cell;
+    padding-right: .2em;
+    vertical-align: middle;
 }
 
 .percentage-gauge-container {
-    width: auto;
-    overflow: hidden;
+    display: table-cell;
+    width: 100%;
+    vertical-align: middle;
+    padding-bottom: .2em;
 }
 
 ul.poll-answers, ul.poll-answers-results {
     list-style-type: none;
+    display: table;
+    max-width: 80%;
 }
 
-.poll-answer-text-container {
-    position: relative;
-    top: -1.2em;
-    left: .2em;
+li.poll-result {
+    width: 100%;
+    display: table-row;
+    padding-bottom: .2em;
+}
+
+.poll-answer-text {
+    margin-left: .2em;
     font-weight: bold;
 }
 
 .poll-percent-container {
-    float: right;
+    display: table-cell;
+    font-weight: bold;
+    text-align: left;
+    padding-left: .2em;
+    vertical-align: middle;
+}
+
+.poll-result-answer-container {
+
+}
+
+.poll-top-choice {
+    color: #e37222;
 }
