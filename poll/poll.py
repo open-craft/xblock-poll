@@ -8,7 +8,7 @@ from markdown import markdown
 import pkg_resources
 
 from xblock.core import XBlock
-from xblock.fields import Scope, List, String, Dict, UserScope, BlockScope
+from xblock.fields import Scope, List, String, Dict
 from xblock.fragment import Fragment
 
 
@@ -17,6 +17,7 @@ class PollBlock(XBlock):
     Poll XBlock. Allows a teacher to poll users, and presents the results so
     far of the poll to the user when finished.
     """
+    title = String(default='Poll')
     question = String(default='What is your favorite color?')
     answers = List(
         default=(('Red', 'Red'), ('Blue', 'Blue'), ('Green', 'Green'),
@@ -102,6 +103,7 @@ class PollBlock(XBlock):
             # Offset so choices will always be True.
             'answers': self.answers,
             'question': markdown(clean(self.question)),
+            'title': self.title,
             'js_template': js_template,
         })
 
@@ -133,6 +135,7 @@ class PollBlock(XBlock):
         js_template = self.resource_string('/public/handlebars/studio.handlebars')
         context.update({
             'question': clean(self.question),
+            'title': self.title,
             'js_template': js_template
         })
         context = Context(context)
@@ -152,6 +155,11 @@ class PollBlock(XBlock):
     def studio_submit(self, data, suffix=''):
         # I wonder if there's something for live validation feedback already.
         result = {'success': True, 'errors': []}
+        if 'title' not in data or not data['title']:
+            # This can be blank, if it needs to be.
+            title = ''
+        else:
+            title = data['title'][:200]
         if 'question' not in data or not data['question']:
             result['errors'].append("You must specify a question.")
             result['success'] = False
@@ -174,6 +182,7 @@ class PollBlock(XBlock):
                 continue
             if key in poll_order:
                 answers.append((key, value))
+        self.title = title
 
         if not len(answers) > 1:
             result['errors'].append(

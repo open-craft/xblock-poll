@@ -1,6 +1,7 @@
 .poll-answer {
     margin-left: 1em;
     font-weight: bold;
+    display: inline-block;
 }
 .percentage-gauge {
     display: inline-block;
@@ -21,9 +22,16 @@
 }
 
 ul.poll-answers, ul.poll-answers-results {
-    list-style-type: none;
-    display: table;
+    list-style-type: none !important;
     max-width: 80%;
+}
+
+li.poll-answer {
+    display: block;
+}
+
+ul.poll-answers-results {
+    display: table;
 }
 
 li.poll-result {

@@ -3,13 +3,13 @@
 {# If no form is present, the Javascript will load the results instead. #}
 {% if not choice %}
   <form>
-      <h2>Poll</h2>
+      <h2>{{ title }}</h2>
       {{question|safe}}
       <ul class="poll-answers">
       {% for key, answer in answers %}
           <li class="poll-answer">
-              <input type="radio" name="choice" id="answer-{{number}}" value="{{key}}">
-              <label class="poll-answer" for="answer-{{number}}">{{answer}}</label>
+              <input type="radio" name="choice" id="answer-{{key}}" value="{{key}}">
+              <label class="poll-answer" for="answer-{{key}}">{{answer}}</label>
           </li>
       {% endfor %}
       </ul>

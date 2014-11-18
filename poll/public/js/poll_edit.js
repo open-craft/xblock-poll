@@ -32,11 +32,11 @@ function PollEditBlock(runtime, element) {
         pollLineItems.last().scrollTop();
     });
 
-    $(element).find('.cancel-button').bind('click', function() {
+    $(element).find('.cancel-button', element).bind('click', function() {
         runtime.notify('cancel', {});
     });
 
-    $(element).find('.save-button').bind('click', function() {
+    $(element).find('.save-button', element).bind('click', function() {
         var handlerUrl = runtime.handlerUrl(element, 'studio_submit');
         var data = {};
         var poll_order = [];
@@ -46,7 +46,8 @@ function PollEditBlock(runtime, element) {
                 poll_order.push(this.name);
             }
         });
-        data['question'] = $('#question-editor').val();
+        data['title'] = $('#poll-title', element).val();
+        data['question'] = $('#question-editor', element).val();
         data['poll_order'] = poll_order;
         function check_return(data) {
             if (data['success']) {
