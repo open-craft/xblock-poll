@@ -21,15 +21,19 @@ def package_data(pkg, roots):
 
 
 setup(
-    name='poll-xblock',
+    name='xblock-poll',
     version='0.1',
-    description='poll XBlock',   # TODO: write a better description.
+    description='An XBlock for polling users.',
     packages=[
         'poll',
     ],
     install_requires=[
         'XBlock',
+        'markdown',
+        'bleach',
+        'xblock-utils',
     ],
+    dependency_links=['http://github.com/edx-solutions/xblock-utils/tarball/master#egg=xblock-utils'],
     entry_points={
         'xblock.v1': [
             'poll = poll:PollBlock',

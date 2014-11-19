@@ -4,7 +4,7 @@
     {{#each tally}}
         <li class="poll-result">
             <div class="poll-result-input-container">
-              <input id="answer-{{key}}" type="radio" disabled {{#choice}}checked="True"{{/choice}} />
+              <input id="answer-{{key}}" type="radio" disabled {{#if choice}}checked="True"{{/if}} />
             </div>
             <div class="percentage-gauge-container">
               <div class="percentage-gauge" style="width:{{percent}}%;">
@@ -12,7 +12,7 @@
               </div>
             </div>
             <div class="poll-percent-container">
-                <span class="poll-percent-display{{#top}} poll-top-choice{{/top}}">{{percent}}%</span>
+                <span class="poll-percent-display{{#if top}} poll-top-choice{{/if}}">{{percent}}%</span>
             </div>
         </li>
        {{^last}}
@@ -22,11 +22,11 @@
     {{/each}}
     </ul>
     <input type="submit" name="poll-submit" onclick="return false;" value="Submit" disabled>
-    <div class="poll-footnote"><small>Results gathered from {{total}} respondent(s).</small></div>
-    {{#feedback}}
+    <div class="poll-footnote">Results gathered from {{total}} respondent(s).</div>
+    {{#if feedback}}
         <hr />
         <div class="poll-feedback">
-            {{{this}}}
+            {{{feedback}}}
         </div>
-    {{/feedback}}
+    {{/if}}
 </script>

@@ -1,3 +1,4 @@
 -e .
 bleach
 markdown
+-e git+https://github.com/edx-solutions/xblock-utils.git#egg=xblock-utils

@@ -1,27 +1,16 @@
 """TO-DO: Write a description of what this XBlock is."""
 from collections import OrderedDict
 
-import bleach
-
 from django.template import Template, Context
-from markdown import markdown
 
 import pkg_resources
 
 from xblock.core import XBlock
 from xblock.fields import Scope, List, String, Dict
 from xblock.fragment import Fragment
+from xblockutils.resources import ResourceLoader
 
-
-ALLOWED_TAGS = {
-    'h1': [], 'h2': [], 'h3': [], 'h4': [], 'h5': [], 'h6': [],
-    'a': ['target', 'href', 'class'], 'strong': [], 'em': [], 'blockquote': [],
-    'pre': [], 'li': [], 'ul': [], 'ol': [], 'code': ['class'], 'p': [],
-}
-
-
-def process_markdown(raw_text):
-    return bleach.clean(markdown(raw_text), tags=ALLOWED_TAGS, strip_comments=False)
+from .utils import process_markdown
 
 
 class PollBlock(XBlock):
@@ -35,11 +24,13 @@ class PollBlock(XBlock):
                  ('Other', 'Other')),
         scope=Scope.settings, help="The question on this poll."
     )
-    feedback = String(help="Text to display after the user votes.")
+    feedback = String(default='', help="Text to display after the user votes.")
     tally = Dict(default={'Red': 0, 'Blue': 0, 'Green': 0, 'Other': 0},
                  scope=Scope.user_state_summary,
                  help="Total tally of answers from students.")
     choice = String(scope=Scope.user_state, help="The student's answer")
+
+    loader = ResourceLoader(__name__)
 
     def resource_string(self, path):
         """Handy helper for getting resources from our kit."""
@@ -49,7 +40,6 @@ class PollBlock(XBlock):
     @XBlock.json_handler
     def get_results(self, data, suffix=''):
         detail, total = self.tally_detail()
-        print process_markdown(self.feedback)
         return {
             'question': process_markdown(self.question), 'tally': detail,
             'total': total, 'feedback': process_markdown(self.feedback),
@@ -117,14 +107,13 @@ class PollBlock(XBlock):
 
         choice = self.get_choice()
 
-        print bleach.ALLOWED_ATTRIBUTES
-
         context.update({
             'choice': choice,
             # Offset so choices will always be True.
             'answers': self.answers,
             'question': process_markdown(self.question),
-            'feedback': process_markdown(self.feedback),
+            # Mustache is treating an empty string as true.
+            'feedback': process_markdown(self.feedback) or False,
             'js_template': js_template,
         })
 

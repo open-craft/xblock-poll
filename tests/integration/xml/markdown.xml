@@ -1,0 +1,23 @@
+<vertical_demo>
+    <poll url_name="markdown" question="## This is a test
+
+&lt;h1&gt;This is only a &amp;gt;&amp;lt;test&lt;/h1&gt;
+
+* One
+* Two
+* Three
+
+1. First
+2. Second.
+3. Third
+
+We shall find out if markdown is respected.
+
+&gt; &quot;I have not yet begun to code.&quot;" feedback="### This is some feedback
+
+[This is a link](http://www.example.com)
+
+&lt;a href=&quot;http://www.example.com&quot; target=&quot;_blank&quot;&gt;This is also a link.&lt;/a&gt;
+
+This is a paragraph with *emphasized* and **bold** text, and **_both_**." />
+</vertical_demo>
