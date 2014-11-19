@@ -47,7 +47,8 @@ function PollEditBlock(runtime, element) {
             }
         });
         data['title'] = $('#poll-title', element).val();
-        data['question'] = $('#question-editor', element).val();
+        data['question'] = $('#poll-question-editor', element).val();
+        data['feedback'] = $('#poll-feedback-editor', element).val();
         data['poll_order'] = poll_order;
         function check_return(data) {
             if (data['success']) {

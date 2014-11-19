@@ -3,18 +3,23 @@
     <form id="poll-form">
     <ul class="list-input settings-list" id="poll-line-items">
         <li class="field comp-setting-entry is-set">
-            <div class="wrapper-comp-setting">
-                <label class="label setting-label" for="poll-title">Title</label>
-                <input class="input setting-input" name="title" id="poll-title" value="{{title}}" type="text" />
-            </div>
-            <span class="tip setting-help">Enter a title to act as the header for this Poll.</span>
+          <h2><label for="poll-question-editor">Question/Prompt</label></h2>
+          <a href="//daringfireball.net/projects/markdown/syntax" target="_blank">Markdown Syntax</a> is supported.
+          <div id="poll-question-editor-container">
+            <textarea class="input setting-input" name="question" id="poll-question-editor">{{question}}</textarea>
+          </div>
+          <span class="tip setting-help">Enter the prompt for the user.</span>
         </li>
         <li class="field comp-setting-entry is-set">
-          <h2><label for="question-editor">Question/Prompt</label></h2>
-          <a href="//daringfireball.net/projects/markdown/syntax" target="_blank">Markdown Syntax</a> is supported.
-          <div id="question-editor-container">
-            <textarea class="input setting-input" name="question" id="question-editor">{{question|safe}}</textarea>
-          </div>
+           <h2><label for="poll-feedback-editor">Feedback</label></h2>
+           <a href="//daringfireball.net/projects/markdown/syntax" target="_blank">Markdown Syntax</a> is supported.
+           <div id="poll-feedback-editor-container">
+             <textarea class="input setting-input" name="feedback" id="poll-feedback-editor">{{feedback}}</textarea>
+           </div>
+            <span class="tip setting-help">
+                This text will be displayed for the user as some extra feedback after they have
+                submitted their response to the poll.
+            </span>
         </li>
         <li class="field comp-setting-entry is-set">
             <p>

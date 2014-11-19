@@ -3,7 +3,6 @@
 {# If no form is present, the Javascript will load the results instead. #}
 {% if not choice %}
   <form>
-      <h2>{{ title }}</h2>
       {{question|safe}}
       <ul class="poll-answers">
       {% for key, answer in answers %}

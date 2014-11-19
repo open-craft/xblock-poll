@@ -3,11 +3,11 @@
 .poll-delete-answer {
     float: right;
 }
-#question-editor-container{
+#poll-question-editor-container, #poll-feedback-editor-container{
     width: 100%;
     text-align: center;
 }
-#question-editor{
+#poll-question-editor, #poll-feedback-editor{
     width: 98%;
     height: 7em;
     text-align: left;
@@ -20,7 +20,7 @@
     padding: 10px;
 }
 
-h2 label {
+label.poll-label {
     font-weight: bold;
     font-size: 16pt;
 }

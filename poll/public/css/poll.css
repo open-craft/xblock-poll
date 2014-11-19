@@ -18,7 +18,7 @@
     display: table-cell;
     width: 100%;
     vertical-align: middle;
-    padding-bottom: .2em;
+    background-color: #fafbfc;
 }
 
 ul.poll-answers, ul.poll-answers-results {
@@ -28,6 +28,10 @@ ul.poll-answers, ul.poll-answers-results {
 
 li.poll-answer {
     display: block;
+    border-bottom-width: .5em;
+}
+li.poll-spacer {
+    height: .25em;
 }
 
 ul.poll-answers-results {
@@ -47,16 +51,20 @@ li.poll-result {
 
 .poll-percent-container {
     display: table-cell;
-    font-weight: bold;
     text-align: left;
     padding-left: .2em;
     vertical-align: middle;
 }
 
-.poll-result-answer-container {
-
+.poll-percent-display {
+    font-weight: bold;
 }
 
 .poll-top-choice {
     color: #e37222;
+}
+
+.poll-footnote {
+    margin-top: 1em;
+    margin-bottom: 1em;
 }

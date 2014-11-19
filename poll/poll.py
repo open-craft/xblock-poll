@@ -1,8 +1,9 @@
 """TO-DO: Write a description of what this XBlock is."""
 from collections import OrderedDict
 
+import bleach
+
 from django.template import Template, Context
-from bleach import clean
 from markdown import markdown
 
 import pkg_resources
@@ -12,20 +13,31 @@ from xblock.fields import Scope, List, String, Dict
 from xblock.fragment import Fragment
 
 
+ALLOWED_TAGS = {
+    'h1': [], 'h2': [], 'h3': [], 'h4': [], 'h5': [], 'h6': [],
+    'a': ['target', 'href', 'class'], 'strong': [], 'em': [], 'blockquote': [],
+    'pre': [], 'li': [], 'ul': [], 'ol': [], 'code': ['class'], 'p': [],
+}
+
+
+def process_markdown(raw_text):
+    return bleach.clean(markdown(raw_text), tags=ALLOWED_TAGS, strip_comments=False)
+
+
 class PollBlock(XBlock):
     """
     Poll XBlock. Allows a teacher to poll users, and presents the results so
     far of the poll to the user when finished.
     """
-    title = String(default='Poll')
     question = String(default='What is your favorite color?')
     answers = List(
         default=(('Red', 'Red'), ('Blue', 'Blue'), ('Green', 'Green'),
                  ('Other', 'Other')),
-        scope=Scope.settings, help="The questions on this poll."
+        scope=Scope.settings, help="The question on this poll."
     )
+    feedback = String(help="Text to display after the user votes.")
     tally = Dict(default={'Red': 0, 'Blue': 0, 'Green': 0, 'Other': 0},
-                 scope=Scope.content,
+                 scope=Scope.user_state_summary,
                  help="Total tally of answers from students.")
     choice = String(scope=Scope.user_state, help="The student's answer")
 
@@ -36,7 +48,12 @@ class PollBlock(XBlock):
 
     @XBlock.json_handler
     def get_results(self, data, suffix=''):
-        return {'question': markdown(clean(self.question)), 'tally': self.tally_detail()}
+        detail, total = self.tally_detail()
+        print process_markdown(self.feedback)
+        return {
+            'question': process_markdown(self.question), 'tally': detail,
+            'total': total, 'feedback': process_markdown(self.feedback),
+        }
 
     def tally_detail(self):
         """
@@ -52,7 +69,8 @@ class PollBlock(XBlock):
                 'answer': value,
                 'key': key,
                 'top': False,
-                'choice': False
+                'choice': False,
+                'last': False,
             })
             total += tally[-1]['count']
 
@@ -71,7 +89,8 @@ class PollBlock(XBlock):
         if tally:
             # Mark the top item to make things easier for Handlebars.
             tally[0]['top'] = True
-        return tally
+            tally[-1]['last'] = True
+        return tally, total
 
     def get_choice(self):
         """
@@ -98,17 +117,20 @@ class PollBlock(XBlock):
 
         choice = self.get_choice()
 
+        print bleach.ALLOWED_ATTRIBUTES
+
         context.update({
             'choice': choice,
             # Offset so choices will always be True.
             'answers': self.answers,
-            'question': markdown(clean(self.question)),
-            'title': self.title,
+            'question': process_markdown(self.question),
+            'feedback': process_markdown(self.feedback),
             'js_template': js_template,
         })
 
         if self.choice:
-            context.update({'tally': self.tally_detail()})
+            detail, total = self.tally_detail()
+            context.update({'tally': detail, 'total': total})
 
         context = Context(context)
         html = self.resource_string("public/html/poll.html")
@@ -134,8 +156,8 @@ class PollBlock(XBlock):
 
         js_template = self.resource_string('/public/handlebars/studio.handlebars')
         context.update({
-            'question': clean(self.question),
-            'title': self.title,
+            'question': self.question,
+            'feedback': self.feedback,
             'js_template': js_template
         })
         context = Context(context)
@@ -155,14 +177,15 @@ class PollBlock(XBlock):
     def studio_submit(self, data, suffix=''):
         # I wonder if there's something for live validation feedback already.
         result = {'success': True, 'errors': []}
-        if 'title' not in data or not data['title']:
-            # This can be blank, if it needs to be.
-            title = ''
-        else:
-            title = data['title'][:200]
         if 'question' not in data or not data['question']:
             result['errors'].append("You must specify a question.")
             result['success'] = False
+        else:
+            question = data['question'][:4096]
+        if 'feedback' not in data or not data['feedback']:
+            feedback = ''
+        else:
+            feedback = data['feedback'][:4096]
 
         # Need this meta information, otherwise the questions will be
         # shuffled by Python's dictionary data type.
@@ -182,7 +205,6 @@ class PollBlock(XBlock):
                 continue
             if key in poll_order:
                 answers.append((key, value))
-        self.title = title
 
         if not len(answers) > 1:
             result['errors'].append(
@@ -196,9 +218,8 @@ class PollBlock(XBlock):
         answers.sort(key=lambda x: poll_order.index(x[0]), reverse=True)
 
         self.answers = answers
-        self.question = data['question']
-
-        print answers
+        self.question = question
+        self.feedback = feedback
 
         tally = self.tally
 
