@@ -1,6 +1,6 @@
 <vertical_demo>
-    <poll url_name="poll_functions" question="## How long have you been studying with us?"
-          feedback="### Thank you&#10;&#10;for being a valued student."
-          tally="{'long': 0, 'short': 0, 'not_saying': 1}"
-          answers="[[u'long', u'A very long time.'], [u'short', u'Not very long'], [u'not_saying', u'I shall not say.']]"/>
+    <poll tally="{'long': 20, 'short': 29, 'not_saying': 15, 'longer' : 35}"
+          question="## How long have you been studying with us?"
+          answers="[['long', 'A very long time'], ['short', 'Not very long'], ['not_saying', 'I shall not say'], ['longer', 'Longer than you']]"
+          feedback="### Thank you&#10;&#10;for being a valued student."/>
 </vertical_demo>

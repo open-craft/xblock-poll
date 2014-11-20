@@ -6,7 +6,7 @@ from django.template import Template, Context
 import pkg_resources
 
 from xblock.core import XBlock
-from xblock.fields import Scope, List, String, Dict
+from xblock.fields import Scope, String, Dict, List
 from xblock.fragment import Fragment
 from xblockutils.resources import ResourceLoader
 
@@ -101,7 +101,6 @@ class PollBlock(XBlock):
         """
         if not context:
             context = {}
-
         js_template = self.resource_string(
             '/public/handlebars/results.handlebars')
 
@@ -258,11 +257,23 @@ class PollBlock(XBlock):
     # workbench while developing your XBlock.
     @staticmethod
     def workbench_scenarios():
-        """A canned scenario for display in the workbench."""
+        """
+        Canned scenarios for display in the workbench.
+        """
         return [
-            ("PollBlock",
-             """<vertical_demo>
-                <poll/>
-                </vertical_demo>
+            ("Default Poll",
+             """
+             <vertical_demo>
+                 <poll />
+             </vertical_demo>
+             """),
+            ("Customized Poll",
+             """
+             <vertical_demo>
+                 <poll url_name="poll_functions" question="## How long have you been studying with us?"
+                     feedback="### Thank you&#10;&#10;for being a valued student."
+                     tally="{'long': 20, 'short': 29, 'not_saying': 15, 'longer' : 35}"
+                     answers="[['long', 'A very long time'], ['short', 'Not very long'], ['not_saying', 'I shall not say'], ['longer', 'Longer than you']]"/>
+            </vertical_demo>
              """),
         ]

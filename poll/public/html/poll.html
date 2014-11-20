@@ -1,9 +1,11 @@
 {{ js_template|safe }}
-<div class="poll_block">
+<div class="poll-block">
 {# If no form is present, the Javascript will load the results instead. #}
 {% if not choice %}
   <form>
-      {{question|safe}}
+      <div class="poll-question-container">
+          {{question|safe}}
+      </div>
       <ul class="poll-answers">
       {% for key, answer in answers %}
           <li class="poll-answer">

@@ -17,7 +17,7 @@ function PollBlock(runtime, element) {
             url: tallyURL,
             data: JSON.stringify({}),
             success: function (data) {
-                element.innerHTML = resultsTemplate(data);
+                $('div.poll-block', element).html(resultsTemplate(data));
             }
         })
     }
