@@ -7,10 +7,19 @@
           {{question|safe}}
       </div>
       <ul class="poll-answers">
-      {% for key, answer in answers %}
+      {% for key, value in answers %}
           <li class="poll-answer">
-              <input type="radio" name="choice" id="answer-{{key}}" value="{{key}}">
-              <label class="poll-answer" for="answer-{{key}}">{{answer}}</label>
+              <input type="radio" name="choice" id="answer-{{key}}" value="{{key}}" />
+              {% if value.img %}
+              <div class="poll-image">
+                  <label for="answer-{{key}}" class="poll-image-label">
+                      {% if value.img %}
+                      <img src="{{value.img}}" />
+                      {% endif %}
+                  </label>
+              </div>
+              {% endif %}
+              <label class="poll-answer" for="answer-{{key}}">{{value.label}}</label>
           </li>
       {% endfor %}
       </ul>

@@ -19,13 +19,15 @@ class PollBlock(XBlock):
     far of the poll to the user when finished.
     """
     question = String(default='What is your favorite color?')
+    # This will be converted into an OrderedDict.
+    # Key, (Label, Image path)
     answers = List(
-        default=(('Red', 'Red'), ('Blue', 'Blue'), ('Green', 'Green'),
-                 ('Other', 'Other')),
+        default=(('R', {'label': 'Red', 'img': None}), ('B', {'label': 'Blue', 'img': None}),
+                 ('G', {'label': 'Green', 'img': None}), ('O', {'label': 'Other', 'img': None})),
         scope=Scope.settings, help="The question on this poll."
     )
     feedback = String(default='', help="Text to display after the user votes.")
-    tally = Dict(default={'Red': 0, 'Blue': 0, 'Green': 0, 'Other': 0},
+    tally = Dict(default={'R': 0, 'B': 0, 'G': 0, 'O': 0},
                  scope=Scope.user_state_summary,
                  help="Total tally of answers from students.")
     choice = String(scope=Scope.user_state, help="The student's answer")
@@ -45,6 +47,34 @@ class PollBlock(XBlock):
             'total': total, 'feedback': process_markdown(self.feedback),
         }
 
+    def get_tally(self):
+        """
+        Grabs the Tally and cleans it up, if necessary. Scoping prevents us from
+        modifying this in the studio and in the LMS the way we want to without
+        undesirable side effects. So we just clean it up on first access within
+        the LMS, in case the studio has made changes to the answers.
+        """
+        tally = self.tally
+        answers = OrderedDict(self.answers)
+        for key in answers.keys():
+            if key not in tally:
+                tally[key] = 0
+
+        for key in tally.keys():
+            if key not in answers:
+                del tally[key]
+
+        return tally
+
+    def any_image(self):
+        """
+        Find out if any answer has an image, since it affects layout.
+        """
+        for value in dict(self.answers).values():
+            if value['img']:
+                return True
+        return False
+
     def tally_detail(self):
         """
         Tally all results.
@@ -53,14 +83,18 @@ class PollBlock(XBlock):
         answers = OrderedDict(self.answers)
         choice = self.get_choice()
         total = 0
+        source_tally = self.get_tally()
+        any_img = self.any_image()
         for key, value in answers.items():
             tally.append({
-                'count': int(self.tally.get(key, 0)),
-                'answer': value,
+                'count': int(source_tally[key]),
+                'answer': value['label'],
+                'img': value['img'],
                 'key': key,
                 'top': False,
                 'choice': False,
                 'last': False,
+                'any_img': any_img,
             })
             total += tally[-1]['count']
 
@@ -70,6 +104,8 @@ class PollBlock(XBlock):
                 answer['percent'] = int(percent * 100)
                 if answer['key'] == choice:
                     answer['choice'] = True
+                if answer['img']:
+                    any_img = True
             except ZeroDivisionError:
                 answer['percent'] = 0
 
@@ -114,6 +150,7 @@ class PollBlock(XBlock):
             # Mustache is treating an empty string as true.
             'feedback': process_markdown(self.feedback) or False,
             'js_template': js_template,
+            'any_img': self.any_image()
         })
 
         if self.choice:
@@ -134,8 +171,8 @@ class PollBlock(XBlock):
 
     @XBlock.json_handler
     def load_answers(self, data, suffix=''):
-        return {'answers': [{'key': key, 'text': answer}
-                            for key, answer in self.answers
+        return {'answers': [{'key': key, 'text': value['label'], 'img': value['img']}
+                            for key, value in self.answers
         ]}
 
     def studio_view(self, context=None):
@@ -177,22 +214,40 @@ class PollBlock(XBlock):
 
         # Need this meta information, otherwise the questions will be
         # shuffled by Python's dictionary data type.
-        poll_order = [key.strip().replace('answer-', '')
-                      for key in data.get('poll_order', [])
+        poll_order = [
+            key.strip().replace('answer-', '')
+            for key in data.get('poll_order', [])
         ]
+        print poll_order
         # Aggressively clean/sanity check answers list.
-        answers = []
+        answers = {}
         for key, value in data.items():
-            if not key.startswith('answer-'):
+            img = False
+            text = False
+            if key.startswith('answer-'):
+                text = 'label'
+            if key.startswith('img-answer-'):
+                img = 'img'
+            if not (text or img):
                 continue
-            key = key.replace('answer-', '')
+            key = key.replace('answer-', '').replace('img-', '')
             if not key or key.isspace():
                 continue
             value = value.strip()[:250]
             if not value or value.isspace():
                 continue
+            update_dict = {img or text: value}
+            if key in answers:
+                answers[key].update(update_dict)
+                continue
             if key in poll_order:
-                answers.append((key, value))
+                answers[key] = update_dict
+
+        for value in answers.values():
+            if 'label' not in value:
+                value['label'] = None
+            if 'img' not in value:
+                value['img'] = None
 
         if not len(answers) > 1:
             result['errors'].append(
@@ -203,23 +258,15 @@ class PollBlock(XBlock):
             return result
 
         # Need to sort the answers.
-        answers.sort(key=lambda x: poll_order.index(x[0]), reverse=True)
+        answers = list(answers.items())
+        answers.sort(key=lambda x: poll_order.index(x[0]))
 
         self.answers = answers
         self.question = question
         self.feedback = feedback
 
-        tally = self.tally
-
-        answers = OrderedDict(answers)
-        # Update tracking schema.
-        for key, value in answers.items():
-            if key not in tally:
-                tally[key] = 0
-
-        for key, value in tally.items():
-            if key not in answers:
-                del tally[key]
+        # Tally will not be updated until the next attempt to use it, per
+        # scoping limitations.
 
         return result
 
@@ -244,12 +291,15 @@ class PollBlock(XBlock):
             result['errors'].append('No key "{choice}" in answers table.'.format(choice=choice))
             return result
 
+        tally = self.get_tally()
         self.choice = choice
-        running_total = self.tally.get(choice, 0)
-        self.tally[choice] = running_total + 1
+        running_total = tally.get(choice, 0)
+        tally[choice] = running_total + 1
         # Let the LMS know the user has answered the poll.
         self.runtime.publish(self, 'progress', {})
         result['success'] = True
+
+        self.tally = tally
 
         return result
 

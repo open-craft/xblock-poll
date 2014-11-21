@@ -2,6 +2,7 @@
 
 .poll-delete-answer {
     float: right;
+    margin-top: 1em;
 }
 #poll-question-editor-container, #poll-feedback-editor-container{
     width: 100%;
@@ -14,7 +15,7 @@
     color: #4C4C4C;
     margin-top: 0.5em;
     margin-bottom: 0.5em;
-    box-shadow: 0px 0px 9px #555 inset;
+    box-shadow: 0 0 9px #555 inset;
     border: 1px solid #B2B2B2;
     border-radius: 3px;
     padding: 10px;
@@ -23,4 +24,22 @@
 label.poll-label {
     font-weight: bold;
     font-size: 16pt;
+}
+
+.poll-move-up {
+    opacity: .5;
+}
+
+.poll-move-down {
+    opacity: .5;
+}
+
+.poll-move-down:hover, .poll-move-up:hover {
+    opacity: 1;
+    transition: opacity .4s;
+    cursor: pointer
+}
+
+.poll-move {
+    float: right;
 }

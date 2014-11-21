@@ -15,21 +15,46 @@ function PollEditBlock(runtime, element) {
         })
     }
 
-    function empowerDeletes() {
-        $('.poll-delete-answer', element).click(function () {
+    function empowerDeletes(scope) {
+        $('.poll-delete-answer', scope).click(function () {
             $(this).parent().remove();
+        });
+    }
+
+    // Above this point are other settings.
+    var starting_point = 3;
+    function empowerArrows(scope) {
+        $('.poll-move-up', scope).click(function () {
+            var tag = $(this).parent().parent().parent();
+            if (tag.index() <= starting_point){
+                return;
+            }
+            tag.prev().before(tag);
+            tag.fadeOut(250).fadeIn(250);
+        });
+        $('.poll-move-down', scope).click(function () {
+            var tag = $(this).parent().parent().parent();
+            if ((tag.index() >= (tag.parent().children().length - 1))) {
+                return;
+            }
+            tag.next().after(tag);
+            tag.parent().parent().parent().scrollTop(tag.offset().top);
+            tag.fadeOut(250).fadeIn(250);
         });
     }
 
     function displayAnswers(data) {
         pollLineItems.append(answerTemplate(data));
-        empowerDeletes();
+        empowerDeletes(element);
+        empowerArrows(element);
     }
 
     $('#poll-add-answer', element).click(function () {
         pollLineItems.append(answerTemplate({'answers': [{'key': generateUUID(), 'text': ''}]}));
-        empowerDeletes();
-        pollLineItems.last().scrollTop();
+        var new_answer = $(pollLineItems.children().last());
+        empowerDeletes(new_answer);
+        empowerArrows(new_answer);
+        new_answer.fadeOut(250).fadeIn(250);
     });
 
     $(element).find('.cancel-button', element).bind('click', function() {
@@ -42,7 +67,7 @@ function PollEditBlock(runtime, element) {
         var poll_order = [];
         $('#poll-form input', element).each(function(i) {
             data[this.name] = this.value;
-            if (this.name.indexOf('answer-') >= 0){
+            if (this.name.indexOf('answer-') == 0){
                 poll_order.push(this.name);
             }
         });

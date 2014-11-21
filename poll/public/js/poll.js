@@ -17,7 +17,9 @@ function PollBlock(runtime, element) {
             url: tallyURL,
             data: JSON.stringify({}),
             success: function (data) {
+                $(element).fadeOut(300);
                 $('div.poll-block', element).html(resultsTemplate(data));
+                $(element).fadeIn(300);
             }
         })
     }
@@ -28,7 +30,6 @@ function PollBlock(runtime, element) {
             // Refresh.
             radios = $(radios.selector);
             var choice = radios.val();
-            console.log(choice);
             $.ajax({
                 type: "POST",
                 url: voteUrl,

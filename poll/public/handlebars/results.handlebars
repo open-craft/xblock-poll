@@ -6,9 +6,18 @@
             <div class="poll-result-input-container">
               <input id="answer-{{key}}" type="radio" disabled {{#if choice}}checked="True"{{/if}} />
             </div>
+            {{#if any_img}}
+                <div class="poll-image">
+                    <label for="answer-{{key}}" class="poll-image-label">
+                        {{#if img}}
+                          <img src="{{img}}" />
+                        {{/if}}
+                    </label>
+                </div>
+            {{/if}}
             <div class="percentage-gauge-container">
               <div class="percentage-gauge" style="width:{{percent}}%;">
-                  <label class="poll-answer-text" for="answer-{{key}}">{{answer}}</label>
+                  <label class="poll-answer-label" for="answer-{{key}}">{{answer}}</label>
               </div>
             </div>
             <div class="poll-percent-container">
