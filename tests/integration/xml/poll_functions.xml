@@ -1,6 +1,6 @@
 <vertical_demo>
     <poll tally="{'long': 20, 'short': 29, 'not_saying': 15, 'longer' : 35}"
           question="## How long have you been studying with us?"
-          answers="[['long', 'A very long time'], ['short', 'Not very long'], ['not_saying', 'I shall not say'], ['longer', 'Longer than you']]"
+          answers="[['long', {'label': 'A very long time', 'img': None}], ['short', {'label': 'Not very long', 'img': None}], ['not_saying', {'label': 'I shall not say', 'img': None}], ['longer', {'label': 'Longer than you', 'img': None}]]"
           feedback="### Thank you&#10;&#10;for being a valued student."/>
 </vertical_demo>

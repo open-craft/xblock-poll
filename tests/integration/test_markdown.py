@@ -5,7 +5,13 @@ from .base_test import PollBaseTest
 
 
 class MarkdownTestCase(PollBaseTest):
+    """
+    Tests for the Markdown functionality.
+    """
     def test_question_markdown(self):
+        """
+        Ensure Markdown is parsed for questions.
+        """
         self.go_to_page("Markdown")
         self.assertEqual(
             self.browser.find_element_by_css_selector('.poll-question-container').text,
@@ -21,6 +27,9 @@ We shall find out if markdown is respected.
 "I have not yet begun to code.\"""")
 
     def test_feedback_markdown(self):
+        """
+        Ensure Markdown is parsed for feedback.
+        """
         self.go_to_page("Markdown")
         self.browser.find_element_by_css_selector('input[type=radio]').click()
         self.browser.find_element_by_css_selector('input[name="poll-submit"]').click()

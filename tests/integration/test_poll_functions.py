@@ -3,6 +3,7 @@ Tests a realistic, configured Poll to make sure that everything works as it
 should.
 """
 from selenium.common.exceptions import NoSuchElementException
+import time
 from .base_test import PollBaseTest
 
 
@@ -44,6 +45,10 @@ class TestPollFunctions(PollBaseTest):
 
         self.browser.find_element_by_css_selector('input[name=poll-submit]').click()
 
+        # Not a good way to wait here, since all the elements we care about
+        # tracking don't exist yet.
+        time.sleep(1)
+
         self.assertTrue(self.browser.find_element_by_css_selector('.poll-feedback').text,
                         "Thank you\nfor being a valued student.")
 
@@ -64,10 +69,11 @@ class TestPollFunctions(PollBaseTest):
         answer_elements[1].click()
 
         self.browser.find_element_by_css_selector('input[name=poll-submit]').click()
-        submit_button = self.browser.find_element_by_css_selector('input[name=poll-submit]')
 
+        time.sleep(1)
+
+        submit_button = self.browser.find_element_by_css_selector('input[name=poll-submit]')
         self.assertFalse(submit_button.is_enabled())
 
         self.go_to_page('Poll Functions')
-
         self.assertFalse(self.browser.find_element_by_css_selector('input[name=poll-submit]').is_enabled())

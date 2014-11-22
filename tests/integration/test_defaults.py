@@ -8,6 +8,9 @@ from .base_test import PollBaseTest
 
 
 class TestDefaults(PollBaseTest):
+    """
+    Tests to run against the default poll.
+    """
     def test_default_poll(self):
         """
         Verifies that a default poll loads, that it can be voted on, and that

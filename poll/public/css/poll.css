@@ -16,7 +16,7 @@
 }
 
 .poll-result-input-container input {
-    margin-right: .5em;
+    margin: 0 .5em 0 0;
 }
 
 .percentage-gauge-container {

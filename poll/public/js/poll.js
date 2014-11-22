@@ -4,22 +4,20 @@ function PollBlock(runtime, element) {
     var voteUrl = runtime.handlerUrl(element, 'vote');
     var tallyURL = runtime.handlerUrl(element, 'get_results');
 
-    var submit = $('input[type=submit]', element);
+    var submit = $('input[type=button]', element);
     var resultsTemplate = Handlebars.compile($("#results", element).html());
     function getResults(data) {
         if (! data['success']) {
             alert(data['errors'].join('\n'));
         }
         $.ajax({
-            // Semantically, this would be better as GET, but I can use helper
+            // Semantically, this would be better as GET, but we can use helper
             // functions with POST.
             type: "POST",
             url: tallyURL,
             data: JSON.stringify({}),
             success: function (data) {
-                $(element).fadeOut(300);
                 $('div.poll-block', element).html(resultsTemplate(data));
-                $(element).fadeIn(300);
             }
         })
     }
@@ -28,7 +26,7 @@ function PollBlock(runtime, element) {
         var radios = $('input[name=choice]:checked', element);
         submit.click(function (event) {
             // Refresh.
-            radios = $(radios.selector);
+            radios = $(radios.selector, element);
             var choice = radios.val();
             $.ajax({
                 type: "POST",

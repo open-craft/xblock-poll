@@ -150,7 +150,9 @@ class PollBlock(XBlock):
             # Mustache is treating an empty string as true.
             'feedback': process_markdown(self.feedback) or False,
             'js_template': js_template,
-            'any_img': self.any_image()
+            'any_img': self.any_image(),
+            # The SDK doesn't set url_name.
+            'url_name': getattr(self, 'url_name', ''),
         })
 
         if self.choice:
@@ -218,7 +220,7 @@ class PollBlock(XBlock):
             key.strip().replace('answer-', '')
             for key in data.get('poll_order', [])
         ]
-        print poll_order
+
         # Aggressively clean/sanity check answers list.
         answers = {}
         for key, value in data.items():
