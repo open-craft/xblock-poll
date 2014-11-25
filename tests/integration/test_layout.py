@@ -22,9 +22,9 @@ class TestLayout(PollBaseTest):
 
         # Pics should be within labels.
         pics[0].find_element_by_css_selector('img').click()
-        self.browser.find_element_by_css_selector('input[name=poll-submit]').click()
+        self.get_submit().click()
 
-        time.sleep(1)
+        self.wait_until_exists('.poll-image')
 
         self.assertEqual(len(self.browser.find_elements_by_css_selector('.poll-image')), 4)
 
@@ -39,8 +39,8 @@ class TestLayout(PollBaseTest):
 
         pics[0].find_element_by_css_selector('img').click()
 
-        self.browser.find_element_by_css_selector('input[name=poll-submit]').click()
+        self.get_submit().click()
 
-        time.sleep(1)
+        self.wait_until_exists('.poll-image.result-image')
         # ...But on the results page, we need four, for table layout.
         self.assertEqual(len(self.browser.find_elements_by_css_selector('.poll-image')), 4)

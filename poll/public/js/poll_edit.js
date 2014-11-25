@@ -4,42 +4,35 @@ function PollEditBlock(runtime, element) {
     var answerTemplate = Handlebars.compile(temp);
     var pollLineItems =$('#poll-line-items', element);
 
-    // We probably don't need something this complex, but UUIDs are the
-    // standard.
-    function generateUUID(){
-        var d = new Date().getTime();
-        return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
-            var r = (d + Math.random()*16)%16 | 0;
-            d = Math.floor(d/16);
-            return (c=='x' ? r : (r&0x7|0x8)).toString(16);
-        })
-    }
-
     function empowerDeletes(scope) {
         $('.poll-delete-answer', scope).click(function () {
             $(this).parent().remove();
         });
     }
 
-    // Above this point are other settings.
+    /*
+    The poll answers need to be reorderable. As the UL they are in is not
+    easily isolated, we need to start checking their position to make
+    sure they aren't ordered above the other settings, which are also
+    in the list.
+    */
     var starting_point = 3;
     function empowerArrows(scope) {
         $('.poll-move-up', scope).click(function () {
-            var tag = $(this).parent().parent().parent();
+            var tag = $(this).parents('li');
             if (tag.index() <= starting_point){
                 return;
             }
             tag.prev().before(tag);
-            tag.fadeOut(250).fadeIn(250);
+            tag.fadeOut("fast", "swing").fadeIn("fast", "swing");
         });
         $('.poll-move-down', scope).click(function () {
-            var tag = $(this).parent().parent().parent();
+            var tag = $(this).parents('li');
             if ((tag.index() >= (tag.parent().children().length - 1))) {
                 return;
             }
             tag.next().after(tag);
-            tag.parent().parent().parent().scrollTop(tag.offset().top);
-            tag.fadeOut(250).fadeIn(250);
+            tag.fadeOut("fast", "swing").fadeIn("fast", "swing");
         });
     }
 
@@ -50,12 +43,22 @@ function PollEditBlock(runtime, element) {
     }
 
     $('#poll-add-answer', element).click(function () {
-        pollLineItems.append(answerTemplate({'answers': [{'key': generateUUID(), 'text': ''}]}));
+        // The degree of precision on date should be precise enough to avoid
+        // collisions in the real world.
+        pollLineItems.append(answerTemplate({'answers': [{'key': new Date().getTime(), 'text': ''}]}));
         var new_answer = $(pollLineItems.children().last());
         empowerDeletes(new_answer);
         empowerArrows(new_answer);
         new_answer.fadeOut(250).fadeIn(250);
     });
+
+    var to_disable = ['#poll-add-answer-link', 'input[type=submit', '.poll-delete-answer'];
+    for (var selector in to_disable) {
+        $(selector, element).click(function(event) {
+                event.preventDefault();
+            }
+        )
+    }
 
     $(element).find('.cancel-button', element).bind('click', function() {
         runtime.notify('cancel', {});

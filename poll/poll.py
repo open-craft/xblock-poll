@@ -47,33 +47,27 @@ class PollBlock(XBlock):
             'total': total, 'feedback': process_markdown(self.feedback),
         }
 
-    def get_tally(self):
+    def clean_tally(self):
         """
-        Grabs the Tally and cleans it up, if necessary. Scoping prevents us from
-        modifying this in the studio and in the LMS the way we want to without
-        undesirable side effects. So we just clean it up on first access within
-        the LMS, in case the studio has made changes to the answers.
+        Cleans the tally. Scoping prevents us from modifying this in the studio
+        and in the LMS the way we want to without undesirable side effects. So
+        we just clean it up on first access within the LMS, in case the studio
+        has made changes to the answers.
         """
-        tally = self.tally
         answers = OrderedDict(self.answers)
         for key in answers.keys():
-            if key not in tally:
-                tally[key] = 0
+            if key not in self.tally:
+                self.tally[key] = 0
 
-        for key in tally.keys():
+        for key in self.tally.keys():
             if key not in answers:
-                del tally[key]
-
-        return tally
+                del self.tally[key]
 
     def any_image(self):
         """
         Find out if any answer has an image, since it affects layout.
         """
-        for value in dict(self.answers).values():
-            if value['img']:
-                return True
-        return False
+        return any(value['img'] for value in dict(self.answers).values())
 
     def tally_detail(self):
         """
@@ -83,11 +77,13 @@ class PollBlock(XBlock):
         answers = OrderedDict(self.answers)
         choice = self.get_choice()
         total = 0
-        source_tally = self.get_tally()
+        self.clean_tally()
+        source_tally = self.tally
         any_img = self.any_image()
         for key, value in answers.items():
+            count = int(source_tally[key])
             tally.append({
-                'count': int(source_tally[key]),
+                'count': count,
                 'answer': value['label'],
                 'img': value['img'],
                 'key': key,
@@ -96,16 +92,13 @@ class PollBlock(XBlock):
                 'last': False,
                 'any_img': any_img,
             })
-            total += tally[-1]['count']
+            total += count
 
         for answer in tally:
             try:
-                percent = (answer['count'] / float(total))
-                answer['percent'] = int(percent * 100)
+                answer['percent'] = int(answer['count'] / float(total)) * 100
                 if answer['key'] == choice:
                     answer['choice'] = True
-                if answer['img']:
-                    any_img = True
             except ZeroDivisionError:
                 answer['percent'] = 0
 
@@ -129,7 +122,18 @@ class PollBlock(XBlock):
         else:
             return None
 
-    # TO-DO: change this view to display your data your own way.
+    def create_fragment(self, context, template, css, js, js_init):
+        html = Template(
+            self.resource_string(template)).render(Context(context))
+        frag = Fragment(html)
+        frag.add_javascript_url(
+            self.runtime.local_resource_url(
+                self, 'public/js/vendor/handlebars.js'))
+        frag.add_css(self.resource_string(css))
+        frag.add_javascript(self.resource_string(js))
+        frag.initialize_js(js_init)
+        return frag
+
     def student_view(self, context=None):
         """
         The primary view of the PollBlock, shown to students
@@ -159,23 +163,20 @@ class PollBlock(XBlock):
             detail, total = self.tally_detail()
             context.update({'tally': detail, 'total': total})
 
-        context = Context(context)
-        html = self.resource_string("public/html/poll.html")
-        html = Template(html).render(context)
-        frag = Fragment(html)
-        frag.add_css(self.resource_string("public/css/poll.css"))
-        frag.add_javascript_url(
-            self.runtime.local_resource_url(
-                self, 'public/js/vendor/handlebars.js'))
-        frag.add_javascript(self.resource_string("public/js/poll.js"))
-        frag.initialize_js('PollBlock')
-        return frag
+        return self.create_fragment(
+            context, "public/html/poll.html", "public/css/poll.css",
+            "public/js/poll.js", "PollBlock")
 
     @XBlock.json_handler
     def load_answers(self, data, suffix=''):
-        return {'answers': [{'key': key, 'text': value['label'], 'img': value['img']}
-                            for key, value in self.answers
-        ]}
+        return {
+            'answers': [
+                {
+                    'key': key, 'text': value['label'], 'img': value['img']
+                }
+                for key, value in self.answers
+            ]
+        }
 
     def studio_view(self, context=None):
         if not context:
@@ -187,18 +188,9 @@ class PollBlock(XBlock):
             'feedback': self.feedback,
             'js_template': js_template
         })
-        context = Context(context)
-        html = self.resource_string("public/html/poll_edit.html")
-        html = Template(html).render(context)
-        frag = Fragment(html)
-        frag.add_javascript_url(
-            self.runtime.local_resource_url(
-                self, 'public/js/vendor/handlebars.js'))
-        frag.add_css(self.resource_string('/public/css/poll_edit.css'))
-        frag.add_javascript(self.resource_string("public/js/poll_edit.js"))
-        frag.initialize_js('PollEditBlock')
-
-        return frag
+        return self.create_fragment(
+            context, "public/html/poll_edit.html",
+            "/public/css/poll_edit.css", "public/js/poll_edit.js", "PollEditBlock")
 
     @XBlock.json_handler
     def studio_submit(self, data, suffix=''):
@@ -209,7 +201,7 @@ class PollBlock(XBlock):
             result['success'] = False
         else:
             question = data['question'][:4096]
-        if 'feedback' not in data or not data['feedback']:
+        if 'feedback' not in data or not data['feedback'].strip():
             feedback = ''
         else:
             feedback = data['feedback'][:4096]
@@ -293,20 +285,15 @@ class PollBlock(XBlock):
             result['errors'].append('No key "{choice}" in answers table.'.format(choice=choice))
             return result
 
-        tally = self.get_tally()
+        self.clean_tally()
         self.choice = choice
-        running_total = tally.get(choice, 0)
-        tally[choice] = running_total + 1
+        self.tally[choice] = self.tally.get(choice, 0) + 1
         # Let the LMS know the user has answered the poll.
         self.runtime.publish(self, 'progress', {})
         result['success'] = True
 
-        self.tally = tally
-
         return result
 
-    # TO-DO: change this to create the scenarios you'd like to see in the
-    # workbench while developing your XBlock.
     @staticmethod
     def workbench_scenarios():
         """

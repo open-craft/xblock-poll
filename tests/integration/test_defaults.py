@@ -20,8 +20,10 @@ class TestDefaults(PollBaseTest):
         self.go_to_page('Defaults')
         button = self.browser.find_element_by_css_selector('input[type=radio]')
         button.click()
-        submit = self.browser.find_element_by_css_selector('input[name="poll-submit"]')
+        submit = self.get_submit()
         submit.click()
+
+        self.wait_until_exists('.poll-percent-display')
 
         # Should now be on the results page.
         self.assertEqual(self.browser.find_element_by_css_selector('.poll-percent-display').text, '100%')

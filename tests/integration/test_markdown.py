@@ -32,8 +32,9 @@ We shall find out if markdown is respected.
         """
         self.go_to_page("Markdown")
         self.browser.find_element_by_css_selector('input[type=radio]').click()
-        self.browser.find_element_by_css_selector('input[name="poll-submit"]').click()
+        self.get_submit().click()
 
+        self.wait_until_exists('.poll-feedback')
         self.assertEqual(
             self.browser.find_element_by_css_selector('.poll-feedback').text,
             """This is some feedback

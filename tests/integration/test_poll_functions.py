@@ -13,8 +13,7 @@ class TestPollFunctions(PollBaseTest):
         Checks first load.
 
         Verify that the poll loads with the expected choices, that feedback is
-        not showing, that the submit button is disabled, and that it is enabled
-        when a choice is selected.
+        not showing, and that the submit button is disabled.
         """
         self.go_to_page('Poll Functions')
         answer_elements = self.browser.find_elements_by_css_selector('label.poll-answer')
@@ -23,13 +22,19 @@ class TestPollFunctions(PollBaseTest):
 
         self.assertRaises(NoSuchElementException, self.browser.find_element_by_css_selector, '.poll-feedback')
 
-        submit_button = self.browser.find_element_by_css_selector('input[name=poll-submit]')
+        submit_button = self.get_submit()
         self.assertFalse(submit_button.is_enabled())
 
+    def test_submit_enabled(self):
+        """
+        Makes sure the submit button is enabled when selecting an answer.
+        """
+        self.go_to_page('Poll Functions')
+        answer_elements = self.browser.find_elements_by_css_selector('label.poll-answer')
         answer_elements[0].click()
 
         # When an answer is selected, make sure submit is enabled.
-        self.assertTrue(submit_button.is_enabled())
+        self.wait_until_exists('input[name=poll-submit]:enabled')
 
     def test_poll_submission(self):
         """
@@ -43,7 +48,7 @@ class TestPollFunctions(PollBaseTest):
         # 'Not very long'
         answer_elements[1].click()
 
-        self.browser.find_element_by_css_selector('input[name=poll-submit]').click()
+        self.get_submit().click()
 
         # Not a good way to wait here, since all the elements we care about
         # tracking don't exist yet.
@@ -68,12 +73,10 @@ class TestPollFunctions(PollBaseTest):
         # Not very long
         answer_elements[1].click()
 
-        self.browser.find_element_by_css_selector('input[name=poll-submit]').click()
+        self.get_submit().click()
 
-        time.sleep(1)
-
-        submit_button = self.browser.find_element_by_css_selector('input[name=poll-submit]')
-        self.assertFalse(submit_button.is_enabled())
+        # Button will be reaplaced with a new disabled copy, not just disabled.
+        self.wait_until_exists('input[name=poll-submit]:disabled')
 
         self.go_to_page('Poll Functions')
-        self.assertFalse(self.browser.find_element_by_css_selector('input[name=poll-submit]').is_enabled())
+        self.assertFalse(self.get_submit().is_enabled())

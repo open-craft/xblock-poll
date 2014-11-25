@@ -1,4 +1,4 @@
-/* CSS for PollBlock */
+/* CSS for PollBlock Studio Menu View */
 
 .poll-delete-answer {
     float: right;
@@ -19,11 +19,6 @@
     border: 1px solid #B2B2B2;
     border-radius: 3px;
     padding: 10px;
-}
-
-label.poll-label {
-    font-weight: bold;
-    font-size: 16pt;
 }
 
 .poll-move-up {

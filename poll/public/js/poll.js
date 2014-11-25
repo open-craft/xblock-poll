@@ -22,12 +22,20 @@ function PollBlock(runtime, element) {
         })
     }
 
+
+    function enableSubmit() {
+        submit.removeAttr("disabled");
+        answers.unbind("change.EnableSubmit");
+    }
+
+    // If the submit button doesn't exist, the user has already
+    // selected a choice.
     if (submit.length) {
-        var radios = $('input[name=choice]:checked', element);
+        var radio = $('input[name=choice]:checked', element);
         submit.click(function (event) {
             // Refresh.
-            radios = $(radios.selector, element);
-            var choice = radios.val();
+            radio = $(radio.selector, element);
+            var choice = radio.val();
             $.ajax({
                 type: "POST",
                 url: voteUrl,
@@ -35,12 +43,10 @@ function PollBlock(runtime, element) {
                 success: getResults
             });
         });
-        var answers = $('li', element);
-        function enableSubmit() {
-            submit.removeAttr("disabled");
-            answers.unbind("change.EnableSubmit");
-        }
-        if (! radios.val()) {
+        // If the user has refreshed the page, they may still have an answer
+        // selected and the submit button should be enabled.
+        var answers = $('input[type=radio]', element);
+        if (! radio.val()) {
             answers.bind("change.EnableSubmit", enableSubmit);
         } else {
             enableSubmit();
@@ -48,8 +54,4 @@ function PollBlock(runtime, element) {
     } else {
         getResults({'success': true});
     }
-
-    $(function ($) {
-
-    });
 }
