@@ -52,32 +52,35 @@ function PollEditBlock(runtime, element) {
         new_answer.fadeOut(250).fadeIn(250);
     });
 
-    var to_disable = ['#poll-add-answer-link', 'input[type=submit', '.poll-delete-answer'];
-    for (var selector in to_disable) {
-        $(selector, element).click(function(event) {
-                event.preventDefault();
-            }
-        )
-    }
-
     $(element).find('.cancel-button', element).bind('click', function() {
         runtime.notify('cancel', {});
     });
 
     $(element).find('.save-button', element).bind('click', function() {
         var handlerUrl = runtime.handlerUrl(element, 'studio_submit');
-        var data = {};
-        var poll_order = [];
+        var data = {'answers': []};
+        var tracker = [];
         $('#poll-form input', element).each(function(i) {
-            data[this.name] = this.value;
-            if (this.name.indexOf('answer-') == 0){
-                poll_order.push(this.name);
+            var key = 'label';
+            if (this.name.indexOf('answer-') >= 0){
+                var name = this.name.replace('answer-', '');
+                if (this.name.indexOf('img-') == 0){
+                    name = name.replace('img-', '');
+                    key = 'img'
+                }
+                if (tracker.indexOf(name) == -1){
+                    tracker.push(name);
+                    data['answers'].push({'key': name})
+                }
+                var index = tracker.indexOf(name);
+                data['answers'][index][key] = this.value;
+                return
             }
+            data[this.name] = this.value
         });
         data['title'] = $('#poll-title', element).val();
         data['question'] = $('#poll-question-editor', element).val();
         data['feedback'] = $('#poll-feedback-editor', element).val();
-        data['poll_order'] = poll_order;
         function check_return(data) {
             if (data['success']) {
                 window.location.reload(false);

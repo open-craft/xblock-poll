@@ -12,6 +12,22 @@ from xblockutils.resources import ResourceLoader
 
 from .utils import process_markdown
 
+# When changing these constants, check the templates as well for places
+# where the user is informed about them.
+
+MAX_PARAGRAPH_LEN = 5000
+
+MAX_URL_LEN = 1000
+
+MAX_ANSWER_LEN = 250
+
+# These two don't have mentions in the templates, but will cause error
+# messages.
+
+MAX_ANSWERS = 25
+
+MAX_KEY_LEN = 100
+
 
 class PollBlock(XBlock):
     """
@@ -195,53 +211,51 @@ class PollBlock(XBlock):
     @XBlock.json_handler
     def studio_submit(self, data, suffix=''):
         # I wonder if there's something for live validation feedback already.
+
         result = {'success': True, 'errors': []}
-        if 'question' not in data or not data['question']:
+        question = data.get('question', '').strip()[:MAX_PARAGRAPH_LEN]
+        feedback = data.get('feedback', '').strip()[:MAX_PARAGRAPH_LEN]
+        if not question:
             result['errors'].append("You must specify a question.")
             result['success'] = False
+
+        answers = []
+
+        if 'answers' not in data or not isinstance(data['answers'], list):
+            source_answers = []
+            result['success'] = False
+            result['errors'].append(
+                "'answers' is not present, or not a JSON array.")
         else:
-            question = data['question'][:4096]
-        if 'feedback' not in data or not data['feedback'].strip():
-            feedback = ''
-        else:
-            feedback = data['feedback'][:4096]
+            source_answers = data['answers']
 
-        # Need this meta information, otherwise the questions will be
-        # shuffled by Python's dictionary data type.
-        poll_order = [
-            key.strip().replace('answer-', '')
-            for key in data.get('poll_order', [])
-        ]
+        # Set a reasonable limit to the number of answers in a poll.
+        if len(source_answers) > MAX_ANSWERS:
+            result['success'] = False
+            result['errors'].append("")
 
-        # Aggressively clean/sanity check answers list.
-        answers = {}
-        for key, value in data.items():
-            img = False
-            text = False
-            if key.startswith('answer-'):
-                text = 'label'
-            if key.startswith('img-answer-'):
-                img = 'img'
-            if not (text or img):
+        # Make sure all components are present and clean them.
+        for answer in source_answers:
+            if not isinstance(answer, dict):
+                result['success'] = False
+                result['errors'].append(
+                    "Answer {0} not a javascript object!".format(answer))
                 continue
-            key = key.replace('answer-', '').replace('img-', '')
-            if not key or key.isspace():
-                continue
-            value = value.strip()[:250]
-            if not value or value.isspace():
-                continue
-            update_dict = {img or text: value}
-            if key in answers:
-                answers[key].update(update_dict)
-                continue
-            if key in poll_order:
-                answers[key] = update_dict
-
-        for value in answers.values():
-            if 'label' not in value:
-                value['label'] = None
-            if 'img' not in value:
-                value['img'] = None
+            key = answer.get('key', '').strip()
+            if not key:
+                result['success'] = False
+                result['errors'].append(
+                    "Answer {0} contains no key.".format(answer))
+            if len(key) > MAX_KEY_LEN:
+                result['success'] = False
+                result['errors'].append("Key '{0}' too long.".format(key))
+            img = answer.get('img', '').strip()[:MAX_URL_LEN]
+            label = answer.get('label', '').strip()[:MAX_ANSWER_LEN]
+            if not (img or label):
+                result['success'] = False
+                result['errors'].append(
+                    "Answer {0} has no text or img. One is needed.")
+            answers.append((key, {'label': label, 'img': img}))
 
         if not len(answers) > 1:
             result['errors'].append(
@@ -250,10 +264,6 @@ class PollBlock(XBlock):
 
         if not result['success']:
             return result
-
-        # Need to sort the answers.
-        answers = list(answers.items())
-        answers.sort(key=lambda x: poll_order.index(x[0]))
 
         self.answers = answers
         self.question = question

@@ -8,7 +8,7 @@
           <div id="poll-question-editor-container">
             <textarea class="input setting-input" name="question" id="poll-question-editor">{{question}}</textarea>
           </div>
-          <span class="tip setting-help">Enter the prompt for the user.</span>
+          <span class="tip setting-help">Enter the prompt for the user. (Truncated after 5000 characters)</span>
         </li>
         <li class="field comp-setting-entry is-set">
            <h2><label for="poll-feedback-editor">Feedback</label></h2>
@@ -18,7 +18,7 @@
            </div>
             <span class="tip setting-help">
                 This text will be displayed for the user as some extra feedback after they have
-                submitted their response to the poll.
+                submitted their response to the poll. (Truncated after 5000 characters)
             </span>
         </li>
         <li class="field comp-setting-entry is-set">
@@ -34,10 +34,10 @@
     <div class="xblock-actions">
         <ul>
             <li class="action-item" id="poll-add-answer">
-                <a href="#" class="button action-button" class="poll-add-answer-link">Add Answer</a>
+                <a href="#" class="button action-button" class="poll-add-answer-link" onclick="return false;">Add Answer</a>
             </li>
             <li class="action-item">
-                <input type="submit" class="button action-primary save-button" value="Save" />
+                <input id="poll-submit-options" type="submit" class="button action-primary save-button" value="Save" onclick="return false;" />
             </li>
             <li class="action-item">
                 <a href="#" class="button cancel-button">Cancel</a>
