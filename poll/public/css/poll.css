@@ -1,0 +1,104 @@
+/* CSS for PollBlock Student View */
+
+.poll-answer {
+    margin-left: 1em;
+    font-weight: bold;
+    display: inline-block;
+}
+.percentage-gauge {
+    display: inline-block;
+    background-color: #e5ebee;
+    position: relative;
+    z-index: 1;
+}
+
+.poll-result-input-container {
+    display: table-cell;
+    vertical-align: middle;
+}
+
+.poll-result-input-container input {
+    margin: 0 .5em 0 0;
+}
+
+.percentage-gauge-container {
+    display: table-cell;
+    width: 100%;
+    vertical-align: middle;
+    background-color: #fafbfc;
+}
+
+ul.poll-answers, ul.poll-answers-results {
+    list-style-type: none !important;
+    max-width: 80%;
+}
+
+li.poll-answer {
+    display: block;
+    border-bottom-width: .5em;
+    vertical-align: middle;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+li.poll-spacer {
+    height: .25em;
+}
+
+ul.poll-answers-results {
+    display: table;
+}
+
+li.poll-result {
+    width: 100%;
+    display: table-row;
+    padding-bottom: .2em;
+}
+
+.poll-answer-label {
+    margin-left: .2em;
+    font-weight: bold;
+    display: inline-block;
+    margin-bottom: 5px;
+    margin-top: 5px;
+}
+
+.poll-image {
+    width: 25%;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.poll-image {
+    margin-left: .5em;
+}
+
+li.poll-result .poll-image {
+    display: table-cell;
+    margin-left: 0;
+}
+
+.poll-image img{
+    width: 100%;
+}
+
+.poll-percent-container {
+    display: table-cell;
+    text-align: left;
+    padding-left: .2em;
+    vertical-align: middle;
+}
+
+.poll-percent-display {
+    font-weight: bold;
+}
+
+.poll-top-choice {
+    color: #e37222;
+}
+
+.poll-footnote {
+    margin-top: 1em;
+    margin-bottom: 1em;
+    font-size: smaller;
+}

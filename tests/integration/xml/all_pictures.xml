@@ -1,0 +1,5 @@
+<vertical_demo>
+    <poll tally="{'red': 20, 'fennec': 29, 'kit': 15, 'arctic' : 35}"
+          question="## What is your favorite kind of fox?"
+          answers="[['red', {'label': 'Red Fox', 'img': '../img/red_fox.png'}], ['fennec', {'label': 'Fennec Fox', 'img': '../img/fennec_fox.png'}], ['kit', {'label': 'Kit Fox', 'img': '../img/kit_fox.png'}], ['arctic', {'label': 'Arctic fox', 'img': '../img/arctic_fox.png'}]]" />
+</vertical_demo>

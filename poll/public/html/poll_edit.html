@@ -1,0 +1,48 @@
+{{js_template|safe}}
+<div class="wrapper-comp-settings is-active editor-with-buttons" id="settings-tab">
+    <form id="poll-form">
+    <ul class="list-input settings-list" id="poll-line-items">
+        <li class="field comp-setting-entry is-set">
+          <h2><label for="poll-question-editor">Question/Prompt</label></h2>
+          <a href="//daringfireball.net/projects/markdown/syntax" target="_blank">Markdown Syntax</a> is supported.
+          <div id="poll-question-editor-container">
+            <textarea class="input setting-input" name="question" id="poll-question-editor">{{question}}</textarea>
+          </div>
+          <span class="tip setting-help">Enter the prompt for the user. (Truncated after 5000 characters)</span>
+        </li>
+        <li class="field comp-setting-entry is-set">
+           <h2><label for="poll-feedback-editor">Feedback</label></h2>
+           <a href="//daringfireball.net/projects/markdown/syntax" target="_blank">Markdown Syntax</a> is supported.
+           <div id="poll-feedback-editor-container">
+             <textarea class="input setting-input" name="feedback" id="poll-feedback-editor">{{feedback}}</textarea>
+           </div>
+            <span class="tip setting-help">
+                This text will be displayed for the user as some extra feedback after they have
+                submitted their response to the poll. (Truncated after 5000 characters)
+            </span>
+        </li>
+        <li class="field comp-setting-entry is-set">
+            <p>
+                <strong>Notes:</strong>
+                If you change an answer's text, all students who voted for that choice will have their votes updated to
+                the new text. You'll want to avoid changing an answer from something like 'True' to 'False', accordingly.
+                If you delete an answer, any votes for that answer will also be deleted. Students whose choices are deleted
+                may vote again, but will not lose course progress.
+            </p>
+        </li>
+    </ul>
+    <div class="xblock-actions">
+        <ul>
+            <li class="action-item" id="poll-add-answer">
+                <a href="#" class="button action-button" class="poll-add-answer-link" onclick="return false;">Add Answer</a>
+            </li>
+            <li class="action-item">
+                <input id="poll-submit-options" type="submit" class="button action-primary save-button" value="Save" onclick="return false;" />
+            </li>
+            <li class="action-item">
+                <a href="#" class="button cancel-button">Cancel</a>
+            </li>
+        </ul>
+    </div>
+    </form>
+</div>

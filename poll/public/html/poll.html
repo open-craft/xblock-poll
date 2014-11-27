@@ -1,0 +1,29 @@
+{{ js_template|safe }}
+<div class="poll-block">
+{# If no form is present, the Javascript will load the results instead. #}
+{% if not choice %}
+  <form>
+      <div class="poll-question-container">
+          {{question|safe}}
+      </div>
+      <ul class="poll-answers">
+      {% for key, value in answers %}
+          <li class="poll-answer">
+              <input type="radio" name="choice" id="{{url_name}}-answer-{{key}}" value="{{key}}" />
+              {% if value.img %}
+              <div class="poll-image">
+                  <label for="{{url_name}}-answer-{{key}}" class="poll-image-label">
+                      {% if value.img %}
+                      <img src="{{value.img}}" />
+                      {% endif %}
+                  </label>
+              </div>
+              {% endif %}
+              <label class="poll-answer" for="{{url_name}}-answer-{{key}}">{{value.label}}</label>
+          </li>
+      {% endfor %}
+      </ul>
+      <input class="input-main" type="button" name="poll-submit" value="Submit" disabled />
+  </form>
+{% endif %}
+</div>
