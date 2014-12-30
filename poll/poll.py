@@ -2,6 +2,7 @@
 from collections import OrderedDict
 
 from django.template import Template, Context
+from markdown import markdown
 
 import pkg_resources
 
@@ -9,24 +10,6 @@ from xblock.core import XBlock
 from xblock.fields import Scope, String, Dict, List
 from xblock.fragment import Fragment
 from xblockutils.resources import ResourceLoader
-
-from .utils import process_markdown
-
-# When changing these constants, check the templates as well for places
-# where the user is informed about them.
-
-MAX_PARAGRAPH_LEN = 5000
-
-MAX_URL_LEN = 1000
-
-MAX_ANSWER_LEN = 250
-
-# These two don't have mentions in the templates, but will cause error
-# messages.
-
-MAX_ANSWERS = 25
-
-MAX_KEY_LEN = 100
 
 
 class PollBlock(XBlock):
@@ -59,8 +42,8 @@ class PollBlock(XBlock):
     def get_results(self, data, suffix=''):
         detail, total = self.tally_detail()
         return {
-            'question': process_markdown(self.question), 'tally': detail,
-            'total': total, 'feedback': process_markdown(self.feedback),
+            'question': markdown(self.question), 'tally': detail,
+            'total': total, 'feedback': markdown(self.feedback),
         }
 
     def clean_tally(self):
@@ -166,9 +149,9 @@ class PollBlock(XBlock):
             'choice': choice,
             # Offset so choices will always be True.
             'answers': self.answers,
-            'question': process_markdown(self.question),
+            'question': markdown(self.question),
             # Mustache is treating an empty string as true.
-            'feedback': process_markdown(self.feedback) or False,
+            'feedback': markdown(self.feedback) or False,
             'js_template': js_template,
             'any_img': self.any_image(),
             # The SDK doesn't set url_name.
@@ -213,8 +196,8 @@ class PollBlock(XBlock):
         # I wonder if there's something for live validation feedback already.
 
         result = {'success': True, 'errors': []}
-        question = data.get('question', '').strip()[:MAX_PARAGRAPH_LEN]
-        feedback = data.get('feedback', '').strip()[:MAX_PARAGRAPH_LEN]
+        question = data.get('question', '').strip()
+        feedback = data.get('feedback', '').strip()
         if not question:
             result['errors'].append("You must specify a question.")
             result['success'] = False
@@ -229,11 +212,6 @@ class PollBlock(XBlock):
         else:
             source_answers = data['answers']
 
-        # Set a reasonable limit to the number of answers in a poll.
-        if len(source_answers) > MAX_ANSWERS:
-            result['success'] = False
-            result['errors'].append("")
-
         # Make sure all components are present and clean them.
         for answer in source_answers:
             if not isinstance(answer, dict):
@@ -246,11 +224,8 @@ class PollBlock(XBlock):
                 result['success'] = False
                 result['errors'].append(
                     "Answer {0} contains no key.".format(answer))
-            if len(key) > MAX_KEY_LEN:
-                result['success'] = False
-                result['errors'].append("Key '{0}' too long.".format(key))
-            img = answer.get('img', '').strip()[:MAX_URL_LEN]
-            label = answer.get('label', '').strip()[:MAX_ANSWER_LEN]
+            img = answer.get('img', '').strip()
+            label = answer.get('label', '').strip()
             if not (img or label):
                 result['success'] = False
                 result['errors'].append(
