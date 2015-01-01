@@ -381,7 +381,7 @@ class SurveyBlock(PollBase):
             'feedback': markdown(self.feedback) or False,
             # The SDK doesn't set url_name.
             'url_name': getattr(self, 'url_name', ''),
-            })
+        })
 
         return self.create_fragment(
             context, "public/html/survey.html", "public/css/poll.css",
@@ -540,4 +540,13 @@ class SurveyBlock(PollBase):
                  <survey />
              </vertical_demo>
              """),
+            ("Survey Functions",
+             """
+             <vertical_demo>
+                 <survey tally='{"q1": {"sa": 5, "a": 5, "n": 3, "d": 2, "sd": 5}, "q2": {"sa": 3, "a": 2, "n": 3, "d": 10, "sd": 2}, "q3": {"sa": 2, "a": 7, "n": 1, "d": 4, "sd": 6}, "q4": {"sa": 1, "a": 2, "n": 8, "d": 4, "sd": 5}}'
+                     questions='[["q1", "I feel like this test will pass."], ["q2", "I like testing software"], ["q3", "Testing is not necessary"], ["q4", "I would fake a test result to get software deployed."]]'
+                     answers='[["sa", {"label": "Strongly Agree"}], ["a", {"label": "Agree"}], ["n", {"label": "Neutral"}], ["d", {"label": "Disagree"}], ["sd", {"label": "Strongly Disagree"}]]'
+                     feedback="### Thank you&#10;&#10;for running the tests."/>
+             </vertical_demo>
+             """)
         ]

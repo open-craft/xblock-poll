@@ -12,9 +12,17 @@
             <tr>
                 <td>{{{text}}}</td>
                 {{#each answers}}
-                    <td>{{percent}}%</td>
+                    <td class="survey-percentage">{{percent}}%</td>
                 {{/each}}
             </tr>
         {{/each}}
     </table>
+    <input class="input-main" type="button" name="poll-submit" value="Submit" disabled>
+    <div class="poll-footnote">Results gathered from {{total}} respondent{{#if plural}}s{{/if}}.</div>
+    {{#if feedback}}
+        <hr />
+        <div class="poll-feedback">
+            {{{feedback}}}
+        </div>
+    {{/if}}
 </script>
