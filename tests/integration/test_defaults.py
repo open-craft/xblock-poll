@@ -7,9 +7,9 @@ from selenium.common.exceptions import NoSuchElementException
 from .base_test import PollBaseTest
 
 
-class TestDefaults(PollBaseTest):
+class TestDefault(PollBaseTest):
     """
-    Tests to run against the default poll.
+    Tests to run against the default XBlock configurations.
     """
     def test_default_poll(self):
         """
@@ -17,7 +17,7 @@ class TestDefaults(PollBaseTest):
         the tally displays afterward. Verifies that the feedback section does
         not load since it is not enabled by default.
         """
-        self.go_to_page('Defaults')
+        self.go_to_page('Poll Defaults')
         button = self.browser.find_element_by_css_selector('input[type=radio]')
         button.click()
         submit = self.get_submit()
@@ -30,3 +30,11 @@ class TestDefaults(PollBaseTest):
 
         # No feedback section.
         self.assertRaises(NoSuchElementException, self.browser.find_element_by_css_selector, '.poll-feedback')
+
+    def test_default_survey(self):
+        """
+        Verifies that a default survey loads, that it can be voted on, and
+        that the tally displays afterward. Verifies that the feedback section
+        does not load since it is not enabled by default.
+        """
+        self.go_to_page('Survey Defaults')

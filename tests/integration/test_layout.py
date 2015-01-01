@@ -16,7 +16,7 @@ class TestLayout(PollBaseTest):
         """
         Verify img tags are created for answers when they're all set.
         """
-        self.go_to_page('All Pictures')
+        self.go_to_page('Poll All Pictures')
         pics = self.browser.find_elements_by_css_selector('.poll-image')
         self.assertEqual(len(pics), 4)
 
@@ -32,7 +32,7 @@ class TestLayout(PollBaseTest):
         """
         Verify layout is sane when only one answer has an image.
         """
-        self.go_to_page('One Picture')
+        self.go_to_page('Poll One Picture')
         pics = self.browser.find_elements_by_css_selector('.poll-image')
         # On the polling page, there should only be one pics div.
         self.assertEqual(len(pics), 1)

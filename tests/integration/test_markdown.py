@@ -12,7 +12,7 @@ class MarkdownTestCase(PollBaseTest):
         """
         Ensure Markdown is parsed for questions.
         """
-        self.go_to_page("Markdown")
+        self.go_to_page("Poll Markdown")
         self.assertEqual(
             self.browser.find_element_by_css_selector('.poll-question-container').text,
             """This is a test
@@ -30,7 +30,7 @@ We shall find out if markdown is respected.
         """
         Ensure Markdown is parsed for feedback.
         """
-        self.go_to_page("Markdown")
+        self.go_to_page("Poll Markdown")
         self.browser.find_element_by_css_selector('input[type=radio]').click()
         self.get_submit().click()
 
