@@ -41,6 +41,19 @@ class PollBase(XBlock, ResourceMixin, PublishEventMixin):
     """
     event_namespace = 'xblock.pollbase'
 
+    def send_vote_event(self, choice_data):
+        # Let the LMS know the user has answered the poll.
+        self.runtime.publish(self, 'progress', {})
+        self.runtime.publish(self, 'grade', {
+            'value': 1,
+            'max_value': 1,
+            }
+        )
+        self.publish_event_from_dict(
+            self.event_namespace + '.submitted',
+            choice_data,
+        )
+
     @XBlock.json_handler
     def load_answers(self, data, suffix=''):
         return {
@@ -61,6 +74,37 @@ class PollBase(XBlock, ResourceMixin, PublishEventMixin):
             'total': total, 'feedback': markdown(self.feedback),
             'plural': total > 1,
         }
+
+    @XBlock.json_handler
+    def vote(self, data, suffix=''):
+        """
+        Sets the user's vote.
+        """
+        result = {'success': False, 'errors': []}
+        if self.get_choice() is not None:
+            result['errors'].append('You have already voted in this poll.')
+            return result
+        try:
+            choice = data['choice']
+        except KeyError:
+            result['errors'].append('Answer not included with request.')
+            return result
+        # Just to show data coming in...
+        try:
+            OrderedDict(self.answers)[choice]
+        except KeyError:
+            result['errors'].append('No key "{choice}" in answers table.'.format(choice=choice))
+            return result
+
+        self.clean_tally()
+        self.choice = choice
+        self.tally[choice] = self.tally.get(choice, 0) + 1
+
+        result['success'] = True
+
+        self.send_vote_event({'choice': self.choice})
+
+        return result
 
 
 class PollBlock(PollBase):
@@ -108,7 +152,8 @@ class PollBlock(PollBase):
 
     def tally_detail(self):
         """
-        Tally all results.
+        Return a detailed dictionary from the stored tally that the
+        Handlebars template can use.
         """
         tally = []
         answers = OrderedDict(self.answers)
@@ -124,7 +169,7 @@ class PollBlock(PollBase):
                 'answer': value['label'],
                 'img': value['img'],
                 'key': key,
-                'top': False,
+                'first': False,
                 'choice': False,
                 'last': False,
                 'any_img': any_img,
@@ -132,10 +177,10 @@ class PollBlock(PollBase):
             total += count
 
         for answer in tally:
+            if answer['key'] == choice:
+                answer['choice'] = True
             try:
                 answer['percent'] = round(answer['count'] / float(total) * 100)
-                if answer['key'] == choice:
-                    answer['choice'] = True
             except ZeroDivisionError:
                 answer['percent'] = 0
 
@@ -143,8 +188,8 @@ class PollBlock(PollBase):
         # This should always be true, but on the off chance there are
         # no answers...
         if tally:
-            # Mark the top item to make things easier for Handlebars.
-            tally[0]['top'] = True
+            # Mark the first and last items to make things easier for Handlebars.
+            tally[0]['first'] = True
             tally[-1]['last'] = True
         return tally, total
 
@@ -264,47 +309,6 @@ class PollBlock(PollBase):
 
         return result
 
-    @XBlock.json_handler
-    def vote(self, data, suffix=''):
-        """
-        An example handler, which increments the data.
-        """
-        result = {'success': False, 'errors': []}
-        if self.get_choice() is not None:
-            result['errors'].append('You have already voted in this poll.')
-            return result
-        try:
-            choice = data['choice']
-        except KeyError:
-            result['errors'].append('Answer not included with request.')
-            return result
-        # Just to show data coming in...
-        try:
-            OrderedDict(self.answers)[choice]
-        except KeyError:
-            result['errors'].append('No key "{choice}" in answers table.'.format(choice=choice))
-            return result
-
-        self.clean_tally()
-        self.choice = choice
-        self.tally[choice] = self.tally.get(choice, 0) + 1
-        # Let the LMS know the user has answered the poll.
-        self.runtime.publish(self, 'progress', {})
-        self.runtime.publish(self, 'grade', {
-            'value': 1,
-            'max_value': 1,
-        })
-        self.publish_event_from_dict(
-            'xblock.poll.submitted',
-            {
-                'choice': self.choice
-            },
-        )
-
-        result['success'] = True
-
-        return result
-
     @staticmethod
     def workbench_scenarios():
         """
@@ -337,11 +341,12 @@ class SurveyBlock(PollBase):
             ('M', {'label': 'Maybe', 'img': None})),
         scope=Scope.settings, help="Answer choices for this Survey"
     )
-    questions = Dict(
-        default={
-            'enjoy': 'Are you enjoying the course?', 'recommend': 'Would you recommend this course to your friends?',
-            'learn': 'Do you think you will learn a lot?'
-        },
+    questions = List(
+        default=(
+            ('enjoy', 'Are you enjoying the course?'),
+            ('recommend', 'Would you recommend this course to your friends?'),
+            ('learn', 'Do you think you will learn a lot?')
+        ),
         scope=Scope.settings, help="Questions for this Survey"
     )
     feedback = String(default='', help="Text to display after the user votes.")
@@ -364,10 +369,10 @@ class SurveyBlock(PollBase):
             context = {}
 
         js_template = self.resource_string(
-            '/public/handlebars/poll_results.handlebars')
+            '/public/handlebars/survey_results.handlebars')
 
         context.update({
-            'choices': self.choices,
+            'choices': self.get_choices(),
             # Offset so choices will always be True.
             'answers': self.answers,
             'js_template': js_template,
@@ -382,6 +387,147 @@ class SurveyBlock(PollBase):
             context, "public/html/survey.html", "public/css/poll.css",
             "public/js/poll.js", "SurveyBlock")
 
+    def tally_detail(self):
+        """
+        Return a detailed dictionary from the stored tally that the
+        Handlebars template can use.
+        """
+        tally = []
+        questions = OrderedDict(self.questions)
+        default_answers = OrderedDict([(answer, 0) for answer, __ in self.answers])
+        choices = self.get_choices()
+        total = 0
+        self.clean_tally()
+        source_tally = self.tally
+
+        # The result should always be the same-- just grab the first one.
+        for key, value in source_tally.items():
+            total = sum(value.values())
+            break
+
+        for key, value in questions.items():
+            # Order matters here.
+            answer_set = OrderedDict(default_answers)
+            answer_set.update(source_tally[key])
+            tally.append({
+                'text': value,
+                'answers': [
+                    {
+                        'count': count, 'choice': False,
+                        'key': answer_key, 'top': False
+                    }
+                    for answer_key, count in answer_set.items()],
+                'key': key,
+                'choice': False,
+            })
+
+        for question in tally:
+            highest = 0
+            top_index = None
+            for index, answer in enumerate(question['answers']):
+                if answer['key'] == choices[question['key']]:
+                    answer['choice'] = True
+                # Find the most popular choice.
+                if answer['count'] > highest:
+                    top_index = index
+                    highest = answer['count']
+                try:
+                    answer['percent'] = round(answer['count'] / float(total) * 100)
+                except ZeroDivisionError:
+                    answer['percent'] = 0
+            question['answers'][top_index]['top'] = True
+
+        return tally, total
+
+    def clean_tally(self):
+        """
+        Cleans the tally. Scoping prevents us from modifying this in the studio
+        and in the LMS the way we want to without undesirable side effects. So
+        we just clean it up on first access within the LMS, in case the studio
+        has made changes to the answers.
+        """
+        questions = OrderedDict(self.questions)
+        answers = OrderedDict(self.answers)
+        default_answers = {answer: 0 for answer in answers.keys()}
+        for key in questions.keys():
+            if key not in self.tally:
+                self.tally[key] = dict(default_answers)
+            else:
+                # Answers may have changed, requiring an update for each
+                # question.
+                new_answers = dict(default_answers)
+                new_answers.update(self.tally[key])
+                for existing_key in new_answers:
+                    if existing_key not in default_answers:
+                        del new_answers[existing_key]
+                self.tally[key] = new_answers
+
+    def get_choices(self):
+        """
+        Gets the user's choices, if they're still valid.
+        """
+        questions = dict(self.questions)
+        answers = dict(self.answers)
+        if self.choices is None:
+            return None
+        # TODO: Remove user's existing votes when this happens.
+        if sorted(questions.keys()) != sorted(self.choices.keys()):
+            return None
+        for value in self.choices.values():
+            if value not in answers:
+                return None
+        return self.choices
+
+    @XBlock.json_handler
+    def get_results(self, data, suffix=''):
+        self.publish_event_from_dict(self.event_namespace + '.view_results', {})
+        detail, total = self.tally_detail()
+        return {
+            'answers': [
+                value['label'] for value in OrderedDict(self.answers).values()],
+            'tally': detail, 'total': total, 'feedback': markdown(self.feedback),
+            'plural': total > 1,
+        }
+
+    @XBlock.json_handler
+    def vote(self, data, suffix=''):
+        questions = dict(self.questions)
+        answers = dict(self.answers)
+        result = {'success': True, 'errors': []}
+        choices = self.get_choices()
+        if choices:
+            result['success'] = False
+            result['errors'].append("You have already voted in this poll.")
+
+        # Make sure the user has included all questions, and hasn't included
+        # anything extra, which might indicate the questions have changed.
+        if not sorted(data.keys()) == sorted(questions.keys()):
+            result['success'] = False
+            result['errors'].append(
+                "Not all questions were included, or unknown questions were "
+                "included. Try refreshing and trying again."
+            )
+
+        # Make sure the answer values are sane.
+        for key, value in data.items():
+            if value not in answers.keys():
+                result['success'] = False
+                result['errors'].append(
+                    "Found unknown answer '%s' for question key '%s'" % (key, value))
+
+        if not result['success']:
+            return result
+
+        # Record the vote!
+        self.choices = data
+        self.clean_tally()
+        for key, value in self.choices.items():
+            self.tally[key][value] += 1
+
+        self.send_vote_event({'choices': choices})
+
+        return result
+
     @staticmethod
     def workbench_scenarios():
         """
@@ -394,4 +540,4 @@ class SurveyBlock(PollBase):
                  <survey />
              </vertical_demo>
              """),
-            ]
+        ]

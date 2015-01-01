@@ -1,0 +1,20 @@
+<script id="survey-results-template" type="text/html">
+    <table>
+        <thead>
+            <tr>
+                <th></th>
+                {{#each answers}}
+                    <th>{{this}}</th>
+                {{/each}}
+            </tr>
+        </thead>
+        {{#each tally}}
+            <tr>
+                <td>{{{text}}}</td>
+                {{#each answers}}
+                    <td>{{percent}}%</td>
+                {{/each}}
+            </tr>
+        {{/each}}
+    </table>
+</script>
