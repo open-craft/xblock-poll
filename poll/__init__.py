@@ -1,1 +1,1 @@
-from .poll import PollBlock
+from .poll import PollBlock, SurveyBlock

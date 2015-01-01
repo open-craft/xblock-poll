@@ -1,12 +1,48 @@
 /* Javascript for PollBlock. */
-function PollBlock(runtime, element) {
 
-    var voteUrl = runtime.handlerUrl(element, 'vote');
-    var tallyURL = runtime.handlerUrl(element, 'get_results');
+var PollUtil = {
 
-    var submit = $('input[type=button]', element);
-    var resultsTemplate = Handlebars.compile($("#results", element).html());
-    function getResults(data) {
+    init: function(runtime, element) {
+        this.voteUrl = runtime.handlerUrl(element, 'vote');
+        this.tallyURL = runtime.handlerUrl(element, 'get_results');
+        this.element = element;
+        this.runtime = runtime;
+        this.submit = $('input[type=button]', element);
+        this.resultsTemplate = Handlebars.compile($("#poll-results-template", element).html());
+    },
+
+    poll_init: function(){
+        // If the submit button doesn't exist, the user has already
+        // selected a choice.
+        var self = this;
+        if (self.submit.length) {
+            var radio = $('input[name=choice]:checked', self.element);
+            self.submit.click(function (event) {
+                // Refresh.
+                radio = $(radio.selector, element);
+                var choice = radio.val();
+                $.ajax({
+                    type: "POST",
+                    url: self.voteUrl,
+                    data: JSON.stringify({"choice": choice}),
+                    success: self.getResults
+                });
+            });
+            // If the user has refreshed the page, they may still have an answer
+            // selected and the submit button should be enabled.
+            var answers = $('input[type=radio]', self.element);
+            if (! radio.val()) {
+                answers.bind("change.EnableSubmit", self.enableSubmit);
+            } else {
+                self.enableSubmit();
+            }
+        } else {
+            self.getResults({'success': true});
+        }
+    },
+
+    getResults: function(data) {
+        var self = this;
         if (! data['success']) {
             alert(data['errors'].join('\n'));
         }
@@ -14,44 +50,21 @@ function PollBlock(runtime, element) {
             // Semantically, this would be better as GET, but we can use helper
             // functions with POST.
             type: "POST",
-            url: tallyURL,
+            url: self.tallyURL,
             data: JSON.stringify({}),
             success: function (data) {
-                $('div.poll-block', element).html(resultsTemplate(data));
+                $('div.poll-block', self.element).html(self.resultsTemplate(data));
             }
         })
-    }
+    },
 
-
-    function enableSubmit() {
-        submit.removeAttr("disabled");
-        answers.unbind("change.EnableSubmit");
+    enableSubmit: function () {
+        this.submit.removeAttr("disabled");
+        this.answers.unbind("change.EnableSubmit");
     }
+};
 
-    // If the submit button doesn't exist, the user has already
-    // selected a choice.
-    if (submit.length) {
-        var radio = $('input[name=choice]:checked', element);
-        submit.click(function (event) {
-            // Refresh.
-            radio = $(radio.selector, element);
-            var choice = radio.val();
-            $.ajax({
-                type: "POST",
-                url: voteUrl,
-                data: JSON.stringify({"choice": choice}),
-                success: getResults
-            });
-        });
-        // If the user has refreshed the page, they may still have an answer
-        // selected and the submit button should be enabled.
-        var answers = $('input[type=radio]', element);
-        if (! radio.val()) {
-            answers.bind("change.EnableSubmit", enableSubmit);
-        } else {
-            enableSubmit();
-        }
-    } else {
-        getResults({'success': true});
-    }
+function PollBlock(runtime, element) {
+    PollUtil.init(runtime, element);
+    PollUtil.poll_init();
 }

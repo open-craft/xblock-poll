@@ -1,4 +1,4 @@
-<script id="results" type="text/html">
+<script id="poll-results-template" type="text/html">
     {{{question}}}
     <ul class="poll-answers-results">
     {{#each tally}}
@@ -31,7 +31,7 @@
     {{/each}}
     </ul>
     <input class="input-main" type="button" name="poll-submit" value="Submit" disabled>
-    <div class="poll-footnote">Results gathered from {{total}} respondent(s).</div>
+    <div class="poll-footnote">Results gathered from {{total}} respondent{{#if plural}}s{{/if}}.</div>
     {{#if feedback}}
         <hr />
         <div class="poll-feedback">

@@ -1,0 +1,30 @@
+<div class="survey-block">
+    {# If no form is present, the Javascript will load the results instead. #}
+    {% if not choices %}
+    <form>
+        <table>
+            <thead>
+              <tr>
+                  <th></th>
+                  {% for answer, details in answers %}
+                    <th>{{details.label}}</th>
+                  {% endfor %}
+              </tr>
+            </thead>
+        {% for key, question in questions.items %}
+            <tr>
+                <td>
+                  {{question}}
+                </td>
+            {% for answer, answer_details in answers %}
+                <td>
+                    <input type="radio" name="{{key}}" value="{{answer}}" />
+                </td>
+            {% endfor %}
+            </tr>
+        {% endfor %}
+        </table>
+        <input class="input-main" type="button" name="poll-submit" value="Submit" disabled />
+    </form>
+    {% endif %}
+</div>

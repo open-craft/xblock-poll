@@ -58,7 +58,7 @@ class TestPollFunctions(PollBaseTest):
                         "Thank you\nfor being a valued student.")
 
         self.assertEqual(self.browser.find_element_by_css_selector('.poll-footnote').text,
-                         'Results gathered from 100 respondent(s).')
+                         'Results gathered from 100 respondents.')
 
         self.assertFalse(self.browser.find_element_by_css_selector('input[name=poll-submit]').is_enabled())
 

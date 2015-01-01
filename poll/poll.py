@@ -9,21 +9,45 @@ import pkg_resources
 from xblock.core import XBlock
 from xblock.fields import Scope, String, Dict, List
 from xblock.fragment import Fragment
+from xblockutils.publish_event import PublishEventMixin
 from xblockutils.resources import ResourceLoader
 
 
-class PollBlock(XBlock):
+class ResourceMixin(object):
+    loader = ResourceLoader(__name__)
+
+    @staticmethod
+    def resource_string(path):
+        """Handy helper for getting resources from our kit."""
+        data = pkg_resources.resource_string(__name__, path)
+        return data.decode("utf8")
+
+    def create_fragment(self, context, template, css, js, js_init):
+        html = Template(
+            self.resource_string(template)).render(Context(context))
+        frag = Fragment(html)
+        frag.add_javascript_url(
+            self.runtime.local_resource_url(
+                self, 'public/js/vendor/handlebars.js'))
+        frag.add_css(self.resource_string(css))
+        frag.add_javascript(self.resource_string(js))
+        frag.initialize_js(js_init)
+        return frag
+
+
+class PollBlock(XBlock, ResourceMixin, PublishEventMixin):
     """
     Poll XBlock. Allows a teacher to poll users, and presents the results so
     far of the poll to the user when finished.
     """
+    display_name = String(default='Poll')
     question = String(default='What is your favorite color?')
     # This will be converted into an OrderedDict.
     # Key, (Label, Image path)
     answers = List(
         default=(('R', {'label': 'Red', 'img': None}), ('B', {'label': 'Blue', 'img': None}),
                  ('G', {'label': 'Green', 'img': None}), ('O', {'label': 'Other', 'img': None})),
-        scope=Scope.settings, help="The question on this poll."
+        scope=Scope.settings, help="The answer options on this poll."
     )
     feedback = String(default='', help="Text to display after the user votes.")
     tally = Dict(default={'R': 0, 'B': 0, 'G': 0, 'O': 0},
@@ -31,19 +55,14 @@ class PollBlock(XBlock):
                  help="Total tally of answers from students.")
     choice = String(scope=Scope.user_state, help="The student's answer")
 
-    loader = ResourceLoader(__name__)
-
-    def resource_string(self, path):
-        """Handy helper for getting resources from our kit."""
-        data = pkg_resources.resource_string(__name__, path)
-        return data.decode("utf8")
-
     @XBlock.json_handler
     def get_results(self, data, suffix=''):
+        self.publish_event_from_dict('xblock.poll.view_results', {})
         detail, total = self.tally_detail()
         return {
             'question': markdown(self.question), 'tally': detail,
             'total': total, 'feedback': markdown(self.feedback),
+            'plural': total > 1,
         }
 
     def clean_tally(self):
@@ -95,7 +114,7 @@ class PollBlock(XBlock):
 
         for answer in tally:
             try:
-                answer['percent'] = int(answer['count'] / float(total)) * 100
+                answer['percent'] = round(answer['count'] / float(total) * 100)
                 if answer['key'] == choice:
                     answer['choice'] = True
             except ZeroDivisionError:
@@ -121,18 +140,6 @@ class PollBlock(XBlock):
         else:
             return None
 
-    def create_fragment(self, context, template, css, js, js_init):
-        html = Template(
-            self.resource_string(template)).render(Context(context))
-        frag = Fragment(html)
-        frag.add_javascript_url(
-            self.runtime.local_resource_url(
-                self, 'public/js/vendor/handlebars.js'))
-        frag.add_css(self.resource_string(css))
-        frag.add_javascript(self.resource_string(js))
-        frag.initialize_js(js_init)
-        return frag
-
     def student_view(self, context=None):
         """
         The primary view of the PollBlock, shown to students
@@ -141,7 +148,7 @@ class PollBlock(XBlock):
         if not context:
             context = {}
         js_template = self.resource_string(
-            '/public/handlebars/results.handlebars')
+            '/public/handlebars/poll_results.handlebars')
 
         choice = self.get_choice()
 
@@ -160,7 +167,7 @@ class PollBlock(XBlock):
 
         if self.choice:
             detail, total = self.tally_detail()
-            context.update({'tally': detail, 'total': total})
+            context.update({'tally': detail, 'total': total, 'plural': total > 1})
 
         return self.create_fragment(
             context, "public/html/poll.html", "public/css/poll.css",
@@ -275,6 +282,17 @@ class PollBlock(XBlock):
         self.tally[choice] = self.tally.get(choice, 0) + 1
         # Let the LMS know the user has answered the poll.
         self.runtime.publish(self, 'progress', {})
+        self.runtime.publish(self, 'grade', {
+            'value': 1,
+            'max_value': 1,
+        })
+        self.publish_event_from_dict(
+            'xblock.poll.submitted',
+            {
+                'choice': self.choice
+            },
+        )
+
         result['success'] = True
 
         return result
@@ -301,3 +319,66 @@ class PollBlock(XBlock):
             </vertical_demo>
              """),
         ]
+
+
+class SurveyBlock(XBlock, ResourceMixin, PublishEventMixin):
+    display_name = String(default='Survey')
+    answers = List(
+        default=(
+            ('Y', {'label': 'Yes', 'img': None}), ('N', {'label': 'No', 'img': None}),
+            ('M', {'label': 'Maybe', 'img': None})),
+        scope=Scope.settings, help="Answer choices for this Survey"
+    )
+    questions = Dict(
+        default={
+            'enjoy': 'Are you enjoying the course?', 'recommend': 'Would you recommend this course to your friends?',
+            'learn': 'Do you think you will learn a lot?'
+        },
+        scope=Scope.settings, help="Questions for this Survey"
+    )
+    feedback = String(default='', help="Text to display after the user votes.")
+    tally = Dict(
+        default={
+            'enjoy': {'Y': 0, 'N': 0, 'M': 0}, 'recommend': {'Y': 0, 'N': 0, 'M': 0},
+            'learn': {'Y': 0, 'N': 0, 'M': 0}},
+        scope=Scope.user_state_summary,
+        help="Total tally of answers from students."
+    )
+    choices = Dict(help="The user's answers")
+
+    def student_view(self, context=None):
+        """
+        The primary view of the PollBlock, shown to students
+        when viewing courses.
+        """
+        if not context:
+            context = {}
+
+        context.update({
+            'choices': self.choices,
+            # Offset so choices will always be True.
+            'answers': self.answers,
+            'questions': self.questions,
+            # Mustache is treating an empty string as true.
+            'feedback': markdown(self.feedback) or False,
+            # The SDK doesn't set url_name.
+            'url_name': getattr(self, 'url_name', ''),
+            })
+
+        return self.create_fragment(
+            context, "public/html/survey.html", "public/css/poll.css",
+            "public/js/poll.js", "PollBlock")
+
+    @staticmethod
+    def workbench_scenarios():
+        """
+        Canned scenarios for display in the workbench.
+        """
+        return [
+            ("Default Survey",
+             """
+             <vertical_demo>
+                 <survey />
+             </vertical_demo>
+             """),
+            ]
