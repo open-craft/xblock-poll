@@ -35,7 +35,35 @@ class ResourceMixin(object):
         return frag
 
 
-class PollBlock(XBlock, ResourceMixin, PublishEventMixin):
+class PollBase(XBlock, ResourceMixin, PublishEventMixin):
+    """
+    Base class for Poll-like XBlocks.
+    """
+    event_namespace = 'xblock.pollbase'
+
+    @XBlock.json_handler
+    def load_answers(self, data, suffix=''):
+        return {
+            'answers': [
+                {
+                    'key': key, 'text': value['label'], 'img': value['img']
+                }
+                for key, value in self.answers
+            ]
+        }
+
+    @XBlock.json_handler
+    def get_results(self, data, suffix=''):
+        self.publish_event_from_dict(self.event_namespace + '.view_results', {})
+        detail, total = self.tally_detail()
+        return {
+            'question': markdown(self.question), 'tally': detail,
+            'total': total, 'feedback': markdown(self.feedback),
+            'plural': total > 1,
+        }
+
+
+class PollBlock(PollBase):
     """
     Poll XBlock. Allows a teacher to poll users, and presents the results so
     far of the poll to the user when finished.
@@ -54,16 +82,7 @@ class PollBlock(XBlock, ResourceMixin, PublishEventMixin):
                  scope=Scope.user_state_summary,
                  help="Total tally of answers from students.")
     choice = String(scope=Scope.user_state, help="The student's answer")
-
-    @XBlock.json_handler
-    def get_results(self, data, suffix=''):
-        self.publish_event_from_dict('xblock.poll.view_results', {})
-        detail, total = self.tally_detail()
-        return {
-            'question': markdown(self.question), 'tally': detail,
-            'total': total, 'feedback': markdown(self.feedback),
-            'plural': total > 1,
-        }
+    event_namespace = 'xblock.poll'
 
     def clean_tally(self):
         """
@@ -172,17 +191,6 @@ class PollBlock(XBlock, ResourceMixin, PublishEventMixin):
         return self.create_fragment(
             context, "public/html/poll.html", "public/css/poll.css",
             "public/js/poll.js", "PollBlock")
-
-    @XBlock.json_handler
-    def load_answers(self, data, suffix=''):
-        return {
-            'answers': [
-                {
-                    'key': key, 'text': value['label'], 'img': value['img']
-                }
-                for key, value in self.answers
-            ]
-        }
 
     def studio_view(self, context=None):
         if not context:
@@ -321,7 +329,7 @@ class PollBlock(XBlock, ResourceMixin, PublishEventMixin):
         ]
 
 
-class SurveyBlock(XBlock, ResourceMixin, PublishEventMixin):
+class SurveyBlock(PollBase):
     display_name = String(default='Survey')
     answers = List(
         default=(
@@ -345,6 +353,7 @@ class SurveyBlock(XBlock, ResourceMixin, PublishEventMixin):
         help="Total tally of answers from students."
     )
     choices = Dict(help="The user's answers")
+    event_namespace = 'xblock.survey'
 
     def student_view(self, context=None):
         """
@@ -354,10 +363,14 @@ class SurveyBlock(XBlock, ResourceMixin, PublishEventMixin):
         if not context:
             context = {}
 
+        js_template = self.resource_string(
+            '/public/handlebars/poll_results.handlebars')
+
         context.update({
             'choices': self.choices,
             # Offset so choices will always be True.
             'answers': self.answers,
+            'js_template': js_template,
             'questions': self.questions,
             # Mustache is treating an empty string as true.
             'feedback': markdown(self.feedback) or False,
@@ -367,7 +380,7 @@ class SurveyBlock(XBlock, ResourceMixin, PublishEventMixin):
 
         return self.create_fragment(
             context, "public/html/survey.html", "public/css/poll.css",
-            "public/js/poll.js", "PollBlock")
+            "public/js/poll.js", "SurveyBlock")
 
     @staticmethod
     def workbench_scenarios():
