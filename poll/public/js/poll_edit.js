@@ -1,23 +1,52 @@
-function PollEditBlock(runtime, element) {
-    var loadAnswers = runtime.handlerUrl(element, 'load_answers');
-    var temp = $('#answer-form-component', element).html();
-    var answerTemplate = Handlebars.compile(temp);
-    var pollLineItems =$('#poll-line-items', element);
+function PollEditUtil(runtime, element) {
+    var self = this;
 
-    function empowerDeletes(scope) {
+    this.init = function () {
+        self.loadAnswers = runtime.handlerUrl(element, 'load_answers');
+        var temp = $('#answer-form-component', element).html();
+        self.answerTemplate = Handlebars.compile(temp);
+        self.pollLineItems =$('#poll-line-items', element);
+
+        $(element).find('.cancel-button', element).bind('click', function() {
+            runtime.notify('cancel', {});
+        });
+
+        $('#poll-add-answer', element).click(function () {
+            // The degree of precision on date should be precise enough to avoid
+            // collisions in the real world.
+            self.pollLineItems.append(self.answerTemplate({'answers': [{'key': new Date().getTime(), 'text': ''}]}));
+            var new_answer = $(self.pollLineItems.children().last());
+            self.empowerDeletes(new_answer);
+            self.empowerArrows(new_answer);
+            new_answer.fadeOut(250).fadeIn(250);
+        });
+
+        $(element).find('.save-button', element).bind('click', self.pollSubmitHandler);
+
+        $(function ($) {
+            $.ajax({
+                type: "POST",
+                url: self.loadAnswers,
+                data: JSON.stringify({}),
+                success: self.displayAnswers
+            });
+        });
+    };
+
+    this.empowerDeletes = function (scope) {
         $('.poll-delete-answer', scope).click(function () {
             $(this).parent().remove();
         });
-    }
+    };
 
-    /*
-    The poll answers need to be reorderable. As the UL they are in is not
-    easily isolated, we need to start checking their position to make
-    sure they aren't ordered above the other settings, which are also
-    in the list.
-    */
-    var starting_point = 3;
-    function empowerArrows(scope) {
+    this.empowerArrows = function(scope) {
+        /*
+         The poll answers need to be reorderable. As the UL they are in is not
+         easily isolated, we need to start checking their position to make
+         sure they aren't ordered above the other settings, which are also
+         in the list.
+         */
+        var starting_point = 3;
         $('.poll-move-up', scope).click(function () {
             var tag = $(this).parents('li');
             if (tag.index() <= starting_point){
@@ -34,29 +63,23 @@ function PollEditBlock(runtime, element) {
             tag.next().after(tag);
             tag.fadeOut("fast", "swing").fadeIn("fast", "swing");
         });
-    }
+    };
 
-    function displayAnswers(data) {
-        pollLineItems.append(answerTemplate(data));
-        empowerDeletes(element);
-        empowerArrows(element);
-    }
+    this.displayAnswers = function(data) {
+        self.pollLineItems.append(self.answerTemplate(data));
+        self.empowerDeletes(element);
+        self.empowerArrows(element);
+    };
 
-    $('#poll-add-answer', element).click(function () {
-        // The degree of precision on date should be precise enough to avoid
-        // collisions in the real world.
-        pollLineItems.append(answerTemplate({'answers': [{'key': new Date().getTime(), 'text': ''}]}));
-        var new_answer = $(pollLineItems.children().last());
-        empowerDeletes(new_answer);
-        empowerArrows(new_answer);
-        new_answer.fadeOut(250).fadeIn(250);
-    });
+    this.check_return = function(data) {
+        if (data['success']) {
+            window.location.reload(false);
+            return;
+        }
+        alert(data['errors'].join('\n'));
+    };
 
-    $(element).find('.cancel-button', element).bind('click', function() {
-        runtime.notify('cancel', {});
-    });
-
-    $(element).find('.save-button', element).bind('click', function() {
+    this.pollSubmitHandler = function() {
         var handlerUrl = runtime.handlerUrl(element, 'studio_submit');
         var data = {'answers': []};
         var tracker = [];
@@ -81,27 +104,22 @@ function PollEditBlock(runtime, element) {
         data['title'] = $('#poll-title', element).val();
         data['question'] = $('#poll-question-editor', element).val();
         data['feedback'] = $('#poll-feedback-editor', element).val();
-        function check_return(data) {
-            if (data['success']) {
-                window.location.reload(false);
-                return;
-            }
-            alert(data['errors'].join('\n'));
-        }
+
         $.ajax({
             type: "POST",
             url: handlerUrl,
             data: JSON.stringify(data),
-            success: check_return
+            success: self.check_return
         });
-    });
+    };
 
-    $(function ($) {
-        $.ajax({
-            type: "POST",
-            url: loadAnswers,
-            data: JSON.stringify({}),
-            success: displayAnswers
-        });
-    });
+    self.init();
+}
+
+function PollEdit(runtime, element) {
+    new PollEditUtil(runtime, element);
+}
+
+function SurveyEdit(runtime, element) {
+    new PollEditUtil(runtime, element);
 }

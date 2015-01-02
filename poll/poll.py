@@ -72,7 +72,7 @@ class PollBase(XBlock, ResourceMixin, PublishEventMixin):
         return {
             'question': markdown(self.question), 'tally': detail,
             'total': total, 'feedback': markdown(self.feedback),
-            'plural': total > 1,
+            'plural': total > 1, 'display_name': self.display_name,
         }
 
     @XBlock.json_handler
@@ -227,6 +227,7 @@ class PollBlock(PollBase):
             'any_img': self.any_image(),
             # The SDK doesn't set url_name.
             'url_name': getattr(self, 'url_name', ''),
+            "display_name": self.display_name,
         })
 
         if self.choice:
@@ -241,7 +242,7 @@ class PollBlock(PollBase):
         if not context:
             context = {}
 
-        js_template = self.resource_string('/public/handlebars/studio.handlebars')
+        js_template = self.resource_string('/public/handlebars/poll_studio.handlebars')
         context.update({
             'question': self.question,
             'feedback': self.feedback,
@@ -249,7 +250,7 @@ class PollBlock(PollBase):
         })
         return self.create_fragment(
             context, "public/html/poll_edit.html",
-            "/public/css/poll_edit.css", "public/js/poll_edit.js", "PollEditBlock")
+            "/public/css/poll_edit.css", "public/js/poll_edit.js", "PollEdit")
 
     @XBlock.json_handler
     def studio_submit(self, data, suffix=''):
@@ -357,7 +358,7 @@ class SurveyBlock(PollBase):
         scope=Scope.user_state_summary,
         help="Total tally of answers from students."
     )
-    choices = Dict(help="The user's answers")
+    choices = Dict(help="The user's answers", scope=Scope.user_state)
     event_namespace = 'xblock.survey'
 
     def student_view(self, context=None):
@@ -381,11 +382,26 @@ class SurveyBlock(PollBase):
             'feedback': markdown(self.feedback) or False,
             # The SDK doesn't set url_name.
             'url_name': getattr(self, 'url_name', ''),
+            "display_name": self.display_name,
         })
 
         return self.create_fragment(
             context, "public/html/survey.html", "public/css/poll.css",
             "public/js/poll.js", "SurveyBlock")
+
+    def studio_view(self, context=None):
+        if not context:
+            context = {}
+
+        js_template = self.resource_string('/public/handlebars/poll_studio.handlebars')
+        context.update({
+            'question': self.question,
+            'feedback': self.feedback,
+            'js_template': js_template
+        })
+        return self.create_fragment(
+            context, "public/html/poll_edit.html",
+            "/public/css/poll_edit.css", "public/js/poll_edit.js", "SurveyEditBlock")
 
     def tally_detail(self):
         """
@@ -486,7 +502,7 @@ class SurveyBlock(PollBase):
             'answers': [
                 value['label'] for value in OrderedDict(self.answers).values()],
             'tally': detail, 'total': total, 'feedback': markdown(self.feedback),
-            'plural': total > 1,
+            'plural': total > 1, 'display_name': self.display_name,
         }
 
     @XBlock.json_handler

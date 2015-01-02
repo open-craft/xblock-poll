@@ -102,3 +102,74 @@ li.poll-result .poll-image {
     margin-bottom: 1em;
     font-size: smaller;
 }
+
+.survey-table {
+    width: 100%;
+    border-collapse: collapse;
+    border: 0;
+}
+
+.survey-table td, .survey-table th {
+    border: 1px solid #CCC;
+    border-top: 0;
+}
+
+.survey-table tr:last-child td {
+    border-bottom: 0;
+}
+
+.survey-table tr td:first-child,
+.survey-table tr th:first-child {
+    border-left: 0;
+}
+
+.survey-table tr td:last-child,
+.survey-table tr th:last-child {
+    border-right: 0;
+}
+
+.survey-table thead {
+    border-top: 0;
+    background: none;
+}
+
+.survey-table thead tr th {
+    font-weight: normal;
+    font-size: .8rem;
+}
+
+.survey-table .survey-row {
+    background: none !important;
+}
+
+.survey-table .survey-option {
+    text-align: center;
+    vertical-align: middle;
+}
+
+.survey-option input {
+    margin: 0;
+    padding: 0;
+}
+
+th.survey-answer {
+    text-align: center;
+    width: 2em;
+}
+
+.poll-header {
+    text-transform: uppercase;
+}
+
+.survey-percentage {
+    font-weight: bolder;
+    font-size: 1.2rem;
+}
+
+.survey-question {
+    font-weight: bold;
+}
+
+.survey-choice {
+    background-color: #e5ebee;
+}

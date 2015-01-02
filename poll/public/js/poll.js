@@ -2,12 +2,11 @@
 
 function PollUtil (runtime, element, pollType) {
     var self = this;
-    this.init = function(runtime, element) {
+
+    this.init = function() {
         // Initialization function used for both Poll Types
         this.voteUrl = runtime.handlerUrl(element, 'vote');
         this.tallyURL = runtime.handlerUrl(element, 'get_results');
-        this.element = element;
-        this.runtime = runtime;
         this.submit = $('input[type=button]', element);
         this.answers = $('input[type=radio]', element);
         this.resultsTemplate = Handlebars.compile($("#" + self.pollType + "-results-template", element).html());
@@ -23,10 +22,10 @@ function PollUtil (runtime, element, pollType) {
     this.pollInit = function(){
         // Initialization function for PollBlocks.
 
-        var radio = $('input[name=choice]:checked', self.element);
+        var radio = $('input[name=choice]:checked', element);
         self.submit.click(function () {
             // Refresh.
-            radio = $(radio.selector, self.element);
+            radio = $(radio.selector, element);
             var choice = radio.val();
             $.ajax({
                 type: "POST",
@@ -37,7 +36,7 @@ function PollUtil (runtime, element, pollType) {
         });
         // If the user has refreshed the page, they may still have an answer
         // selected and the submit button should be enabled.
-        var answers = $('input[type=radio]', self.element);
+        var answers = $('input[type=radio]', element);
         if (! radio.val()) {
             answers.bind("change.enableSubmit", self.enableSubmit);
         } else {
@@ -81,7 +80,7 @@ function PollUtil (runtime, element, pollType) {
         // Verify that all questions have an answer selected.
         var doEnable = true;
         self.answers.each(function (index, el) {
-            if (! $(self.checkedElement($(el)), self.element).length) {
+            if (! $(self.checkedElement($(el)), element).length) {
                 doEnable = false;
                 return false
             }
@@ -104,7 +103,7 @@ function PollUtil (runtime, element, pollType) {
             data: JSON.stringify({}),
             success: function (data) {
                 console.log(self);
-                $('div.poll-block', self.element).html(self.resultsTemplate(data));
+                $('div.poll-block', element).html(self.resultsTemplate(data));
             }
         })
     };
@@ -116,7 +115,7 @@ function PollUtil (runtime, element, pollType) {
     };
 
     this.pollType = pollType;
-    var run_init = this.init(runtime, element);
+    var run_init = this.init();
     if (run_init) {
         var init_map = {'poll': self.pollInit, 'survey': self.surveyInit};
         init_map[pollType]()

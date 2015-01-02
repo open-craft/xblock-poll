@@ -2,8 +2,9 @@
 <div class="poll-block">
     {# If no form is present, the Javascript will load the results instead. #}
     {% if not choices %}
+    <h3 class="poll-header">{{display_name}}</h3>
     <form>
-        <table>
+        <table class="survey-table">
             <thead>
               <tr>
                   <th></th>
@@ -13,7 +14,7 @@
               </tr>
             </thead>
         {% for key, question in questions %}
-            <tr>
+            <tr class="survey-row">
                 <td class="survey-question">
                   {{question}}
                 </td>

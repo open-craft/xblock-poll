@@ -1,18 +1,19 @@
 <script id="survey-results-template" type="text/html">
-    <table>
+    <h3 class="poll-header">{{display_name}}</h3>
+    <table class="survey-table">
         <thead>
             <tr>
                 <th></th>
                 {{#each answers}}
-                    <th>{{this}}</th>
+                    <th class="survey-answer">{{this}}</th>
                 {{/each}}
             </tr>
         </thead>
         {{#each tally}}
-            <tr>
-                <td>{{{text}}}</td>
+            <tr class="survey-row">
+                <td class="survey-question">{{{text}}}</td>
                 {{#each answers}}
-                    <td class="survey-percentage">{{percent}}%</td>
+                    <td class="survey-percentage survey-option{{#if choice}} survey-choice{{/if}}{{#if top}} poll-top-choice{{/if}}">{{percent}}%</td>
                 {{/each}}
             </tr>
         {{/each}}
