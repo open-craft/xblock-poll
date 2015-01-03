@@ -8,15 +8,15 @@
             <thead>
               <tr>
                   <th></th>
-                  {% for answer, details in answers %}
-                    <th class="survey-answer">{{details.label}}</th>
+                  {% for answer, label in answers %}
+                    <th class="survey-answer">{{label}}</th>
                   {% endfor %}
               </tr>
             </thead>
         {% for key, question in questions %}
             <tr class="survey-row">
                 <td class="survey-question">
-                  {{question}}
+                  {{question.label}}
                 </td>
             {% for answer, answer_details in answers %}
                 <td class="survey-option">

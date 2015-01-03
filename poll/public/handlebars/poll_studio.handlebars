@@ -1,18 +1,20 @@
 <script id="answer-form-component" type="text/html">
-{{#each answers}}
-<li class="field comp-setting-entry is-set">
+{{#each items}}
+<li class="field comp-setting-entry is-set poll-{{noun}}-studio-item">
     <div class="wrapper-comp-setting">
-        <label class="label setting-label" for="answer-{{key}}">Answer</label>
-        <input class="input setting-input" name="answer-{{key}}" id="answer-{{key}}" value="{{text}}" type="text" /><br />
-        <label class="label setting-label" for="img-answer-{{key}}">Image URL</label>
-        <input class="input setting-input" name="img-answer-{{key}}" id="img-answer-{{key}}" value="{{img}}" type="text" />
+        <label class="label setting-label poll-setting-label" for="{{noun}}-{{key}}">{{noun}}</label>
+        <input class="input setting-input" name="{{noun}}-{{key}}" id="{{noun}}-{{key}}" value="{{text}}" type="text" /><br />
+        {{#if image}}
+        <label class="label setting-label" for="img-{{noun}}-{{key}}">Image URL</label>
+        <input class="input setting-input" name="img-{{noun}}-{{key}}" id="img-{{noun}}-{{key}}" value="{{img}}" type="text" />
+        {{/if}}
         <div class="poll-move">
             <div class="poll-move-up">&#9650;</div>
             <div class="poll-move-down">&#9660;</div>
         </div>
     </div>
     <span class="tip setting-help">
-        Enter an answer for the user to select. An answer must have an image URL or text, and can have both.
+        {{#if image}}This must have an image URL or text, and can have both.{{/if}}
     </span>
     <a href="#" class="button action-button poll-delete-answer" onclick="return false;">Delete</a>
 </li>

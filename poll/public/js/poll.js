@@ -9,7 +9,7 @@ function PollUtil (runtime, element, pollType) {
         this.tallyURL = runtime.handlerUrl(element, 'get_results');
         this.submit = $('input[type=button]', element);
         this.answers = $('input[type=radio]', element);
-        this.resultsTemplate = Handlebars.compile($("#" + self.pollType + "-results-template", element).html());
+        this.resultsTemplate = Handlebars.compile($("#" + pollType + "-results-template", element).html());
         // If the submit button doesn't exist, the user has already
         // selected a choice. Render results instead of initializing machinery.
         if (! self.submit.length) {
@@ -114,7 +114,6 @@ function PollUtil (runtime, element, pollType) {
         self.answers.unbind("change.enableSubmit");
     };
 
-    this.pollType = pollType;
     var run_init = this.init();
     if (run_init) {
         var init_map = {'poll': self.pollInit, 'survey': self.surveyInit};

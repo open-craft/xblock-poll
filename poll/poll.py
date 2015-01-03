@@ -57,12 +57,13 @@ class PollBase(XBlock, ResourceMixin, PublishEventMixin):
     @XBlock.json_handler
     def load_answers(self, data, suffix=''):
         return {
-            'answers': [
+            'items': [
                 {
-                    'key': key, 'text': value['label'], 'img': value['img']
+                    'key': key, 'text': value['label'], 'img': value['img'],
+                    'noun': 'answer', 'image': True,
                 }
                 for key, value in self.answers
-            ]
+            ],
         }
 
     @XBlock.json_handler
@@ -290,7 +291,7 @@ class PollBlock(PollBase):
             if not (img or label):
                 result['success'] = False
                 result['errors'].append(
-                    "Answer {0} has no text or img. One is needed.")
+                    "Answer {0} has no text or img. One is needed.".format(answer))
             answers.append((key, {'label': label, 'img': img}))
 
         if not len(answers) > 1:
@@ -338,15 +339,15 @@ class SurveyBlock(PollBase):
     display_name = String(default='Survey')
     answers = List(
         default=(
-            ('Y', {'label': 'Yes', 'img': None}), ('N', {'label': 'No', 'img': None}),
-            ('M', {'label': 'Maybe', 'img': None})),
+            ('Y', 'Yes'), ('N', 'No'),
+            ('M', 'Maybe')),
         scope=Scope.settings, help="Answer choices for this Survey"
     )
     questions = List(
         default=(
-            ('enjoy', 'Are you enjoying the course?'),
-            ('recommend', 'Would you recommend this course to your friends?'),
-            ('learn', 'Do you think you will learn a lot?')
+            ('enjoy', {'label': 'Are you enjoying the course?', 'img': None}),
+            ('recommend', {'label': 'Would you recommend this course to your friends?', 'img': None}),
+            ('learn', {'label': 'Do you think you will learn a lot?', 'img': None})
         ),
         scope=Scope.settings, help="Questions for this Survey"
     )
@@ -426,7 +427,7 @@ class SurveyBlock(PollBase):
             answer_set = OrderedDict(default_answers)
             answer_set.update(source_tally[key])
             tally.append({
-                'text': value,
+                'text': value['label'],
                 'answers': [
                     {
                         'count': count, 'choice': False,
@@ -500,9 +501,33 @@ class SurveyBlock(PollBase):
         detail, total = self.tally_detail()
         return {
             'answers': [
-                value['label'] for value in OrderedDict(self.answers).values()],
+                value for value in OrderedDict(self.answers).values()],
             'tally': detail, 'total': total, 'feedback': markdown(self.feedback),
             'plural': total > 1, 'display_name': self.display_name,
+        }
+
+    @XBlock.json_handler
+    def load_answers(self, data, suffix=''):
+        return {
+            'items': [
+                {
+                    'key': key, 'text': value,
+                    'noun': 'answer', 'image': False,
+                }
+                for key, value in self.answers
+            ],
+        }
+
+    @XBlock.json_handler
+    def load_questions(self, data, suffix=''):
+        return {
+            'items': [
+                {
+                    'key': key, 'text': value['label'], 'img': value['img'],
+                    'noun': 'question', 'image': True,
+                }
+                for key, value in self.questions
+            ]
         }
 
     @XBlock.json_handler
