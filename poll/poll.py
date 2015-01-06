@@ -54,58 +54,68 @@ class PollBase(XBlock, ResourceMixin, PublishEventMixin):
             choice_data,
         )
 
-    @XBlock.json_handler
-    def load_answers(self, data, suffix=''):
-        return {
-            'items': [
-                {
-                    'key': key, 'text': value['label'], 'img': value['img'],
-                    'noun': 'answer', 'image': True,
-                }
-                for key, value in self.answers
-            ],
-        }
-
-    @XBlock.json_handler
-    def get_results(self, data, suffix=''):
-        self.publish_event_from_dict(self.event_namespace + '.view_results', {})
-        detail, total = self.tally_detail()
-        return {
-            'question': markdown(self.question), 'tally': detail,
-            'total': total, 'feedback': markdown(self.feedback),
-            'plural': total > 1, 'display_name': self.display_name,
-        }
-
-    @XBlock.json_handler
-    def vote(self, data, suffix=''):
+    @staticmethod
+    def any_image(field):
         """
-        Sets the user's vote.
+        Find out if any answer has an image, since it affects layout.
         """
-        result = {'success': False, 'errors': []}
-        if self.get_choice() is not None:
-            result['errors'].append('You have already voted in this poll.')
-            return result
-        try:
-            choice = data['choice']
-        except KeyError:
-            result['errors'].append('Answer not included with request.')
-            return result
-        # Just to show data coming in...
-        try:
-            OrderedDict(self.answers)[choice]
-        except KeyError:
-            result['errors'].append('No key "{choice}" in answers table.'.format(choice=choice))
-            return result
+        return any(value['img'] for value in dict(field).values())
 
-        self.clean_tally()
-        self.choice = choice
-        self.tally[choice] = self.tally.get(choice, 0) + 1
+    @staticmethod
+    def gather_items(data, result, noun, field, image=True):
+        """
+        Gathers a set of label-img pairs from a data dict and puts them in order.
+        """
+        items = []
+        if field not in data or not isinstance(data[field], list):
+            source_items = []
+            result['success'] = False
+            result['errors'].append(
+                "'{0}' is not present, or not a JSON array.".format(field))
+        else:
+            source_items = data[field]
 
-        result['success'] = True
+        # Make sure all components are present and clean them.
+        for item in source_items:
+            if not isinstance(item, dict):
+                result['success'] = False
+                result['errors'].append(
+                    "{0} {1} not a javascript object!".format(noun, item))
+                continue
+            key = item.get('key', '').strip()
+            if not key:
+                result['success'] = False
+                result['errors'].append(
+                    "{0} {1} contains no key.".format(noun, item))
+            image_link = item.get('img', '').strip()
+            label = item.get('label', '').strip()
+            if not label:
+                if image and not image_link:
+                    result['success'] = False
+                    result['errors'].append(
+                        "{0} has no text or img. Please make sure all {0}s "
+                        "have one or the other, or both.".format(noun))
+                elif not image:
+                    result['success'] = False
+                    # If there's a bug in the code or the user just forgot to relabel a question,
+                    # votes could be accidentally lost if we assume the omission was an
+                    # intended deletion.
+                    result['errors'].append("{0} was added with no label. "
+                                            "All {1}s must have labels. Please check the form. "
+                                            "Check the form and explicitly delete {1}s "
+                                            "if not needed.".format(noun, noun.lower()))
+            if image:
+                # Labels might have prefixed space for markdown, though it's unlikely.
+                items.append((key, {'label': label, 'img': image_link.strip()}))
+            else:
+                items.append([key, label])
 
-        self.send_vote_event({'choice': self.choice})
+        if not len(items) > 1:
+            result['errors'].append(
+                "You must include at least two {0}s.".format(noun.lower()))
+            result['success'] = False
 
-        return result
+        return items
 
 
 class PollBlock(PollBase):
@@ -145,12 +155,6 @@ class PollBlock(PollBase):
             if key not in answers:
                 del self.tally[key]
 
-    def any_image(self):
-        """
-        Find out if any answer has an image, since it affects layout.
-        """
-        return any(value['img'] for value in dict(self.answers).values())
-
     def tally_detail(self):
         """
         Return a detailed dictionary from the stored tally that the
@@ -162,7 +166,7 @@ class PollBlock(PollBase):
         total = 0
         self.clean_tally()
         source_tally = self.tally
-        any_img = self.any_image()
+        any_img = self.any_image(self.answers)
         for key, value in answers.items():
             count = int(source_tally[key])
             tally.append({
@@ -225,7 +229,7 @@ class PollBlock(PollBase):
             # Mustache is treating an empty string as true.
             'feedback': markdown(self.feedback) or False,
             'js_template': js_template,
-            'any_img': self.any_image(),
+            'any_img': self.any_image(self.answers),
             # The SDK doesn't set url_name.
             'url_name': getattr(self, 'url_name', ''),
             "display_name": self.display_name,
@@ -246,6 +250,7 @@ class PollBlock(PollBase):
         js_template = self.resource_string('/public/handlebars/poll_studio.handlebars')
         context.update({
             'question': self.question,
+            'display_name': self.display_name,
             'feedback': self.feedback,
             'js_template': js_template
         })
@@ -254,57 +259,79 @@ class PollBlock(PollBase):
             "/public/css/poll_edit.css", "public/js/poll_edit.js", "PollEdit")
 
     @XBlock.json_handler
+    def load_answers(self, data, suffix=''):
+        return {
+            'items': [
+                {
+                    'key': key, 'text': value['label'], 'img': value['img'],
+                    'noun': 'answer', 'image': True,
+                    }
+                for key, value in self.answers
+            ],
+        }
+
+    @XBlock.json_handler
+    def get_results(self, data, suffix=''):
+        self.publish_event_from_dict(self.event_namespace + '.view_results', {})
+        detail, total = self.tally_detail()
+        return {
+            'question': markdown(self.question), 'tally': detail,
+            'total': total, 'feedback': markdown(self.feedback),
+            'plural': total > 1, 'display_name': self.display_name,
+        }
+
+    @XBlock.json_handler
+    def vote(self, data, suffix=''):
+        """
+        Sets the user's vote.
+        """
+        result = {'success': False, 'errors': []}
+        if self.get_choice() is not None:
+            result['errors'].append('You have already voted in this poll.')
+            return result
+        try:
+            choice = data['choice']
+        except KeyError:
+            result['errors'].append('Answer not included with request.')
+            return result
+        # Just to show data coming in...
+        try:
+            OrderedDict(self.answers)[choice]
+        except KeyError:
+            result['errors'].append('No key "{choice}" in answers table.'.format(choice=choice))
+            return result
+
+        self.clean_tally()
+        self.choice = choice
+        self.tally[choice] = self.tally.get(choice, 0) + 1
+
+        result['success'] = True
+
+        self.send_vote_event({'choice': self.choice})
+
+        return result
+
+    @XBlock.json_handler
     def studio_submit(self, data, suffix=''):
         # I wonder if there's something for live validation feedback already.
 
         result = {'success': True, 'errors': []}
         question = data.get('question', '').strip()
         feedback = data.get('feedback', '').strip()
+        display_name = data.get('display_name', '').strip()
         if not question:
             result['errors'].append("You must specify a question.")
-            result['success'] = False
-
-        answers = []
-
-        if 'answers' not in data or not isinstance(data['answers'], list):
-            source_answers = []
-            result['success'] = False
-            result['errors'].append(
-                "'answers' is not present, or not a JSON array.")
-        else:
-            source_answers = data['answers']
-
-        # Make sure all components are present and clean them.
-        for answer in source_answers:
-            if not isinstance(answer, dict):
-                result['success'] = False
-                result['errors'].append(
-                    "Answer {0} not a javascript object!".format(answer))
-                continue
-            key = answer.get('key', '').strip()
-            if not key:
-                result['success'] = False
-                result['errors'].append(
-                    "Answer {0} contains no key.".format(answer))
-            img = answer.get('img', '').strip()
-            label = answer.get('label', '').strip()
-            if not (img or label):
-                result['success'] = False
-                result['errors'].append(
-                    "Answer {0} has no text or img. One is needed.".format(answer))
-            answers.append((key, {'label': label, 'img': img}))
-
-        if not len(answers) > 1:
-            result['errors'].append(
-                "You must include at least two answers.")
             result['success'] = False
 
         if not result['success']:
             return result
 
+        answers = self.gather_items(data, result, 'Answer', 'answers')
+
         self.answers = answers
         self.question = question
         self.feedback = feedback
+        self.display_name = display_name
 
         # Tally will not be updated until the next attempt to use it, per
         # scoping limitations.
@@ -379,6 +406,7 @@ class SurveyBlock(PollBase):
             'answers': self.answers,
             'js_template': js_template,
             'questions': self.questions,
+            'any_img': self.any_image(self.questions),
             # Mustache is treating an empty string as true.
             'feedback': markdown(self.feedback) or False,
             # The SDK doesn't set url_name.
@@ -396,13 +424,14 @@ class SurveyBlock(PollBase):
 
         js_template = self.resource_string('/public/handlebars/poll_studio.handlebars')
         context.update({
-            'question': self.question,
             'feedback': self.feedback,
-            'js_template': js_template
+            'display_name': self.display_name,
+            'js_template': js_template,
+            'multiquestion': True,
         })
         return self.create_fragment(
             context, "public/html/poll_edit.html",
-            "/public/css/poll_edit.css", "public/js/poll_edit.js", "SurveyEditBlock")
+            "/public/css/poll_edit.css", "public/js/poll_edit.js", "SurveyEdit")
 
     def tally_detail(self):
         """
@@ -566,6 +595,30 @@ class SurveyBlock(PollBase):
             self.tally[key][value] += 1
 
         self.send_vote_event({'choices': choices})
+
+        return result
+
+    @XBlock.json_handler
+    def studio_submit(self, data, suffix=''):
+        # I wonder if there's something for live validation feedback already.
+
+        result = {'success': True, 'errors': []}
+        feedback = data.get('feedback', '').strip()
+        display_name = data.get('display_name', '').strip()
+
+        answers = self.gather_items(data, result, 'Answer', 'answers', image=False)
+        questions = self.gather_items(data, result, 'Question', 'questions')
+
+        if not result['success']:
+            return result
+
+        self.answers = answers
+        self.questions = questions
+        self.feedback = feedback
+        self.display_name = display_name
+
+        # Tally will not be updated until the next attempt to use it, per
+        # scoping limitations.
 
         return result
 

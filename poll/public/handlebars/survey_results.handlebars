@@ -11,6 +11,12 @@
         </thead>
         {{#each tally}}
             <tr class="survey-row">
+                {{#if img}}
+                <div class="poll-image-td">
+                    <img src="{{img}}" />
+                </div>
+                {{/if}}
+                {% endif %}
                 <td class="survey-question">{{{text}}}</td>
                 {{#each answers}}
                     <td class="survey-percentage survey-option{{#if choice}} survey-choice{{/if}}{{#if top}} poll-top-choice{{/if}}">{{percent}}%</td>

@@ -2,49 +2,60 @@
 function PollEditUtil(runtime, element, pollType) {
     var self = this;
 
+
+    // These URLs aren't validated in real time, so even if they don't exist for a type of block
+    // we can create a reference to them.
+    this.loadAnswers = runtime.handlerUrl(element, 'load_answers');
+    this.loadQuestions = runtime.handlerUrl(element, 'load_questions');
+
     this.init = function () {
         // Set up the editing form for a Poll or Survey.
-        self.loadAnswers = runtime.handlerUrl(element, 'load_answers');
-        var temp = $('#answer-form-component', element).html();
+        var temp = $('#poll-form-component', element).html();
         self.answerTemplate = Handlebars.compile(temp);
 
         $(element).find('.cancel-button', element).bind('click', function() {
             runtime.notify('cancel', {});
         });
-        var mapping = self.mappings[pollType]['buttons'];
-        for (var key in mapping) {
-            if (mapping.hasOwnProperty(key)) {
+        var button_mapping = self.mappings[pollType]['buttons'];
+        for (var key in button_mapping) {
+            if (button_mapping.hasOwnProperty(key)) {
                 $(key, element).click(
                     // The nature of the closure forces us to make a custom function here.
-                    function (context_key, topMarker, bottomMarker) {
+                    function (context_key) {
                         return function () {
                             // The degree of precision on date should be precise enough to avoid
                             // collisions in the real world.
-                            var bottom = $(bottomMarker);
-                            $(self.answerTemplate(mapping[context_key]['itemList'])).before(bottom);
-                            var new_item = bottom.prev();
+                            var bottom = $(button_mapping[context_key]['bottomMarker']);
+                            var new_item = $(self.answerTemplate(button_mapping[context_key]['itemList']));
+                            bottom.before(new_item);
                             self.empowerDeletes(new_item);
                             self.empowerArrows(
-                                new_item, mapping[context_key]['topMarker'],
-                                mapping[context_key]['bottomMarker']
+                                new_item, button_mapping[context_key]['topMarker'],
+                                button_mapping[context_key]['bottomMarker']
                             );
                             new_item.fadeOut(250).fadeIn(250);
                         }
-                    }(key, self.mappings[pollType])
+                    }(key)
                 )
             }
         }
 
         $(element).find('.save-button', element).bind('click', self.pollSubmitHandler);
 
-        $(function ($) {
-            $.ajax({
-                type: "POST",
-                url: self.loadAnswers,
-                data: JSON.stringify({}),
-                success: self.displayAnswers
-            });
-        });
+        var mapping = self.mappings[pollType]['onLoad'];
+        for (var task in mapping) {
+            function load (taskItem){
+                $(function ($) {
+                    $.ajax({
+                        type: "POST",
+                        url: taskItem['url'],
+                        data: JSON.stringify({}),
+                        success: taskItem['function']
+                    });
+                });
+            }
+            load(mapping[task]);
+        }
     };
 
     this.extend = function (obj1, obj2) {
@@ -63,32 +74,6 @@ function PollEditUtil(runtime, element, pollType) {
         // an image path field should be provided, and 'noun', which should be either
         // 'question' or 'answer' depending on what is needed.
         return self.extend({'key': new Date().getTime(), 'text': '', 'img': ''}, extra)
-    };
-
-    // This object is used to swap out values which differ between Survey and Poll blocks.
-    this.mappings = {
-        'poll': {
-            'buttons': {
-                '#poll-add-answer': {
-                    'itemList': {'items': [self.makeNew({'image': true, 'noun': 'answer'})]},
-                    'topMarker': '#poll-answer-marker', 'bottomMarker': '#poll-answer-end-marker'
-                }
-            },
-            'onLoad': {
-
-            }
-        },
-        'survey': {
-            'buttons': {
-                '#poll-add-answer': {
-                    'itemList': {'items': [self.makeNew({'image': false, 'noun': 'answer'})]},
-                    'topMarker': '#poll-answer-marker', 'bottomMarker': '#poll-answer-end-marker'
-                },
-                '#poll-add-question': {
-                    'itemList': {'items': [self.makeNew({'image': true, 'noun': 'question'})]}
-                }
-            }
-        }
     };
 
     this.empowerDeletes = function (scope) {
@@ -122,9 +107,44 @@ function PollEditUtil(runtime, element, pollType) {
         self.displayItems(data, '#poll-answer-marker', '#poll-answer-end-marker')
     };
 
+    this.displayQuestions = function (data) {
+        self.displayItems(data, "#poll-question-marker", '#poll-question-end-marker')
+    };
+
+    // This object is used to swap out values which differ between Survey and Poll blocks.
+    this.mappings = {
+        'poll': {
+            'buttons': {
+                '#poll-add-answer': {
+                    'itemList': {'items': [self.makeNew({'image': true, 'noun': 'answer'})]},
+                    'topMarker': '#poll-answer-marker', 'bottomMarker': '#poll-answer-end-marker'
+                }
+            },
+            'onLoad': [{'url': self.loadAnswers, 'function': self.displayAnswers}],
+            'gather': [{'prefix': 'answer', 'field': 'answers'}]
+        },
+        'survey': {
+            'buttons': {
+                '#poll-add-answer': {
+                    'itemList': {'items': [self.makeNew({'image': false, 'noun': 'answer'})]},
+                    'topMarker': '#poll-answer-marker', 'bottomMarker': '#poll-answer-end-marker'
+                },
+                '#poll-add-question': {
+                    'itemList': {'items': [self.makeNew({'image': true, 'noun': 'question'})]},
+                    'topMarker': '#poll-question-marker', 'bottomMarker': '#poll-question-end-marker'
+                }
+            },
+            'onLoad': [
+                {'url': self.loadQuestions, 'function': self.displayQuestions},
+                {'url': self.loadAnswers, 'function': self.displayAnswers}
+            ],
+            'gather': [{'prefix': 'answer', 'field': 'answers'}, {'prefix': 'question', 'field': 'questions'}]
+        }
+    };
+
     this.displayItems = function(data, topMarker, bottomMarker) {
         // Loads the initial set of items that the block needs to edit.
-        $('#poll-answer-end-marker').before(self.answerTemplate(data));
+        $(bottomMarker).before(self.answerTemplate(data));
         self.empowerDeletes(element, topMarker, bottomMarker);
         self.empowerArrows(element, topMarker, bottomMarker);
     };
@@ -142,31 +162,44 @@ function PollEditUtil(runtime, element, pollType) {
         alert(data['errors'].join('\n'));
     };
 
-    this.pollSubmitHandler = function() {
+    this.gather = function (scope, tracker, data, prefix, field) {
+        var key = 'label';
+        var name = scope.name.replace(prefix + '-', '');
+        if (scope.name.indexOf('img-') == 0){
+            name = name.replace('img-', '');
+            key = 'img'
+        }
+        if (! (scope.name.indexOf(prefix + '-') >= 0)) {
+            return
+        }
+        if (tracker.indexOf(name) == -1){
+            tracker.push(name);
+            data[field].push({'key': name})
+        }
+        var index = tracker.indexOf(name);
+        console.log(data[field]);
+        console.log(index);
+        data[field][index][key] = scope.value;
+        return true
+    };
+
+    this.pollSubmitHandler = function () {
         // Take all of the fields, serialize them, and pass them to the
         // server for saving.
         var handlerUrl = runtime.handlerUrl(element, 'studio_submit');
-        var data = {'answers': []};
-        var tracker = [];
-        $('#poll-form input', element).each(function() {
-            var key = 'label';
-            if (this.name.indexOf('answer-') >= 0){
-                var name = this.name.replace('answer-', '');
-                if (this.name.indexOf('img-') == 0){
-                    name = name.replace('img-', '');
-                    key = 'img'
-                }
-                if (tracker.indexOf(name) == -1){
-                    tracker.push(name);
-                    data['answers'].push({'key': name})
-                }
-                var index = tracker.indexOf(name);
-                data['answers'][index][key] = this.value;
-                return
-            }
-            data[this.name] = this.value
-        });
-        data['title'] = $('#poll-title', element).val();
+        var data = {};
+        var tracker;
+        var gatherings = self.mappings[pollType]['gather'];
+        for (var gathering in gatherings) {
+            tracker = [];
+            var field = gatherings[gathering]['field'];
+            var prefix = gatherings[gathering]['prefix'];
+            data[field] = [];
+            $('#poll-form input', element).each(function () {
+                self.gather(this, tracker, data, prefix, field)
+            });
+        }
+        data['display_name'] = $('#poll-display-name', element).val();
         data['question'] = $('#poll-question-editor', element).val();
         data['feedback'] = $('#poll-feedback-editor', element).val();
 

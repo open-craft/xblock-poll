@@ -78,8 +78,16 @@ li.poll-result .poll-image {
     margin-left: 0;
 }
 
-.poll-image img{
+.poll-image-td {
+    width: 25%;
+}
+
+.poll-image img, .poll-image-td img{
     width: 100%;
+}
+
+.poll-image-td{
+    display: inline-block;
 }
 
 .poll-percent-container {
@@ -154,7 +162,9 @@ li.poll-result .poll-image {
 
 th.survey-answer {
     text-align: center;
-    width: 2em;
+    width: 7%;
+    line-height: 1em;
+    padding-bottom: .25em;
 }
 
 .poll-header {
@@ -168,6 +178,7 @@ th.survey-answer {
 
 .survey-question {
     font-weight: bold;
+    vertical-align: middle;
 }
 
 .survey-choice {
