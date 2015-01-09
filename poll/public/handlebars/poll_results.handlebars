@@ -1,6 +1,6 @@
 <script id="poll-results-template" type="text/html">
     <h2 class="poll-header">{{display_name}}</h2>
-    {{{question}}}
+    <div class="poll-question-container">{{{question}}}</div>
     <ul class="poll-answers-results">
     {{#each tally}}
         <li class="poll-result">
@@ -18,7 +18,7 @@
             {{/if}}
             <div class="percentage-gauge-container">
               <div class="percentage-gauge" style="width:{{percent}}%;">
-                  <label class="poll-answer-label" for="answer-{{key}}">{{answer}}</label>
+                  <label class="poll-answer-label" for="answer-{{key}}">{{{answer}}}</label>
               </div>
             </div>
             <div class="poll-percent-container">

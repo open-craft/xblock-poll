@@ -5,7 +5,7 @@
             <tr>
                 <th></th>
                 {{#each answers}}
-                    <th class="survey-answer">{{this}}</th>
+                    <th class="survey-answer">{{{this}}}</th>
                 {{/each}}
             </tr>
         </thead>
@@ -16,7 +16,6 @@
                     <img src="{{img}}" />
                 </div>
                 {{/if}}
-                {% endif %}
                 <td class="survey-question">{{{text}}}</td>
                 {{#each answers}}
                     <td class="survey-percentage survey-option{{#if choice}} survey-choice{{/if}}{{#if top}} poll-top-choice{{/if}}">{{percent}}%</td>

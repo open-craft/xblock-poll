@@ -184,3 +184,10 @@ th.survey-answer {
 .survey-choice {
     background-color: #e5ebee;
 }
+
+/* Counteract Markdown's wrapping in paragraphs */
+.poll-answer p, .survey-question p, .poll-answer-label p{
+    margin: 0;
+    padding: 0;
+}
+

@@ -2,7 +2,6 @@
 function PollEditUtil(runtime, element, pollType) {
     var self = this;
 
-
     // These URLs aren't validated in real time, so even if they don't exist for a type of block
     // we can create a reference to them.
     this.loadAnswers = runtime.handlerUrl(element, 'load_answers');
@@ -33,7 +32,8 @@ function PollEditUtil(runtime, element, pollType) {
                                 new_item, button_mapping[context_key]['topMarker'],
                                 button_mapping[context_key]['bottomMarker']
                             );
-                            new_item.fadeOut(250).fadeIn(250);
+                            self.scrollTo(new_item);
+                            new_item.fadeOut(0).fadeIn('slow', 'swing');
                         }
                     }(key)
                 )
@@ -56,6 +56,13 @@ function PollEditUtil(runtime, element, pollType) {
             }
             load(mapping[task]);
         }
+    };
+
+    this.scrollTo = function (item){
+        // Scrolls to the center of a particular item in the settings, then flash it.
+        var parent = $('#poll-line-items');
+        var item_center = parent.scrollTop() + item.position().top - parent.height()/2 + item.height() / 2;
+        parent.animate({ scrollTop: item_center }, "slow");
     };
 
     this.extend = function (obj1, obj2) {
@@ -91,7 +98,8 @@ function PollEditUtil(runtime, element, pollType) {
                 return;
             }
             tag.prev().before(tag);
-            tag.fadeOut("fast", "swing").fadeIn("fast", "swing");
+            tag.fadeOut(0).fadeIn('slow', 'swing');
+            self.scrollTo(tag)
         });
         $('.poll-move-down', scope).click(function () {
             var tag = $(this).parents('li');
@@ -99,7 +107,8 @@ function PollEditUtil(runtime, element, pollType) {
                 return;
             }
             tag.next().after(tag);
-            tag.fadeOut("fast", "swing").fadeIn("fast", "swing");
+            tag.fadeOut(0).fadeIn('slow', 'swing');
+            self.scrollTo(tag)
         });
     };
 
@@ -144,12 +153,13 @@ function PollEditUtil(runtime, element, pollType) {
 
     this.displayItems = function(data, topMarker, bottomMarker) {
         // Loads the initial set of items that the block needs to edit.
-        $(bottomMarker).before(self.answerTemplate(data));
-        self.empowerDeletes(element, topMarker, bottomMarker);
-        self.empowerArrows(element, topMarker, bottomMarker);
+        var result = $(self.answerTemplate(data));
+        $(bottomMarker).before(result);
+        self.empowerDeletes(result, topMarker, bottomMarker);
+        self.empowerArrows(result, topMarker, bottomMarker);
     };
 
-    this.check_return = function(data) {
+    this.checkReturn = function(data) {
         // Handle the return value JSON from the server.
         // It would be better if we could have a different function
         // for errors, as AJAX calls normally allow, but our version of XBlock
@@ -177,8 +187,6 @@ function PollEditUtil(runtime, element, pollType) {
             data[field].push({'key': name})
         }
         var index = tracker.indexOf(name);
-        console.log(data[field]);
-        console.log(index);
         data[field][index][key] = scope.value;
         return true
     };
@@ -207,7 +215,7 @@ function PollEditUtil(runtime, element, pollType) {
             type: "POST",
             url: handlerUrl,
             data: JSON.stringify(data),
-            success: self.check_return
+            success: self.checkReturn
         });
     };
 

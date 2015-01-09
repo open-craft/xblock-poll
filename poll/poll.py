@@ -62,6 +62,14 @@ class PollBase(XBlock, ResourceMixin, PublishEventMixin):
         return any(value['img'] for value in dict(field).values())
 
     @staticmethod
+    def markdown_items(items):
+        """
+        Convert all items' labels into markdown.
+        """
+        return [[key, {'label': markdown(value['label']), 'img': value['img']}]
+                for key, value in items]
+
+    @staticmethod
     def gather_items(data, result, noun, field, image=True):
         """
         Gathers a set of label-img pairs from a data dict and puts them in order.
@@ -161,7 +169,7 @@ class PollBlock(PollBase):
         Handlebars template can use.
         """
         tally = []
-        answers = OrderedDict(self.answers)
+        answers = OrderedDict(self.markdown_items(self.answers))
         choice = self.get_choice()
         total = 0
         self.clean_tally()
@@ -224,7 +232,7 @@ class PollBlock(PollBase):
         context.update({
             'choice': choice,
             # Offset so choices will always be True.
-            'answers': self.answers,
+            'answers': self.markdown_items(self.answers),
             'question': markdown(self.question),
             # Mustache is treating an empty string as true.
             'feedback': markdown(self.feedback) or False,
@@ -405,7 +413,7 @@ class SurveyBlock(PollBase):
             # Offset so choices will always be True.
             'answers': self.answers,
             'js_template': js_template,
-            'questions': self.questions,
+            'questions': self.markdown_items(self.questions),
             'any_img': self.any_image(self.questions),
             # Mustache is treating an empty string as true.
             'feedback': markdown(self.feedback) or False,
@@ -439,7 +447,7 @@ class SurveyBlock(PollBase):
         Handlebars template can use.
         """
         tally = []
-        questions = OrderedDict(self.questions)
+        questions = OrderedDict(self.markdown_items(self.questions))
         default_answers = OrderedDict([(answer, 0) for answer, __ in self.answers])
         choices = self.get_choices()
         total = 0
@@ -636,11 +644,11 @@ class SurveyBlock(PollBase):
              """),
             ("Survey Functions",
              """
-             <vertical_demo>
-                 <survey tally='{"q1": {"sa": 5, "a": 5, "n": 3, "d": 2, "sd": 5}, "q2": {"sa": 3, "a": 2, "n": 3, "d": 10, "sd": 2}, "q3": {"sa": 2, "a": 7, "n": 1, "d": 4, "sd": 6}, "q4": {"sa": 1, "a": 2, "n": 8, "d": 4, "sd": 5}}'
-                     questions='[["q1", "I feel like this test will pass."], ["q2", "I like testing software"], ["q3", "Testing is not necessary"], ["q4", "I would fake a test result to get software deployed."]]'
-                     answers='[["sa", {"label": "Strongly Agree"}], ["a", {"label": "Agree"}], ["n", {"label": "Neutral"}], ["d", {"label": "Disagree"}], ["sd", {"label": "Strongly Disagree"}]]'
-                     feedback="### Thank you&#10;&#10;for running the tests."/>
-             </vertical_demo>
+            <vertical_demo>
+                <survey tally='{"q1": {"sa": 5, "a": 5, "n": 3, "d": 2, "sd": 5}, "q2": {"sa": 3, "a": 2, "n": 3, "d": 10, "sd": 2}, "q3": {"sa": 2, "a": 7, "n": 1, "d": 4, "sd": 6}, "q4": {"sa": 1, "a": 2, "n": 8, "d": 4, "sd": 5}}'
+                        questions='[["q1", {"label": "I feel like this test will pass.", "img": null}], ["q2", {"label": "I like testing software", "img": null}], ["q3", {"label": "Testing is not necessary", "img": null}], ["q4", {"label": "I would fake a test result to get software deployed.", "img": null}]]'
+                        answers='[["sa", "Strongly Agree"], ["a", "Agree"], ["n", "Neutral"], ["d", "Disagree"], ["sd", "Strongly Disagree"]]'
+                        feedback="### Thank you&#10;&#10;for running the tests."/>
+            </vertical_demo>
              """)
         ]

@@ -20,7 +20,7 @@
                   </label>
               </div>
               {% endif %}
-              <label class="poll-answer" for="{{url_name}}-answer-{{key}}">{{value.label}}</label>
+              <label class="poll-answer" for="{{url_name}}-answer-{{key}}">{{value.label|safe}}</label>
           </li>
       {% endfor %}
       </ul>

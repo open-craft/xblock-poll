@@ -21,7 +21,7 @@
                                 <img src="{{question.img}}" />
                         </div>
                     {% endif %}
-                  {{question.label}}
+                  {{question.label|safe}}
                 </td>
             {% for answer, answer_details in answers %}
                 <td class="survey-option">
