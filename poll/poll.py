@@ -361,11 +361,11 @@ class PollBlock(PollBase):
             ("Customized Poll",
              """
              <vertical_demo>
-                 <poll url_name="poll_functions" question="## How long have you been studying with us?"
-                     feedback="### Thank you&#10;&#10;for being a valued student."
-                     tally="{'long': 20, 'short': 29, 'not_saying': 15, 'longer' : 35}"
-                     answers="[['long', 'A very long time'], ['short', 'Not very long'], ['not_saying', 'I shall not say'], ['longer', 'Longer than you']]"/>
-            </vertical_demo>
+                 <poll tally="{'long': 20, 'short': 29, 'not_saying': 15, 'longer' : 35}"
+                       question="## How long have you been studying with us?"
+                       answers='[["longt", {"label": "A very long time", "img": null}], ["short", {"label": "Not very long", "img": null}], ["not_saying", {"label": "I shall not say", "img": null}], ["longer", {"label": "Longer than you", "img": null}]]'
+                       feedback="### Thank you&#10;&#10;for being a valued student."/>
+             </vertical_demo>
              """),
         ]
 
@@ -408,8 +408,10 @@ class SurveyBlock(PollBase):
         js_template = self.resource_string(
             '/public/handlebars/survey_results.handlebars')
 
+        choices = self.get_choices()
+
         context.update({
-            'choices': self.get_choices(),
+            'choices': choices,
             # Offset so choices will always be True.
             'answers': self.answers,
             'js_template': js_template,
@@ -449,7 +451,7 @@ class SurveyBlock(PollBase):
         tally = []
         questions = OrderedDict(self.markdown_items(self.questions))
         default_answers = OrderedDict([(answer, 0) for answer, __ in self.answers])
-        choices = self.get_choices()
+        choices = self.choices
         total = 0
         self.clean_tally()
         source_tally = self.tally
@@ -511,10 +513,30 @@ class SurveyBlock(PollBase):
                 # question.
                 new_answers = dict(default_answers)
                 new_answers.update(self.tally[key])
-                for existing_key in new_answers:
+                for existing_key in self.tally[key]:
                     if existing_key not in default_answers:
                         del new_answers[existing_key]
                 self.tally[key] = new_answers
+
+    def remove_vote(self):
+        """
+        If the poll has changed after a user has voted, remove their votes
+        from the tally.
+
+        This can only be done lazily-- once a user revisits, since we can't
+        edit the tally in the studio due to scoping issues.
+
+        This means a user's old votes may still count indefinitely after a
+        change, should they never revisit.
+        """
+        questions = dict(self.questions)
+        answers = dict(self.answers)
+        for key, value in self.choices:
+            if key in questions:
+                if value in answers:
+                    self.tally[key][value] -= 1
+        self.choices = None
+        self.save()
 
     def get_choices(self):
         """
@@ -524,11 +546,12 @@ class SurveyBlock(PollBase):
         answers = dict(self.answers)
         if self.choices is None:
             return None
-        # TODO: Remove user's existing votes when this happens.
         if sorted(questions.keys()) != sorted(self.choices.keys()):
+            self.remove_vote()
             return None
         for value in self.choices.values():
             if value not in answers:
+                self.remove_vote()
                 return None
         return self.choices
 

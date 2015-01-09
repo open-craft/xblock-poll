@@ -61,6 +61,7 @@ li.poll-result {
     display: inline-block;
     margin-bottom: 5px;
     margin-top: 5px;
+    white-space: nowrap;
 }
 
 .poll-image {
@@ -179,6 +180,8 @@ th.survey-answer {
 .survey-question {
     font-weight: bold;
     vertical-align: middle;
+    padding-top: .15em;
+    padding-bottom: .15em;
 }
 
 .survey-choice {
