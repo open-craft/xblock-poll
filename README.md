@@ -33,5 +33,5 @@ removing an answer.
 
 ## Grading
 
-Each block has a score value of 1, credited to the student upon creation of the block.
+Each block has a score value of 1, credited to the student upon completion of the block.
 
