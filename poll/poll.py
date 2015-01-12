@@ -49,9 +49,12 @@ class PollBase(XBlock, ResourceMixin, PublishEventMixin):
             'max_value': 1,
             }
         )
+        # The SDK doesn't set url_name.
+        event_dict = {'url_name': getattr(self, 'url_name', '')}
+        event_dict.update(choice_data)
         self.publish_event_from_dict(
             self.event_namespace + '.submitted',
-            choice_data,
+            event_dict,
         )
 
     @staticmethod
@@ -466,11 +469,12 @@ class SurveyBlock(PollBase):
             answer_set = OrderedDict(default_answers)
             answer_set.update(source_tally[key])
             tally.append({
-                'text': value['label'],
+                'label': value['label'],
+                'img': value['img'],
                 'answers': [
                     {
                         'count': count, 'choice': False,
-                        'key': answer_key, 'top': False
+                        'key': answer_key, 'top': False,
                     }
                     for answer_key, count in answer_set.items()],
                 'key': key,
@@ -625,7 +629,7 @@ class SurveyBlock(PollBase):
         for key, value in self.choices.items():
             self.tally[key][value] += 1
 
-        self.send_vote_event({'choices': choices})
+        self.send_vote_event({'choices': self.choices})
 
         return result
 
