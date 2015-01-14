@@ -1,6 +1,6 @@
 from unittest import TestCase
 
-from poll.utils import process_markdown
+from markdown import markdown
 
 
 class ProcessMarkdownTest(TestCase):
@@ -37,6 +37,6 @@ This is a paragraph of text, despite being just one sentence.
 <blockquote>
 <p>This is going to be a blockquote.</p>
 </blockquote>
-&lt;script type="text/javascript"&gt;breakstuff();&lt;/script&gt;"""
+<script type="text/javascript">breakstuff();</script>"""
         )
-        self.assertEqual(end_string, process_markdown(start_string))
+        self.assertEqual(end_string, markdown(start_string))

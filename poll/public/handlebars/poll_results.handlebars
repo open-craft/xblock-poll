@@ -1,5 +1,6 @@
-<script id="results" type="text/html">
-    {{{question}}}
+<script id="poll-results-template" type="text/html">
+    <h2 class="poll-header">{{display_name}}</h2>
+    <div class="poll-question-container">{{{question}}}</div>
     <ul class="poll-answers-results">
     {{#each tally}}
         <li class="poll-result">
@@ -17,11 +18,11 @@
             {{/if}}
             <div class="percentage-gauge-container">
               <div class="percentage-gauge" style="width:{{percent}}%;">
-                  <label class="poll-answer-label" for="answer-{{key}}">{{answer}}</label>
+                  <label class="poll-answer-label" for="answer-{{key}}">{{{answer}}}</label>
               </div>
             </div>
             <div class="poll-percent-container">
-                <span class="poll-percent-display{{#if top}} poll-top-choice{{/if}}">{{percent}}%</span>
+                <span class="poll-percent-display{{#if first}} poll-top-choice{{/if}}">{{percent}}%</span>
             </div>
         </li>
        {{^last}}
@@ -31,9 +32,10 @@
     {{/each}}
     </ul>
     <input class="input-main" type="button" name="poll-submit" value="Submit" disabled>
-    <div class="poll-footnote">Results gathered from {{total}} respondent(s).</div>
+    <div class="poll-footnote">Results gathered from {{total}} respondent{{#if plural}}s{{/if}}.</div>
     {{#if feedback}}
         <hr />
+        <h2 class="poll-header">Feedback</h2>
         <div class="poll-feedback">
             {{{feedback}}}
         </div>

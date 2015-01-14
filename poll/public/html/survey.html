@@ -1,0 +1,37 @@
+{{ js_template|safe }}
+<div class="poll-block">
+    {# If no form is present, the Javascript will load the results instead. #}
+    {% if not choices %}
+    <h3 class="poll-header">{{display_name}}</h3>
+    <form>
+        <table class="survey-table">
+            <thead>
+              <tr>
+                  <th></th>
+                  {% for answer, label in answers %}
+                    <th class="survey-answer">{{label}}</th>
+                  {% endfor %}
+              </tr>
+            </thead>
+        {% for key, question in questions %}
+            <tr class="survey-row">
+                <td class="survey-question">
+                    {% if question.img %}
+                        <div class="poll-image-td">
+                                <img src="{{question.img}}" />
+                        </div>
+                    {% endif %}
+                  {{question.label|safe}}
+                </td>
+            {% for answer, answer_details in answers %}
+                <td class="survey-option">
+                    <input type="radio" name="{{key}}" value="{{answer}}" />
+                </td>
+            {% endfor %}
+            </tr>
+        {% endfor %}
+        </table>
+        <input class="input-main" type="button" name="poll-submit" value="Submit" disabled />
+    </form>
+    {% endif %}
+</div>

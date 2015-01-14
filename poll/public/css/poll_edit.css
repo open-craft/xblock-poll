@@ -38,3 +38,7 @@
 .poll-move {
     float: right;
 }
+
+.poll-setting-label {
+    text-transform: capitalize;
+}

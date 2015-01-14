@@ -1,0 +1,37 @@
+<script id="survey-results-template" type="text/html">
+    <h3 class="poll-header">{{display_name}}</h3>
+    <table class="survey-table">
+        <thead>
+            <tr>
+                <th></th>
+                {{#each answers}}
+                    <th class="survey-answer">{{{this}}}</th>
+                {{/each}}
+            </tr>
+        </thead>
+        {{#each tally}}
+            <tr class="survey-row">
+                <td class="survey-question">
+                    {{#if img}}
+                        <div class="poll-image-td">
+                            <img src="{{img}}" />
+                        </div>
+                    {{/if}}
+                    {{{label}}}
+                </td>
+                {{#each answers}}
+                    <td class="survey-percentage survey-option{{#if choice}} survey-choice{{/if}}{{#if top}} poll-top-choice{{/if}}">{{percent}}%</td>
+                {{/each}}
+            </tr>
+        {{/each}}
+    </table>
+    <input class="input-main" type="button" name="poll-submit" value="Submit" disabled>
+    <div class="poll-footnote">Results gathered from {{total}} respondent{{#if plural}}s{{/if}}.</div>
+    {{#if feedback}}
+        <hr />
+        <h2 class="poll-header">Feedback</h2>
+        <div class="poll-feedback">
+            {{{feedback}}}
+        </div>
+    {{/if}}
+</script>

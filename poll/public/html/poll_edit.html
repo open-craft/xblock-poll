@@ -3,13 +3,21 @@
     <form id="poll-form">
     <ul class="list-input settings-list" id="poll-line-items">
         <li class="field comp-setting-entry is-set">
-          <h2><label for="poll-question-editor">Question/Prompt</label></h2>
-          <a href="//daringfireball.net/projects/markdown/syntax" target="_blank">Markdown Syntax</a> is supported.
-          <div id="poll-question-editor-container">
-            <textarea class="input setting-input" name="question" id="poll-question-editor">{{question}}</textarea>
-          </div>
-          <span class="tip setting-help">Enter the prompt for the user. (Truncated after 5000 characters)</span>
+            <div class="wrapper-comp-setting">
+                <label class="label setting-label poll-setting-label" for="display_name">Display Name</label>
+                <input class="input setting-input" name="display_name" id="poll-display-name" value="{{ display_name }}" type="text" />
+            </div>
         </li>
+        {% if not multiquestion %}
+            <li class="field comp-setting-entry is-set">
+              <h2><label for="poll-question-editor">Question/Prompt</label></h2>
+              <a href="//daringfireball.net/projects/markdown/syntax" target="_blank">Markdown Syntax</a> is supported.
+              <div id="poll-question-editor-container">
+                <textarea class="input setting-input" name="question" id="poll-question-editor">{{question}}</textarea>
+              </div>
+              <span class="tip setting-help">Enter the prompt for the user.</span>
+            </li>
+        {% endif %}
         <li class="field comp-setting-entry is-set">
            <h2><label for="poll-feedback-editor">Feedback</label></h2>
            <a href="//daringfireball.net/projects/markdown/syntax" target="_blank">Markdown Syntax</a> is supported.
@@ -18,7 +26,7 @@
            </div>
             <span class="tip setting-help">
                 This text will be displayed for the user as some extra feedback after they have
-                submitted their response to the poll. (Truncated after 5000 characters)
+                submitted their response to the poll.
             </span>
         </li>
         <li class="field comp-setting-entry is-set">
@@ -29,13 +37,29 @@
                 If you delete an answer, any votes for that answer will also be deleted. Students whose choices are deleted
                 may vote again, but will not lose course progress.
             </p>
+            {%  if multiquestion %}
+                <p>
+                    Questions must be similarly cared for. If a question's text is changed, any votes for that question will remain.
+                    If a question is deleted, any student who previously took the survey will be permitted to retake it, but will not
+                    lose course progress.
+                </p>
+            {% endif %}
         </li>
+        <li id="poll-answer-marker"></li>
+        <li id="poll-answer-end-marker"></li>
+        <li id="poll-question-marker"></li>
+        <li id="poll-question-end-marker"></li>
     </ul>
     <div class="xblock-actions">
         <ul>
             <li class="action-item" id="poll-add-answer">
-                <a href="#" class="button action-button" class="poll-add-answer-link" onclick="return false;">Add Answer</a>
+                <a href="#" class="button action-button" class="poll-add-item-link" onclick="return false;">Add Answer</a>
             </li>
+            {% if multiquestion %}
+                <li class="action-item" id="poll-add-question">
+                    <a href="#" class="button action-button" class="poll-add-item-link" onclick="return false;">Add Question</a>
+                </li>
+            {% endif %}
             <li class="action-item">
                 <input id="poll-submit-options" type="submit" class="button action-primary save-button" value="Save" onclick="return false;" />
             </li>

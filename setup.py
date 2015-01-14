@@ -22,7 +22,7 @@ def package_data(pkg, roots):
 
 setup(
     name='xblock-poll',
-    version='0.1',
+    version='0.2',
     description='An XBlock for polling users.',
     packages=[
         'poll',
@@ -30,13 +30,13 @@ setup(
     install_requires=[
         'XBlock',
         'markdown',
-        'bleach',
         'xblock-utils',
     ],
     dependency_links=['http://github.com/edx-solutions/xblock-utils/tarball/master#egg=xblock-utils'],
     entry_points={
         'xblock.v1': [
             'poll = poll:PollBlock',
+            'survey = poll:SurveyBlock',
         ]
     },
     package_data=package_data("poll", ["static", "public"]),
