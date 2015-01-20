@@ -1,4 +1,3 @@
-"""TO-DO: Write a description of what this XBlock is."""
 from collections import OrderedDict
 
 from django.template import Template, Context
@@ -104,8 +103,8 @@ class PollBase(XBlock, ResourceMixin, PublishEventMixin):
                 if image and not image_link:
                     result['success'] = False
                     result['errors'].append(
-                        "{0} has no text or img. Please make sure all {0}s "
-                        "have one or the other, or both.".format(noun))
+                        "{0} has no text or img. Please make sure all {1}s "
+                        "have one or the other, or both.".format(noun, noun.lower()))
                 elif not image:
                     result['success'] = False
                     # If there's a bug in the code or the user just forgot to relabel a question,
@@ -334,10 +333,10 @@ class PollBlock(PollBase):
             result['errors'].append("You must specify a question.")
             result['success'] = False
 
+        answers = self.gather_items(data, result, 'Answer', 'answers')
+
         if not result['success']:
             return result
-
-        answers = self.gather_items(data, result, 'Answer', 'answers')
 
         self.answers = answers
         self.question = question

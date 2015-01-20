@@ -2,11 +2,11 @@
 {{#each items}}
 <li class="field comp-setting-entry is-set poll-{{noun}}-studio-item">
     <div class="wrapper-comp-setting">
-        <label class="label setting-label poll-setting-label" for="{{noun}}-{{key}}">{{noun}}</label>
-        <input class="input setting-input" name="{{noun}}-{{key}}" id="{{noun}}-{{key}}" value="{{text}}" type="text" /><br />
+        <label class="label setting-label poll-setting-label" for="{{noun}}-label-{{key}}">{{noun}}</label>
+        <input class="input setting-input" name="{{noun}}-label-{{key}}" id="{{noun}}-label-{{key}}" value="{{text}}" type="text" /><br />
         {{#if image}}
-        <label class="label setting-label" for="img-{{noun}}-{{key}}">Image URL</label>
-        <input class="input setting-input" name="img-{{noun}}-{{key}}" id="img-{{noun}}-{{key}}" value="{{img}}" type="text" />
+        <label class="label setting-label" for="{{noun}}-img-{{key}}">Image URL</label>
+        <input class="input setting-input" name="{{noun}}-img-{{key}}" id="{{noun}}-img-{{key}}" value="{{img}}" type="text" />
         {{/if}}
         <div class="poll-move">
             <div class="poll-move-up">&#9650;</div>
