@@ -110,6 +110,7 @@ li.poll-result .poll-image {
     margin-top: 1em;
     margin-bottom: 1em;
     font-size: smaller;
+    font-weight: bold;
 }
 
 .survey-table {
@@ -143,7 +144,7 @@ li.poll-result .poll-image {
 }
 
 .survey-table thead tr th {
-    font-weight: normal;
+    font-weight: bold;
     font-size: .8rem;
 }
 

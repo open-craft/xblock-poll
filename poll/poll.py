@@ -375,6 +375,9 @@ class PollBlock(PollBase):
 
 class SurveyBlock(PollBase):
     display_name = String(default='Survey')
+    # The display name affects how the block is labeled in the studio,
+    # but either way we want it to say 'Poll' by default on the page.
+    block_name = String(default='Poll')
     answers = List(
         default=(
             ('Y', 'Yes'), ('N', 'No'),
@@ -424,7 +427,7 @@ class SurveyBlock(PollBase):
             'feedback': markdown(self.feedback) or False,
             # The SDK doesn't set url_name.
             'url_name': getattr(self, 'url_name', ''),
-            "display_name": self.display_name,
+            "block_name": self.block_name,
         })
 
         return self.create_fragment(
@@ -438,7 +441,7 @@ class SurveyBlock(PollBase):
         js_template = self.resource_string('/public/handlebars/poll_studio.handlebars')
         context.update({
             'feedback': self.feedback,
-            'display_name': self.display_name,
+            'display_name': self.block_name,
             'js_template': js_template,
             'multiquestion': True,
         })
@@ -567,7 +570,7 @@ class SurveyBlock(PollBase):
             'answers': [
                 value for value in OrderedDict(self.answers).values()],
             'tally': detail, 'total': total, 'feedback': markdown(self.feedback),
-            'plural': total > 1, 'display_name': self.display_name,
+            'plural': total > 1, 'block_name': self.block_name,
         }
 
     @XBlock.json_handler
@@ -639,7 +642,7 @@ class SurveyBlock(PollBase):
 
         result = {'success': True, 'errors': []}
         feedback = data.get('feedback', '').strip()
-        display_name = data.get('display_name', '').strip()
+        block_name = data.get('display_name', '').strip()
 
         answers = self.gather_items(data, result, 'Answer', 'answers', image=False)
         questions = self.gather_items(data, result, 'Question', 'questions')
@@ -650,7 +653,7 @@ class SurveyBlock(PollBase):
         self.answers = answers
         self.questions = questions
         self.feedback = feedback
-        self.display_name = display_name
+        self.block_name = block_name
 
         # Tally will not be updated until the next attempt to use it, per
         # scoping limitations.
