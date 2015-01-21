@@ -2,7 +2,7 @@
 <div class="poll-block">
 {# If no form is present, the Javascript will load the results instead. #}
 {% if not choice %}
-  <h2 class="poll-header">{{display_name}}</h2>
+  <h3 class="poll-header">{{display_name}}</h3>
   <form>
       <div class="poll-question-container">
           {{question|safe}}

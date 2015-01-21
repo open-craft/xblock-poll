@@ -1,4 +1,3 @@
-"""TO-DO: Write a description of what this XBlock is."""
 from collections import OrderedDict
 
 from django.template import Template, Context
@@ -104,8 +103,8 @@ class PollBase(XBlock, ResourceMixin, PublishEventMixin):
                 if image and not image_link:
                     result['success'] = False
                     result['errors'].append(
-                        "{0} has no text or img. Please make sure all {0}s "
-                        "have one or the other, or both.".format(noun))
+                        "{0} has no text or img. Please make sure all {1}s "
+                        "have one or the other, or both.".format(noun, noun.lower()))
                 elif not image:
                     result['success'] = False
                     # If there's a bug in the code or the user just forgot to relabel a question,
@@ -334,10 +333,10 @@ class PollBlock(PollBase):
             result['errors'].append("You must specify a question.")
             result['success'] = False
 
+        answers = self.gather_items(data, result, 'Answer', 'answers')
+
         if not result['success']:
             return result
-
-        answers = self.gather_items(data, result, 'Answer', 'answers')
 
         self.answers = answers
         self.question = question
@@ -375,6 +374,9 @@ class PollBlock(PollBase):
 
 class SurveyBlock(PollBase):
     display_name = String(default='Survey')
+    # The display name affects how the block is labeled in the studio,
+    # but either way we want it to say 'Poll' by default on the page.
+    block_name = String(default='Poll')
     answers = List(
         default=(
             ('Y', 'Yes'), ('N', 'No'),
@@ -424,7 +426,7 @@ class SurveyBlock(PollBase):
             'feedback': markdown(self.feedback) or False,
             # The SDK doesn't set url_name.
             'url_name': getattr(self, 'url_name', ''),
-            "display_name": self.display_name,
+            "block_name": self.block_name,
         })
 
         return self.create_fragment(
@@ -438,7 +440,7 @@ class SurveyBlock(PollBase):
         js_template = self.resource_string('/public/handlebars/poll_studio.handlebars')
         context.update({
             'feedback': self.feedback,
-            'display_name': self.display_name,
+            'display_name': self.block_name,
             'js_template': js_template,
             'multiquestion': True,
         })
@@ -567,7 +569,7 @@ class SurveyBlock(PollBase):
             'answers': [
                 value for value in OrderedDict(self.answers).values()],
             'tally': detail, 'total': total, 'feedback': markdown(self.feedback),
-            'plural': total > 1, 'display_name': self.display_name,
+            'plural': total > 1, 'block_name': self.block_name,
         }
 
     @XBlock.json_handler
@@ -639,7 +641,7 @@ class SurveyBlock(PollBase):
 
         result = {'success': True, 'errors': []}
         feedback = data.get('feedback', '').strip()
-        display_name = data.get('display_name', '').strip()
+        block_name = data.get('display_name', '').strip()
 
         answers = self.gather_items(data, result, 'Answer', 'answers', image=False)
         questions = self.gather_items(data, result, 'Question', 'questions')
@@ -650,7 +652,7 @@ class SurveyBlock(PollBase):
         self.answers = answers
         self.questions = questions
         self.feedback = feedback
-        self.display_name = display_name
+        self.block_name = block_name
 
         # Tally will not be updated until the next attempt to use it, per
         # scoping limitations.

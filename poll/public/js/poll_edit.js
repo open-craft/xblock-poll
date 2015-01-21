@@ -25,7 +25,9 @@ function PollEditUtil(runtime, element, pollType) {
                             // The degree of precision on date should be precise enough to avoid
                             // collisions in the real world.
                             var bottom = $(button_mapping[context_key]['bottomMarker']);
-                            var new_item = $(self.answerTemplate(button_mapping[context_key]['itemList']));
+                            var new_item_dict = self.extend({}, button_mapping[context_key]['template']);
+                            new_item_dict['key'] = Date.now();
+                            var new_item = $(self.answerTemplate({'items': [new_item_dict]}));
                             bottom.before(new_item);
                             self.empowerDeletes(new_item);
                             self.empowerArrows(
@@ -80,7 +82,10 @@ function PollEditUtil(runtime, element, pollType) {
         // 'extra' should contain 'image', a boolean value that determines whether
         // an image path field should be provided, and 'noun', which should be either
         // 'question' or 'answer' depending on what is needed.
-        return self.extend({'key': new Date().getTime(), 'text': '', 'img': ''}, extra)
+
+        // A 'key' element will have to be added after the fact, since it needs to be
+        // generated with the current time.
+        return self.extend({'text': '', 'img': ''}, extra)
     };
 
     this.empowerDeletes = function (scope) {
@@ -125,7 +130,7 @@ function PollEditUtil(runtime, element, pollType) {
         'poll': {
             'buttons': {
                 '#poll-add-answer': {
-                    'itemList': {'items': [self.makeNew({'image': true, 'noun': 'answer'})]},
+                    'template': self.makeNew({'image': true, 'noun': 'answer'}),
                     'topMarker': '#poll-answer-marker', 'bottomMarker': '#poll-answer-end-marker'
                 }
             },
@@ -135,11 +140,11 @@ function PollEditUtil(runtime, element, pollType) {
         'survey': {
             'buttons': {
                 '#poll-add-answer': {
-                    'itemList': {'items': [self.makeNew({'image': false, 'noun': 'answer'})]},
+                    'template': self.makeNew({'image': false, 'noun': 'answer'}),
                     'topMarker': '#poll-answer-marker', 'bottomMarker': '#poll-answer-end-marker'
                 },
                 '#poll-add-question': {
-                    'itemList': {'items': [self.makeNew({'image': true, 'noun': 'question'})]},
+                    'template': self.makeNew({'image': true, 'noun': 'question'}),
                     'topMarker': '#poll-question-marker', 'bottomMarker': '#poll-question-end-marker'
                 }
             },
@@ -159,25 +164,14 @@ function PollEditUtil(runtime, element, pollType) {
         self.empowerArrows(result, topMarker, bottomMarker);
     };
 
-    this.checkReturn = function(data) {
-        // Handle the return value JSON from the server.
-        // It would be better if we could have a different function
-        // for errors, as AJAX calls normally allow, but our version of XBlock
-        // does not support status codes other than 200 for JSON encoded
-        // responses.
-        if (data['success']) {
-            window.location.reload(false);
-            return;
-        }
-        alert(data['errors'].join('\n'));
-    };
-
     this.gather = function (scope, tracker, data, prefix, field) {
         var key = 'label';
         var name = scope.name.replace(prefix + '-', '');
-        if (scope.name.indexOf('img-') == 0){
+        if (name.indexOf('img-') == 0){
             name = name.replace('img-', '');
             key = 'img'
+        } else if (name.indexOf('label-') == 0){
+            name = name.replace('label-', '');
         }
         if (! (scope.name.indexOf(prefix + '-') >= 0)) {
             return
@@ -189,6 +183,16 @@ function PollEditUtil(runtime, element, pollType) {
         var index = tracker.indexOf(name);
         data[field][index][key] = scope.value;
         return true
+    };
+
+    this.format_errors = function(errors) {
+        var new_list = [];
+        for (var line in errors) {
+            // Javascript has no sane HTML escape method.
+            // Do this instead.
+            new_list.push($('<div/>').text(errors[line]).html())
+        }
+        return new_list.join('<br />')
     };
 
     this.pollSubmitHandler = function () {
@@ -211,11 +215,23 @@ function PollEditUtil(runtime, element, pollType) {
         data['question'] = $('#poll-question-editor', element).val();
         data['feedback'] = $('#poll-feedback-editor', element).val();
 
+        runtime.notify('save', {state: 'start', message: "Saving"});
         $.ajax({
             type: "POST",
             url: handlerUrl,
             data: JSON.stringify(data),
-            success: self.checkReturn
+            // There are issues with using proper status codes at the moment.
+            // So we pass along a 'success' key for now.
+            success: function(result) {
+                if (result['success']) {
+                    runtime.notify('save', {state: 'end'})
+                } else {
+                    runtime.notify('error', {
+                        'title': 'Error saving poll',
+                        'message': self.format_errors(result['errors'])
+                    });
+                }
+            }
         });
     };
 
