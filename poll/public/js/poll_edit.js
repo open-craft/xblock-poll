@@ -1,11 +1,15 @@
 
 function PollEditUtil(runtime, element, pollType) {
     var self = this;
+    var notify;
 
     // These URLs aren't validated in real time, so even if they don't exist for a type of block
     // we can create a reference to them.
     this.loadAnswers = runtime.handlerUrl(element, 'load_answers');
     this.loadQuestions = runtime.handlerUrl(element, 'load_questions');
+
+    // The workbench doesn't support notifications.
+    notify = typeof(runtime.notify) != 'undefined';
 
     this.init = function () {
         // Set up the editing form for a Poll or Survey.
@@ -219,7 +223,9 @@ function PollEditUtil(runtime, element, pollType) {
         data['question'] = $('#poll-question-editor', element).val();
         data['feedback'] = $('#poll-feedback-editor', element).val();
 
-        runtime.notify('save', {state: 'start', message: "Saving"});
+        if (notify) {
+            runtime.notify('save', {state: 'start', message: "Saving"});
+        }
         $.ajax({
             type: "POST",
             url: handlerUrl,
@@ -227,9 +233,9 @@ function PollEditUtil(runtime, element, pollType) {
             // There are issues with using proper status codes at the moment.
             // So we pass along a 'success' key for now.
             success: function(result) {
-                if (result['success']) {
+                if (result['success'] && notify) {
                     runtime.notify('save', {state: 'end'})
-                } else {
+                } else if (notify) {
                     runtime.notify('error', {
                         'title': 'Error saving poll',
                         'message': self.format_errors(result['errors'])
