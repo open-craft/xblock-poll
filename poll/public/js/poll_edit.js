@@ -26,6 +26,10 @@ function PollEditUtil(runtime, element, pollType) {
                             // collisions in the real world.
                             var bottom = $(button_mapping[context_key]['bottomMarker']);
                             var new_item_dict = self.extend({}, button_mapping[context_key]['template']);
+                            // We have to insert this key now rather than keep it in the template
+                            // so that it's generated with the current time. If we constructed it as part
+                            // of the template, all the keys would be the same, since the time would be calculated
+                            // once.
                             new_item_dict['key'] = Date.now();
                             var new_item = $(self.answerTemplate({'items': [new_item_dict]}));
                             bottom.before(new_item);
