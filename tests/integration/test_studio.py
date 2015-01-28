@@ -24,7 +24,7 @@ class StudioTest(PollBaseTest):
         """
         Verify we can add more than one item and they both save.
         """
-        self.go_to_page(page_name, studio=True)
+        self.go_to_page(page_name, view_name='studio_view')
         add_item_button = self.browser.find_element_by_css_selector('#poll-add-%s' % item_type)
         # Add two answers
         add_item_button.click()
