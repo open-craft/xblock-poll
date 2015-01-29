@@ -21,11 +21,13 @@ function PollUtil (runtime, element, pollType) {
 
     this.pollInit = function(){
         // Initialization function for PollBlocks.
-
-        var radio = $('input[name=choice]:checked', element);
+        var selector = 'input[name=choice]:checked';
+        var radio = $(selector, element);
         self.submit.click(function () {
-            // Refresh.
-            radio = $(radio.selector, element);
+            // We can't just use radio.selector here because the selector
+            // is mangled if this is the first time this XBlock is added in
+            // studio.
+            radio = $(selector, element);
             var choice = radio.val();
             $.ajax({
                 type: "POST",
@@ -102,7 +104,6 @@ function PollUtil (runtime, element, pollType) {
             url: self.tallyURL,
             data: JSON.stringify({}),
             success: function (data) {
-                console.log(self);
                 $('div.poll-block', element).html(self.resultsTemplate(data));
             }
         })
