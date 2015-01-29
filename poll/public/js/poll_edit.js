@@ -1,11 +1,15 @@
 
 function PollEditUtil(runtime, element, pollType) {
     var self = this;
+    var notify;
 
     // These URLs aren't validated in real time, so even if they don't exist for a type of block
     // we can create a reference to them.
     this.loadAnswers = runtime.handlerUrl(element, 'load_answers');
     this.loadQuestions = runtime.handlerUrl(element, 'load_questions');
+
+    // The workbench doesn't support notifications.
+    notify = typeof(runtime.notify) != 'undefined';
 
     this.init = function () {
         // Set up the editing form for a Poll or Survey.
@@ -26,6 +30,10 @@ function PollEditUtil(runtime, element, pollType) {
                             // collisions in the real world.
                             var bottom = $(button_mapping[context_key]['bottomMarker']);
                             var new_item_dict = self.extend({}, button_mapping[context_key]['template']);
+                            // We have to insert this key now rather than keep it in the template
+                            // so that it's generated with the current time. If we constructed it as part
+                            // of the template, all the keys would be the same, since the time would be calculated
+                            // once.
                             new_item_dict['key'] = Date.now();
                             var new_item = $(self.answerTemplate({'items': [new_item_dict]}));
                             bottom.before(new_item);
@@ -215,7 +223,9 @@ function PollEditUtil(runtime, element, pollType) {
         data['question'] = $('#poll-question-editor', element).val();
         data['feedback'] = $('#poll-feedback-editor', element).val();
 
-        runtime.notify('save', {state: 'start', message: "Saving"});
+        if (notify) {
+            runtime.notify('save', {state: 'start', message: "Saving"});
+        }
         $.ajax({
             type: "POST",
             url: handlerUrl,
@@ -223,9 +233,9 @@ function PollEditUtil(runtime, element, pollType) {
             // There are issues with using proper status codes at the moment.
             // So we pass along a 'success' key for now.
             success: function(result) {
-                if (result['success']) {
+                if (result['success'] && notify) {
                     runtime.notify('save', {state: 'end'})
-                } else {
+                } else if (notify) {
                     runtime.notify('error', {
                         'title': 'Error saving poll',
                         'message': self.format_errors(result['errors'])

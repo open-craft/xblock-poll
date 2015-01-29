@@ -1,5 +1,5 @@
 <script id="poll-results-template" type="text/html">
-    <h2 class="poll-header">{{display_name}}</h2>
+    <h3 class="poll-header">{{display_name}}</h3>
     <div class="poll-question-container">{{{question}}}</div>
     <ul class="poll-answers-results">
     {{#each tally}}
@@ -35,7 +35,7 @@
     <div class="poll-footnote">Results gathered from {{total}} respondent{{#if plural}}s{{/if}}.</div>
     {{#if feedback}}
         <hr />
-        <h2 class="poll-header">Feedback</h2>
+        <h3 class="poll-header">Feedback</h3>
         <div class="poll-feedback">
             {{{feedback}}}
         </div>
