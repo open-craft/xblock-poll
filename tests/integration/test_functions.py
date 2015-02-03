@@ -20,7 +20,7 @@ class TestPollFunctions(PollBaseTest):
         answers = [element.text for element in answer_elements]
         self.assertEqual(['A very long time', 'Not very long', 'I shall not say', 'Longer than you'], answers)
 
-        self.assertRaises(NoSuchElementException, self.browser.find_element_by_css_selector, '.poll-feedback')
+        self.assertFalse(self.browser.find_element_by_css_selector('.poll-feedback').is_displayed())
 
         submit_button = self.get_submit()
         self.assertFalse(submit_button.is_enabled())
@@ -50,7 +50,7 @@ class TestPollFunctions(PollBaseTest):
 
         self.get_submit().click()
 
-        self.wait_until_exists('.poll-feedback')
+        self.wait_until_exists('.poll-footnote')
 
         self.assertTrue(self.browser.find_element_by_css_selector('.poll-feedback').text,
                         "Thank you\nfor being a valued student.")
@@ -122,7 +122,7 @@ class TestSurveyFunctions(PollBaseTest):
             ]
         )
 
-        self.assertRaises(NoSuchElementException, self.browser.find_element_by_css_selector, '.poll-feedback')
+        self.assertFalse(self.browser.find_element_by_css_selector('.poll-feedback').is_displayed())
 
         submit_button = self.get_submit()
         self.assertFalse(submit_button.is_enabled())
@@ -181,7 +181,7 @@ class TestSurveyFunctions(PollBaseTest):
         self.fill_survey()
         self.get_submit().click()
 
-        self.wait_until_exists('.poll-feedback')
+        self.wait_until_exists('.poll-footnote')
 
         self.assertEqual(self.browser.find_element_by_css_selector('.poll-footnote').text,
                          'Results gathered from 21 respondents.')

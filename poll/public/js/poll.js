@@ -97,6 +97,15 @@ function PollUtil (runtime, element, pollType) {
         if (!data['success']) {
             alert(data['errors'].join('\n'));
         }
+        if ($('div.poll-block', element).attr('data-private')) {
+            // User may be changing their vote. Give visual feedback that it was accepted.
+            var thanks = $('.poll-voting-thanks', element);
+            thanks.removeClass('poll-hidden');
+            thanks.fadeOut(0).fadeIn('slow', 'swing');
+            $('.poll-feedback-container', element).removeClass('poll-hidden');
+            $('input[name="poll-submit"]', element).val('Resubmit');
+            return;
+        }
         $.ajax({
             // Semantically, this would be better as GET, but we can use helper
             // functions with POST.

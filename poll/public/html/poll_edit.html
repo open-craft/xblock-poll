@@ -31,6 +31,19 @@
             </span>
         </li>
         <li class="field comp-setting-entry is-set">
+            <div class="wrapper-comp-setting">
+                <label class="label setting-label poll-setting-label" for="poll-private-results">Private Results</label>
+                <select id="poll-private-results" class="input setting-input" name="private_results">
+                    <!-- So far as I can see, there's not a proper style for checkboxes. LTI module does it this way. -->
+                    <option value="true" {% if private_results %} selected{% endif %}>True</option>
+                    <option value="false" {% if not private_results %} selected{% endif %}>False</option>
+                </select>
+            </div>
+            <span class="tip setting-help">
+                If this is set True, don't display results of the poll to the user.
+            </span>
+        </li>
+        <li class="field comp-setting-entry is-set">
             <p>
                 <strong>Notes:</strong>
                 If you change an answer's text, all students who voted for that choice will have their votes updated to

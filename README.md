@@ -174,6 +174,17 @@ If you need to remove a question or answer, you can use the `Delete` link:
 **Remember**: You must have at least two answers (and at least two questions, in the case of polls). If a user has
 voted on/for the item you've deleted, they will be permitted to vote again, but will not lose progress.
 
+You may also create a poll or survey in which the results are not shown to the user. To do this, click the checkbox
+for 'Private Results':
+
+![Private Results](doc_img/private_results.png)
+
+**Notes on Private Results**: Users will be able to change their vote on polls and surveys with this option enabled.
+An analytics event will not be fired upon the student viewing the results, as the results are never visible. A user
+will see a thank you message and any feedback provided upon submission:
+
+![Private Results Submission](doc_img/private_results_submission.png)
+
 When you are finished customizing your poll or survey, click the `Save` button:
 
 ![Save button](doc_img/save_button.png)

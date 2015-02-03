@@ -34,5 +34,5 @@ class MarkdownTestCase(PollBaseTest):
         if back:
             self.browser.find_element_by_css_selector('input[type=radio]').click()
             self.get_submit().click()
-            self.wait_until_exists('.poll-feedback')
+            self.wait_until_exists('.poll-footnote')
             self.assertEqual(self.get_selector_text(selector), result)
