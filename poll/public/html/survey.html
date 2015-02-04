@@ -1,7 +1,7 @@
 {{ js_template|safe }}
-<div class="poll-block">
+<div class="poll-block" data-private="{% if private_results %}1{% endif %}">
     {# If no form is present, the Javascript will load the results instead. #}
-    {% if not choices %}
+    {% if not choices or private_results %}
     <h3 class="poll-header">{{block_name}}</h3>
     <form>
         <table class="survey-table">
@@ -25,13 +25,23 @@
                 </td>
             {% for answer, answer_details in answers %}
                 <td class="survey-option">
-                    <input type="radio" name="{{key}}" value="{{answer}}" />
+                    <input type="radio" name="{{key}}" value="{{answer}}"{% if question.choice == answer %} checked{% endif %}/>
                 </td>
             {% endfor %}
             </tr>
         {% endfor %}
         </table>
-        <input class="input-main" type="button" name="poll-submit" value="Submit" disabled />
+        <input class="input-main" type="button" name="poll-submit" value="{% if choices %}Resubmit{% else %}Submit{% endif %}" disabled />
     </form>
+    <div class="poll-voting-thanks{% if not choices %} poll-hidden{% endif %}"><span>Thank you for your submission!</span></div>
+    {% if feedback %}
+        <div class="poll-feedback-container{% if not choices %} poll-hidden{% endif %}">
+            <hr />
+            <h3 class="poll-header">Feedback</h3>
+            <div class="poll-feedback">
+                {{feedback|safe}}
+            </div>
+        </div>
+    {% endif %}
     {% endif %}
 </div>

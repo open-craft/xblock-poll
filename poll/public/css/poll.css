@@ -195,3 +195,15 @@ th.survey-answer {
     padding: 0;
 }
 
+.poll-voting-thanks span {
+    margin-top: .25em;
+    margin-bottom: .25em;
+    padding: .5em;
+    display: inline-block;
+    background-color: #e5ebee;
+    color: #e37222;
+}
+
+.poll-hidden {
+    display: none;
+}

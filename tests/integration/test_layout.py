@@ -3,7 +3,6 @@ Test to make sure the layout for results is sane when taking images into
 account.
 """
 from tests.integration.base_test import PollBaseTest
-import time
 
 
 class TestLayout(PollBaseTest):

@@ -6,7 +6,7 @@ from markdown import markdown
 import pkg_resources
 
 from xblock.core import XBlock
-from xblock.fields import Scope, String, Dict, List
+from xblock.fields import Scope, String, Dict, List, Boolean
 from xblock.fragment import Fragment
 from xblockutils.publish_event import PublishEventMixin
 from xblockutils.resources import ResourceLoader
@@ -39,6 +39,8 @@ class PollBase(XBlock, ResourceMixin, PublishEventMixin):
     Base class for Poll-like XBlocks.
     """
     event_namespace = 'xblock.pollbase'
+    private_results = Boolean(default=False, help="Whether or not to display results to the user.")
+    feedback = String(default='', help="Text to display after the user votes.")
 
     def send_vote_event(self, choice_data):
         # Let the LMS know the user has answered the poll.
@@ -142,7 +144,6 @@ class PollBlock(PollBase):
                  ('G', {'label': 'Green', 'img': None}), ('O', {'label': 'Other', 'img': None})),
         scope=Scope.settings, help="The answer options on this poll."
     )
-    feedback = String(default='', help="Text to display after the user votes.")
     tally = Dict(default={'R': 0, 'B': 0, 'G': 0, 'O': 0},
                  scope=Scope.user_state_summary,
                  help="Total tally of answers from students.")
@@ -236,6 +237,7 @@ class PollBlock(PollBase):
             # Offset so choices will always be True.
             'answers': self.markdown_items(self.answers),
             'question': markdown(self.question),
+            'private_results': self.private_results,
             # Mustache is treating an empty string as true.
             'feedback': markdown(self.feedback) or False,
             'js_template': js_template,
@@ -261,6 +263,7 @@ class PollBlock(PollBase):
         context.update({
             'question': self.question,
             'display_name': self.display_name,
+            'private_results': self.private_results,
             'feedback': self.feedback,
             'js_template': js_template
         })
@@ -282,8 +285,11 @@ class PollBlock(PollBase):
 
     @XBlock.json_handler
     def get_results(self, data, suffix=''):
-        self.publish_event_from_dict(self.event_namespace + '.view_results', {})
-        detail, total = self.tally_detail()
+        if self.private_results:
+            detail, total = {}, None
+        else:
+            self.publish_event_from_dict(self.event_namespace + '.view_results', {})
+            detail, total = self.tally_detail()
         return {
             'question': markdown(self.question), 'tally': detail,
             'total': total, 'feedback': markdown(self.feedback),
@@ -296,7 +302,8 @@ class PollBlock(PollBase):
         Sets the user's vote.
         """
         result = {'success': False, 'errors': []}
-        if self.get_choice() is not None:
+        old_choice = self.get_choice()
+        if (old_choice is not None) and not self.private_results:
             result['errors'].append('You have already voted in this poll.')
             return result
         try:
@@ -312,8 +319,10 @@ class PollBlock(PollBase):
             return result
 
         self.clean_tally()
+        if old_choice is not None:
+            self.tally[old_choice] -= 1
         self.choice = choice
-        self.tally[choice] = self.tally.get(choice, 0) + 1
+        self.tally[choice] += 1
 
         result['success'] = True
 
@@ -323,11 +332,10 @@ class PollBlock(PollBase):
 
     @XBlock.json_handler
     def studio_submit(self, data, suffix=''):
-        # I wonder if there's something for live validation feedback already.
-
         result = {'success': True, 'errors': []}
         question = data.get('question', '').strip()
         feedback = data.get('feedback', '').strip()
+        private_results = bool(data.get('private_results', False))
         display_name = data.get('display_name', '').strip()
         if not question:
             result['errors'].append("You must specify a question.")
@@ -341,6 +349,7 @@ class PollBlock(PollBase):
         self.answers = answers
         self.question = question
         self.feedback = feedback
+        self.private_results = private_results
         self.display_name = display_name
 
         # Tally will not be updated until the next attempt to use it, per
@@ -387,7 +396,6 @@ class SurveyBlock(PollBase):
         ),
         scope=Scope.settings, help="Questions for this Survey"
     )
-    feedback = String(default='', help="Text to display after the user votes.")
     tally = Dict(
         default={
             'enjoy': {'Y': 0, 'N': 0, 'M': 0}, 'recommend': {'Y': 0, 'N': 0, 'M': 0},
@@ -416,7 +424,8 @@ class SurveyBlock(PollBase):
             # Offset so choices will always be True.
             'answers': self.answers,
             'js_template': js_template,
-            'questions': self.markdown_items(self.questions),
+            'questions': self.renderable_answers(self.questions, choices),
+            'private_results': self.private_results,
             'any_img': self.any_image(self.questions),
             # Mustache is treating an empty string as true.
             'feedback': markdown(self.feedback) or False,
@@ -429,6 +438,17 @@ class SurveyBlock(PollBase):
             context, "public/html/survey.html", "public/css/poll.css",
             "public/js/poll.js", "SurveyBlock")
 
+    def renderable_answers(self, questions, choices):
+        """
+        Render markdown for questions, and annotate with answers
+        in the case of private_results.
+        """
+        choices = choices or {}
+        markdown_questions = self.markdown_items(questions)
+        for key, value in markdown_questions:
+            value['choice'] = choices.get(key, None)
+        return markdown_questions
+
     def studio_view(self, context=None):
         if not context:
             context = {}
@@ -437,6 +457,7 @@ class SurveyBlock(PollBase):
         context.update({
             'feedback': self.feedback,
             'display_name': self.block_name,
+            'private_results': self.private_results,
             'js_template': js_template,
             'multiquestion': True,
         })
@@ -533,7 +554,7 @@ class SurveyBlock(PollBase):
         """
         questions = dict(self.questions)
         answers = dict(self.answers)
-        for key, value in self.choices:
+        for key, value in self.choices.items():
             if key in questions:
                 if value in answers:
                     self.tally[key][value] -= 1
@@ -559,8 +580,11 @@ class SurveyBlock(PollBase):
 
     @XBlock.json_handler
     def get_results(self, data, suffix=''):
-        self.publish_event_from_dict(self.event_namespace + '.view_results', {})
-        detail, total = self.tally_detail()
+        if self.private_results:
+            detail, total = {}, None
+        else:
+            self.publish_event_from_dict(self.event_namespace + '.view_results', {})
+            detail, total = self.tally_detail()
         return {
             'answers': [
                 value for value in OrderedDict(self.answers).values()],
@@ -598,7 +622,7 @@ class SurveyBlock(PollBase):
         answers = dict(self.answers)
         result = {'success': True, 'errors': []}
         choices = self.get_choices()
-        if choices:
+        if choices and not self.private_results:
             result['success'] = False
             result['errors'].append("You have already voted in this poll.")
 
@@ -622,6 +646,8 @@ class SurveyBlock(PollBase):
             return result
 
         # Record the vote!
+        if self.choices:
+            self.remove_vote()
         self.choices = data
         self.clean_tally()
         for key, value in self.choices.items():
@@ -638,6 +664,7 @@ class SurveyBlock(PollBase):
         result = {'success': True, 'errors': []}
         feedback = data.get('feedback', '').strip()
         block_name = data.get('display_name', '').strip()
+        private_results = bool(data.get('private_results', False))
 
         answers = self.gather_items(data, result, 'Answer', 'answers', image=False)
         questions = self.gather_items(data, result, 'Question', 'questions')
@@ -648,6 +675,7 @@ class SurveyBlock(PollBase):
         self.answers = answers
         self.questions = questions
         self.feedback = feedback
+        self.private_results = private_results
         self.block_name = block_name
 
         # Tally will not be updated until the next attempt to use it, per
