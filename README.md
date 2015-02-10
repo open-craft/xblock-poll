@@ -2,6 +2,9 @@
 
 > A user-friendly way to query students.
 
+This XBlock has been contributed by [McKinsey Academy](http://mckinseyacademy.com/), and is published under the
+AGPLv3 licence (see the [LICENSE](LICENSE) file). It has been developed by [OpenCraft](http://opencraft.com).
+
 ## Introduction
 
 This XBlock enables a course author to create survey/poll elements to get
