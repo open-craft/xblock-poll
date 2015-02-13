@@ -4,7 +4,7 @@
     <ul class="list-input settings-list" id="poll-line-items">
         <li class="field comp-setting-entry is-set">
             <div class="wrapper-comp-setting">
-                <label class="label setting-label poll-setting-label" for="display_name">Display Name</label>
+                <label class="label setting-label poll-setting-label" for="poll-display-name">Display Name</label>
                 <!-- In the case of surveys, this field will actually be used for block_name. -->
                 <input class="input setting-input" name="display_name" id="poll-display-name" value="{{ display_name }}" type="text" />
             </div>
@@ -41,6 +41,17 @@
             </div>
             <span class="tip setting-help">
                 If this is set True, don't display results of the poll to the user.
+            </span>
+        </li>
+        <li class="field comp-setting-entry is-set">
+            <div class="wrapper-comp-setting">
+                <label class="label setting-label poll-setting-label" for="poll-max-submissions">Maximum Submissions</label>
+                <input id="poll-max-submissions" type="number" min="0" step="1" value="{{ max_submissions }}"/>
+            </div>
+            <span class="tip setting-help">
+                Maximum number of times a user may submit a poll. **Setting this to a value other than 1 will imply that
+                'Private Results' should be true.** Setting it to 0 will allow infinite submissions.
+                resubmissions.
             </span>
         </li>
         <li class="field comp-setting-entry is-set">

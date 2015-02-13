@@ -29,7 +29,7 @@ from markdown import markdown
 import pkg_resources
 
 from xblock.core import XBlock
-from xblock.fields import Scope, String, Dict, List, Boolean
+from xblock.fields import Scope, String, Dict, List, Boolean, Integer
 from xblock.fragment import Fragment
 from xblockutils.publish_event import PublishEventMixin
 from xblockutils.resources import ResourceLoader
@@ -63,6 +63,10 @@ class PollBase(XBlock, ResourceMixin, PublishEventMixin):
     """
     event_namespace = 'xblock.pollbase'
     private_results = Boolean(default=False, help="Whether or not to display results to the user.")
+    max_submissions = Integer(default=1, help="The maximum number of times a user may send a submission.")
+    submissions_count = Integer(
+        default=0, help="Number of times the user has sent a submission.", scope=Scope.user_state
+    )
     feedback = String(default='', help="Text to display after the user votes.")
 
     def send_vote_event(self, choice_data):
@@ -151,6 +155,36 @@ class PollBase(XBlock, ResourceMixin, PublishEventMixin):
             result['success'] = False
 
         return items
+
+    def can_vote(self):
+        """
+        Checks to see if the user is permitted to vote. This may not be the case if they used up their max_submissions.
+        """
+        if self.max_submissions == 0:
+            return True
+        if self.max_submissions > self.submissions_count:
+            return True
+        return False
+
+    @staticmethod
+    def get_max_submissions(data, result, private_results):
+        """
+        Gets the value of 'max_submissions' from studio submitted AJAX data, and checks for conflicts
+        with private_results, which may not be False when max_submissions is not 1, since that would mean
+        the student could change their answer based on other students' answers.
+        """
+        try:
+            max_submissions = int(data['max_submissions'])
+        except (ValueError, KeyError):
+            max_submissions = 1
+            result['success'] = False
+            result['errors'].append('Maximum Submissions missing or not an integer.')
+
+        # Better to send an error than to confuse the user by thinking this would work.
+        if (max_submissions != 1) and not private_results:
+            result['success'] = False
+            result['errors'].append("Private results may not be False when Maximum Submissions is not 1.")
+        return max_submissions
 
 
 class PollBlock(PollBase):
@@ -267,7 +301,8 @@ class PollBlock(PollBase):
             'any_img': self.any_image(self.answers),
             # The SDK doesn't set url_name.
             'url_name': getattr(self, 'url_name', ''),
-            "display_name": self.display_name,
+            'display_name': self.display_name,
+            'can_vote': self.can_vote(),
         })
 
         if self.choice:
@@ -288,7 +323,8 @@ class PollBlock(PollBase):
             'display_name': self.display_name,
             'private_results': self.private_results,
             'feedback': self.feedback,
-            'js_template': js_template
+            'js_template': js_template,
+            'max_submissions': self.max_submissions,
         })
         return self.create_fragment(
             context, "public/html/poll_edit.html",
@@ -341,13 +377,22 @@ class PollBlock(PollBase):
             result['errors'].append('No key "{choice}" in answers table.'.format(choice=choice))
             return result
 
+        if old_choice is None:
+            # Reset submissions count if old choice is bogus.
+            self.submissions_count = 0
+
+        if not self.can_vote():
+            result['errors'].append('You have already voted as many times as you are allowed.')
+
         self.clean_tally()
         if old_choice is not None:
             self.tally[old_choice] -= 1
         self.choice = choice
         self.tally[choice] += 1
+        self.submissions_count += 1
 
         result['success'] = True
+        result['can_vote'] = self.can_vote()
 
         self.send_vote_event({'choice': self.choice})
 
@@ -359,6 +404,9 @@ class PollBlock(PollBase):
         question = data.get('question', '').strip()
         feedback = data.get('feedback', '').strip()
         private_results = bool(data.get('private_results', False))
+
+        max_submissions = self.get_max_submissions(data, result, private_results)
+
         display_name = data.get('display_name', '').strip()
         if not question:
             result['errors'].append("You must specify a question.")
@@ -374,6 +422,7 @@ class PollBlock(PollBase):
         self.feedback = feedback
         self.private_results = private_results
         self.display_name = display_name
+        self.max_submissions = max_submissions
 
         # Tally will not be updated until the next attempt to use it, per
         # scoping limitations.
@@ -454,7 +503,8 @@ class SurveyBlock(PollBase):
             'feedback': markdown(self.feedback) or False,
             # The SDK doesn't set url_name.
             'url_name': getattr(self, 'url_name', ''),
-            "block_name": self.block_name,
+            'block_name': self.block_name,
+            'can_vote': self.can_vote()
         })
 
         return self.create_fragment(
@@ -482,6 +532,7 @@ class SurveyBlock(PollBase):
             'display_name': self.block_name,
             'private_results': self.private_results,
             'js_template': js_template,
+            'max_submissions': self.max_submissions,
             'multiquestion': True,
         })
         return self.create_fragment(
@@ -649,6 +700,14 @@ class SurveyBlock(PollBase):
             result['success'] = False
             result['errors'].append("You have already voted in this poll.")
 
+        if not choices:
+            # Reset submissions count if choices are bogus.
+            self.submissions_count = 0
+
+        if not self.can_vote():
+            result['success'] = False
+            result['errors'].append('You have already voted as many times as you are allowed.')
+
         # Make sure the user has included all questions, and hasn't included
         # anything extra, which might indicate the questions have changed.
         if not sorted(data.keys()) == sorted(questions.keys()):
@@ -666,6 +725,7 @@ class SurveyBlock(PollBase):
                     "Found unknown answer '%s' for question key '%s'" % (key, value))
 
         if not result['success']:
+            result['can_vote'] = self.can_vote()
             return result
 
         # Record the vote!
@@ -675,8 +735,10 @@ class SurveyBlock(PollBase):
         self.clean_tally()
         for key, value in self.choices.items():
             self.tally[key][value] += 1
+        self.submissions_count += 1
 
         self.send_vote_event({'choices': self.choices})
+        result['can_vote'] = self.can_vote()
 
         return result
 
@@ -688,6 +750,7 @@ class SurveyBlock(PollBase):
         feedback = data.get('feedback', '').strip()
         block_name = data.get('display_name', '').strip()
         private_results = bool(data.get('private_results', False))
+        max_submissions = self.get_max_submissions(data, result, private_results)
 
         answers = self.gather_items(data, result, 'Answer', 'answers', image=False)
         questions = self.gather_items(data, result, 'Question', 'questions')
@@ -699,6 +762,7 @@ class SurveyBlock(PollBase):
         self.questions = questions
         self.feedback = feedback
         self.private_results = private_results
+        self.max_submissions = max_submissions
         self.block_name = block_name
 
         # Tally will not be updated until the next attempt to use it, per
