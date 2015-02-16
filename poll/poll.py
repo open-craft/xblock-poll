@@ -35,7 +35,7 @@ from xblockutils.publish_event import PublishEventMixin
 from xblockutils.resources import ResourceLoader
 
 try:
-    from courseware.access import has_access
+    from courseware.access import has_access  # pylint: disable=import-error
 except ImportError:
     has_access = None
 
@@ -207,6 +207,8 @@ class PollBlock(PollBase):
     Poll XBlock. Allows a teacher to poll users, and presents the results so
     far of the poll to the user when finished.
     """
+    # pylint: disable=too-many-instance-attributes
+
     display_name = String(default='Poll')
     question = String(default='What is your favorite color?')
     # This will be converted into an OrderedDict.
@@ -464,13 +466,18 @@ class PollBlock(PollBase):
              """
              <poll tally="{'long': 20, 'short': 29, 'not_saying': 15, 'longer' : 35}"
                  question="## How long have you been studying with us?"
-                 answers='[["longt", {"label": "A very long time", "img": null}], ["short", {"label": "Not very long", "img": null}], ["not_saying", {"label": "I shall not say", "img": null}], ["longer", {"label": "Longer than you", "img": null}]]'
+                 answers='[["longt", {"label": "A very long time", "img": null}],
+                           ["short", {"label": "Not very long", "img": null}],
+                           ["not_saying", {"label": "I shall not say", "img": null}],
+                           ["longer", {"label": "Longer than you", "img": null}]]'
                  feedback="### Thank you&#10;&#10;for being a valued student."/>
              """),
         ]
 
 
 class SurveyBlock(PollBase):
+    # pylint: disable=too-many-instance-attributes
+
     display_name = String(default='Survey')
     # The display name affects how the block is labeled in the studio,
     # but either way we want it to say 'Poll' by default on the page.
@@ -809,9 +816,16 @@ class SurveyBlock(PollBase):
              """),
             ("Survey Functions",
              """
-             <survey tally='{"q1": {"sa": 5, "a": 5, "n": 3, "d": 2, "sd": 5}, "q2": {"sa": 3, "a": 2, "n": 3, "d": 10, "sd": 2}, "q3": {"sa": 2, "a": 7, "n": 1, "d": 4, "sd": 6}, "q4": {"sa": 1, "a": 2, "n": 8, "d": 4, "sd": 5}}'
-                 questions='[["q1", {"label": "I feel like this test will pass.", "img": null}], ["q2", {"label": "I like testing software", "img": null}], ["q3", {"label": "Testing is not necessary", "img": null}], ["q4", {"label": "I would fake a test result to get software deployed.", "img": null}]]'
-                 answers='[["sa", "Strongly Agree"], ["a", "Agree"], ["n", "Neutral"], ["d", "Disagree"], ["sd", "Strongly Disagree"]]'
+             <survey tally='{"q1": {"sa": 5, "a": 5, "n": 3, "d": 2, "sd": 5},
+                             "q2": {"sa": 3, "a": 2, "n": 3, "d": 10, "sd": 2},
+                             "q3": {"sa": 2, "a": 7, "n": 1, "d": 4, "sd": 6},
+                             "q4": {"sa": 1, "a": 2, "n": 8, "d": 4, "sd": 5}}'
+                 questions='[["q1", {"label": "I feel like this test will pass.", "img": null}],
+                             ["q2", {"label": "I like testing software", "img": null}],
+                             ["q3", {"label": "Testing is not necessary", "img": null}],
+                             ["q4", {"label": "I would fake a test result to get software deployed.", "img": null}]]'
+                 answers='[["sa", "Strongly Agree"], ["a", "Agree"], ["n", "Neutral"],
+                           ["d", "Disagree"], ["sd", "Strongly Disagree"]]'
                  feedback="### Thank you&#10;&#10;for running the tests."/>
              """)
         ]
