@@ -29,6 +29,9 @@ function PollUtil (runtime, element, pollType) {
             // studio.
             radio = $(selector, element);
             var choice = radio.val();
+            var thanks = $('.poll-voting-thanks', element);
+            thanks.addClass('poll-hidden');
+            thanks.removeAttr('style');
             $.ajax({
                 type: "POST",
                 url: self.voteUrl,
@@ -45,13 +48,19 @@ function PollUtil (runtime, element, pollType) {
         var answers = $('input[type=radio]', element);
         if (! radio.val()) {
             answers.bind("change.enableSubmit", self.enableSubmit);
-        } else {
+        } else if ($('div.poll-block', element).data('can-vote')) {
             self.enableSubmit();
         }
     };
 
     this.surveyInit = function () {
         // Initialization function for Survey Blocks
+
+        // If the user is unable to vote, disable input.
+        if (! $('div.poll-block', element).data('can-vote')) {
+            $('input', element).attr('disabled', true);
+            return
+        }
         self.answers.bind("change.enableSubmit", self.verifyAll);
         self.submit.click(function () {
             $.ajax({

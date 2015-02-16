@@ -55,8 +55,6 @@ class TestPrivateResults(PollBaseTest):
 
     def submission_run(self, names):
         self.do_submit(names)
-        self.browser.execute_script("$('.poll-voting-thanks').stop().addClass('poll-hidden').removeAttr('style')")
-        self.wait_until_hidden(self.browser.find_element_by_css_selector('.poll-voting-thanks'))
 
     @unpack
     @data(*scenarios_max)
