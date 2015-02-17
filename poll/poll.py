@@ -34,10 +34,15 @@ from xblock.fragment import Fragment
 from xblockutils.publish_event import PublishEventMixin
 from xblockutils.resources import ResourceLoader
 
+HAS_EDX_ACCESS = False
 try:
-    from courseware.access import has_access  # pylint: disable=import-error
+    # pylint: disable=import-error
+    from django.conf import settings
+    from courseware.access import has_access
+    from api_manager.models import GroupProfile
+    HAS_EDX_ACCESS = True
 except ImportError:
-    has_access = None
+    pass
 
 
 class ResourceMixin(object):
@@ -176,8 +181,17 @@ class PollBase(XBlock, ResourceMixin, PublishEventMixin):
         Checks to see if the user has permissions to view private results.
         This only works inside the LMS.
         """
-        if has_access and hasattr(self.runtime, 'user') and hasattr(self.runtime, 'course_id'):
-            return has_access(self.runtime.user, 'staff', self, self.runtime.course_id)
+        if HAS_EDX_ACCESS and hasattr(self.runtime, 'user') and hasattr(self.runtime, 'course_id'):
+            # Course staff users have permission to view results.
+            if has_access(self.runtime.user, 'staff', self, self.runtime.course_id):
+                return True
+            else:
+                # Check if user is member of a group that is explicitly granted
+                # permission to view the results through django configuration.
+                group_names = getattr(settings, 'XBLOCK_POLL_EXTRA_VIEW_GROUPS', [])
+                if group_names:
+                    group_ids = self.runtime.user.groups.values_list('id', flat=True)
+                    return GroupProfile.objects.filter(group_id__in=group_ids, name__in=group_names).exists()
         else:
             return False
 
