@@ -31,6 +31,7 @@ function PollUtil (runtime, element, pollType) {
             var choice = radio.val();
             var thanks = $('.poll-voting-thanks', element);
             thanks.addClass('poll-hidden');
+            // JQuery's fade functions set element-level styles. Clear these.
             thanks.removeAttr('style');
             $.ajax({
                 type: "POST",

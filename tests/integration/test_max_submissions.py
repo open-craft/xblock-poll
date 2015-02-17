@@ -50,11 +50,8 @@ class TestPrivateResults(PollBaseTest):
         for __ in range(0, 2):
             self.go_to_page(page)
             for ___ in range(1, 5):
-                self.submission_run(names)
+                self.do_submit(names)
             self.assertTrue(self.get_submit().is_enabled())
-
-    def submission_run(self, names):
-        self.do_submit(names)
 
     @unpack
     @data(*scenarios_max)
