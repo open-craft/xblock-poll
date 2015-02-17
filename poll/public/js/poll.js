@@ -29,6 +29,9 @@ function PollUtil (runtime, element, pollType) {
             // studio.
             radio = $(selector, element);
             var choice = radio.val();
+            var thanks = $('.poll-voting-thanks', element);
+            thanks.addClass('poll-hidden');
+            thanks.removeAttr('style');
             $.ajax({
                 type: "POST",
                 url: self.voteUrl,
@@ -36,18 +39,28 @@ function PollUtil (runtime, element, pollType) {
                 success: self.getResults
             });
         });
+        // If the user has already reached their maximum submissions, all inputs should be disabled.
+        if (!$('div.poll-block', element).data('can-vote')) {
+            $('input', element).attr('disabled', true);
+        }
         // If the user has refreshed the page, they may still have an answer
         // selected and the submit button should be enabled.
         var answers = $('input[type=radio]', element);
         if (! radio.val()) {
             answers.bind("change.enableSubmit", self.enableSubmit);
-        } else {
+        } else if ($('div.poll-block', element).data('can-vote')) {
             self.enableSubmit();
         }
     };
 
     this.surveyInit = function () {
         // Initialization function for Survey Blocks
+
+        // If the user is unable to vote, disable input.
+        if (! $('div.poll-block', element).data('can-vote')) {
+            $('input', element).attr('disabled', true);
+            return
+        }
         self.answers.bind("change.enableSubmit", self.verifyAll);
         self.submit.click(function () {
             $.ajax({
@@ -97,15 +110,21 @@ function PollUtil (runtime, element, pollType) {
         if (!data['success']) {
             alert(data['errors'].join('\n'));
         }
-        if ($('div.poll-block', element).attr('data-private')) {
+        var can_vote = data['can_vote'];
+        if ($('div.poll-block', element).data('private')) {
             // User may be changing their vote. Give visual feedback that it was accepted.
             var thanks = $('.poll-voting-thanks', element);
             thanks.removeClass('poll-hidden');
             thanks.fadeOut(0).fadeIn('slow', 'swing');
             $('.poll-feedback-container', element).removeClass('poll-hidden');
-            $('input[name="poll-submit"]', element).val('Resubmit');
+            if (can_vote) {
+                $('input[name="poll-submit"]', element).val('Resubmit');
+            } else {
+                $('input', element).attr('disabled', true)
+            }
             return;
         }
+        // Used if results are not private, to show the user how other students voted.
         $.ajax({
             // Semantically, this would be better as GET, but we can use helper
             // functions with POST.

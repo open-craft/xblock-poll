@@ -1,5 +1,5 @@
 {{ js_template|safe }}
-<div class="poll-block" data-private="{% if private_results %}1{% endif %}">
+<div class="poll-block" data-private="{% if private_results %}1{% endif %}" data-can-vote="{% if can_vote %}1{% endif %}">
 {# If no form is present, the Javascript will load the results instead. #}
 {% if private_results or not choice %}
   <h3 class="poll-header">{{display_name}}</h3>
@@ -26,7 +26,7 @@
       </ul>
       <input class="input-main" type="button" name="poll-submit" value="{% if choice %}Resubmit{% else %}Submit{% endif %}" disabled />
   </form>
-      <div class="poll-voting-thanks{% if not choice %} poll-hidden{% endif %}"><span>Thank you for your submission!</span></div>
+      <div class="poll-voting-thanks{% if not choice or can_vote %} poll-hidden{% endif %}"><span>Thank you for your submission!</span></div>
       {% if feedback %}
       <div class="poll-feedback-container{% if not choice %} poll-hidden{% endif %}">
           <hr />

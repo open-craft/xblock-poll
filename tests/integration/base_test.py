@@ -24,9 +24,30 @@
 from xblockutils.base_test import SeleniumBaseTest
 
 
+# Default names for inputs for polls/surveys
+DEFAULT_SURVEY_NAMES = ('enjoy', 'recommend', 'learn')
+DEFAULT_POLL_NAMES = ('choice',)
+
+
 class PollBaseTest(SeleniumBaseTest):
     default_css_selector = 'div.poll-block'
     module_name = __name__
 
     def get_submit(self):
         return self.browser.find_element_by_css_selector('input[name="poll-submit"]')
+
+    def make_selections(self, names):
+        """
+        Selects the first option for each named input.
+        """
+        for name in names:
+            self.browser.find_element_by_css_selector('input[name="%s"]' % name).click()
+
+    def do_submit(self, names):
+        """
+        Do selection and submit.
+        """
+        self.make_selections(names)
+        submit = self.get_submit()
+        submit.click()
+        self.wait_until_clickable(self.browser.find_element_by_css_selector('.poll-voting-thanks'))

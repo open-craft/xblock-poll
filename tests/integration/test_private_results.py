@@ -23,32 +23,16 @@
 
 from ddt import ddt, unpack, data
 from selenium.common.exceptions import NoSuchElementException
-from base_test import PollBaseTest
+from base_test import PollBaseTest, DEFAULT_SURVEY_NAMES, DEFAULT_POLL_NAMES
 
 
-scenarios = ('Survey Private', ['enjoy', 'recommend', 'learn']), ('Poll Private', ['choice'])
+scenarios = ('Survey Private', DEFAULT_SURVEY_NAMES), ('Poll Private', DEFAULT_POLL_NAMES)
 
 @ddt
 class TestPrivateResults(PollBaseTest):
     """
     Check the functionality of private results.
     """
-
-    def make_selections(self, names):
-        """
-        Selects the first option for each named input.
-        """
-        for name in names:
-            self.browser.find_element_by_css_selector('input[name="%s"]' % name).click()
-
-    def do_submit(self, names):
-        """
-        Do selection and submit.
-        """
-        self.make_selections(names)
-        submit = self.get_submit()
-        submit.click()
-        self.wait_until_clickable(self.browser.find_element_by_css_selector('.poll-voting-thanks'))
 
     @unpack
     @data(*scenarios)
