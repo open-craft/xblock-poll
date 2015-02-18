@@ -385,6 +385,7 @@ class PollBlock(PollBase):
 
         if not self.can_vote():
             result['errors'].append('You have already voted as many times as you are allowed.')
+            return result
 
         self.clean_tally()
         if old_choice is not None:

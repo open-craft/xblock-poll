@@ -16,7 +16,9 @@ function PollUtil (runtime, element, pollType) {
             self.getResults({'success': true});
             return false;
         }
-        if (parseInt($('.poll-max-submissions').text()) > 1 && parseInt($('.poll-current-count').text()) > 0) {
+        var max_submissions = parseInt($('.poll-max-submissions', element).text());
+        var current_count = parseInt($('.poll-current-count', element).text());
+        if (max_submissions > 1 && current_count > 0) {
             $('.poll-submissions-count', element).show();
         }
         return true;
@@ -117,7 +119,7 @@ function PollUtil (runtime, element, pollType) {
         var can_vote = data['can_vote'];
         $('.poll-current-count', element).text(data['submissions_count']);
         if (data['max_submissions'] > 1) {
-            $('.poll-submissions-count').show();
+            $('.poll-submissions-count', element).show();
         }
         if ($('div.poll-block', element).data('private')) {
             // User may be changing their vote. Give visual feedback that it was accepted.
