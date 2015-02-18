@@ -207,3 +207,7 @@ th.survey-answer {
 .poll-hidden {
     display: none;
 }
+
+.poll-submissions-count {
+    font-weight: bold;
+}

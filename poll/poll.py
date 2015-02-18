@@ -303,6 +303,8 @@ class PollBlock(PollBase):
             'url_name': getattr(self, 'url_name', ''),
             'display_name': self.display_name,
             'can_vote': self.can_vote(),
+            'max_submissions': self.max_submissions,
+            'submissions_count': self.submissions_count,
         })
 
         if self.choice:
@@ -393,6 +395,8 @@ class PollBlock(PollBase):
 
         result['success'] = True
         result['can_vote'] = self.can_vote()
+        result['submissions_count'] = self.submissions_count
+        result['max_submissions'] = self.max_submissions
 
         self.send_vote_event({'choice': self.choice})
 
@@ -504,7 +508,9 @@ class SurveyBlock(PollBase):
             # The SDK doesn't set url_name.
             'url_name': getattr(self, 'url_name', ''),
             'block_name': self.block_name,
-            'can_vote': self.can_vote()
+            'can_vote': self.can_vote(),
+            'submissions_count': self.submissions_count,
+            'max_submissions': self.max_submissions,
         })
 
         return self.create_fragment(
@@ -739,6 +745,8 @@ class SurveyBlock(PollBase):
 
         self.send_vote_event({'choices': self.choices})
         result['can_vote'] = self.can_vote()
+        result['submissions_count'] = self.submissions_count
+        result['max_submissions'] = self.max_submissions
 
         return result
 

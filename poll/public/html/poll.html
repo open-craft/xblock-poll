@@ -27,6 +27,10 @@
       <input class="input-main" type="button" name="poll-submit" value="{% if choice %}Resubmit{% else %}Submit{% endif %}" disabled />
   </form>
       <div class="poll-voting-thanks{% if not choice or can_vote %} poll-hidden{% endif %}"><span>Thank you for your submission!</span></div>
+      <div class="poll-submissions-count poll-hidden">
+          You have used <span class="poll-current-count">{{ submissions_count }}</span>
+          out of <span class="poll-max-submissions">{{ max_submissions }}</span> submissions.
+      </div>
       {% if feedback %}
       <div class="poll-feedback-container{% if not choice %} poll-hidden{% endif %}">
           <hr />

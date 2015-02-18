@@ -16,6 +16,9 @@ function PollUtil (runtime, element, pollType) {
             self.getResults({'success': true});
             return false;
         }
+        if (parseInt($('.poll-max-submissions').text()) > 1 && parseInt($('.poll-current-count').text()) > 0) {
+            $('.poll-submissions-count', element).show();
+        }
         return true;
     };
 
@@ -31,6 +34,7 @@ function PollUtil (runtime, element, pollType) {
             var choice = radio.val();
             var thanks = $('.poll-voting-thanks', element);
             thanks.addClass('poll-hidden');
+            // JQuery's fade functions set element-level styles. Clear these.
             thanks.removeAttr('style');
             $.ajax({
                 type: "POST",
@@ -111,6 +115,10 @@ function PollUtil (runtime, element, pollType) {
             alert(data['errors'].join('\n'));
         }
         var can_vote = data['can_vote'];
+        $('.poll-current-count', element).text(data['submissions_count']);
+        if (data['max_submissions'] > 1) {
+            $('.poll-submissions-count').show();
+        }
         if ($('div.poll-block', element).data('private')) {
             // User may be changing their vote. Give visual feedback that it was accepted.
             var thanks = $('.poll-voting-thanks', element);
