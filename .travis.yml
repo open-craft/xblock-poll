@@ -1,0 +1,12 @@
+language: python
+python:
+    - "2.7"
+before_install:
+    - "export DISPLAY=:99"
+    - "sh -e /etc/init.d/xvfb start"
+install:
+    - "sh install_test_deps.sh"
+    - "python setup.py develop"
+script: pep8 poll --max-line-length=120 && pylint poll && python run_tests.py --with-coverage --cover-package=poll
+notifications:
+  email: false
