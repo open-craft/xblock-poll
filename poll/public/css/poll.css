@@ -211,3 +211,8 @@ th.survey-answer {
 .poll-submissions-count {
     font-weight: bold;
 }
+
+.view-results-button-wrapper {
+    text-align: right;
+    cursor: pointer;
+}

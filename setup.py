@@ -53,6 +53,8 @@ setup(
         'XBlock',
         'markdown',
         'xblock-utils',
+        'ddt',
+        'mock',
     ],
     dependency_links=['http://github.com/edx-solutions/xblock-utils/tarball/master#egg=xblock-utils'],
     entry_points={

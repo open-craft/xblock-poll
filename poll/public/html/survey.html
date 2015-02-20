@@ -47,5 +47,9 @@
             </div>
         </div>
     {% endif %}
+
+    {% if can_view_private_results %}
+        <div class="view-results-button-wrapper"><a class="view-results-button">View results</a></div>
     {% endif %}
+  {% endif %}
 </div>

@@ -10,10 +10,12 @@ function PollUtil (runtime, element, pollType) {
         this.submit = $('input[type=button]', element);
         this.answers = $('input[type=radio]', element);
         this.resultsTemplate = Handlebars.compile($("#" + pollType + "-results-template", element).html());
+        this.viewResultsButton = $('.view-results-button', element);
+        this.viewResultsButton.click(this.getResults);
         // If the submit button doesn't exist, the user has already
         // selected a choice. Render results instead of initializing machinery.
         if (! self.submit.length) {
-            self.getResults({'success': true});
+            self.onSubmit({'success': true});
             return false;
         }
         var max_submissions = parseInt($('.poll-max-submissions', element).text());
@@ -42,7 +44,7 @@ function PollUtil (runtime, element, pollType) {
                 type: "POST",
                 url: self.voteUrl,
                 data: JSON.stringify({"choice": choice}),
-                success: self.getResults
+                success: self.onSubmit
             });
         });
         // If the user has already reached their maximum submissions, all inputs should be disabled.
@@ -73,7 +75,7 @@ function PollUtil (runtime, element, pollType) {
                 type: "POST",
                 url: self.voteUrl,
                 data: JSON.stringify(self.surveyChoices()),
-                success: self.getResults
+                success: self.onSubmit
             })
         });
         // If the user has refreshed the page, they may still have an answer
@@ -86,7 +88,7 @@ function PollUtil (runtime, element, pollType) {
         var choices = {};
         self.answers.each(function(index, el) {
             el = $(el);
-            choices[el.prop('name')] = $(self.checkedElement(el)).val();
+            choices[el.prop('name')] = $(self.checkedElement(el), element).val();
         });
         return choices;
     };
@@ -111,7 +113,7 @@ function PollUtil (runtime, element, pollType) {
         }
     };
 
-    this.getResults = function (data) {
+    this.onSubmit = function (data) {
         // Fetch the results from the server and render them.
         if (!data['success']) {
             alert(data['errors'].join('\n'));
@@ -134,6 +136,11 @@ function PollUtil (runtime, element, pollType) {
             }
             return;
         }
+        // Used if results are not private, to show the user how other students voted.
+        self.getResults();
+    };
+
+    this.getResults = function () {
         // Used if results are not private, to show the user how other students voted.
         $.ajax({
             // Semantically, this would be better as GET, but we can use helper
