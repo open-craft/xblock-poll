@@ -50,11 +50,8 @@ class TestPrivateResults(PollBaseTest):
         for __ in range(0, 2):
             self.go_to_page(page)
             for ___ in range(1, 5):
-                self.submission_run(names)
+                self.do_submit(names)
             self.assertTrue(self.get_submit().is_enabled())
-
-    def submission_run(self, names):
-        self.do_submit(names)
 
     @unpack
     @data(*scenarios_max)
@@ -78,3 +75,19 @@ class TestPrivateResults(PollBaseTest):
         self.go_to_page(page)
         self.do_submit(names)
         self.assertFalse(self.get_submit().is_enabled())
+
+    @unpack
+    @data(*scenarios_max)
+    def test_max_submissions_counter(self, page, names):
+        """
+        Verify a counter is displayed stating how many submissions have been used.
+        Our XML allows two submissions, and we must mind the off-by-one for range.
+        """
+        self.go_to_page(page)
+        counter_div = self.browser.find_element_by_css_selector('.poll-submissions-count')
+        counter = self.browser.find_element_by_css_selector('.poll-current-count')
+        self.assertFalse(counter_div.is_displayed())
+        for i in range(1, 3):
+            self.do_submit(names)
+            self.assertTrue(counter_div.is_displayed())
+            self.assertEqual(counter.text.strip(), str(i))

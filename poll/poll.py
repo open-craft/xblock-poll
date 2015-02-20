@@ -34,6 +34,16 @@ from xblock.fragment import Fragment
 from xblockutils.publish_event import PublishEventMixin
 from xblockutils.resources import ResourceLoader
 
+HAS_EDX_ACCESS = False
+try:
+    # pylint: disable=import-error
+    from django.conf import settings
+    from courseware.access import has_access
+    from api_manager.models import GroupProfile
+    HAS_EDX_ACCESS = True
+except ImportError:
+    pass
+
 
 class ResourceMixin(object):
     loader = ResourceLoader(__name__)
@@ -166,6 +176,25 @@ class PollBase(XBlock, ResourceMixin, PublishEventMixin):
             return True
         return False
 
+    def can_view_private_results(self):
+        """
+        Checks to see if the user has permissions to view private results.
+        This only works inside the LMS.
+        """
+        if HAS_EDX_ACCESS and hasattr(self.runtime, 'user') and hasattr(self.runtime, 'course_id'):
+            # Course staff users have permission to view results.
+            if has_access(self.runtime.user, 'staff', self, self.runtime.course_id):
+                return True
+            else:
+                # Check if user is member of a group that is explicitly granted
+                # permission to view the results through django configuration.
+                group_names = getattr(settings, 'XBLOCK_POLL_EXTRA_VIEW_GROUPS', [])
+                if group_names:
+                    group_ids = self.runtime.user.groups.values_list('id', flat=True)
+                    return GroupProfile.objects.filter(group_id__in=group_ids, name__in=group_names).exists()
+        else:
+            return False
+
     @staticmethod
     def get_max_submissions(data, result, private_results):
         """
@@ -192,6 +221,8 @@ class PollBlock(PollBase):
     Poll XBlock. Allows a teacher to poll users, and presents the results so
     far of the poll to the user when finished.
     """
+    # pylint: disable=too-many-instance-attributes
+
     display_name = String(default='Poll')
     question = String(default='What is your favorite color?')
     # This will be converted into an OrderedDict.
@@ -303,6 +334,9 @@ class PollBlock(PollBase):
             'url_name': getattr(self, 'url_name', ''),
             'display_name': self.display_name,
             'can_vote': self.can_vote(),
+            'max_submissions': self.max_submissions,
+            'submissions_count': self.submissions_count,
+            'can_view_private_results': self.can_view_private_results(),
         })
 
         if self.choice:
@@ -344,7 +378,7 @@ class PollBlock(PollBase):
 
     @XBlock.json_handler
     def get_results(self, data, suffix=''):
-        if self.private_results:
+        if self.private_results and not self.can_view_private_results():
             detail, total = {}, None
         else:
             self.publish_event_from_dict(self.event_namespace + '.view_results', {})
@@ -383,6 +417,7 @@ class PollBlock(PollBase):
 
         if not self.can_vote():
             result['errors'].append('You have already voted as many times as you are allowed.')
+            return result
 
         self.clean_tally()
         if old_choice is not None:
@@ -393,6 +428,8 @@ class PollBlock(PollBase):
 
         result['success'] = True
         result['can_vote'] = self.can_vote()
+        result['submissions_count'] = self.submissions_count
+        result['max_submissions'] = self.max_submissions
 
         self.send_vote_event({'choice': self.choice})
 
@@ -443,13 +480,18 @@ class PollBlock(PollBase):
              """
              <poll tally="{'long': 20, 'short': 29, 'not_saying': 15, 'longer' : 35}"
                  question="## How long have you been studying with us?"
-                 answers='[["longt", {"label": "A very long time", "img": null}], ["short", {"label": "Not very long", "img": null}], ["not_saying", {"label": "I shall not say", "img": null}], ["longer", {"label": "Longer than you", "img": null}]]'
+                 answers='[["longt", {"label": "A very long time", "img": null}],
+                           ["short", {"label": "Not very long", "img": null}],
+                           ["not_saying", {"label": "I shall not say", "img": null}],
+                           ["longer", {"label": "Longer than you", "img": null}]]'
                  feedback="### Thank you&#10;&#10;for being a valued student."/>
              """),
         ]
 
 
 class SurveyBlock(PollBase):
+    # pylint: disable=too-many-instance-attributes
+
     display_name = String(default='Survey')
     # The display name affects how the block is labeled in the studio,
     # but either way we want it to say 'Poll' by default on the page.
@@ -504,7 +546,10 @@ class SurveyBlock(PollBase):
             # The SDK doesn't set url_name.
             'url_name': getattr(self, 'url_name', ''),
             'block_name': self.block_name,
-            'can_vote': self.can_vote()
+            'can_vote': self.can_vote(),
+            'submissions_count': self.submissions_count,
+            'max_submissions': self.max_submissions,
+            'can_view_private_results': self.can_view_private_results(),
         })
 
         return self.create_fragment(
@@ -547,7 +592,7 @@ class SurveyBlock(PollBase):
         tally = []
         questions = OrderedDict(self.markdown_items(self.questions))
         default_answers = OrderedDict([(answer, 0) for answer, __ in self.answers])
-        choices = self.choices
+        choices = self.choices or {}
         total = 0
         self.clean_tally()
         source_tally = self.tally
@@ -578,7 +623,7 @@ class SurveyBlock(PollBase):
             highest = 0
             top_index = None
             for index, answer in enumerate(question['answers']):
-                if answer['key'] == choices[question['key']]:
+                if answer['key'] == choices.get(question['key']):
                     answer['choice'] = True
                 # Find the most popular choice.
                 if answer['count'] > highest:
@@ -588,7 +633,8 @@ class SurveyBlock(PollBase):
                     answer['percent'] = round(answer['count'] / float(total) * 100)
                 except ZeroDivisionError:
                     answer['percent'] = 0
-            question['answers'][top_index]['top'] = True
+            if top_index is not None:
+                question['answers'][top_index]['top'] = True
 
         return tally, total
 
@@ -654,7 +700,7 @@ class SurveyBlock(PollBase):
 
     @XBlock.json_handler
     def get_results(self, data, suffix=''):
-        if self.private_results:
+        if self.private_results and not self.can_view_private_results():
             detail, total = {}, None
         else:
             self.publish_event_from_dict(self.event_namespace + '.view_results', {})
@@ -739,6 +785,8 @@ class SurveyBlock(PollBase):
 
         self.send_vote_event({'choices': self.choices})
         result['can_vote'] = self.can_vote()
+        result['submissions_count'] = self.submissions_count
+        result['max_submissions'] = self.max_submissions
 
         return result
 
@@ -782,9 +830,16 @@ class SurveyBlock(PollBase):
              """),
             ("Survey Functions",
              """
-             <survey tally='{"q1": {"sa": 5, "a": 5, "n": 3, "d": 2, "sd": 5}, "q2": {"sa": 3, "a": 2, "n": 3, "d": 10, "sd": 2}, "q3": {"sa": 2, "a": 7, "n": 1, "d": 4, "sd": 6}, "q4": {"sa": 1, "a": 2, "n": 8, "d": 4, "sd": 5}}'
-                 questions='[["q1", {"label": "I feel like this test will pass.", "img": null}], ["q2", {"label": "I like testing software", "img": null}], ["q3", {"label": "Testing is not necessary", "img": null}], ["q4", {"label": "I would fake a test result to get software deployed.", "img": null}]]'
-                 answers='[["sa", "Strongly Agree"], ["a", "Agree"], ["n", "Neutral"], ["d", "Disagree"], ["sd", "Strongly Disagree"]]'
+             <survey tally='{"q1": {"sa": 5, "a": 5, "n": 3, "d": 2, "sd": 5},
+                             "q2": {"sa": 3, "a": 2, "n": 3, "d": 10, "sd": 2},
+                             "q3": {"sa": 2, "a": 7, "n": 1, "d": 4, "sd": 6},
+                             "q4": {"sa": 1, "a": 2, "n": 8, "d": 4, "sd": 5}}'
+                 questions='[["q1", {"label": "I feel like this test will pass.", "img": null}],
+                             ["q2", {"label": "I like testing software", "img": null}],
+                             ["q3", {"label": "Testing is not necessary", "img": null}],
+                             ["q4", {"label": "I would fake a test result to get software deployed.", "img": null}]]'
+                 answers='[["sa", "Strongly Agree"], ["a", "Agree"], ["n", "Neutral"],
+                           ["d", "Disagree"], ["sd", "Strongly Disagree"]]'
                  feedback="### Thank you&#10;&#10;for running the tests."/>
              """)
         ]

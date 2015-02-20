@@ -10,11 +10,18 @@ function PollUtil (runtime, element, pollType) {
         this.submit = $('input[type=button]', element);
         this.answers = $('input[type=radio]', element);
         this.resultsTemplate = Handlebars.compile($("#" + pollType + "-results-template", element).html());
+        this.viewResultsButton = $('.view-results-button', element);
+        this.viewResultsButton.click(this.getResults);
         // If the submit button doesn't exist, the user has already
         // selected a choice. Render results instead of initializing machinery.
         if (! self.submit.length) {
-            self.getResults({'success': true});
+            self.onSubmit({'success': true});
             return false;
+        }
+        var max_submissions = parseInt($('.poll-max-submissions', element).text());
+        var current_count = parseInt($('.poll-current-count', element).text());
+        if (max_submissions > 1 && current_count > 0) {
+            $('.poll-submissions-count', element).show();
         }
         return true;
     };
@@ -31,12 +38,13 @@ function PollUtil (runtime, element, pollType) {
             var choice = radio.val();
             var thanks = $('.poll-voting-thanks', element);
             thanks.addClass('poll-hidden');
+            // JQuery's fade functions set element-level styles. Clear these.
             thanks.removeAttr('style');
             $.ajax({
                 type: "POST",
                 url: self.voteUrl,
                 data: JSON.stringify({"choice": choice}),
-                success: self.getResults
+                success: self.onSubmit
             });
         });
         // If the user has already reached their maximum submissions, all inputs should be disabled.
@@ -67,7 +75,7 @@ function PollUtil (runtime, element, pollType) {
                 type: "POST",
                 url: self.voteUrl,
                 data: JSON.stringify(self.surveyChoices()),
-                success: self.getResults
+                success: self.onSubmit
             })
         });
         // If the user has refreshed the page, they may still have an answer
@@ -80,7 +88,7 @@ function PollUtil (runtime, element, pollType) {
         var choices = {};
         self.answers.each(function(index, el) {
             el = $(el);
-            choices[el.prop('name')] = $(self.checkedElement(el)).val();
+            choices[el.prop('name')] = $(self.checkedElement(el), element).val();
         });
         return choices;
     };
@@ -105,12 +113,16 @@ function PollUtil (runtime, element, pollType) {
         }
     };
 
-    this.getResults = function (data) {
+    this.onSubmit = function (data) {
         // Fetch the results from the server and render them.
         if (!data['success']) {
             alert(data['errors'].join('\n'));
         }
         var can_vote = data['can_vote'];
+        $('.poll-current-count', element).text(data['submissions_count']);
+        if (data['max_submissions'] > 1) {
+            $('.poll-submissions-count', element).show();
+        }
         if ($('div.poll-block', element).data('private')) {
             // User may be changing their vote. Give visual feedback that it was accepted.
             var thanks = $('.poll-voting-thanks', element);
@@ -124,6 +136,11 @@ function PollUtil (runtime, element, pollType) {
             }
             return;
         }
+        // Used if results are not private, to show the user how other students voted.
+        self.getResults();
+    };
+
+    this.getResults = function () {
         // Used if results are not private, to show the user how other students voted.
         $.ajax({
             // Semantically, this would be better as GET, but we can use helper
