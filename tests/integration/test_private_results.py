@@ -23,10 +23,28 @@
 
 from ddt import ddt, unpack, data
 from selenium.common.exceptions import NoSuchElementException
+
+from poll.poll import PollBase
 from base_test import PollBaseTest, DEFAULT_SURVEY_NAMES, DEFAULT_POLL_NAMES
 
 
 scenarios = ('Survey Private', DEFAULT_SURVEY_NAMES), ('Poll Private', DEFAULT_POLL_NAMES)
+
+def stub_view_permission(can_view):
+    """
+    Patches the 'can_view_private_results' function to return specified answer.
+    """
+    def stub_view_permissions_decorator(test_fn):
+        def test_patched(self, page_name, names):
+            original = PollBase.can_view_private_results
+            try:
+                PollBase.can_view_private_results = lambda self: can_view
+                test_fn(self, page_name, names)
+            finally:
+                PollBase.can_view_private_results = original
+        return test_patched
+    return stub_view_permissions_decorator
+
 
 @ddt
 class TestPrivateResults(PollBaseTest):
@@ -55,7 +73,7 @@ class TestPrivateResults(PollBaseTest):
         self.do_submit(names)
 
         # No results should be showing.
-        self.assertNotIn(self.browser.find_element_by_css_selector('div.poll-block').get_attribute('innerHTML'), 'poll-top-choice')
+        self.assertRaises(NoSuchElementException, self.browser.find_element_by_css_selector, '.poll-results')
         self.assertRaises(NoSuchElementException, self.browser.find_element_by_css_selector, '.poll-footnote')
 
     @unpack
@@ -83,3 +101,27 @@ class TestPrivateResults(PollBaseTest):
         self.assertFalse(self.browser.find_element_by_css_selector('.poll-feedback').is_displayed())
         self.do_submit(names)
         self.assertTrue(self.browser.find_element_by_css_selector('.poll-feedback').is_displayed())
+
+    @unpack
+    @data(*scenarios)
+    @stub_view_permission(False)
+    def test_results_button_visibility_without_permission(self, page_name, names):
+        self.go_to_page(page_name)
+        self.assertRaises(NoSuchElementException, self.browser.find_element_by_css_selector, '.view-results-button')
+
+    @unpack
+    @data(*scenarios)
+    @stub_view_permission(True)
+    def test_results_button_visibility_with_permission(self, page_name, names):
+        self.go_to_page(page_name)
+        self.browser.find_element_by_css_selector('.view-results-button')
+
+    @unpack
+    @data(*scenarios)
+    @stub_view_permission(True)
+    def test_results_button(self, page_name, names):
+        self.go_to_page(page_name)
+        button = self.browser.find_element_by_css_selector('a.view-results-button')
+        button.click()
+        self.wait_until_exists('.poll-results')
+        self.wait_until_exists('.poll-footnote')

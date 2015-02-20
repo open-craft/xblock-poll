@@ -34,6 +34,11 @@ from xblock.fragment import Fragment
 from xblockutils.publish_event import PublishEventMixin
 from xblockutils.resources import ResourceLoader
 
+try:
+    from courseware.access import has_access
+except ImportError:
+    has_access = None
+
 
 class ResourceMixin(object):
     loader = ResourceLoader(__name__)
@@ -165,6 +170,16 @@ class PollBase(XBlock, ResourceMixin, PublishEventMixin):
         if self.max_submissions > self.submissions_count:
             return True
         return False
+
+    def can_view_private_results(self):
+        """
+        Checks to see if the user has permissions to view private results.
+        This only works inside the LMS.
+        """
+        if has_access and hasattr(self.runtime, 'user') and hasattr(self.runtime, 'course_id'):
+            return has_access(self.runtime.user, 'staff', self, self.runtime.course_id)
+        else:
+            return False
 
     @staticmethod
     def get_max_submissions(data, result, private_results):
@@ -305,6 +320,7 @@ class PollBlock(PollBase):
             'can_vote': self.can_vote(),
             'max_submissions': self.max_submissions,
             'submissions_count': self.submissions_count,
+            'can_view_private_results': self.can_view_private_results(),
         })
 
         if self.choice:
@@ -346,7 +362,7 @@ class PollBlock(PollBase):
 
     @XBlock.json_handler
     def get_results(self, data, suffix=''):
-        if self.private_results:
+        if self.private_results and not self.can_view_private_results():
             detail, total = {}, None
         else:
             self.publish_event_from_dict(self.event_namespace + '.view_results', {})
@@ -512,6 +528,7 @@ class SurveyBlock(PollBase):
             'can_vote': self.can_vote(),
             'submissions_count': self.submissions_count,
             'max_submissions': self.max_submissions,
+            'can_view_private_results': self.can_view_private_results(),
         })
 
         return self.create_fragment(
@@ -554,7 +571,7 @@ class SurveyBlock(PollBase):
         tally = []
         questions = OrderedDict(self.markdown_items(self.questions))
         default_answers = OrderedDict([(answer, 0) for answer, __ in self.answers])
-        choices = self.choices
+        choices = self.choices or {}
         total = 0
         self.clean_tally()
         source_tally = self.tally
@@ -585,7 +602,7 @@ class SurveyBlock(PollBase):
             highest = 0
             top_index = None
             for index, answer in enumerate(question['answers']):
-                if answer['key'] == choices[question['key']]:
+                if answer['key'] == choices.get(question['key']):
                     answer['choice'] = True
                 # Find the most popular choice.
                 if answer['count'] > highest:
@@ -595,7 +612,8 @@ class SurveyBlock(PollBase):
                     answer['percent'] = round(answer['count'] / float(total) * 100)
                 except ZeroDivisionError:
                     answer['percent'] = 0
-            question['answers'][top_index]['top'] = True
+            if top_index is not None:
+                question['answers'][top_index]['top'] = True
 
         return tally, total
 
@@ -661,7 +679,7 @@ class SurveyBlock(PollBase):
 
     @XBlock.json_handler
     def get_results(self, data, suffix=''):
-        if self.private_results:
+        if self.private_results and not self.can_view_private_results():
             detail, total = {}, None
         else:
             self.publish_event_from_dict(self.event_namespace + '.view_results', {})
