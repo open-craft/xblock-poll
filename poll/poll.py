@@ -159,9 +159,9 @@ class PollBase(XBlock, ResourceMixin, PublishEventMixin):
             else:
                 items.append([key, label])
 
-        if not len(items) > 1:
+        if not items:
             result['errors'].append(
-                "You must include at least two {0}s.".format(noun.lower()))
+                "You must include at least one {0}.".format(noun.lower()))
             result['success'] = False
 
         return items
