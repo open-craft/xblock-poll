@@ -660,6 +660,10 @@ class SurveyBlock(PollBase):
                     if existing_key not in default_answers:
                         del new_answers[existing_key]
                 self.tally[key] = new_answers
+        # Keys for questions that no longer exist can break calculations.
+        for key in self.tally.keys():
+            if key not in questions:
+                del self.tally[key]
 
     def remove_vote(self):
         """
