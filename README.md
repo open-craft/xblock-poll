@@ -59,7 +59,7 @@ is presented to them.
 
 ![Poll example results](doc_img/poll_result.png)
 
-The top choice's percentage is shown in *orange* while the user's selection is marked by a selected (but disabled)
+The top choice's percentage is highlighted while the user's selection is marked by a selected (but disabled)
 radio button on the side.
 
 ### Poll variations
@@ -72,6 +72,9 @@ Here is an example of a poll that uses markdown in the question and the answers,
 of the answers:
 
 ![Image-only poll](doc_img/img_poll.png)
+
+Please note that using only images is not accessible as Poll XBlock does not provide means for specifying alternate
+text for images.
 
 This poll also contains a feedback section, which is enhanced with Markdown:
 
@@ -109,7 +112,7 @@ Surveys, like polls, may have several customizations. As there are multiple ques
 questions have the ability to use images, rather than answers. Surveys may also have a Feedback section, just as
 polls do.
 
-Here is an example of a survey that mixes use of Markdown and images in its questions:
+Here is an example of a survey that mixes use of Markdown and images in its  questions:
 
 ![Mixed label survey](doc_img/survey_mixed.png)
 
@@ -183,8 +186,9 @@ for 'Private Results':
 ![Private Results](doc_img/private_results.png)
 
 **Notes on Private Results**: Users will be able to change their vote on polls and surveys with this option enabled.
-An analytics event will not be fired upon the student viewing the results, as the results are never visible. A user
-will see a thank you message and any feedback provided upon submission:
+An analytics event will not be fired upon the student viewing the results, as the results are never visible. A user 
+will see a thank you message, and optionally, any instructor-provided Feedback in an additional "Feedback" section, 
+when they click submit:
 
 ![Private Results Submission](doc_img/private_results_submission.png)
 
