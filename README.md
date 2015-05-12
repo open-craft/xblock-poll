@@ -74,15 +74,13 @@ of the answers:
 ![Image-only poll](doc_img/img_poll.png)
 
 Please note that using only images is not accessible as Poll XBlock does not provide means for specifying alternate
-text for images.
+text for images. Instead use images *and* texts:
+
+![Image and Label label poll](doc_img/img_and_label_poll.png)
 
 This poll also contains a feedback section, which is enhanced with Markdown:
 
 ![Image-only poll results](doc_img/img_poll_result.png)
-
-Polls may also have images and with text.
-
-![Image and Label label poll](doc_img/img_and_label_poll.png)
 
 Or they may have a mix of both.
 
@@ -112,7 +110,7 @@ Surveys, like polls, may have several customizations. As there are multiple ques
 questions have the ability to use images, rather than answers. Surveys may also have a Feedback section, just as
 polls do.
 
-Here is an example of a survey that mixes use of Markdown and images in its  questions:
+Here is an example of a survey that mixes use of Markdown and images in its questions:
 
 ![Mixed label survey](doc_img/survey_mixed.png)
 
