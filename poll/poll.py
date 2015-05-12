@@ -33,6 +33,7 @@ from xblock.fields import Scope, String, Dict, List, Boolean, Integer
 from xblock.fragment import Fragment
 from xblockutils.publish_event import PublishEventMixin
 from xblockutils.resources import ResourceLoader
+from xblockutils.settings import XBlockWithSettingsMixin, ThemableXBlockMixin
 
 HAS_EDX_ACCESS = False
 try:
@@ -45,8 +46,14 @@ except ImportError:
     pass
 
 
-class ResourceMixin(object):
+class ResourceMixin(XBlockWithSettingsMixin, ThemableXBlockMixin):
     loader = ResourceLoader(__name__)
+
+    block_settings_key = 'poll'
+    default_theme_config = {
+        'package': 'poll',
+        'locations': ["public/css/themes/lms.css"]
+    }
 
     @staticmethod
     def resource_string(path):
@@ -64,9 +71,11 @@ class ResourceMixin(object):
         frag.add_css(self.resource_string(css))
         frag.add_javascript(self.resource_string(js))
         frag.initialize_js(js_init)
+        self.include_theme_files(frag)
         return frag
 
 
+@XBlock.wants('settings')
 class PollBase(XBlock, ResourceMixin, PublishEventMixin):
     """
     Base class for Poll-like XBlocks.

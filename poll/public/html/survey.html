@@ -1,5 +1,5 @@
 {{ js_template|safe }}
-<div class="poll-block" data-private="{% if private_results %}1{% endif %}" data-can-vote="{% if can_vote %}1{% endif %}">
+<div class="poll-block themed-xblock" data-private="{% if private_results %}1{% endif %}" data-can-vote="{% if can_vote %}1{% endif %}">
     {# If no form is present, the Javascript will load the results instead. #}
     {% if not choices or private_results %}
     <h3 class="poll-header">{{block_name}}</h3>
