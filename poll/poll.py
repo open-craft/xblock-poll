@@ -109,7 +109,7 @@ class PollBase(XBlock, ResourceMixin, PublishEventMixin):
         """
         Find out if any answer has an image, since it affects layout.
         """
-        return any(value['img'] for value in dict(field).values())
+        return any(value['img'] for key, value in field)
 
     @staticmethod
     def markdown_items(items):
@@ -190,19 +190,22 @@ class PollBase(XBlock, ResourceMixin, PublishEventMixin):
         Checks to see if the user has permissions to view private results.
         This only works inside the LMS.
         """
-        if HAS_EDX_ACCESS and hasattr(self.runtime, 'user') and hasattr(self.runtime, 'course_id'):
-            # Course staff users have permission to view results.
-            if has_access(self.runtime.user, 'staff', self, self.runtime.course_id):
-                return True
-            else:
-                # Check if user is member of a group that is explicitly granted
-                # permission to view the results through django configuration.
-                group_names = getattr(settings, 'XBLOCK_POLL_EXTRA_VIEW_GROUPS', [])
-                if group_names:
-                    group_ids = self.runtime.user.groups.values_list('id', flat=True)
-                    return GroupProfile.objects.filter(group_id__in=group_ids, name__in=group_names).exists()
-        else:
+        if not (HAS_EDX_ACCESS and hasattr(self.runtime, 'user') and hasattr(self.runtime, 'course_id')):
             return False
+
+        # Course staff users have permission to view results.
+        if has_access(self.runtime.user, 'staff', self, self.runtime.course_id):
+            return True
+
+        # Check if user is member of a group that is explicitly granted
+        # permission to view the results through django configuration.
+        group_names = getattr(settings, 'XBLOCK_POLL_EXTRA_VIEW_GROUPS', [])
+
+        if not group_names:
+            return False
+
+        group_ids = self.runtime.user.groups.values_list('id', flat=True)
+        return GroupProfile.objects.filter(group_id__in=group_ids, name__in=group_names).exists()
 
     @staticmethod
     def get_max_submissions(data, result, private_results):
@@ -254,7 +257,7 @@ class PollBlock(PollBase):
         we just clean it up on first access within the LMS, in case the studio
         has made changes to the answers.
         """
-        answers = OrderedDict(self.answers)
+        answers = dict(self.answers)
         for key in answers.keys():
             if key not in self.tally:
                 self.tally[key] = 0
@@ -331,7 +334,6 @@ class PollBlock(PollBase):
 
         context.update({
             'choice': choice,
-            # Offset so choices will always be True.
             'answers': self.markdown_items(self.answers),
             'question': markdown(self.question),
             'private_results': self.private_results,
@@ -531,7 +533,7 @@ class SurveyBlock(PollBase):
 
     def student_view(self, context=None):
         """
-        The primary view of the PollBlock, shown to students
+        The primary view of the SurveyBlock, shown to students
         when viewing courses.
         """
         if not context:
@@ -654,8 +656,8 @@ class SurveyBlock(PollBase):
         we just clean it up on first access within the LMS, in case the studio
         has made changes to the answers.
         """
-        questions = OrderedDict(self.questions)
-        answers = OrderedDict(self.answers)
+        questions = dict(self.questions)
+        answers = dict(self.answers)
         default_answers = {answer: 0 for answer in answers.keys()}
         for key in questions.keys():
             if key not in self.tally:
