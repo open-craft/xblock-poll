@@ -2,21 +2,26 @@
 {{#each items}}
 <li class="field comp-setting-entry is-set poll-{{noun}}-studio-item">
     <div class="wrapper-comp-setting">
-        <label class="label setting-label poll-setting-label" for="{{noun}}-label-{{key}}">{{noun}}</label>
-        <input class="input setting-input" name="{{noun}}-label-{{key}}" id="{{noun}}-label-{{key}}" value="{{text}}" type="text" /><br />
-        {{#if image}}
-        <label class="label setting-label" for="{{noun}}-img-{{key}}">Image URL</label>
-        <input class="input setting-input" name="{{noun}}-img-{{key}}" id="{{noun}}-img-{{key}}" value="{{img}}" type="text" />
-        {{/if}}
         <div class="poll-move">
             <div class="poll-move-up">&#9650;</div>
             <div class="poll-move-down">&#9660;</div>
         </div>
+        <a href="#" class="button action-button poll-delete-answer" onclick="return false;">Delete</a>
+        <label class="label setting-label poll-setting-label" for="{{noun}}-label-{{key}}">{{noun}}</label>
+        <input class="input setting-input" name="{{noun}}-label-{{key}}" id="{{noun}}-label-{{key}}" value="{{text}}" type="text" /><br />
+        {{#if image}}
+        <label class="label setting-label" for="{{noun}}-img-{{key}}">Image URL</label>
+        <input class="input setting-input" name="{{noun}}-img-{{key}}" id="{{noun}}-img-{{key}}" value="{{img}}" type="text" /><br />
+        <label class="label setting-label" for="{{noun}}-img_alt-{{key}}">Image alternate text</label>
+        <input class="input setting-input" name="{{noun}}-img_alt-{{key}}" id="{{noun}}-img_alt-{{key}}" value="{{img_alt}}" type="text" /><br />
+        {{/if}}
     </div>
     <span class="tip setting-help">
-        {{#if image}}This must have an image URL or text, and can have both.{{/if}}
+        {{#if image}}
+        This must have an image URL or text, and can have both.  If you add an image, an alternate text that describes
+        the image in a way that would allow someone to answer the poll if the image did not load is strongly encouraged.
+        {{/if}}
     </span>
-    <a href="#" class="button action-button poll-delete-answer" onclick="return false;">Delete</a>
 </li>
 {{/each}}
 </script>

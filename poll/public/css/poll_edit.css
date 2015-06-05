@@ -1,6 +1,7 @@
 /* CSS for PollBlock Studio Menu View */
 
 .poll-delete-answer {
+    clear: right;
     float: right;
     margin-top: 1em;
 }

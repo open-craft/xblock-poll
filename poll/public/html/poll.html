@@ -14,9 +14,7 @@
               {% if value.img %}
               <div class="poll-image">
                   <label for="{{url_name}}-answer-{{key}}" class="poll-image-label">
-                      {% if value.img %}
-                      <img src="{{value.img}}" />
-                      {% endif %}
+                      <img src="{{value.img}}" alt="{{value.img_alt}}"/>
                   </label>
               </div>
               {% endif %}

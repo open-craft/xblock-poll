@@ -116,7 +116,7 @@ class PollBase(XBlock, ResourceMixin, PublishEventMixin):
         """
         Convert all items' labels into markdown.
         """
-        return [[key, {'label': markdown(value['label']), 'img': value['img']}]
+        return [(key, {'label': markdown(value['label']), 'img': value['img'], 'img_alt': value.get('img_alt')})
                 for key, value in items]
 
     @staticmethod
@@ -146,6 +146,7 @@ class PollBase(XBlock, ResourceMixin, PublishEventMixin):
                 result['errors'].append(
                     "{0} {1} contains no key.".format(noun, item))
             image_link = item.get('img', '').strip()
+            image_alt = item.get('img_alt', '').strip()
             label = item.get('label', '').strip()
             if not label:
                 if image and not image_link:
@@ -163,8 +164,7 @@ class PollBase(XBlock, ResourceMixin, PublishEventMixin):
                                             "Check the form and explicitly delete {1}s "
                                             "if not needed.".format(noun, noun.lower()))
             if image:
-                # Labels might have prefixed space for markdown, though it's unlikely.
-                items.append((key, {'label': label, 'img': image_link.strip()}))
+                items.append((key, {'label': label, 'img': image_link, 'img_alt': image_alt}))
             else:
                 items.append([key, label])
 
@@ -236,8 +236,12 @@ class PollBlock(PollBase):
     # This will be converted into an OrderedDict.
     # Key, (Label, Image path)
     answers = List(
-        default=(('R', {'label': 'Red', 'img': None}), ('B', {'label': 'Blue', 'img': None}),
-                 ('G', {'label': 'Green', 'img': None}), ('O', {'label': 'Other', 'img': None})),
+        default=[
+            ('R', {'label': 'Red', 'img': None, 'img_alt': None}),
+            ('B', {'label': 'Blue', 'img': None, 'img_alt': None}),
+            ('G', {'label': 'Green', 'img': None, 'img_alt': None}),
+            ('O', {'label': 'Other', 'img': None, 'img_alt': None}),
+        ],
         scope=Scope.settings, help="The answer options on this poll."
     )
     tally = Dict(default={'R': 0, 'B': 0, 'G': 0, 'O': 0},
@@ -280,6 +284,7 @@ class PollBlock(PollBase):
                 'count': count,
                 'answer': value['label'],
                 'img': value['img'],
+                'img_alt': value.get('img_alt'),
                 'key': key,
                 'first': False,
                 'choice': False,
@@ -311,7 +316,7 @@ class PollBlock(PollBase):
         the student answered the poll. We don't want to take away
         the user's progress, but they should be able to vote again.
         """
-        if self.choice and self.choice in OrderedDict(self.answers):
+        if self.choice and self.choice in dict(self.answers):
             return self.choice
         else:
             return None
@@ -376,9 +381,9 @@ class PollBlock(PollBase):
         return {
             'items': [
                 {
-                    'key': key, 'text': value['label'], 'img': value['img'],
+                    'key': key, 'text': value['label'], 'img': value['img'], 'img_alt': value.get('img_alt'),
                     'noun': 'answer', 'image': True,
-                    }
+                }
                 for key, value in self.answers
             ],
         }
@@ -487,10 +492,10 @@ class PollBlock(PollBase):
              """
              <poll tally="{'long': 20, 'short': 29, 'not_saying': 15, 'longer' : 35}"
                  question="## How long have you been studying with us?"
-                 answers='[["longt", {"label": "A very long time", "img": null}],
-                           ["short", {"label": "Not very long", "img": null}],
-                           ["not_saying", {"label": "I shall not say", "img": null}],
-                           ["longer", {"label": "Longer than you", "img": null}]]'
+                 answers='[["longt", {"label": "A very long time", "img": null, "img_alt": null}],
+                           ["short", {"label": "Not very long", "img": null, "img_alt": null}],
+                           ["not_saying", {"label": "I shall not say", "img": null, "img_alt": null}],
+                           ["longer", {"label": "Longer than you", "img": null, "img_alt": null}]]'
                  feedback="### Thank you&#10;&#10;for being a valued student."/>
              """),
         ]
@@ -510,11 +515,11 @@ class SurveyBlock(PollBase):
         scope=Scope.settings, help="Answer choices for this Survey"
     )
     questions = List(
-        default=(
-            ('enjoy', {'label': 'Are you enjoying the course?', 'img': None}),
-            ('recommend', {'label': 'Would you recommend this course to your friends?', 'img': None}),
-            ('learn', {'label': 'Do you think you will learn a lot?', 'img': None})
-        ),
+        default=[
+            ('enjoy', {'label': 'Are you enjoying the course?', 'img': None, 'img_alt': None}),
+            ('recommend', {'label': 'Would you recommend this course to your friends?', 'img': None, 'img_alt': None}),
+            ('learn', {'label': 'Do you think you will learn a lot?', 'img': None, 'img_alt': None}),
+        ],
         scope=Scope.settings, help="Questions for this Survey"
     )
     tally = Dict(
@@ -616,6 +621,7 @@ class SurveyBlock(PollBase):
             tally.append({
                 'label': value['label'],
                 'img': value['img'],
+                'img_alt': value.get('img_alt'),
                 'answers': [
                     {
                         'count': count, 'choice': False,
@@ -740,7 +746,7 @@ class SurveyBlock(PollBase):
         return {
             'items': [
                 {
-                    'key': key, 'text': value['label'], 'img': value['img'],
+                    'key': key, 'text': value['label'], 'img': value['img'], 'img_alt': value.get('img_alt'),
                     'noun': 'question', 'image': True,
                 }
                 for key, value in self.questions
@@ -845,10 +851,11 @@ class SurveyBlock(PollBase):
                              "q2": {"sa": 3, "a": 2, "n": 3, "d": 10, "sd": 2},
                              "q3": {"sa": 2, "a": 7, "n": 1, "d": 4, "sd": 6},
                              "q4": {"sa": 1, "a": 2, "n": 8, "d": 4, "sd": 5}}'
-                 questions='[["q1", {"label": "I feel like this test will pass.", "img": null}],
-                             ["q2", {"label": "I like testing software", "img": null}],
-                             ["q3", {"label": "Testing is not necessary", "img": null}],
-                             ["q4", {"label": "I would fake a test result to get software deployed.", "img": null}]]'
+                 questions='[["q1", {"label": "I feel like this test will pass.", "img": null, "img_alt": null}],
+                             ["q2", {"label": "I like testing software", "img": null, "img_alt": null}],
+                             ["q3", {"label": "Testing is not necessary", "img": null, "img_alt": null}],
+                             ["q4", {"label": "I would fake a test result to get software deployed.", "img": null,
+                                     "img_alt": null}]]'
                  answers='[["sa", "Strongly Agree"], ["a", "Agree"], ["n", "Neutral"],
                            ["d", "Disagree"], ["sd", "Strongly Disagree"]]'
                  feedback="### Thank you&#10;&#10;for running the tests."/>
