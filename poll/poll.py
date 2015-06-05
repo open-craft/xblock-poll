@@ -179,11 +179,7 @@ class PollBase(XBlock, ResourceMixin, PublishEventMixin):
         """
         Checks to see if the user is permitted to vote. This may not be the case if they used up their max_submissions.
         """
-        if self.max_submissions == 0:
-            return True
-        if self.max_submissions > self.submissions_count:
-            return True
-        return False
+        return self.max_submissions == 0 or self.submissions_count < self.max_submissions
 
     def can_view_private_results(self):
         """
@@ -258,7 +254,7 @@ class PollBlock(PollBase):
         has made changes to the answers.
         """
         answers = dict(self.answers)
-        for key in answers.keys():
+        for key in answers:
             if key not in self.tally:
                 self.tally[key] = 0
 
