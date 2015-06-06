@@ -4,6 +4,10 @@
     clear: right;
     float: right;
     margin-top: 1em;
+    opacity: 0.5;
+}
+.poll-delete-answer:hover {
+    opacity: 1;
 }
 #poll-question-editor-container, #poll-feedback-editor-container{
     width: 100%;
@@ -23,10 +27,12 @@
 }
 
 .poll-move-up {
+    display: block;
     opacity: .5;
 }
 
 .poll-move-down {
+    display: block;
     opacity: .5;
 }
 

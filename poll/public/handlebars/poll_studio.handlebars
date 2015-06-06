@@ -3,10 +3,10 @@
 <li class="field comp-setting-entry is-set poll-{{noun}}-studio-item">
     <div class="wrapper-comp-setting">
         <div class="poll-move">
-            <div class="poll-move-up">&#9650;</div>
-            <div class="poll-move-down">&#9660;</div>
+            <button class="poll-move-up">&#9650;<span class="sr">&nbsp;move poll up</span></button>
+            <button class="poll-move-down">&#9660;<span class="sr">&nbsp;move poll down</span></button>
         </div>
-        <a href="#" class="button action-button poll-delete-answer" onclick="return false;">Delete</a>
+        <button class="button action-button poll-delete-answer">Delete</button>
         <label class="label setting-label poll-setting-label" for="{{noun}}-label-{{key}}">{{noun}}</label>
         <input class="input setting-input" name="{{noun}}-label-{{key}}" id="{{noun}}-label-{{key}}" value="{{text}}" type="text" /><br />
         {{#if image}}
