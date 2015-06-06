@@ -35,15 +35,13 @@ from xblockutils.publish_event import PublishEventMixin
 from xblockutils.resources import ResourceLoader
 from xblockutils.settings import XBlockWithSettingsMixin, ThemableXBlockMixin
 
-HAS_EDX_ACCESS = False
 try:
     # pylint: disable=import-error
     from django.conf import settings
-    from courseware.access import has_access
     from api_manager.models import GroupProfile
-    HAS_EDX_ACCESS = True
+    HAS_GROUP_PROFILE = True
 except ImportError:
-    pass
+    HAS_GROUP_PROFILE = False
 
 
 class ResourceMixin(XBlockWithSettingsMixin, ThemableXBlockMixin):
@@ -186,21 +184,22 @@ class PollBase(XBlock, ResourceMixin, PublishEventMixin):
         Checks to see if the user has permissions to view private results.
         This only works inside the LMS.
         """
-        if not (HAS_EDX_ACCESS and hasattr(self.runtime, 'user') and hasattr(self.runtime, 'course_id')):
+        if not hasattr(self.runtime, 'user_is_staff'):
             return False
 
         # Course staff users have permission to view results.
-        if has_access(self.runtime.user, 'staff', self, self.runtime.course_id):
+        if self.runtime.user_is_staff:
             return True
 
         # Check if user is member of a group that is explicitly granted
         # permission to view the results through django configuration.
+        if not HAS_GROUP_PROFILE:
+            return False
         group_names = getattr(settings, 'XBLOCK_POLL_EXTRA_VIEW_GROUPS', [])
-
         if not group_names:
             return False
-
-        group_ids = self.runtime.user.groups.values_list('id', flat=True)
+        user = self.runtime.get_real_user(self.runtime.anonymous_student_id)
+        group_ids = user.groups.values_list('id', flat=True)
         return GroupProfile.objects.filter(group_id__in=group_ids, name__in=group_names).exists()
 
     @staticmethod
