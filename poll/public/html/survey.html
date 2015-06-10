@@ -18,14 +18,18 @@
                 <td class="survey-question">
                     {% if question.img %}
                         <div class="poll-image-td">
-                            <img src="{{question.img}}" alt="question.img_alt"/>
+                            <img src="{{question.img}}" alt="{{question.img_alt|default_if_none:''}}"/>
                         </div>
                     {% endif %}
                   {{question.label|safe}}
                 </td>
-            {% for answer, answer_details in answers %}
+            {% for answer, label in answers %}
                 <td class="survey-option">
+                  <input type="radio" name="{{key}}" value="{{answer}}"{% if question.choice == answer %} checked{% endif %}/>
+                  <label>
                     <input type="radio" name="{{key}}" value="{{answer}}"{% if question.choice == answer %} checked{% endif %}/>
+                    <span class="sr">{{label}}</span>
+                  </label>
                 </td>
             {% endfor %}
             </tr>
