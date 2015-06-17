@@ -22,11 +22,13 @@
 #
 
 from collections import OrderedDict
+import functools
+import json
 
 from django.template import Template, Context
 from markdown import markdown
-
 import pkg_resources
+from webob import Response
 
 from xblock.core import XBlock
 from xblock.fields import Scope, String, Dict, List, Boolean, Integer
@@ -42,6 +44,12 @@ try:
     HAS_GROUP_PROFILE = True
 except ImportError:
     HAS_GROUP_PROFILE = False
+
+try:
+    from static_replace import replace_static_urls
+    HAS_STATIC_REPLACE = True
+except ImportError:
+    HAS_STATIC_REPLACE = False
 
 
 class ResourceMixin(XBlockWithSettingsMixin, ThemableXBlockMixin):
@@ -222,6 +230,30 @@ class PollBase(XBlock, ResourceMixin, PublishEventMixin):
             result['errors'].append("Private results may not be False when Maximum Submissions is not 1.")
         return max_submissions
 
+    @classmethod
+    def static_replace_json_handler(cls, func):
+        """A JSON handler that replace all static pseudo-URLs by the actual paths.
+
+        The object returned by func is JSON-serialised, and the resulting string is passed to
+        replace_static_urls() to perform regex-based URL replacing.
+
+        We would prefer to explicitly call an API function on single image URLs, but such a function
+        is not exposed by the LMS API, so we have to fall back to this slightly hacky implementation.
+        """
+
+        @cls.json_handler
+        @functools.wraps(func)
+        def wrapper(self, request_json, suffix=''):
+            response = json.dumps(func(self, request_json, suffix))
+            response = replace_static_urls(response, course_id=self.runtime.course_id)
+            return Response(response, content_type='application/json')
+
+        if HAS_STATIC_REPLACE:
+            # Only use URL translation if it is available
+            return wrapper
+        # Otherwise fall back to a standard JSON handler
+        return cls.json_handler(func)
+
 
 class PollBlock(PollBase):
     """
@@ -387,7 +419,7 @@ class PollBlock(PollBase):
             ],
         }
 
-    @XBlock.json_handler
+    @PollBase.static_replace_json_handler
     def get_results(self, data, suffix=''):
         if self.private_results and not self.can_view_private_results():
             detail, total = {}, None
@@ -714,7 +746,7 @@ class SurveyBlock(PollBase):
                 return None
         return self.choices
 
-    @XBlock.json_handler
+    @PollBase.static_replace_json_handler
     def get_results(self, data, suffix=''):
         if self.private_results and not self.can_view_private_results():
             detail, total = {}, None
