@@ -142,6 +142,31 @@ function PollUtil (runtime, element, pollType) {
 
     this.getResults = function () {
         // Used if results are not private, to show the user how other students voted.
+        function adjustGaugeBackground() {
+            // Adjust the height of the grey background of the the percentage gauges.  This
+            // couldn't be achieved with CSS.
+            $('ul.poll-results > li', element).each(function() {
+                var height = 0, width;
+                $(this).children().each(function() {
+                    height = Math.max(height, $(this).height());
+                });
+                width = $('.percentage-gauge-container', this).width();
+                $('.percentage-gauge-background', this).height(height).width(width);
+            });
+        }
+        function whenImagesLoaded(callback) {
+            // Wait for all images to be loaded, then call callback.
+            var missingImages = 1;
+            $('img', element).each(function() {
+                if ($(this).height() == 0) {
+                    missingImages++;
+                    $(this).load(function() {
+                        if (--missingImages == 0) callback();
+                    });
+                }
+            });
+            if (--missingImages == 0) callback();
+        }
         $.ajax({
             // Semantically, this would be better as GET, but we can use helper
             // functions with POST.
@@ -150,8 +175,9 @@ function PollUtil (runtime, element, pollType) {
             data: JSON.stringify({}),
             success: function (data) {
                 $('div.poll-block', element).html(self.resultsTemplate(data));
+                whenImagesLoaded(adjustGaugeBackground);
             }
-        })
+        });
     };
 
     this.enableSubmit = function () {
