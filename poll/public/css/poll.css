@@ -152,7 +152,7 @@ li.poll-result .poll-image {
     background: none !important;
 }
 
-.survey-table .survey-option {
+.survey-table .survey-option label {
     text-align: center;
     vertical-align: middle;
 }

@@ -25,7 +25,6 @@
                 </td>
             {% for answer, label in answers %}
                 <td class="survey-option">
-                  <input type="radio" name="{{key}}" value="{{answer}}"{% if question.choice == answer %} checked{% endif %}/>
                   <label>
                     <input type="radio" name="{{key}}" value="{{answer}}"{% if question.choice == answer %} checked{% endif %}/>
                     <span class="sr">{{label}}</span>
