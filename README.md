@@ -213,10 +213,6 @@ or their score.
 Things that could make a poll's previous answers ambiguous include adding or removing a question, or adding or
 removing an answer.
 
-## Grading
-
-Each block has a score value of 1, credited to the student upon completion of the block.
-
 ## Analytics
 
 Two events are fired by the XBlocks-- one for viewing the results of a poll, and one for submitting the user's choice.

@@ -97,11 +97,6 @@ class PollBase(XBlock, ResourceMixin, PublishEventMixin):
     def send_vote_event(self, choice_data):
         # Let the LMS know the user has answered the poll.
         self.runtime.publish(self, 'progress', {})
-        self.runtime.publish(self, 'grade', {
-            'value': 1,
-            'max_value': 1,
-            }
-        )
         # The SDK doesn't set url_name.
         event_dict = {'url_name': getattr(self, 'url_name', '')}
         event_dict.update(choice_data)
