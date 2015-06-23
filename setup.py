@@ -50,9 +50,7 @@ setup(
         'poll',
     ],
     install_requires=[
-        'XBlock',
         'markdown',
-        'xblock-utils',
         'ddt',
         'mock',
     ],

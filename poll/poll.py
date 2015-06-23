@@ -46,6 +46,7 @@ except ImportError:
     HAS_GROUP_PROFILE = False
 
 try:
+    # pylint: disable=import-error
     from static_replace import replace_static_urls
     HAS_STATIC_REPLACE = True
 except ImportError:
