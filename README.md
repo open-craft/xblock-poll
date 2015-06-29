@@ -22,6 +22,8 @@ and images. Formatting for images is handled by the XBlock's formatters to keep 
 The feedback section of a poll or survey is shown after a user has completed the block. It, along with a poll block's
 question field, are intended to make full use of Markdown.
 
+These blocks currently do not support grading.
+
 ## Installation and configuration
 
 This XBlock relies on [Xblock-utils](https://github.com/edx-solutions/xblock-utils), which should be installed first.
