@@ -121,8 +121,17 @@ class PollBase(XBlock, ResourceMixin, PublishEventMixin):
         return [(key, {'label': markdown(value['label']), 'img': value['img'], 'img_alt': value.get('img_alt')})
                 for key, value in items]
 
-    @staticmethod
-    def gather_items(data, result, noun, field, image=True):
+    def img_alt_mandatory(self):
+        """
+        Determine whether alt attributes for images are configured to be mandatory.  Defaults to True.
+        """
+        settings_service = self.runtime.service(self, "settings")
+        if not settings_service:
+            return True
+        xblock_settings = settings_service.get_settings_bucket(self)
+        return xblock_settings.get('IMG_ALT_MANDATORY', True)
+
+    def gather_items(self, data, result, noun, field, image=True):
         """
         Gathers a set of label-img pairs from a data dict and puts them in order.
         """
@@ -165,6 +174,11 @@ class PollBase(XBlock, ResourceMixin, PublishEventMixin):
                                             "All {1}s must have labels. Please check the form. "
                                             "Check the form and explicitly delete {1}s "
                                             "if not needed.".format(noun, noun.lower()))
+            if image_link and not image_alt and self.img_alt_mandatory():
+                result['success'] = False
+                result['errors'].append(
+                    "All images must have an alternative text describing the image in a way that "
+                    "would allow someone to answer the poll if the image did not load.")
             if image:
                 items.append((key, {'label': label, 'img': image_link, 'img_alt': image_alt}))
             else:
