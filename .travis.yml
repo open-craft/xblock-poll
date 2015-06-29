@@ -9,3 +9,5 @@ install:
 script: pep8 poll --max-line-length=120 && pylint poll && python run_tests.py --with-coverage --cover-package=poll
 notifications:
   email: false
+addons:
+  firefox: "36.0"
