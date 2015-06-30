@@ -5,17 +5,17 @@
     {{#each tally}}
         <li class="poll-result">
             <div class="poll-result-input-container">
-              <input id="answer-{{key}}" type="radio" disabled {{#if choice}}checked="True"{{/if}} />
+              <input id="answer-{{key}}" type="radio" disabled {{#if choice}}checked{{/if}} />
             </div>
-            {{#if any_img}}
+            {{~#if any_img~}}
                 <div class="poll-image result-image">
                     <label for="answer-{{key}}" class="poll-image-label">
                         {{#if img}}
-                          <img src="{{img}}" />
+                          <img src="{{img}}" alt="{{img_alt}}"/>
                         {{/if}}
                     </label>
-                </div>
-            {{/if}}
+                </div><div class="percentage-gauge-background"></div>
+            {{~/if~}}
             <div class="percentage-gauge-container">
               <div class="percentage-gauge" style="width:{{percent}}%;">
                   <label class="poll-answer-label" for="answer-{{key}}">{{{answer}}}</label>
@@ -25,10 +25,6 @@
                 <span class="poll-percent-display{{#if first}} poll-top-choice{{/if}}">{{percent}}%</span>
             </div>
         </li>
-       {{^last}}
-        <li class="poll-spacer">
-        </li>
-       {{/last}}
     {{/each}}
     </ul>
     <input class="input-main" type="button" name="poll-submit" value="Submit" disabled>

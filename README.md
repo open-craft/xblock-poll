@@ -22,6 +22,8 @@ and images. Formatting for images is handled by the XBlock's formatters to keep 
 The feedback section of a poll or survey is shown after a user has completed the block. It, along with a poll block's
 question field, are intended to make full use of Markdown.
 
+These blocks currently do not support grading.
+
 ## Installation and configuration
 
 This XBlock relies on [Xblock-utils](https://github.com/edx-solutions/xblock-utils), which should be installed first.
@@ -59,7 +61,7 @@ is presented to them.
 
 ![Poll example results](doc_img/poll_result.png)
 
-The top choice's percentage is shown in *orange* while the user's selection is marked by a selected (but disabled)
+The top choice's percentage is highlighted while the user's selection is marked by a selected (but disabled)
 radio button on the side.
 
 ### Poll variations
@@ -73,13 +75,14 @@ of the answers:
 
 ![Image-only poll](doc_img/img_poll.png)
 
+Please note that using only images is not accessible as Poll XBlock does not provide means for specifying alternate
+text for images. Instead use images *and* texts:
+
+![Image and Label label poll](doc_img/img_and_label_poll.png)
+
 This poll also contains a feedback section, which is enhanced with Markdown:
 
 ![Image-only poll results](doc_img/img_poll_result.png)
-
-Polls may also have images and with text.
-
-![Image and Label label poll](doc_img/img_and_label_poll.png)
 
 Or they may have a mix of both.
 
@@ -183,8 +186,9 @@ for 'Private Results':
 ![Private Results](doc_img/private_results.png)
 
 **Notes on Private Results**: Users will be able to change their vote on polls and surveys with this option enabled.
-An analytics event will not be fired upon the student viewing the results, as the results are never visible. A user
-will see a thank you message and any feedback provided upon submission:
+An analytics event will not be fired upon the student viewing the results, as the results are never visible. A user 
+will see a thank you message, and optionally, any instructor-provided Feedback in an additional "Feedback" section, 
+when they click submit:
 
 ![Private Results Submission](doc_img/private_results_submission.png)
 
@@ -210,10 +214,6 @@ or their score.
 
 Things that could make a poll's previous answers ambiguous include adding or removing a question, or adding or
 removing an answer.
-
-## Grading
-
-Each block has a score value of 1, credited to the student upon completion of the block.
 
 ## Analytics
 

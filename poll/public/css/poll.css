@@ -13,7 +13,7 @@
 }
 
 .poll-result-input-container {
-    display: table-cell;
+    display: inline-block;
     vertical-align: middle;
 }
 
@@ -21,9 +21,15 @@
     margin: 0 .5em 0 0;
 }
 
+.percentage-gauge-background {
+    position: absolute;
+    display: inline-block;
+    background-color: #fafbfc;
+}
+
 .percentage-gauge-container {
-    display: table-cell;
-    width: 100%;
+    display: inline-block;
+    width: 65%;
     vertical-align: middle;
     background-color: #fafbfc;
 }
@@ -45,14 +51,10 @@ li.poll-spacer {
     height: .25em;
 }
 
-ul.poll-answers-results {
-    display: table;
-}
-
-li.poll-result {
+div.poll-block ul.poll-results li.poll-result {
+    /* The selector above needs all three parts to trump some margin setting from the LMS. */
     width: 100%;
-    display: table-row;
-    padding-bottom: .2em;
+    margin-bottom: 4px;
 }
 
 .poll-answer-label {
@@ -68,14 +70,12 @@ li.poll-result {
     width: 25%;
     display: inline-block;
     vertical-align: middle;
-}
-
-.poll-image {
     margin-left: .5em;
 }
 
 li.poll-result .poll-image {
-    display: table-cell;
+    width: 22%;
+    display: inline-block;
     margin-left: 0;
 }
 
@@ -92,7 +92,7 @@ li.poll-result .poll-image {
 }
 
 .poll-percent-container {
-    display: table-cell;
+    display: inline-block;
     text-align: left;
     padding-left: .2em;
     vertical-align: middle;
@@ -152,7 +152,7 @@ li.poll-result .poll-image {
     background: none !important;
 }
 
-.survey-table .survey-option {
+.survey-table .survey-option label {
     text-align: center;
     vertical-align: middle;
 }

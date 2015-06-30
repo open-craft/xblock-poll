@@ -121,7 +121,7 @@ class TestPrivateResults(PollBaseTest):
     @stub_view_permission(True)
     def test_results_button(self, page_name, names):
         self.go_to_page(page_name)
-        button = self.browser.find_element_by_css_selector('a.view-results-button')
+        button = self.browser.find_element_by_css_selector('.view-results-button')
         button.click()
         self.wait_until_exists('.poll-results')
         self.wait_until_exists('.poll-footnote')
