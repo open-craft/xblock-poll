@@ -14,18 +14,20 @@
               <h2><label for="poll-question-editor">Question/Prompt</label></h2>
               <a href="//daringfireball.net/projects/markdown/syntax" target="_blank">Markdown Syntax</a> is supported.
               <div id="poll-question-editor-container">
-                <textarea class="input setting-input" name="question" id="poll-question-editor">{{question}}</textarea>
+                <textarea class="input setting-input" name="question" id="poll-question-editor"
+                          aria-describedby="poll-question-editor-help">{{question}}</textarea>
               </div>
-              <span class="tip setting-help">Enter the prompt for the user.</span>
+              <span class="tip setting-help" id="poll-question-editor-help">Enter the prompt for the user.</span>
             </li>
         {% endif %}
         <li class="field comp-setting-entry is-set">
            <h2><label for="poll-feedback-editor">Feedback</label></h2>
            <a href="//daringfireball.net/projects/markdown/syntax" target="_blank">Markdown Syntax</a> is supported.
            <div id="poll-feedback-editor-container">
-             <textarea class="input setting-input" name="feedback" id="poll-feedback-editor">{{feedback}}</textarea>
+             <textarea class="input setting-input" name="feedback" id="poll-feedback-editor"
+                       aria-describedby="poll-feedback-editor-help">{{feedback}}</textarea>
            </div>
-            <span class="tip setting-help">
+            <span class="tip setting-help" id="poll-feedback-editor-help">
                 This text will be displayed for the user as some extra feedback after they have
                 submitted their response to the poll.
             </span>
@@ -33,22 +35,24 @@
         <li class="field comp-setting-entry is-set">
             <div class="wrapper-comp-setting">
                 <label class="label setting-label poll-setting-label" for="poll-private-results">Private Results</label>
-                <select id="poll-private-results" class="input setting-input" name="private_results">
+                <select id="poll-private-results" class="input setting-input" name="private_results"
+                        aria-describedby="poll-private-results-help">
                     <!-- So far as I can see, there's not a proper style for checkboxes. LTI module does it this way. -->
                     <option value="true" {% if private_results %} selected{% endif %}>True</option>
                     <option value="false" {% if not private_results %} selected{% endif %}>False</option>
                 </select>
             </div>
-            <span class="tip setting-help">
-                If this is set True, don't display results of the poll to the user.
+            <span class="tip setting-help" id="poll-private-results-help">
+                If this is set to True, don't display results of the poll to the user.
             </span>
         </li>
         <li class="field comp-setting-entry is-set">
             <div class="wrapper-comp-setting">
                 <label class="label setting-label poll-setting-label" for="poll-max-submissions">Maximum Submissions</label>
-                <input id="poll-max-submissions" type="number" min="0" step="1" value="{{ max_submissions }}"/>
+                <input id="poll-max-submissions" type="number" min="0" step="1" value="{{ max_submissions }}"
+                       aria-describedby="poll-max-submissions-help"/>
             </div>
-            <span class="tip setting-help">
+            <span class="tip setting-help" id="poll-max-submissions-help">
                 Maximum number of times a user may submit a poll. <strong>Setting this to a value other than 1 will imply that
                 'Private Results' should be true.</strong> Setting it to 0 will allow infinite resubmissions.
             </span>

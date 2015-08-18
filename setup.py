@@ -44,19 +44,17 @@ def package_data(pkg, roots):
 
 setup(
     name='xblock-poll',
-    version='0.2',
+    version='1.0',
     description='An XBlock for polling users.',
     packages=[
         'poll',
     ],
     install_requires=[
-        'XBlock',
         'markdown',
-        'xblock-utils',
         'ddt',
         'mock',
     ],
-    dependency_links=['http://github.com/edx-solutions/xblock-utils/tarball/master#egg=xblock-utils'],
+    dependency_links=['http://github.com/edx/xblock-utils/tarball/master#egg=xblock-utils'],
     entry_points={
         'xblock.v1': [
             'poll = poll:PollBlock',

@@ -93,7 +93,7 @@ function PollEditUtil(runtime, element, pollType) {
 
         // A 'key' element will have to be added after the fact, since it needs to be
         // generated with the current time.
-        return self.extend({'text': '', 'img': ''}, extra)
+        return self.extend({'text': '', 'img': '', 'img_alt': ''}, extra)
     };
 
     this.empowerDeletes = function (scope) {
@@ -175,16 +175,19 @@ function PollEditUtil(runtime, element, pollType) {
     this.gather = function (scope, tracker, data, prefix, field) {
         var key = 'label';
         var name = scope.name.replace(prefix + '-', '');
-        if (name.indexOf('img-') == 0){
+        if (name.indexOf('img_alt-') == 0) {
+            name = name.replace('img_alt-', '');
+            key = 'img_alt'
+        } else if (name.indexOf('img-') == 0) {
             name = name.replace('img-', '');
             key = 'img'
-        } else if (name.indexOf('label-') == 0){
+        } else if (name.indexOf('label-') == 0) {
             name = name.replace('label-', '');
         }
         if (! (scope.name.indexOf(prefix + '-') >= 0)) {
             return
         }
-        if (tracker.indexOf(name) == -1){
+        if (tracker.indexOf(name) == -1) {
             tracker.push(name);
             data[field].push({'key': name})
         }

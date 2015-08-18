@@ -1,5 +1,7 @@
 # Created by https://www.gitignore.io
 
+tests.integration.*.png
+
 ### Python ###
 # Byte-compiled / optimized / DLL files
 __pycache__/

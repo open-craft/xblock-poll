@@ -22,31 +22,45 @@
 #
 
 from collections import OrderedDict
+import functools
+import json
 
 from django.template import Template, Context
 from markdown import markdown
-
 import pkg_resources
+from webob import Response
 
 from xblock.core import XBlock
 from xblock.fields import Scope, String, Dict, List, Boolean, Integer
 from xblock.fragment import Fragment
 from xblockutils.publish_event import PublishEventMixin
 from xblockutils.resources import ResourceLoader
+from xblockutils.settings import XBlockWithSettingsMixin, ThemableXBlockMixin
 
-HAS_EDX_ACCESS = False
 try:
     # pylint: disable=import-error
     from django.conf import settings
-    from courseware.access import has_access
     from api_manager.models import GroupProfile
-    HAS_EDX_ACCESS = True
+    HAS_GROUP_PROFILE = True
 except ImportError:
-    pass
+    HAS_GROUP_PROFILE = False
+
+try:
+    # pylint: disable=import-error
+    from static_replace import replace_static_urls
+    HAS_STATIC_REPLACE = True
+except ImportError:
+    HAS_STATIC_REPLACE = False
 
 
-class ResourceMixin(object):
+class ResourceMixin(XBlockWithSettingsMixin, ThemableXBlockMixin):
     loader = ResourceLoader(__name__)
+
+    block_settings_key = 'poll'
+    default_theme_config = {
+        'package': 'poll',
+        'locations': ["public/css/themes/lms.css"]
+    }
 
     @staticmethod
     def resource_string(path):
@@ -64,9 +78,11 @@ class ResourceMixin(object):
         frag.add_css(self.resource_string(css))
         frag.add_javascript(self.resource_string(js))
         frag.initialize_js(js_init)
+        self.include_theme_files(frag)
         return frag
 
 
+@XBlock.wants('settings')
 class PollBase(XBlock, ResourceMixin, PublishEventMixin):
     """
     Base class for Poll-like XBlocks.
@@ -82,11 +98,6 @@ class PollBase(XBlock, ResourceMixin, PublishEventMixin):
     def send_vote_event(self, choice_data):
         # Let the LMS know the user has answered the poll.
         self.runtime.publish(self, 'progress', {})
-        self.runtime.publish(self, 'grade', {
-            'value': 1,
-            'max_value': 1,
-            }
-        )
         # The SDK doesn't set url_name.
         event_dict = {'url_name': getattr(self, 'url_name', '')}
         event_dict.update(choice_data)
@@ -100,18 +111,27 @@ class PollBase(XBlock, ResourceMixin, PublishEventMixin):
         """
         Find out if any answer has an image, since it affects layout.
         """
-        return any(value['img'] for value in dict(field).values())
+        return any(value['img'] for key, value in field)
 
     @staticmethod
     def markdown_items(items):
         """
         Convert all items' labels into markdown.
         """
-        return [[key, {'label': markdown(value['label']), 'img': value['img']}]
+        return [(key, {'label': markdown(value['label']), 'img': value['img'], 'img_alt': value.get('img_alt')})
                 for key, value in items]
 
-    @staticmethod
-    def gather_items(data, result, noun, field, image=True):
+    def img_alt_mandatory(self):
+        """
+        Determine whether alt attributes for images are configured to be mandatory.  Defaults to True.
+        """
+        settings_service = self.runtime.service(self, "settings")
+        if not settings_service:
+            return True
+        xblock_settings = settings_service.get_settings_bucket(self)
+        return xblock_settings.get('IMG_ALT_MANDATORY', True)
+
+    def gather_items(self, data, result, noun, field, image=True):
         """
         Gathers a set of label-img pairs from a data dict and puts them in order.
         """
@@ -137,6 +157,7 @@ class PollBase(XBlock, ResourceMixin, PublishEventMixin):
                 result['errors'].append(
                     "{0} {1} contains no key.".format(noun, item))
             image_link = item.get('img', '').strip()
+            image_alt = item.get('img_alt', '').strip()
             label = item.get('label', '').strip()
             if not label:
                 if image and not image_link:
@@ -153,9 +174,13 @@ class PollBase(XBlock, ResourceMixin, PublishEventMixin):
                                             "All {1}s must have labels. Please check the form. "
                                             "Check the form and explicitly delete {1}s "
                                             "if not needed.".format(noun, noun.lower()))
+            if image_link and not image_alt and self.img_alt_mandatory():
+                result['success'] = False
+                result['errors'].append(
+                    "All images must have an alternative text describing the image in a way that "
+                    "would allow someone to answer the poll if the image did not load.")
             if image:
-                # Labels might have prefixed space for markdown, though it's unlikely.
-                items.append((key, {'label': label, 'img': image_link.strip()}))
+                items.append((key, {'label': label, 'img': image_link, 'img_alt': image_alt}))
             else:
                 items.append([key, label])
 
@@ -170,30 +195,30 @@ class PollBase(XBlock, ResourceMixin, PublishEventMixin):
         """
         Checks to see if the user is permitted to vote. This may not be the case if they used up their max_submissions.
         """
-        if self.max_submissions == 0:
-            return True
-        if self.max_submissions > self.submissions_count:
-            return True
-        return False
+        return self.max_submissions == 0 or self.submissions_count < self.max_submissions
 
     def can_view_private_results(self):
         """
         Checks to see if the user has permissions to view private results.
         This only works inside the LMS.
         """
-        if HAS_EDX_ACCESS and hasattr(self.runtime, 'user') and hasattr(self.runtime, 'course_id'):
-            # Course staff users have permission to view results.
-            if has_access(self.runtime.user, 'staff', self, self.runtime.course_id):
-                return True
-            else:
-                # Check if user is member of a group that is explicitly granted
-                # permission to view the results through django configuration.
-                group_names = getattr(settings, 'XBLOCK_POLL_EXTRA_VIEW_GROUPS', [])
-                if group_names:
-                    group_ids = self.runtime.user.groups.values_list('id', flat=True)
-                    return GroupProfile.objects.filter(group_id__in=group_ids, name__in=group_names).exists()
-        else:
+        if not hasattr(self.runtime, 'user_is_staff'):
             return False
+
+        # Course staff users have permission to view results.
+        if self.runtime.user_is_staff:
+            return True
+
+        # Check if user is member of a group that is explicitly granted
+        # permission to view the results through django configuration.
+        if not HAS_GROUP_PROFILE:
+            return False
+        group_names = getattr(settings, 'XBLOCK_POLL_EXTRA_VIEW_GROUPS', [])
+        if not group_names:
+            return False
+        user = self.runtime.get_real_user(self.runtime.anonymous_student_id)
+        group_ids = user.groups.values_list('id', flat=True)
+        return GroupProfile.objects.filter(group_id__in=group_ids, name__in=group_names).exists()
 
     @staticmethod
     def get_max_submissions(data, result, private_results):
@@ -215,6 +240,30 @@ class PollBase(XBlock, ResourceMixin, PublishEventMixin):
             result['errors'].append("Private results may not be False when Maximum Submissions is not 1.")
         return max_submissions
 
+    @classmethod
+    def static_replace_json_handler(cls, func):
+        """A JSON handler that replace all static pseudo-URLs by the actual paths.
+
+        The object returned by func is JSON-serialised, and the resulting string is passed to
+        replace_static_urls() to perform regex-based URL replacing.
+
+        We would prefer to explicitly call an API function on single image URLs, but such a function
+        is not exposed by the LMS API, so we have to fall back to this slightly hacky implementation.
+        """
+
+        @cls.json_handler
+        @functools.wraps(func)
+        def wrapper(self, request_json, suffix=''):
+            response = json.dumps(func(self, request_json, suffix))
+            response = replace_static_urls(response, course_id=self.runtime.course_id)
+            return Response(response, content_type='application/json')
+
+        if HAS_STATIC_REPLACE:
+            # Only use URL translation if it is available
+            return wrapper
+        # Otherwise fall back to a standard JSON handler
+        return cls.json_handler(func)
+
 
 class PollBlock(PollBase):
     """
@@ -228,8 +277,12 @@ class PollBlock(PollBase):
     # This will be converted into an OrderedDict.
     # Key, (Label, Image path)
     answers = List(
-        default=(('R', {'label': 'Red', 'img': None}), ('B', {'label': 'Blue', 'img': None}),
-                 ('G', {'label': 'Green', 'img': None}), ('O', {'label': 'Other', 'img': None})),
+        default=[
+            ('R', {'label': 'Red', 'img': None, 'img_alt': None}),
+            ('B', {'label': 'Blue', 'img': None, 'img_alt': None}),
+            ('G', {'label': 'Green', 'img': None, 'img_alt': None}),
+            ('O', {'label': 'Other', 'img': None, 'img_alt': None}),
+        ],
         scope=Scope.settings, help="The answer options on this poll."
     )
     tally = Dict(default={'R': 0, 'B': 0, 'G': 0, 'O': 0},
@@ -245,8 +298,8 @@ class PollBlock(PollBase):
         we just clean it up on first access within the LMS, in case the studio
         has made changes to the answers.
         """
-        answers = OrderedDict(self.answers)
-        for key in answers.keys():
+        answers = dict(self.answers)
+        for key in answers:
             if key not in self.tally:
                 self.tally[key] = 0
 
@@ -272,6 +325,7 @@ class PollBlock(PollBase):
                 'count': count,
                 'answer': value['label'],
                 'img': value['img'],
+                'img_alt': value.get('img_alt'),
                 'key': key,
                 'first': False,
                 'choice': False,
@@ -303,7 +357,7 @@ class PollBlock(PollBase):
         the student answered the poll. We don't want to take away
         the user's progress, but they should be able to vote again.
         """
-        if self.choice and self.choice in OrderedDict(self.answers):
+        if self.choice and self.choice in dict(self.answers):
             return self.choice
         else:
             return None
@@ -322,7 +376,6 @@ class PollBlock(PollBase):
 
         context.update({
             'choice': choice,
-            # Offset so choices will always be True.
             'answers': self.markdown_items(self.answers),
             'question': markdown(self.question),
             'private_results': self.private_results,
@@ -369,14 +422,14 @@ class PollBlock(PollBase):
         return {
             'items': [
                 {
-                    'key': key, 'text': value['label'], 'img': value['img'],
+                    'key': key, 'text': value['label'], 'img': value['img'], 'img_alt': value.get('img_alt'),
                     'noun': 'answer', 'image': True,
-                    }
+                }
                 for key, value in self.answers
             ],
         }
 
-    @XBlock.json_handler
+    @PollBase.static_replace_json_handler
     def get_results(self, data, suffix=''):
         if self.private_results and not self.can_view_private_results():
             detail, total = {}, None
@@ -480,10 +533,10 @@ class PollBlock(PollBase):
              """
              <poll tally="{'long': 20, 'short': 29, 'not_saying': 15, 'longer' : 35}"
                  question="## How long have you been studying with us?"
-                 answers='[["longt", {"label": "A very long time", "img": null}],
-                           ["short", {"label": "Not very long", "img": null}],
-                           ["not_saying", {"label": "I shall not say", "img": null}],
-                           ["longer", {"label": "Longer than you", "img": null}]]'
+                 answers='[["longt", {"label": "A very long time", "img": null, "img_alt": null}],
+                           ["short", {"label": "Not very long", "img": null, "img_alt": null}],
+                           ["not_saying", {"label": "I shall not say", "img": null, "img_alt": null}],
+                           ["longer", {"label": "Longer than you", "img": null, "img_alt": null}]]'
                  feedback="### Thank you&#10;&#10;for being a valued student."/>
              """),
         ]
@@ -503,11 +556,11 @@ class SurveyBlock(PollBase):
         scope=Scope.settings, help="Answer choices for this Survey"
     )
     questions = List(
-        default=(
-            ('enjoy', {'label': 'Are you enjoying the course?', 'img': None}),
-            ('recommend', {'label': 'Would you recommend this course to your friends?', 'img': None}),
-            ('learn', {'label': 'Do you think you will learn a lot?', 'img': None})
-        ),
+        default=[
+            ('enjoy', {'label': 'Are you enjoying the course?', 'img': None, 'img_alt': None}),
+            ('recommend', {'label': 'Would you recommend this course to your friends?', 'img': None, 'img_alt': None}),
+            ('learn', {'label': 'Do you think you will learn a lot?', 'img': None, 'img_alt': None}),
+        ],
         scope=Scope.settings, help="Questions for this Survey"
     )
     tally = Dict(
@@ -522,7 +575,7 @@ class SurveyBlock(PollBase):
 
     def student_view(self, context=None):
         """
-        The primary view of the PollBlock, shown to students
+        The primary view of the SurveyBlock, shown to students
         when viewing courses.
         """
         if not context:
@@ -609,6 +662,7 @@ class SurveyBlock(PollBase):
             tally.append({
                 'label': value['label'],
                 'img': value['img'],
+                'img_alt': value.get('img_alt'),
                 'answers': [
                     {
                         'count': count, 'choice': False,
@@ -645,8 +699,8 @@ class SurveyBlock(PollBase):
         we just clean it up on first access within the LMS, in case the studio
         has made changes to the answers.
         """
-        questions = OrderedDict(self.questions)
-        answers = OrderedDict(self.answers)
+        questions = dict(self.questions)
+        answers = dict(self.answers)
         default_answers = {answer: 0 for answer in answers.keys()}
         for key in questions.keys():
             if key not in self.tally:
@@ -702,7 +756,7 @@ class SurveyBlock(PollBase):
                 return None
         return self.choices
 
-    @XBlock.json_handler
+    @PollBase.static_replace_json_handler
     def get_results(self, data, suffix=''):
         if self.private_results and not self.can_view_private_results():
             detail, total = {}, None
@@ -733,7 +787,7 @@ class SurveyBlock(PollBase):
         return {
             'items': [
                 {
-                    'key': key, 'text': value['label'], 'img': value['img'],
+                    'key': key, 'text': value['label'], 'img': value['img'], 'img_alt': value.get('img_alt'),
                     'noun': 'question', 'image': True,
                 }
                 for key, value in self.questions
@@ -838,10 +892,11 @@ class SurveyBlock(PollBase):
                              "q2": {"sa": 3, "a": 2, "n": 3, "d": 10, "sd": 2},
                              "q3": {"sa": 2, "a": 7, "n": 1, "d": 4, "sd": 6},
                              "q4": {"sa": 1, "a": 2, "n": 8, "d": 4, "sd": 5}}'
-                 questions='[["q1", {"label": "I feel like this test will pass.", "img": null}],
-                             ["q2", {"label": "I like testing software", "img": null}],
-                             ["q3", {"label": "Testing is not necessary", "img": null}],
-                             ["q4", {"label": "I would fake a test result to get software deployed.", "img": null}]]'
+                 questions='[["q1", {"label": "I feel like this test will pass.", "img": null, "img_alt": null}],
+                             ["q2", {"label": "I like testing software", "img": null, "img_alt": null}],
+                             ["q3", {"label": "Testing is not necessary", "img": null, "img_alt": null}],
+                             ["q4", {"label": "I would fake a test result to get software deployed.", "img": null,
+                                     "img_alt": null}]]'
                  answers='[["sa", "Strongly Agree"], ["a", "Agree"], ["n", "Neutral"],
                            ["d", "Disagree"], ["sd", "Strongly Disagree"]]'
                  feedback="### Thank you&#10;&#10;for running the tests."/>
