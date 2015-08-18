@@ -216,3 +216,7 @@ th.survey-answer {
     text-align: right;
     cursor: pointer;
 }
+
+.poll-block-form-wrapper {
+    display: none;
+}
