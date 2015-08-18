@@ -519,6 +519,13 @@ class PollBlock(PollBase):
 
         return result
 
+    @XBlock.json_handler
+    def student_voted(self, data, suffix=''):
+        return {
+            'voted': self.get_choice() is not None,
+            'private_results': self.private_results
+        }
+
     @staticmethod
     def workbench_scenarios():
         """
@@ -875,6 +882,13 @@ class SurveyBlock(PollBase):
         # scoping limitations.
 
         return result
+
+    @XBlock.json_handler
+    def student_voted(self, data, suffix=''):
+        return {
+            'voted': self.get_choices() is not None,
+            'private_results': self.private_results
+        }
 
     @staticmethod
     def workbench_scenarios():

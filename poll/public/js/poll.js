@@ -7,23 +7,14 @@ function PollUtil (runtime, element, pollType) {
         // Initialization function used for both Poll Types
         this.voteUrl = runtime.handlerUrl(element, 'vote');
         this.tallyURL = runtime.handlerUrl(element, 'get_results');
+        this.votedUrl = runtime.handlerUrl(element, 'student_voted');
         this.submit = $('input[type=button]', element);
         this.answers = $('input[type=radio]', element);
         this.resultsTemplate = Handlebars.compile($("#" + pollType + "-results-template", element).html());
         this.viewResultsButton = $('.view-results-button', element);
         this.viewResultsButton.click(this.getResults);
-        // If the submit button doesn't exist, the user has already
-        // selected a choice. Render results instead of initializing machinery.
-        if (! self.submit.length) {
-            self.onSubmit({'success': true});
-            return false;
-        }
-        var max_submissions = parseInt($('.poll-max-submissions', element).text());
-        var current_count = parseInt($('.poll-current-count', element).text());
-        if (max_submissions > 1 && current_count > 0) {
-            $('.poll-submissions-count', element).show();
-        }
-        return true;
+
+        return this.shouldDisplayResults();
     };
 
     this.pollInit = function(){
@@ -81,6 +72,16 @@ function PollUtil (runtime, element, pollType) {
         // If the user has refreshed the page, they may still have an answer
         // selected and the submit button should be enabled.
         self.verifyAll();
+    };
+
+    this.shouldDisplayResults = function() {
+        return $.ajax({
+            // Semantically, this would be better as GET, but we can use helper
+            // functions with POST.
+            type: "POST",
+            url: self.votedUrl,
+            data: JSON.stringify({})
+        });
     };
 
     this.surveyChoices = function () {
@@ -186,12 +187,25 @@ function PollUtil (runtime, element, pollType) {
         self.answers.unbind("change.enableSubmit");
     };
 
-    var run_init = this.init();
-    if (run_init) {
-        var init_map = {'poll': self.pollInit, 'survey': self.surveyInit};
-        init_map[pollType]()
-    }
-
+    var init_map = {'poll': self.pollInit, 'survey': self.surveyInit};
+    this.init().done(function(data) {
+        // If the submit button doesn't exist, the user has already
+        // selected a choice. Render results instead of initializing machinery.
+        if (data['voted'] && ! data['private_results']) {
+            self.onSubmit({'success': true});
+            $('.poll-block-form-wrapper', element).hide();
+        }
+        else {
+            $('.poll-block-form-wrapper', element).show();
+            var max_submissions = parseInt($('.poll-max-submissions', element).text());
+            var current_count = parseInt($('.poll-current-count', element).text());
+            if (max_submissions > 1 && current_count > 0) {
+                $('.poll-submissions-count', element).show();
+            }
+        }
+    }).always(function(){
+        init_map[pollType]();
+    });
 }
 
 function PollBlock(runtime, element) {
