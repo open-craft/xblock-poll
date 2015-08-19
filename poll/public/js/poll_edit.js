@@ -1,4 +1,3 @@
-
 function PollEditUtil(runtime, element, pollType) {
     var self = this;
     var notify;
@@ -105,14 +104,15 @@ function PollEditUtil(runtime, element, pollType) {
 
     this.empowerArrows = function(scope, topMarker, bottomMarker) {
         // Activates the arrows on rendered line items.
-        $('.poll-move-up', scope).click(function () {
+        $('.poll-move-up', scope).click(function (ev) {
             var tag = $(this).parents('li');
             if (tag.index() <= ($(topMarker).index() + 1)){
                 return;
             }
             tag.prev().before(tag);
             tag.fadeOut(0).fadeIn('slow', 'swing');
-            self.scrollTo(tag)
+            self.scrollTo(tag);
+            ev.preventDefault();
         });
         $('.poll-move-down', scope).click(function () {
             var tag = $(this).parents('li');
@@ -121,7 +121,8 @@ function PollEditUtil(runtime, element, pollType) {
             }
             tag.next().after(tag);
             tag.fadeOut(0).fadeIn('slow', 'swing');
-            self.scrollTo(tag)
+            self.scrollTo(tag);
+            ev.preventDefault();
         });
     };
 
