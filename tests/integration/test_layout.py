@@ -25,44 +25,49 @@
 Test to make sure the layout for results is sane when taking images into
 account.
 """
+from ddt import ddt, unpack, data
 from tests.integration.base_test import PollBaseTest
 
 
+@ddt
 class TestLayout(PollBaseTest):
     """
     Do tests to verify that the layout of elements makes sense depeneding on
     the number of images.
     """
 
-    def test_all_images(self):
+    @unpack
+    @data(('Poll All Pictures', 4), ('Poll One Picture', 4), ('Poll No Pictures', 0))
+    def test_images(self, scenario, count):
         """
-        Verify img tags are created for answers when they're all set.
+        Verify the poll-image divs only appear when they need to.
         """
-        self.go_to_page('Poll All Pictures')
+        self.go_to_page(scenario)
         pics = self.browser.find_elements_by_css_selector('.poll-image')
-        self.assertEqual(len(pics), 4)
+        self.assertEqual(len(pics), count)
 
-        # Pics should be within labels.
-        pics[0].find_element_by_css_selector('img').click()
+        if not count:
+            self.browser.find_element_by_css_selector('.poll-answer-text').click()
+        else:
+            # Pics should be within labels.
+            self.browser.find_element_by_css_selector('.poll-image img').click()
         self.get_submit().click()
 
-        self.wait_until_exists('.poll-image')
+        self.wait_until_exists('.percentage-gauge')
 
-        self.assertEqual(len(self.browser.find_elements_by_css_selector('.poll-image')), 4)
+        self.assertEqual(len(self.browser.find_elements_by_css_selector('.poll-image')), count)
 
-    def test_one_image(self):
-        """
-        Verify layout is sane when only one answer has an image.
-        """
-        self.go_to_page('Poll One Picture')
-        pics = self.browser.find_elements_by_css_selector('.poll-image')
-        # On the polling page, there should only be one pics div.
-        self.assertEqual(len(pics), 1)
+    @data('Poll Size Check', 'Poll Size Check Image')
+    def test_poll_size(self, scenario):
+        self.go_to_page(scenario)
+        width = self.browser.get_window_size()['width']
+        poll = self.browser.find_element_by_css_selector('.poll-block')
+        self.assertLess(poll.get_attribute('width'), width)
 
-        pics[0].find_element_by_css_selector('img').click()
-
+        self.browser.find_element_by_css_selector('.poll-answer-text').click()
         self.get_submit().click()
 
-        self.wait_until_exists('.poll-image.result-image')
-        # ...But on the results page, we need four, for table layout.
-        self.assertEqual(len(self.browser.find_elements_by_css_selector('.poll-image')), 4)
+        self.wait_until_exists('.percentage-gauge')
+
+        poll = self.browser.find_element_by_css_selector('.poll-block')
+        self.assertLess(poll.get_attribute('width'), width)

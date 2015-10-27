@@ -10,17 +10,19 @@
       <ul class="poll-answers">
       {% for key, value in answers %}
           <li class="poll-answer">
-              <input type="radio" name="choice" id="{{url_name}}-answer-{{key}}" value="{{key}}" {% if choice == key %}checked{% endif %}/>
-              {% if value.img %}
-              <div class="poll-image">
-                  <label for="{{url_name}}-answer-{{key}}" class="poll-image-label">
-                      {% if value.img %}
-                      <img src="{{value.img}}" />
-                      {% endif %}
-                  </label>
+              <div class="poll-input-container">
+                  <input type="radio" name="choice" id="{{url_name}}-answer-{{key}}" value="{{key}}" {% if choice == key %}checked{% endif %}/>
               </div>
+              {% if any_img %}
+                  <div class="poll-image">
+                      <label for="{{url_name}}-answer-{{key}}" class="poll-image-label">
+                          {% if value.img %}
+                          <img src="{{value.img}}" />
+                          {% endif %}
+                      </label>
+                  </div>
               {% endif %}
-              <label class="poll-answer" for="{{url_name}}-answer-{{key}}">{{value.label|safe}}</label>
+              <label class="poll-answer-text" for="{{url_name}}-answer-{{key}}">{{value.label|safe}}</label>
           </li>
       {% endfor %}
       </ul>
