@@ -5,8 +5,15 @@ before_install:
     - "export DISPLAY=:99"
     - "sh -e /etc/init.d/xvfb start"
 install:
-    - "sh install_test_deps.sh"
-    - "python setup.py develop"
+    - "pip install -e git://github.com/edx/xblock-sdk.git#egg=xblock-sdk"
+    - "cd $VIRTUAL_ENV/src/xblock-sdk/"
+    - "pip install -r $VIRTUAL_ENV/src/xblock-sdk/requirements/base.txt"
+    - "pip install -r $VIRTUAL_ENV/src/xblock-sdk/requirements/test.txt"
+    - "cd -"
+    - "pip install -r requirements.txt"
+    - "mkdir var"
 script: pep8 poll --max-line-length=120 && pylint poll && python run_tests.py --with-coverage --cover-package=poll
 notifications:
   email: false
+addons:
+  firefox: "36.0"
