@@ -17,9 +17,8 @@
                 </div>
             {{/if}}
             <div class="percentage-gauge-container">
-              <div class="percentage-gauge" style="width:{{percent}}%;">
-                  <label class="poll-answer-label" for="answer-{{key}}">{{{answer}}}</label>
-              </div>
+              <div class="percentage-gauge" style="width:{{percent}}%;"></div>
+              <label class="poll-answer-label" for="answer-{{key}}">{{{answer}}}</label>
             </div>
             <div class="poll-percent-container">
                 <span class="poll-percent-display{{#if first}} poll-top-choice{{/if}}">{{percent}}%</span>

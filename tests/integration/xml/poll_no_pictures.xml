@@ -1,0 +1,3 @@
+<poll tally="{'red': 20, 'fennec': 29, 'kit': 15, 'arctic' : 35}"
+      question="## What is your favorite kind of fox?"
+      answers='[["red", {"label": "Red Fox", "img": null}], ["fennec", {"label": "Fennec Fox", "img": null}], ["kit", {"label": "Kit Fox", "img": null}], ["arctic", {"label": "Arctic fox", "img": null}]]' />
