@@ -1,15 +1,19 @@
 /* CSS for PollBlock Student View */
 
-.poll-answer {
+.poll-answer-text {
     margin-left: 1em;
+    margin-bottom: 0;
     font-weight: bold;
-    display: inline-block;
+    vertical-align: middle;
 }
+
 .percentage-gauge {
     display: inline-block;
     background-color: #e5ebee;
-    position: relative;
-    z-index: 1;
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
 }
 
 .poll-result-input-container {
@@ -31,6 +35,7 @@
     display: inline-block;
     width: 65%;
     vertical-align: middle;
+    position: relative;
     background-color: #fafbfc;
 }
 
@@ -40,11 +45,10 @@ ul.poll-answers, ul.poll-answers-results {
 }
 
 li.poll-answer {
-    display: block;
+    display: table-row;
     border-bottom-width: .5em;
     vertical-align: middle;
     margin-top: 5px;
-    margin-bottom: 5px;
 }
 
 li.poll-spacer {
@@ -63,14 +67,18 @@ div.poll-block ul.poll-results li.poll-result {
     display: inline-block;
     margin-bottom: 5px;
     margin-top: 5px;
-    white-space: nowrap;
+    position: relative;
 }
 
 .poll-image {
     width: 25%;
-    display: inline-block;
+    display: table-cell;
     vertical-align: middle;
     margin-left: .5em;
+}
+
+.poll-image.result-image {
+    background-color: #fafbfc;
 }
 
 li.poll-result .poll-image {
@@ -190,9 +198,15 @@ th.survey-answer {
 }
 
 /* Counteract Markdown's wrapping in paragraphs */
-.poll-answer p, .survey-question p, .poll-answer-label p{
-    margin: 0;
+.survey-question p, div.percentage-gauge-container label.poll-answer-label p{
+    margin-bottom: 0;
     padding: 0;
+}
+
+/* Keep the paragraph spacing, but make the spacing vertically even. */
+li.poll-answer label.poll-answer-text p {
+    margin-bottom: .5em;
+    margin-top: .5em;
 }
 
 .poll-voting-thanks span {
@@ -219,4 +233,11 @@ th.survey-answer {
 
 .poll-block-form-wrapper {
     display: none;
+}
+
+.poll-input-container {
+    display: table-cell;
+    vertical-align: middle;
+    height: 100%;
+    padding-right: .5em;
 }

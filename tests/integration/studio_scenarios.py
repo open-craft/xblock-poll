@@ -28,7 +28,7 @@ ddt_scenarios = [
         'Poll Studio',
         'answer',
         4,
-        'label.poll-answer'
+        'label.poll-answer-text'
     ],
     [
         'Survey Studio',

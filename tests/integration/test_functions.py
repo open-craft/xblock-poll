@@ -24,9 +24,9 @@
 Tests a realistic, configured Poll to make sure that everything works as it
 should.
 """
-from selenium.common.exceptions import NoSuchElementException
-import time
 from .base_test import PollBaseTest
+
+ANSWER_SELECTOR = 'label.poll-answer-text'
 
 
 class TestPollFunctions(PollBaseTest):
@@ -38,7 +38,7 @@ class TestPollFunctions(PollBaseTest):
         not showing, and that the submit button is disabled.
         """
         self.go_to_page('Poll Functions')
-        answer_elements = self.browser.find_elements_by_css_selector('label.poll-answer')
+        answer_elements = self.browser.find_elements_by_css_selector(ANSWER_SELECTOR)
         answers = [element.text for element in answer_elements]
         self.assertEqual(['A very long time', 'Not very long', 'I shall not say', 'Longer than you'], answers)
 
@@ -52,7 +52,7 @@ class TestPollFunctions(PollBaseTest):
         Makes sure the submit button is enabled when selecting an answer.
         """
         self.go_to_page('Poll Functions')
-        answer_elements = self.browser.find_elements_by_css_selector('label.poll-answer')
+        answer_elements = self.browser.find_elements_by_css_selector(ANSWER_SELECTOR)
         answer_elements[0].click()
 
         # When an answer is selected, make sure submit is enabled.
@@ -65,7 +65,7 @@ class TestPollFunctions(PollBaseTest):
         Also check that feedback is displayed afterward.
         """
         self.go_to_page('Poll Functions')
-        answer_elements = self.browser.find_elements_by_css_selector('label.poll-answer')
+        answer_elements = self.browser.find_elements_by_css_selector(ANSWER_SELECTOR)
 
         # 'Not very long'
         answer_elements[1].click()
@@ -88,7 +88,7 @@ class TestPollFunctions(PollBaseTest):
         """
         self.go_to_page('Poll Functions')
 
-        answer_elements = self.browser.find_elements_by_css_selector('label.poll-answer')
+        answer_elements = self.browser.find_elements_by_css_selector(ANSWER_SELECTOR)
 
         # Not very long
         answer_elements[1].click()
