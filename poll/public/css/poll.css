@@ -1,10 +1,11 @@
 /* CSS for PollBlock Student View */
 
 .poll-answer-text {
-    margin-left: 1em;
     margin-bottom: 0;
     font-weight: bold;
     vertical-align: middle;
+    display: table-cell;
+    padding-left: .5em;
 }
 
 .percentage-gauge {
@@ -23,6 +24,10 @@
 
 .poll-result-input-container input {
     margin: 0 .5em 0 0;
+}
+
+.poll-input-container input[type="radio"] {
+    margin: 0;
 }
 
 .percentage-gauge-background {
@@ -68,6 +73,7 @@ div.poll-block ul.poll-results li.poll-result {
     margin-bottom: 5px;
     margin-top: 5px;
     position: relative;
+    padding-left: .5em;
 }
 
 .poll-image {
@@ -89,6 +95,10 @@ li.poll-result .poll-image {
 
 .poll-image-td {
     width: 25%;
+}
+
+.poll-image img {
+    vertical-align: middle;
 }
 
 .poll-image img, .poll-image-td img{
