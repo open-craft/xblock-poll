@@ -1,6 +1,7 @@
 markdown
--e git://github.com/edx/xblock-utils.git@213a97a50276d6a2504d8133650b2930ead357a0#egg=xblock-utils
+-e git://github.com/edx/xblock-utils.git#egg=xblock-utils
 -e git://github.com/nosedjango/nosedjango.git@ed7d7f9aa969252ff799ec159f828eaa8c1cbc5a#egg=nosedjango-dev
 ddt
 mock
+selenium==2.47.3  # 2.48 is not working atm
 -e .

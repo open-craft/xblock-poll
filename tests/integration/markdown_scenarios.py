@@ -55,7 +55,7 @@ ddt_scenarios = [
         False
     ],
     [
-        "Poll Markdown", "label.poll-answer", "<p>I <em>feel</em> like this test will <strong>pass</strong><code>test</code>.</p>",
+        "Poll Markdown", "label.poll-answer-text", "<p>I <em>feel</em> like this test will <strong>pass</strong><code>test</code>.</p>",
         True, False
     ],
     [
