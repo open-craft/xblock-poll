@@ -318,7 +318,6 @@ class PollBlock(PollBase):
         total = 0
         self.clean_tally()
         source_tally = self.tally
-        any_img = self.any_image(self.answers)
         for key, value in answers.items():
             count = int(source_tally[key])
             tally.append({
@@ -330,7 +329,6 @@ class PollBlock(PollBase):
                 'first': False,
                 'choice': False,
                 'last': False,
-                'any_img': any_img,
             })
             total += count
 
@@ -437,9 +435,13 @@ class PollBlock(PollBase):
             self.publish_event_from_dict(self.event_namespace + '.view_results', {})
             detail, total = self.tally_detail()
         return {
-            'question': markdown(self.question), 'tally': detail,
-            'total': total, 'feedback': markdown(self.feedback),
-            'plural': total > 1, 'display_name': self.display_name,
+            'question': markdown(self.question),
+            'tally': detail,
+            'total': total,
+            'feedback': markdown(self.feedback),
+            'plural': total > 1,
+            'display_name': self.display_name,
+            'any_img': self.any_image(self.answers),
         }
 
     @XBlock.json_handler

@@ -38,10 +38,14 @@
 
 .percentage-gauge-container {
     display: inline-block;
-    width: 65%;
+    width: 87%;
     vertical-align: middle;
     position: relative;
     background-color: #fafbfc;
+}
+
+.poll-results.has-images .percentage-gauge-container {
+    width: 65%;
 }
 
 ul.poll-answers, ul.poll-answers-results {
