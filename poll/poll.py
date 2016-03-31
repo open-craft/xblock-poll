@@ -36,6 +36,7 @@ from xblock.fragment import Fragment
 from xblockutils.publish_event import PublishEventMixin
 from xblockutils.resources import ResourceLoader
 from xblockutils.settings import XBlockWithSettingsMixin, ThemableXBlockMixin
+from .utils import _
 
 try:
     # pylint: disable=import-error
@@ -83,17 +84,18 @@ class ResourceMixin(XBlockWithSettingsMixin, ThemableXBlockMixin):
 
 
 @XBlock.wants('settings')
+@XBlock.needs('i18n')
 class PollBase(XBlock, ResourceMixin, PublishEventMixin):
     """
     Base class for Poll-like XBlocks.
     """
     event_namespace = 'xblock.pollbase'
-    private_results = Boolean(default=False, help="Whether or not to display results to the user.")
-    max_submissions = Integer(default=1, help="The maximum number of times a user may send a submission.")
+    private_results = Boolean(default=False, help=_("Whether or not to display results to the user."))
+    max_submissions = Integer(default=1, help=_("The maximum number of times a user may send a submission."))
     submissions_count = Integer(
-        default=0, help="Number of times the user has sent a submission.", scope=Scope.user_state
+        default=0, help=_("Number of times the user has sent a submission."), scope=Scope.user_state
     )
-    feedback = String(default='', help="Text to display after the user votes.")
+    feedback = String(default='', help=_("Text to display after the user votes."))
 
     def send_vote_event(self, choice_data):
         # Let the LMS know the user has answered the poll.
@@ -139,8 +141,11 @@ class PollBase(XBlock, ResourceMixin, PublishEventMixin):
         if field not in data or not isinstance(data[field], list):
             source_items = []
             result['success'] = False
-            result['errors'].append(
-                "'{0}' is not present, or not a JSON array.".format(field))
+            error_message = self.ugettext(
+                # Translators: {field} is either "answers" or "questions".
+                "'{field}' is not present, or not a JSON array."
+            ).format(field=field)
+            result['errors'].append(error_message)
         else:
             source_items = data[field]
 
@@ -148,45 +153,63 @@ class PollBase(XBlock, ResourceMixin, PublishEventMixin):
         for item in source_items:
             if not isinstance(item, dict):
                 result['success'] = False
-                result['errors'].append(
-                    "{0} {1} not a javascript object!".format(noun, item))
+                error_message = self.ugettext(
+                    # Translators: {noun} is either "Answer" or "Question". {item} identifies the answer or question.
+                    "{noun} {item} not a javascript object!"
+                ).format(noun=noun, item=item)
+                result['errors'].append(error_message)
                 continue
             key = item.get('key', '').strip()
             if not key:
                 result['success'] = False
-                result['errors'].append(
-                    "{0} {1} contains no key.".format(noun, item))
+                error_message = self.ugettext(
+                    # Translators: {noun} is either "Answer" or "Question". {item} identifies the answer or question.
+                    "{noun} {item} contains no key."
+                ).format(noun=noun, item=item)
+                result['errors'].append(error_message)
             image_link = item.get('img', '').strip()
             image_alt = item.get('img_alt', '').strip()
             label = item.get('label', '').strip()
             if not label:
                 if image and not image_link:
                     result['success'] = False
-                    result['errors'].append(
-                        "{0} has no text or img. Please make sure all {1}s "
-                        "have one or the other, or both.".format(noun, noun.lower()))
+                    error_message = self.ugettext(
+                        # Translators: {noun} is either "Answer" or "Question".
+                        # {noun_lower} is the lowercase version of {noun}.
+                        "{noun} has no text or img. Please make sure all {noun_lower}s have one or the other, or both."
+                    ).format(noun=noun, noun_lower=noun.lower())
+                    result['errors'].append(error_message)
                 elif not image:
                     result['success'] = False
                     # If there's a bug in the code or the user just forgot to relabel a question,
                     # votes could be accidentally lost if we assume the omission was an
                     # intended deletion.
-                    result['errors'].append("{0} was added with no label. "
-                                            "All {1}s must have labels. Please check the form. "
-                                            "Check the form and explicitly delete {1}s "
-                                            "if not needed.".format(noun, noun.lower()))
+                    error_message = self.ugettext(
+                        # Translators: {noun} is either "Answer" or "Question".
+                        # {noun_lower} is the lowercase version of {noun}.
+                        "{noun} was added with no label. All {noun_lower}s must have labels. Please check the form. "
+                        "Check the form and explicitly delete {noun_lower}s if not needed."
+                    ).format(noun=noun, noun_lower=noun.lower())
+                    result['errors'].append(error_message)
             if image_link and not image_alt and self.img_alt_mandatory():
                 result['success'] = False
                 result['errors'].append(
-                    "All images must have an alternative text describing the image in a way that "
-                    "would allow someone to answer the poll if the image did not load.")
+                    self.ugettext(
+                        "All images must have an alternative text describing the image in a way "
+                        "that would allow someone to answer the poll if the image did not load."
+                    )
+                )
             if image:
                 items.append((key, {'label': label, 'img': image_link, 'img_alt': image_alt}))
             else:
                 items.append([key, label])
 
         if not items:
-            result['errors'].append(
-                "You must include at least one {0}.".format(noun.lower()))
+            error_message = self.ugettext(
+                # Translators: "{noun_lower} is either "answer" or "question".
+                "You must include at least one {noun_lower}."
+            ).format(noun_lower=noun.lower())
+            result['errors'].append(error_message)
             result['success'] = False
 
         return items
@@ -221,7 +244,7 @@ class PollBase(XBlock, ResourceMixin, PublishEventMixin):
         return GroupProfile.objects.filter(group_id__in=group_ids, name__in=group_names).exists()
 
     @staticmethod
-    def get_max_submissions(data, result, private_results):
+    def get_max_submissions(ugettext, data, result, private_results):
         """
         Gets the value of 'max_submissions' from studio submitted AJAX data, and checks for conflicts
         with private_results, which may not be False when max_submissions is not 1, since that would mean
@@ -232,12 +255,12 @@ class PollBase(XBlock, ResourceMixin, PublishEventMixin):
         except (ValueError, KeyError):
             max_submissions = 1
             result['success'] = False
-            result['errors'].append('Maximum Submissions missing or not an integer.')
+            result['errors'].append(ugettext('Maximum Submissions missing or not an integer.'))
 
         # Better to send an error than to confuse the user by thinking this would work.
         if (max_submissions != 1) and not private_results:
             result['success'] = False
-            result['errors'].append("Private results may not be False when Maximum Submissions is not 1.")
+            result['errors'].append(ugettext("Private results may not be False when Maximum Submissions is not 1."))
         return max_submissions
 
     @classmethod
@@ -272,23 +295,23 @@ class PollBlock(PollBase):
     """
     # pylint: disable=too-many-instance-attributes
 
-    display_name = String(default='Poll')
-    question = String(default='What is your favorite color?')
+    display_name = String(default=_('Poll'))
+    question = String(default=_('What is your favorite color?'))
     # This will be converted into an OrderedDict.
     # Key, (Label, Image path)
     answers = List(
         default=[
-            ('R', {'label': 'Red', 'img': None, 'img_alt': None}),
-            ('B', {'label': 'Blue', 'img': None, 'img_alt': None}),
-            ('G', {'label': 'Green', 'img': None, 'img_alt': None}),
-            ('O', {'label': 'Other', 'img': None, 'img_alt': None}),
+            ('R', {'label': _('Red'), 'img': None, 'img_alt': None}),
+            ('B', {'label': _('Blue'), 'img': None, 'img_alt': None}),
+            ('G', {'label': _('Green'), 'img': None, 'img_alt': None}),
+            ('O', {'label': _('Other'), 'img': None, 'img_alt': None}),
         ],
-        scope=Scope.settings, help="The answer options on this poll."
+        scope=Scope.settings, help=_("The answer options on this poll.")
     )
     tally = Dict(default={'R': 0, 'B': 0, 'G': 0, 'O': 0},
                  scope=Scope.user_state_summary,
-                 help="Total tally of answers from students.")
-    choice = String(scope=Scope.user_state, help="The student's answer")
+                 help=_("Total tally of answers from students."))
+    choice = String(scope=Scope.user_state, help=_("The student's answer"))
     event_namespace = 'xblock.poll'
 
     def clean_tally(self):
@@ -452,18 +475,22 @@ class PollBlock(PollBase):
         result = {'success': False, 'errors': []}
         old_choice = self.get_choice()
         if (old_choice is not None) and not self.private_results:
-            result['errors'].append('You have already voted in this poll.')
+            result['errors'].append(self.ugettext('You have already voted in this poll.'))
             return result
         try:
             choice = data['choice']
         except KeyError:
-            result['errors'].append('Answer not included with request.')
+            result['errors'].append(self.ugettext('Answer not included with request.'))
             return result
         # Just to show data coming in...
         try:
             OrderedDict(self.answers)[choice]
         except KeyError:
-            result['errors'].append('No key "{choice}" in answers table.'.format(choice=choice))
+            result['errors'].append(
+                self.ugettext(
+                    # Translators: {choice} uniquely identifies a specific answer belonging to a poll or survey.
+                    'No key "{choice}" in answers table.'
+                ).format(choice=choice))
             return result
 
         if old_choice is None:
@@ -471,7 +498,7 @@ class PollBlock(PollBase):
             self.submissions_count = 0
 
         if not self.can_vote():
-            result['errors'].append('You have already voted as many times as you are allowed.')
+            result['errors'].append(self.ugettext('You have already voted as many times as you are allowed.'))
             return result
 
         self.clean_tally()
@@ -497,14 +524,14 @@ class PollBlock(PollBase):
         feedback = data.get('feedback', '').strip()
         private_results = bool(data.get('private_results', False))
 
-        max_submissions = self.get_max_submissions(data, result, private_results)
+        max_submissions = self.get_max_submissions(self.ugettext, data, result, private_results)
 
         display_name = data.get('display_name', '').strip()
         if not question:
-            result['errors'].append("You must specify a question.")
+            result['errors'].append(self.ugettext("You must specify a question."))
             result['success'] = False
 
-        answers = self.gather_items(data, result, 'Answer', 'answers')
+        answers = self.gather_items(data, result, self.ugettext('Answer'), 'answers')
 
         if not result['success']:
             return result
@@ -554,32 +581,36 @@ class PollBlock(PollBase):
 class SurveyBlock(PollBase):
     # pylint: disable=too-many-instance-attributes
 
-    display_name = String(default='Survey')
+    display_name = String(default=_('Survey'))
     # The display name affects how the block is labeled in the studio,
     # but either way we want it to say 'Poll' by default on the page.
-    block_name = String(default='Poll')
+    block_name = String(default=_('Poll'))
     answers = List(
         default=(
-            ('Y', 'Yes'), ('N', 'No'),
-            ('M', 'Maybe')),
-        scope=Scope.settings, help="Answer choices for this Survey"
+            ('Y', _('Yes')), ('N', _('No')),
+            ('M', _('Maybe'))),
+        scope=Scope.settings, help=_("Answer choices for this Survey")
     )
     questions = List(
         default=[
-            ('enjoy', {'label': 'Are you enjoying the course?', 'img': None, 'img_alt': None}),
-            ('recommend', {'label': 'Would you recommend this course to your friends?', 'img': None, 'img_alt': None}),
-            ('learn', {'label': 'Do you think you will learn a lot?', 'img': None, 'img_alt': None}),
+            ('enjoy', {'label': _('Are you enjoying the course?'), 'img': None, 'img_alt': None}),
+            ('recommend', {
+                'label': _('Would you recommend this course to your friends?'),
+                'img': None,
+                'img_alt': None
+            }),
+            ('learn', {'label': _('Do you think you will learn a lot?'), 'img': None, 'img_alt': None}),
         ],
-        scope=Scope.settings, help="Questions for this Survey"
+        scope=Scope.settings, help=_("Questions for this Survey")
     )
     tally = Dict(
         default={
             'enjoy': {'Y': 0, 'N': 0, 'M': 0}, 'recommend': {'Y': 0, 'N': 0, 'M': 0},
             'learn': {'Y': 0, 'N': 0, 'M': 0}},
         scope=Scope.user_state_summary,
-        help="Total tally of answers from students."
+        help=_("Total tally of answers from students.")
     )
-    choices = Dict(help="The user's answers", scope=Scope.user_state)
+    choices = Dict(help=_("The user's answers"), scope=Scope.user_state)
     event_namespace = 'xblock.survey'
 
     def student_view(self, context=None):
@@ -811,7 +842,7 @@ class SurveyBlock(PollBase):
         choices = self.get_choices()
         if choices and not self.private_results:
             result['success'] = False
-            result['errors'].append("You have already voted in this poll.")
+            result['errors'].append(self.ugettext("You have already voted in this poll."))
 
         if not choices:
             # Reset submissions count if choices are bogus.
@@ -819,15 +850,17 @@ class SurveyBlock(PollBase):
 
         if not self.can_vote():
             result['success'] = False
-            result['errors'].append('You have already voted as many times as you are allowed.')
+            result['errors'].append(self.ugettext('You have already voted as many times as you are allowed.'))
 
         # Make sure the user has included all questions, and hasn't included
         # anything extra, which might indicate the questions have changed.
         if not sorted(data.keys()) == sorted(questions.keys()):
             result['success'] = False
             result['errors'].append(
-                "Not all questions were included, or unknown questions were "
-                "included. Try refreshing and trying again."
+                self.ugettext(
+                    "Not all questions were included, or unknown questions were included. "
+                    "Try refreshing and trying again."
+                )
             )
 
         # Make sure the answer values are sane.
@@ -835,7 +868,11 @@ class SurveyBlock(PollBase):
             if value not in answers.keys():
                 result['success'] = False
                 result['errors'].append(
-                    "Found unknown answer '%s' for question key '%s'" % (key, value))
+                    self.ugettext(
+                        # Translators: {answer_key} uniquely identifies a specific answer belonging to a poll or survey.
+                        # {question_key} uniquely identifies a specific question belonging to a poll or survey.
+                        "Found unknown answer '{answer_key}' for question key '{question_key}'"
+                    ).format(answer_key=key, question_key=value))
 
         if not result['success']:
             result['can_vote'] = self.can_vote()
@@ -865,10 +902,10 @@ class SurveyBlock(PollBase):
         feedback = data.get('feedback', '').strip()
         block_name = data.get('display_name', '').strip()
         private_results = bool(data.get('private_results', False))
-        max_submissions = self.get_max_submissions(data, result, private_results)
+        max_submissions = self.get_max_submissions(self.ugettext, data, result, private_results)
 
-        answers = self.gather_items(data, result, 'Answer', 'answers', image=False)
-        questions = self.gather_items(data, result, 'Question', 'questions')
+        answers = self.gather_items(data, result, self.ugettext('Answer'), 'answers', image=False)
+        questions = self.gather_items(data, result, self.ugettext('Question'), 'questions')
 
         if not result['success']:
             return result

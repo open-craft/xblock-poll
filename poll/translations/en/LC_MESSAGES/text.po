@@ -1,0 +1,234 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"POT-Creation-Date: 2016-04-07 16:17+0500\n"
+"PO-Revision-Date: 2016-04-07 16:17+0500\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: en\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.8.7\n"
+"X-Poedit-Basepath: ../../..\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Poedit-SearchPath-0: poll.py\n"
+
+#: poll.py
+msgid "Whether or not to display results to the user."
+msgstr ""
+
+#: poll.py
+msgid "The maximum number of times a user may send a submission."
+msgstr ""
+
+#: poll.py
+msgid "Number of times the user has sent a submission."
+msgstr ""
+
+#: poll.py
+msgid "Text to display after the user votes."
+msgstr ""
+
+#: poll.py
+#, python-brace-format
+msgid "'{field}' is not present, or not a JSON array."
+msgstr ""
+
+#: poll.py
+#, python-brace-format
+msgid "{noun} {item} not a javascript object!"
+msgstr ""
+
+#: poll.py
+#, python-brace-format
+msgid "{noun} {item} contains no key."
+msgstr ""
+
+#: poll.py
+#, python-brace-format
+msgid ""
+"{noun} has no text or img. Please make sure all {noun_lower}s have one or the other, or "
+"both."
+msgstr ""
+
+#: poll.py
+#, python-brace-format
+msgid ""
+"{noun} was added with no label. All {noun_lower}s must have labels. Please check the "
+"form. Check the form and explicitly delete {noun_lower}s if not needed."
+msgstr ""
+
+#: poll.py
+msgid ""
+"All images must have an alternative text describing the image in a way that "
+"would allow someone to answer the poll if the image did not load."
+msgstr ""
+
+#: poll.py
+#, python-brace-format
+msgid "You must include at least one {noun_lower}."
+msgstr ""
+
+#: poll.py
+msgid "Maximum Submissions missing or not an integer."
+msgstr ""
+
+#: poll.py
+msgid "Private results may not be False when Maximum Submissions is not 1."
+msgstr ""
+
+#: poll.py
+msgid "Total tally of answers from students."
+msgstr ""
+
+#: poll.py
+msgid "The student's answer"
+msgstr ""
+
+#: poll.py
+msgid "You have already voted in this poll."
+msgstr ""
+
+#: poll.py
+msgid "Answer not included with request."
+msgstr ""
+
+#: poll.py
+#, python-brace-format
+msgid "No key \"{choice}\" in answers table."
+msgstr ""
+
+#: poll.py
+msgid "You have already voted as many times as you are allowed."
+msgstr ""
+
+#: poll.py
+msgid "You must specify a question."
+msgstr ""
+
+#: poll.py
+msgid "Answer choices for this Survey"
+msgstr ""
+
+#: poll.py
+msgid "Are you enjoying the course?"
+msgstr ""
+
+#: poll.py
+msgid "Would you recommend this course to your friends?"
+msgstr ""
+
+#: poll.py
+msgid "Do you think you will learn a lot?"
+msgstr ""
+
+#: poll.py
+msgid "Questions for this Survey"
+msgstr ""
+
+#: poll.py
+msgid "Survey"
+msgstr ""
+
+#: poll.py
+msgid "The user's answers"
+msgstr ""
+
+#: poll.py
+msgid ""
+"Not all questions were included, or unknown questions were included. Try "
+"refreshing and trying again."
+msgstr ""
+
+#: poll.py
+#, python-format
+msgid "Found unknown answer '{answer_key}' for question key '{question_key}'"
+msgstr ""
+
+#: poll.py
+msgid "Poll"
+msgstr ""
+
+#: poll.py
+msgid "What is your favorite color?"
+msgstr ""
+
+#: poll.py
+msgid "Red"
+msgstr ""
+
+#: poll.py
+msgid "Blue"
+msgstr ""
+
+#: poll.py
+msgid "Other"
+msgstr ""
+
+#: poll.py
+msgid "The answer options on this poll."
+msgstr ""
+
+#: poll.py
+msgid "Answer"
+msgstr ""
+
+#: poll.py
+msgid "Question"
+msgstr ""
+
+#: poll.py
+msgid "Yes"
+msgstr ""
+
+#: poll.py
+msgid "No"
+msgstr ""
+
+#: poll.py
+msgid "Maybe"
+msgstr ""
+
+#: public/handlebars/poll_results.handlebars
+msgid "Results gathered from {total} respondents."
+msgstr ""
+
+#: public/handlebars/poll_results.handlebars
+msgid "Results gathered from {total} respondent."
+msgstr ""
+
+
+#: public/handlebars/poll_studio.handlebars
+msgid "move poll up"
+msgstr ""
+
+#: public/handlebars/poll_studio.handlebars
+msgid "move poll down"
+msgstr ""
+
+#: public/handlebars/poll_studio.handlebars
+msgid "Delete"
+msgstr ""
+
+#: public/handlebars/poll_studio.handlebars
+msgid "Image URL"
+msgstr ""
+
+#: public/handlebars/poll_studio.handlebars
+msgid "Image alternative text"
+msgstr ""
+
+#: public/handlebars/poll_studio.handlebars
+msgid ""
+"You can make limited use of Markdown in answer texts, preferably only bold "
+"and italics."
+msgstr ""
+
+#: public/handlebars/poll_studio.handlebars
+msgid ""
+"This must have an image URL or text, and can have both.  If you add an "
+"image, you must also provide an alternative text that describes the image "
+"in a way that would allow someone to answer the poll if the image did not "
+"load."
+msgstr ""
