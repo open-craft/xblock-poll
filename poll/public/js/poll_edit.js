@@ -13,6 +13,31 @@ function PollEditUtil(runtime, element, pollType) {
     this.init = function () {
         // Set up the editing form for a Poll or Survey.
         var temp = $('#poll-form-component', element).html();
+
+        // Set up gettext in case it isn't available in the client runtime:
+        if (typeof gettext == "undefined") {
+            window.gettext = function gettext_stub(string) { return string; };
+            window.ngettext = function ngettext_stub(strA, strB, n) { return n == 1 ? strA : strB; };
+        }
+
+        // Make gettext available in Handlebars templates
+        Handlebars.registerHelper('i18n', function(str) { return gettext(str); });
+
+        // Make ngettext available in Handlebars templates
+        Handlebars.registerHelper('i18n_ngettext', function(singular, plural, count) {
+            return ngettext(singular, plural, count);
+        });
+
+        // Add helper for interpolating values into strings in Handlebars templates
+        Handlebars.registerHelper('interpolate', function(formatString, parameters) {
+            parameters = parameters.hash;
+            return formatString.replace(/{\w+}/g,
+                function(parameter) {
+                    var parameterName = parameter.slice(1, -1);
+                    return String(parameters[parameterName]);
+                });
+        });
+
         self.answerTemplate = Handlebars.compile(temp);
 
         $(element).find('.cancel-button', element).bind('click', function() {
@@ -231,7 +256,7 @@ function PollEditUtil(runtime, element, pollType) {
         data['private_results'] = eval($('#poll-private-results', element).val());
 
         if (notify) {
-            runtime.notify('save', {state: 'start', message: "Saving"});
+            runtime.notify('save', {state: 'start', message: gettext("Saving")});
         }
         $.ajax({
             type: "POST",

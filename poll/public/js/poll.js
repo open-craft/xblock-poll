@@ -10,7 +10,35 @@ function PollUtil (runtime, element, pollType) {
         this.votedUrl = runtime.handlerUrl(element, 'student_voted');
         this.submit = $('input[type=button]', element);
         this.answers = $('input[type=radio]', element);
+
+        // Set up gettext in case it isn't available in the client runtime:
+        if (typeof gettext == "undefined") {
+            window.gettext = function gettext_stub(string) { return string; };
+            window.ngettext = function ngettext_stub(strA, strB, n) { return n == 1 ? strA : strB; };
+        }
+
+        // Make gettext available in Handlebars templates
+        Handlebars.registerHelper('i18n', function(str) {
+            return gettext(str);
+        });
+
+        // Make ngettext available in Handlebars templates
+        Handlebars.registerHelper('i18n_ngettext', function(singular, plural, count) {
+            return ngettext(singular, plural, count);
+        });
+
+        // Add helper for interpolating values into strings in Handlebars templates
+        Handlebars.registerHelper('interpolate', function(formatString, parameters) {
+            parameters = parameters.hash;
+            return formatString.replace(/{\w+}/g,
+                function(parameter) {
+                    var parameterName = parameter.slice(1, -1);
+                    return String(parameters[parameterName]);
+                });
+        });
+
         this.resultsTemplate = Handlebars.compile($("#" + pollType + "-results-template", element).html());
+
         this.viewResultsButton = $('.view-results-button', element);
         this.viewResultsButton.click(this.getResults);
 
@@ -131,7 +159,7 @@ function PollUtil (runtime, element, pollType) {
             thanks.fadeOut(0).fadeIn('slow', 'swing');
             $('.poll-feedback-container', element).removeClass('poll-hidden');
             if (can_vote) {
-                $('input[name="poll-submit"]', element).val('Resubmit');
+                $('input[name="poll-submit"]', element).val(gettext('Resubmit'));
             } else {
                 $('input', element).attr('disabled', true)
             }

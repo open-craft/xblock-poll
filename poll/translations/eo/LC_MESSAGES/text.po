@@ -1,0 +1,298 @@
+# 
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"POT-Creation-Date: 2016-04-07 16:17+0500\n"
+"PO-Revision-Date: 2016-04-07 16:17+0500\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: eo\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 1.8.7\n"
+"X-Poedit-Basepath: ../../..\n"
+"X-Poedit-SearchPath-0: poll.py\n"
+
+#: poll.py
+msgid "Whether or not to display results to the user."
+msgstr ""
+"Whéthér ör nöt tö dïspläý résülts tö thé üsér. Ⱡ'σяєм ιρѕυм ∂σłσя ѕιт αмєт, "
+"¢σηѕє¢тєтυя α#"
+
+#: poll.py
+msgid "The maximum number of times a user may send a submission."
+msgstr ""
+"Thé mäxïmüm nümßér öf tïmés ä üsér mäý sénd ä süßmïssïön. Ⱡ'σяєм ιρѕυм ∂σłσя"
+" ѕιт αмєт, ¢σηѕє¢тєтυя α#"
+
+#: poll.py
+msgid "Number of times the user has sent a submission."
+msgstr ""
+"Nümßér öf tïmés thé üsér häs sént ä süßmïssïön. Ⱡ'σяєм ιρѕυм ∂σłσя ѕιт αмєт,"
+" ¢σηѕє¢тєтυя α#"
+
+#: poll.py
+msgid "Text to display after the user votes."
+msgstr ""
+"Téxt tö dïspläý äftér thé üsér vötés. Ⱡ'σяєм ιρѕυм ∂σłσя ѕιт αмєт, "
+"¢σηѕє¢тєтυ#"
+
+#: poll.py
+#, python-brace-format
+msgid "'{field}' is not present, or not a JSON array."
+msgstr ""
+"'{field}' ïs nöt présént, ör nöt ä JSÖN ärräý. Ⱡ'σяєм ιρѕυм ∂σłσя ѕιт αмєт, "
+"¢σηѕє¢тєтυя #"
+
+#: poll.py
+#, python-brace-format
+msgid "{noun} {item} not a javascript object!"
+msgstr ""
+"{noun} {item} nöt ä jäväsçrïpt ößjéçt! Ⱡ'σяєм ιρѕυм ∂σłσя ѕιт αмєт, ¢σηѕє¢тє#"
+
+#: poll.py
+#, python-brace-format
+msgid "{noun} {item} contains no key."
+msgstr "{noun} {item} çöntäïns nö kéý. Ⱡ'σяєм ιρѕυм ∂σłσя ѕιт αмєт, ¢ση#"
+
+#: poll.py
+#, python-brace-format
+msgid ""
+"{noun} has no text or img. Please make sure all {noun_lower}s have one or the other, or "
+"both."
+msgstr ""
+"{noun} häs nö téxt ör ïmg. Pléäsé mäké süré äll {noun_lower}s hävé öné ör thé öthér, ör "
+"ßöth. Ⱡ'σяєм ιρѕυм ∂σłσя ѕιт αмєт, ¢σηѕє¢тє#"
+
+#: poll.py
+#, python-brace-format
+msgid ""
+"{noun} was added with no label. All {noun_lower}s must have labels. Please check the "
+"form. Check the form and explicitly delete {noun_lower}s if not needed."
+msgstr ""
+"{noun} wäs äddéd wïth nö läßél. Àll {noun_lower}s müst hävé läßéls. Pléäsé çhéçk thé "
+"förm. Çhéçk thé förm änd éxplïçïtlý délété {noun_lower}s ïf nöt néédéd. Ⱡ'σяєм ιρѕυм "
+"∂σłσя ѕιт αмєт, ¢σηѕє¢тєтυя α∂ιριѕι¢ιηg єłιт, ѕє∂ ∂σ єιυѕмσ∂ тємρσя "
+"ιη¢ι∂ι∂υηт υт łαвσяє єт ∂σłσяє мαgηα αłιqυα. υт єηιм α∂ мιηιм νєηιαм, qυιѕ "
+"ησѕтяυ∂ єχєя¢ιтαтιση υłłαм¢σ łαвσяιѕ ηιѕι υт αłιqυιρ єχ єα ¢σммσ∂σ "
+"¢σηѕєqυαт. ∂υιѕ αυтє ιяυяє ∂σłσя ιη яєρяєнєη∂єяιт ιη νσłυρтαтє νєłιт єѕѕє "
+"¢ιłłυм ∂σłσяє єυ ƒυgιαт ηυłłα ραяιαтυя. єχ¢єρтєυя ѕιηт σ¢¢αє¢αт ¢υρι∂αтαт "
+"ηση ρяσι∂єηт, ѕυηт ιη ¢υłρα qυι σƒƒι¢ια ∂єѕєяυηт мσłłιт αηιм ι∂ єѕт łαвσяυ#"
+
+#: poll.py
+msgid ""
+"All images must have an alternative text describing the image in a way that "
+"would allow someone to answer the poll if the image did not load."
+msgstr ""
+"Àll ïmägés müst hävé än ältérnätïvé téxt désçrïßïng thé ïmägé ïn ä wäý thät "
+"wöüld ällöw söméöné tö änswér thé pöll ïf thé ïmägé dïd nöt löäd. Ⱡ'σяєм "
+"ιρѕυм ∂σłσя ѕιт αмєт, ¢σηѕє¢тєтυя α∂ιριѕι¢ιηg єłιт, ѕє∂ ∂σ єιυѕмσ∂ тємρσя "
+"ιη¢ι∂ι∂υηт υт łαвσяє єт ∂σłσяє мαgηα αłιqυα. υт єηιм α∂ мιηιм νєηιαм, qυιѕ "
+"ησѕтяυ∂ єχєя¢ιтαтιση υłłαм¢σ łαвσяιѕ ηιѕι υт αłιqυιρ єχ єα ¢σммσ∂σ "
+"¢σηѕєqυαт. ∂υιѕ αυтє ιяυяє ∂σłσя ιη яєρяєнєη∂єяιт ιη νσłυρтαтє νєłιт єѕѕє "
+"¢ιłłυм ∂σłσяє єυ ƒυgιαт ηυłłα ραяιαтυя. єχ¢єρтєυя ѕιηт σ¢¢αє¢αт ¢υρι∂αтαт "
+"ηση ρяσι∂єηт, ѕυηт ιη ¢υłρα qυι σƒƒι¢ια ∂єѕєяυηт мσłłιт αηιм ι∂ єѕт #"
+
+#: poll.py
+#, python-brace-format
+msgid "You must include at least one {noun_lower}."
+msgstr ""
+"Ýöü müst ïnçlüdé ät léäst öné {noun_lower}. Ⱡ'σяєм ιρѕυм ∂σłσя ѕιт αмєт, ¢σηѕє¢тєт#"
+
+#: poll.py
+msgid "Maximum Submissions missing or not an integer."
+msgstr ""
+"Mäxïmüm Süßmïssïöns mïssïng ör nöt än ïntégér. Ⱡ'σяєм ιρѕυм ∂σłσя ѕιт αмєт, "
+"¢σηѕє¢тєтυя α#"
+
+#: poll.py
+msgid "Private results may not be False when Maximum Submissions is not 1."
+msgstr ""
+"Prïväté résülts mäý nöt ßé Fälsé whén Mäxïmüm Süßmïssïöns ïs nöt 1. Ⱡ'σяєм "
+"ιρѕυм ∂σłσя ѕιт αмєт, ¢σηѕє¢тєтυя #"
+
+#: poll.py
+msgid "Total tally of answers from students."
+msgstr ""
+"Tötäl tällý öf änswérs fröm stüdénts. Ⱡ'σяєм ιρѕυм ∂σłσя ѕιт αмєт, "
+"¢σηѕє¢тєтυ#"
+
+#: poll.py
+msgid "The student's answer"
+msgstr "Thé stüdént's änswér Ⱡ'σяєм ιρѕυм ∂σłσя ѕιт αмєт, #"
+
+#: poll.py
+msgid "You have already voted in this poll."
+msgstr ""
+"Ýöü hävé älréädý vötéd ïn thïs pöll. Ⱡ'σяєм ιρѕυм ∂σłσя ѕιт αмєт, "
+"¢σηѕє¢тєтυ#"
+
+#: poll.py
+msgid "Answer not included with request."
+msgstr ""
+"Ànswér nöt ïnçlüdéd wïth réqüést. Ⱡ'σяєм ιρѕυм ∂σłσя ѕιт αмєт, ¢σηѕє¢тє#"
+
+#: poll.py
+#, python-brace-format
+msgid "No key \"{choice}\" in answers table."
+msgstr ""
+"Nö kéý \"{choice}\" ïn änswérs täßlé. Ⱡ'σяєм ιρѕυм ∂σłσя ѕιт αмєт, ¢σηѕє¢т#"
+
+#: poll.py
+msgid "You have already voted as many times as you are allowed."
+msgstr ""
+"Ýöü hävé älréädý vötéd äs mäný tïmés äs ýöü äré ällöwéd. Ⱡ'σяєм ιρѕυм ∂σłσя "
+"ѕιт αмєт, ¢σηѕє¢тєтυя α#"
+
+#: poll.py
+msgid "You must specify a question."
+msgstr "Ýöü müst spéçïfý ä qüéstïön. Ⱡ'σяєм ιρѕυм ∂σłσя ѕιт αмєт, ¢σηѕє¢#"
+
+#: poll.py
+msgid "Answer choices for this Survey"
+msgstr "Ànswér çhöïçés för thïs Sürvéý Ⱡ'σяєм ιρѕυм ∂σłσя ѕιт αмєт, ¢σηѕє¢т#"
+
+#: poll.py
+msgid "Are you enjoying the course?"
+msgstr "Àré ýöü énjöýïng thé çöürsé? Ⱡ'σяєм ιρѕυм ∂σłσя ѕιт αмєт, ¢σηѕє¢#"
+
+#: poll.py
+msgid "Would you recommend this course to your friends?"
+msgstr ""
+"Wöüld ýöü réçömménd thïs çöürsé tö ýöür frïénds? Ⱡ'σяєм ιρѕυм ∂σłσя ѕιт "
+"αмєт, ¢σηѕє¢тєтυя α#"
+
+#: poll.py
+msgid "Do you think you will learn a lot?"
+msgstr ""
+"Dö ýöü thïnk ýöü wïll léärn ä löt? Ⱡ'σяєм ιρѕυм ∂σłσя ѕιт αмєт, ¢σηѕє¢тєт#"
+
+#: poll.py
+msgid "Questions for this Survey"
+msgstr "Qüéstïöns för thïs Sürvéý Ⱡ'σяєм ιρѕυм ∂σłσя ѕιт αмєт, ¢σηѕ#"
+
+#: poll.py
+msgid "Survey"
+msgstr "Sürvéý Ⱡ'σяєм ιρѕυм ∂σłσя ѕιт αмєт, ¢σηѕ#"
+
+#: poll.py
+msgid "The user's answers"
+msgstr "Thé üsér's änswérs Ⱡ'σяєм ιρѕυм ∂σłσя ѕιт αмєт#"
+
+#: poll.py
+msgid ""
+"Not all questions were included, or unknown questions were included. Try "
+"refreshing and trying again."
+msgstr ""
+"Nöt äll qüéstïöns wéré ïnçlüdéd, ör ünknöwn qüéstïöns wéré ïnçlüdéd. Trý "
+"réfréshïng änd trýïng ägäïn. Ⱡ'σяєм ιρѕυм ∂σłσя ѕιт αмє#"
+
+#: poll.py
+#, python-format
+msgid "Found unknown answer '{answer_key}' for question key '{question_key}'"
+msgstr ""
+"Föünd ünknöwn änswér '{answer_key}' för qüéstïön kéý '{question_key}' Ⱡ'σяєм ιρѕυм ∂σłσя ѕιт αмєт,"
+" ¢σηѕє¢тєтυя α#"
+
+#: poll.py
+msgid "Poll"
+msgstr "Pöll Ⱡ'σяєм ι#"
+
+#: poll.py
+msgid "What is your favorite color?"
+msgstr "Whät ïs ýöür fävörïté çölör? Ⱡ'σяєм ιρѕυм ∂σłσя ѕιт αмєт, ¢σηѕє¢#"
+
+#: poll.py
+msgid "Red"
+msgstr "Réd Ⱡ'σяєм#"
+
+#: poll.py
+msgid "Blue"
+msgstr "Blüé Ⱡ'σяєм ι#"
+
+#: poll.py
+msgid "Other"
+msgstr "Öthér Ⱡ'σяєм ιρѕ#"
+
+#: poll.py
+msgid "The answer options on this poll."
+msgstr ""
+"Thé änswér öptïöns ön thïs pöll. Ⱡ'σяєм ιρѕυм ∂σłσя ѕιт αмєт, ¢σηѕє¢тє#"
+
+#: poll.py
+msgid "Answer"
+msgstr "Ànswér Ⱡ'σяєм ιρѕυ#"
+
+#: poll.py
+msgid "Question"
+msgstr "Qüéstïön Ⱡ'σяєм ιρѕυм ∂#"
+
+#: poll.py
+msgid "Yes"
+msgstr "Ýés Ⱡ'σяєм#"
+
+#: poll.py
+msgid "No"
+msgstr "Nö Ⱡ'σя#"
+
+#: poll.py
+msgid "Maybe"
+msgstr "Mäýßé Ⱡ'σяєм ιρѕ#"
+
+#: public/handlebars/poll_results.handlebars
+msgid "Results gathered from {total} respondents."
+msgstr ""
+"Résülts gäthéréd fröm {total} réspöndénts. Ⱡ'σяєм ιρѕυм ∂σłσя ѕιт αмєт, "
+"¢σηѕє¢тєтυя#"
+
+#: public/handlebars/poll_results.handlebars
+msgid "Results gathered from {total} respondent."
+msgstr ""
+"Résülts gäthéréd fröm {total} réspöndént. Ⱡ'σяєм ιρѕυм ∂σłσя ѕιт αмєт, "
+"¢σηѕє¢тєтυ#"
+
+#: public/handlebars/poll_studio.handlebars
+msgid "move poll up"
+msgstr "mövé pöll üp Ⱡ'σяєм ιρѕυм ∂σłσя ѕ#"
+
+#: public/handlebars/poll_studio.handlebars
+msgid "move poll down"
+msgstr "mövé pöll döwn Ⱡ'σяєм ιρѕυм ∂σłσя ѕιт#"
+
+#: public/handlebars/poll_studio.handlebars
+msgid "Delete"
+msgstr "Délété Ⱡ'σяєм ιρѕυ#"
+
+#: public/handlebars/poll_studio.handlebars
+msgid "Image URL"
+msgstr "Ìmägé ÛRL Ⱡ'σяєм ιρѕυм ∂σł#"
+
+#: public/handlebars/poll_studio.handlebars
+msgid "Image alternative text"
+msgstr "Ìmägé ältérnätïvé téxt Ⱡ'σяєм ιρѕυм ∂σłσя ѕιт αмєт, ¢#"
+
+#: public/handlebars/poll_studio.handlebars
+msgid ""
+"You can make limited use of Markdown in answer texts, preferably only bold "
+"and italics."
+msgstr ""
+"Ýöü çän mäké lïmïtéd üsé öf Märkdöwn ïn änswér téxts, préféräßlý önlý ßöld "
+"änd ïtälïçs. Ⱡ'σяєм ιρѕυм ∂σłσя ѕιт αмєт, ¢σηѕє#"
+
+#: public/handlebars/poll_studio.handlebars
+msgid ""
+"This must have an image URL or text, and can have both.  If you add an "
+"image, you must also provide an alternative text that describes the image in"
+" a way that would allow someone to answer the poll if the image did not "
+"load."
+msgstr ""
+"Thïs müst hävé än ïmägé ÛRL ör téxt, änd çän hävé ßöth.  Ìf ýöü ädd än "
+"ïmägé, ýöü müst älsö prövïdé än ältérnätïvé téxt thät désçrïßés thé ïmägé ïn"
+" ä wäý thät wöüld ällöw söméöné tö änswér thé pöll ïf thé ïmägé dïd nöt "
+"löäd. Ⱡ'σяєм ιρѕυм ∂σłσя ѕιт αмєт, ¢σηѕє¢тєтυя α∂ιριѕι¢ιηg єłιт, ѕє∂ ∂σ "
+"єιυѕмσ∂ тємρσя ιη¢ι∂ι∂υηт υт łαвσяє єт ∂σłσяє мαgηα αłιqυα. υт єηιм α∂ мιηιм"
+" νєηιαм, qυιѕ ησѕтяυ∂ єχєя¢ιтαтιση υłłαм¢σ łαвσяιѕ ηιѕι υт αłιqυιρ єχ єα "
+"¢σммσ∂σ ¢σηѕєqυαт. ∂υιѕ αυтє ιяυяє ∂σłσя ιη яєρяєнєη∂єяιт ιη νσłυρтαтє νєłιт"
+" єѕѕє ¢ιłłυм ∂σłσяє єυ ƒυgιαт #"
