@@ -260,7 +260,7 @@ To add translations for other languages, create a set of language directories fo
 * `../poll/translations/ar/LC_MESSAGES/`
 * `../poll/translations/es-es/LC_MESSAGES/`
 
-For each language, create a domain file named `text.po` and compile it: You can use edX's [i18n-tools](https://github.com/edx/i18n-tools) to extract translations for multiple languages as follows:
+For each language, create a domain file named `text.po` and compile it: You can use edX's [i18n-tools](https://github.com/edx/i18n-tools) to extract translations for multiple languages by running the following command from the top-level directory of your edx-platform installation (`/edx/app/edxapp/edx-platform`):
 
 ```sh
 i18n_tool extract
