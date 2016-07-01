@@ -240,40 +240,4 @@ names in the django settings using the `XBLOCK_POLL_EXTRA_VIEW_GROUPS` setting, 
 
 ## Working with Translations
 
-The following sections provide basic information about common use cases for working with translations. You can find additional information in [this section](http://edx.readthedocs.io/projects/xblock-tutorial/en/latest/edx_platform/edx_lms.html#adding-translated-strings-to-your-xblock) of the [Open edX XBlock Tutorial](http://edx.readthedocs.io/projects/xblock-tutorial/en/latest/index.html).
-
-### Viewing the XBlock in a Different Language
-
-To view this XBlock in a different language you first need to compile the `text.po` file for the language to a file called `text.mo`.  Translation files for a given language are located in the `poll/translations/<locale>/LC_MESSAGES` directory. From the top-level directory of this repository, use the following commands to access the directory and compile the translation file (replacing `<lang_code>` with the appropriate language code):
-
-```sh
-cd poll/translations/<lang_code>/LC_MESSAGES/
-msgfmt text.po -o text.mo
-```
-
-You can then navigate to a poll or survey in the LMS and view a translated version of it by adding `/?preview-lang=<lang_code>` to the URL. Note that user-editable content (such as questions and answers belonging to a poll) is not translated by default. To revert to the default language, add `/?clear-lang` to the URL.
-
-### Adding Translations for Other Languages
-
-To add translations for other languages, create a set of language directories for each of your locales within the `poll/translations` directory. You may specify either a general language code or a specific language locale code for the name of each directory. Include an `LC_MESSAGES` directory with each language directory. For example:
-
-* `../poll/translations/ar/LC_MESSAGES/`
-* `../poll/translations/es-es/LC_MESSAGES/`
-
-For each language, create a domain file named `text.po` and compile it: You can use edX's [i18n-tools](https://github.com/edx/i18n-tools) to extract translations for multiple languages as follows:
-
-```sh
-i18n_tool extract
-```
-
-Open each `text.po` domain file and, for each `msgid` string, add a corresponding `msgstr` translation. You can then use edX's [i18n-tools](https://github.com/edx/i18n-tools) to compile the translation files as follows:
-
-```sh
-i18n_tool generate
-```
-Before running the `i18n_tool extract` or `i18n_tool generate` commands, appropriate settings for xblock-poll need to be added to `edx-platform/conf/locale/config.yaml`.
-You should have to mention `poll` as a third_party app and `poll.po` in `django.po` list under `generate_merge` section.
-
-### Updating Existing Translation Files
-
-After changing existing strings in the source code (or adding new ones), you'll need to update the translation files. To do this, extract and compile the translations as described in the previous section. (There is no need to create additional directories if you are not adding translations for additional languages.)
+For information about working with translations, see the [Internationalization Support](http://edx.readthedocs.io/projects/xblock-tutorial/en/latest/edx_platform/edx_lms.html#internationalization-support) section of the [Open edX XBlock Tutorial](https://xblock-tutorial.readthedocs.io/en/latest/).
