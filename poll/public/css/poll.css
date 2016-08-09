@@ -146,7 +146,8 @@ li.poll-result .poll-image {
     border-top: 0;
 }
 
-.survey-table tr:last-child td {
+.survey-table tbody tr:last-child td,
+.survey-table tbody tr:last-child th {
     border-bottom: 0;
 }
 
@@ -172,6 +173,10 @@ li.poll-result .poll-image {
 
 .survey-table .survey-row {
     background: none !important;
+}
+
+.survey-table .survey-row .survey-question {
+    text-align: left;
 }
 
 .survey-table .survey-option label {

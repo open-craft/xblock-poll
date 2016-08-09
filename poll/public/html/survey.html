@@ -14,14 +14,14 @@
                 </thead>
             {% for key, question in questions %}
                 <tr class="survey-row">
-                    <td class="survey-question">
+                    <th class="survey-question">
                         {% if question.img %}
                             <div class="poll-image-td">
                                 <img src="{{question.img}}" alt="{{question.img_alt|default_if_none:''}}"/>
                             </div>
                         {% endif %}
                       {{question.label|safe}}
-                    </td>
+                    </th>
                 {% for answer, label in answers %}
                     <td class="survey-option">
                       <label>

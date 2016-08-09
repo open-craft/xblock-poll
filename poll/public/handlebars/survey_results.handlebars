@@ -11,14 +11,14 @@
         </thead>
         {{#each tally}}
             <tr class="survey-row">
-                <td class="survey-question">
+                <th class="survey-question">
                     {{#if img}}
                         <div class="poll-image-td">
                             <img src="{{img}}" alt="img_alt"/>
                         </div>
                     {{/if}}
                     {{{label}}}
-                </td>
+                </th>
                 {{#each answers}}
                     <td class="survey-percentage survey-option{{#if choice}} survey-choice{{/if}}{{#if top}} poll-top-choice{{/if}}">{{percent}}%</td>
                 {{/each}}
