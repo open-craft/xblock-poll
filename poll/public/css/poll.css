@@ -166,6 +166,7 @@ li.poll-result .poll-image {
     background: none;
 }
 
+.survey-table thead tr td,
 .survey-table thead tr th {
     font-weight: bold;
     font-size: .9rem;
