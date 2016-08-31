@@ -613,6 +613,19 @@ class SurveyBlock(PollBase):
     choices = Dict(help=_("The user's answers"), scope=Scope.user_state)
     event_namespace = 'xblock.survey'
 
+    def _get_block_id(self):
+        """
+        Return ID of this Survey block.
+
+        Take into account the needs of both LMS/Studio and workbench runtimes:
+
+        - In LMS/Studio, usage_id is a UsageKey object.
+        - In the workbench, usage_id is a string.
+        """
+        usage_id = self.scope_ids.usage_id
+        # Try accessing block ID. If usage_id does not have it, return usage_id itself:
+        return unicode(getattr(usage_id, 'block_id', usage_id))
+
     def student_view(self, context=None):
         """
         The primary view of the SurveyBlock, shown to students
@@ -643,6 +656,8 @@ class SurveyBlock(PollBase):
             'submissions_count': self.submissions_count,
             'max_submissions': self.max_submissions,
             'can_view_private_results': self.can_view_private_results(),
+            # a11y: Transfer block ID to enable creating unique ids for questions and answers in the template
+            'block_id': self._get_block_id(),
         })
 
         return self.create_fragment(
