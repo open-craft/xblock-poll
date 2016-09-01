@@ -13,6 +13,7 @@
     vertical-align: middle;
 }
 
+.themed-xblock.poll-block .survey-table thead tr td,
 .themed-xblock.poll-block .survey-table thead tr th {
     font-size: 1em;
 }
