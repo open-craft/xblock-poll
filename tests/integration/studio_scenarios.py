@@ -40,6 +40,6 @@ ddt_scenarios = [
         'Survey Studio',
         'question',
         4,
-        'td.survey-question'
+        'th.survey-question'
     ],
 ]
