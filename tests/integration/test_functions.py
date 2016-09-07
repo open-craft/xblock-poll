@@ -24,7 +24,11 @@
 Tests a realistic, configured Poll to make sure that everything works as it
 should.
 """
+
+import itertools
+
 from .base_test import PollBaseTest
+
 
 ANSWER_SELECTOR = 'label.poll-answer-text'
 
@@ -148,6 +152,28 @@ class TestSurveyFunctions(PollBaseTest):
 
         submit_button = self.get_submit()
         self.assertFalse(submit_button.is_enabled())
+
+    def test_survey_options_a11y(self):
+        """
+        Checks if radio buttons representing survey options are linked to corresponding question and answer.
+
+        This is to ensure that screen reader users can be certain that a given radio button
+        is tied to a specific question and answer.
+        """
+        self.go_to_page('Survey Functions')
+        questions = self.browser.find_elements_by_css_selector('.survey-question')
+        answers = self.browser.find_elements_by_css_selector('.survey-answer')
+        question_ids = [question.get_attribute('id') for question in questions]
+        answer_ids = [answer.get_attribute('id') for answer in answers]
+        id_pairs = [
+            "{question_id} {answer_id}".format(question_id=question_id, answer_id=answer_id)
+            for question_id, answer_id in itertools.product(question_ids, answer_ids)
+        ]
+        options = self.browser.find_elements_by_css_selector('.survey-option input')
+        self.assertEqual(len(options), len(id_pairs))
+        for option in options:
+            labelledby = option.get_attribute('aria-labelledby')
+            self.assertIn(labelledby, id_pairs)
 
     def fill_survey(self, assert_submit=False):
         """
