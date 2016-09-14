@@ -12,7 +12,7 @@ function PollEditUtil(runtime, element, pollType) {
 
     this.init = function () {
         // Set up the editing form for a Poll or Survey.
-        var temp = $('#poll-form-component', element).html();
+        var temp = $('.poll-form-component', element).html();
 
         // Set up gettext in case it isn't available in the client runtime:
         if (typeof gettext == "undefined") {
