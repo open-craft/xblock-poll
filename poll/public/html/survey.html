@@ -1,5 +1,6 @@
 {{ js_template|safe }}
-<div class="poll-block themed-xblock" data-private="{% if private_results %}1{% endif %}" data-can-vote="{% if can_vote %}1{% endif %}">
+<div class="poll-block themed-xblock" data-private="{% if private_results %}1{% endif %}"
+     data-can-vote="{% if can_vote %}1{% endif %}">
     <div class="poll-block-form-wrapper">
         <h3 class="poll-header">{{block_name}}</h3>
         <form>
@@ -13,7 +14,7 @@
                   </tr>
                 </thead>
             {% for key, question in questions %}
-                <tr class="survey-row">
+                <tr class="survey-row" role="group" aria-labelledby="{{block_id}}-{{key}}">
                     <th id="{{block_id}}-{{key}}" class="survey-question">
                         {% if question.img %}
                             <div class="poll-image-td">
@@ -28,9 +29,8 @@
                         <input type="radio"
                                name="{{key}}"
                                value="{{answer}}"{% if question.choice == answer %} checked{% endif %}
-                               aria-labelledby="{{block_id}}-{{key}} {{block_id}}-{{answer}}"
+                               aria-labelledby="{{block_id}}-{{answer}}"
                                />
-                        <span class="sr">{{label}}</span>
                       </label>
                     </td>
                 {% endfor %}

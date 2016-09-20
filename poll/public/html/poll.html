@@ -5,29 +5,31 @@
     <h3 class="poll-header">{{ display_name }}</h3>
 
     <form>
-      <div class="poll-question-container">
-        {{ question|safe }}
-      </div>
-      <ul class="poll-answers">
-        {% for key, value in answers %}
-          <li class="poll-answer">
-            <div class="poll-input-container">
-              <input type="radio" name="choice" id="{{ url_name }}-answer-{{ key }}" value="{{ key }}"
-                  {% if choice == key %}checked{% endif %}/>
-            </div>
-            {% if any_img %}
-              <div class="poll-image">
-                <label for="{{ url_name }}-answer-{{ key }}" class="poll-image-label">
-                  {% if value.img %}
-                    <img src="{{ value.img }}"/>
-                  {% endif %}
-                </label>
+      <div role="group" aria-labelledby="{{ block_id }}-question">
+        <div id="{{ block_id }}-question" class="poll-question-container">
+          {{ question|safe }}
+        </div>
+        <ul class="poll-answers">
+          {% for key, value in answers %}
+            <li class="poll-answer">
+              <div class="poll-input-container">
+                <input type="radio" name="choice" id="{{ block_id }}-answer-{{ key }}" value="{{ key }}"
+                    {% if choice == key %}checked{% endif %}/>
               </div>
-            {% endif %}
-            <label class="poll-answer-text" for="{{ url_name }}-answer-{{ key }}">{{ value.label|safe }}</label>
-          </li>
-        {% endfor %}
-      </ul>
+              {% if any_img %}
+                <div class="poll-image">
+                  <label for="{{ block_id }}-answer-{{ key }}" class="poll-image-label">
+                    {% if value.img %}
+                      <img src="{{ value.img }}"/>
+                    {% endif %}
+                  </label>
+                </div>
+              {% endif %}
+              <label class="poll-answer-text" for="{{ block_id }}-answer-{{ key }}">{{ value.label|safe }}</label>
+            </li>
+          {% endfor %}
+        </ul>
+      </div>
       <input class="input-main" type="button" name="poll-submit"
              value="{% if choice %}Resubmit{% else %}Submit{% endif %}" disabled/>
     </form>

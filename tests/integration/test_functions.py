@@ -25,8 +25,6 @@ Tests a realistic, configured Poll to make sure that everything works as it
 should.
 """
 
-import itertools
-
 from .base_test import PollBaseTest
 
 
@@ -165,15 +163,15 @@ class TestSurveyFunctions(PollBaseTest):
         answers = self.browser.find_elements_by_css_selector('.survey-answer')
         question_ids = [question.get_attribute('id') for question in questions]
         answer_ids = [answer.get_attribute('id') for answer in answers]
-        id_pairs = [
-            "{question_id} {answer_id}".format(question_id=question_id, answer_id=answer_id)
-            for question_id, answer_id in itertools.product(question_ids, answer_ids)
-        ]
-        options = self.browser.find_elements_by_css_selector('.survey-option input')
-        self.assertEqual(len(options), len(id_pairs))
-        for option in options:
-            labelledby = option.get_attribute('aria-labelledby')
-            self.assertIn(labelledby, id_pairs)
+        rows = self.browser.find_elements_by_css_selector('.survey-row')
+        self.assertEqual(len(rows), len(questions))
+        for i, row in enumerate(rows):
+            self.assertEqual(row.get_attribute('role'), 'group')
+            self.assertEqual(row.get_attribute('aria-labelledby'), question_ids[i])
+            options = row.find_elements_by_css_selector('.survey-option input')
+            self.assertEqual(len(options), len(answers))
+            for j, option in enumerate(options):
+                self.assertEqual(option.get_attribute('aria-labelledby'), answer_ids[j])
 
     def fill_survey(self, assert_submit=False):
         """

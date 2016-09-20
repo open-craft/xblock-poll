@@ -37,7 +37,7 @@ function PollUtil (runtime, element, pollType) {
                 });
         });
 
-        this.resultsTemplate = Handlebars.compile($("#" + pollType + "-results-template", element).html());
+        this.resultsTemplate = Handlebars.compile($("." + pollType + "-results-template", element).html());
 
         this.viewResultsButton = $('.view-results-button', element);
         this.viewResultsButton.click(this.getResults);
@@ -204,12 +204,13 @@ function PollUtil (runtime, element, pollType) {
             data: JSON.stringify({}),
             success: function (data) {
                 $('div.poll-block', element).html(self.resultsTemplate(data));
+                $('.poll-results-wrapper').focus();
                 whenImagesLoaded(adjustGaugeBackground);
             }
         });
     };
 
-    this.enableSubmit = function () {
+    this.enableSubmit = function () {
         // Enable the submit button.
         self.submit.removeAttr("disabled");
         self.answers.unbind("change.enableSubmit");

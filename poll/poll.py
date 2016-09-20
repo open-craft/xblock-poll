@@ -123,6 +123,19 @@ class PollBase(XBlock, ResourceMixin, PublishEventMixin):
         return [(key, {'label': markdown(value['label']), 'img': value['img'], 'img_alt': value.get('img_alt')})
                 for key, value in items]
 
+    def _get_block_id(self):
+        """
+        Return unique ID of this block. Useful for HTML ID attributes.
+
+        Works both in LMS/Studio and workbench runtimes:
+        - In LMS/Studio, use the location.html_id method.
+        - In the workbench, use the usage_id.
+        """
+        if hasattr(self, 'location'):
+            return self.location.html_id()  # pylint: disable=no-member
+        else:
+            return unicode(self.scope_ids.usage_id)
+
     def img_alt_mandatory(self):
         """
         Determine whether alt attributes for images are configured to be mandatory.  Defaults to True.
@@ -404,13 +417,13 @@ class PollBlock(PollBase):
             'feedback': markdown(self.feedback) or False,
             'js_template': js_template,
             'any_img': self.any_image(self.answers),
-            # The SDK doesn't set url_name.
-            'url_name': getattr(self, 'url_name', ''),
             'display_name': self.display_name,
             'can_vote': self.can_vote(),
             'max_submissions': self.max_submissions,
             'submissions_count': self.submissions_count,
             'can_view_private_results': self.can_view_private_results(),
+            # a11y: Transfer block ID to enable creating unique ids for questions and answers in the template
+            'block_id': self._get_block_id(),
         })
 
         if self.choice:
@@ -465,6 +478,8 @@ class PollBlock(PollBase):
             'plural': total > 1,
             'display_name': self.display_name,
             'any_img': self.any_image(self.answers),
+            # a11y: Transfer block ID to enable creating unique ids for questions and answers in the template
+            'block_id': self._get_block_id(),
         }
 
     @XBlock.json_handler
@@ -613,19 +628,6 @@ class SurveyBlock(PollBase):
     choices = Dict(help=_("The user's answers"), scope=Scope.user_state)
     event_namespace = 'xblock.survey'
 
-    def _get_block_id(self):
-        """
-        Return ID of this Survey block.
-
-        Take into account the needs of both LMS/Studio and workbench runtimes:
-
-        - In LMS/Studio, usage_id is a UsageKey object.
-        - In the workbench, usage_id is a string.
-        """
-        usage_id = self.scope_ids.usage_id
-        # Try accessing block ID. If usage_id does not have it, return usage_id itself:
-        return unicode(getattr(usage_id, 'block_id', usage_id))
-
     def student_view(self, context=None):
         """
         The primary view of the SurveyBlock, shown to students
@@ -649,8 +651,6 @@ class SurveyBlock(PollBase):
             'any_img': self.any_image(self.questions),
             # Mustache is treating an empty string as true.
             'feedback': markdown(self.feedback) or False,
-            # The SDK doesn't set url_name.
-            'url_name': getattr(self, 'url_name', ''),
             'block_name': self.block_name,
             'can_vote': self.can_vote(),
             'submissions_count': self.submissions_count,
@@ -820,9 +820,15 @@ class SurveyBlock(PollBase):
             detail, total = self.tally_detail()
         return {
             'answers': [
-                value for value in OrderedDict(self.answers).values()],
-            'tally': detail, 'total': total, 'feedback': markdown(self.feedback),
-            'plural': total > 1, 'block_name': self.block_name,
+                {'key': key, 'label': label} for key, label in self.answers
+            ],
+            'tally': detail,
+            'total': total,
+            'feedback': markdown(self.feedback),
+            'plural': total > 1,
+            'block_name': self.block_name,
+            # a11y: Transfer block ID to enable creating unique ids for questions and answers in the template
+            'block_id': self._get_block_id()
         }
 
     @XBlock.json_handler
