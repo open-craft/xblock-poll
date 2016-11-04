@@ -33,9 +33,9 @@
                 </tr>
             {% endfor %}
             </table>
-            <input class="input-main" type="button" name="poll-submit" value="{% if choices and can_vote %}Resubmit{% else %}Submit{% endif %}" disabled />
+            <input class="input-main" type="button" name="poll-submit" value="Submit" disabled />
         </form>
-        <div class="poll-voting-thanks{% if not choices or can_vote %} poll-hidden{% endif %}"><span>Thank you for your submission!</span></div>
+        <div class="poll-voting-thanks{% if not choices or can_vote %} poll-hidden{% endif %}"><span>Thank you.</span></div>
         <div class="poll-submissions-count poll-hidden">
             You have used <span class="poll-current-count">{{ submissions_count }}</span>
             out of <span class="poll-max-submissions">{{ max_submissions }}</span> submissions.
