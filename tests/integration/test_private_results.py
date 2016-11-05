@@ -87,12 +87,9 @@ class TestPrivateResults(PollBaseTest):
         submit.click()
         self.wait_until_clickable(self.browser.find_element_by_css_selector('.poll-voting-thanks'))
 
-        self.assertIn('Resubmit', submit.get_attribute('outerHTML'), 'Resubmit')
-
-        # This should persist on page reload.
-        self.go_to_page(page_name)
-        submit = self.get_submit()
-        self.assertIn('Resubmit', submit.get_attribute('outerHTML'), 'Resubmit')
+        self.assertIn('Submit', submit.get_attribute('outerHTML'))
+        # ^ Note that in previous versions, this text would change to "Resubmit",
+        # but we removed that functionality in v1.2.2
 
     @unpack
     @data(*scenarios)

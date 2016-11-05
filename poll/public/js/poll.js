@@ -158,9 +158,7 @@ function PollUtil (runtime, element, pollType) {
             thanks.removeClass('poll-hidden');
             thanks.fadeOut(0).fadeIn('slow', 'swing');
             $('.poll-feedback-container', element).removeClass('poll-hidden');
-            if (can_vote) {
-                $('input[name="poll-submit"]', element).val(gettext('Resubmit'));
-            } else {
+            if (!can_vote) {
                 $('input', element).attr('disabled', true)
             }
             return;
