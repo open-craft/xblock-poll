@@ -27,7 +27,7 @@
 /* LMS have very specific css selector that sets ~1.5em bottom margin */
 .themed-xblock.poll-block table.survey-table .survey-row td p,
 .themed-xblock.poll-block table.survey-table .survey-row th p,
-.themed-xblock.poll-block ul.poll-answers li.poll-answer .poll-answer p,
+.themed-xblock.poll-block .poll-answers .poll-answer .poll-answer p,
 .themed-xblock.poll-block ul.poll-results li.poll-result .poll-answer-label p {
     margin-bottom: 0;
 }
