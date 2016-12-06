@@ -103,6 +103,21 @@ class TestPollFunctions(PollBaseTest):
         self.go_to_page('Poll Functions')
         self.assertFalse(self.get_submit().is_enabled())
 
+    def test_poll_options_a11y(self):
+        """
+        Checks if there is a programmatic relationship between the question text of a poll
+        and the radio buttons representing poll options.
+
+        - The entire poll should be wrapped in a <fieldset> element.
+        - The question text of the poll should be wrapped in a <legend> element.
+        """
+        self.go_to_page('Poll Functions')
+
+        poll = self.browser.find_element_by_css_selector('fieldset.poll-container')
+        question = poll.find_element_by_css_selector('legend.poll-question')
+
+        self.assertEqual(question.text, 'How long have you been studying with us?')
+
 
 class TestSurveyFunctions(PollBaseTest):
 

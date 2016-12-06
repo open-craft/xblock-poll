@@ -1,5 +1,12 @@
 /* CSS for PollBlock Student View */
 
+.poll-question {
+    /* Make sure vertical whitespace below poll question is consistent across browsers.
+     * Some browsers use custom user agent stylesheets that modify the value of the "display" property
+     * for <legend> elements. */
+    display: inline;
+}
+
 .poll-answer-text {
     margin-bottom: 0;
     font-weight: bold;
@@ -48,12 +55,20 @@
     width: 65%;
 }
 
-ul.poll-answers, ul.poll-answers-results {
-    list-style-type: none !important;
+.poll-answers, ul.poll-answers-results {
     max-width: 80%;
 }
 
-li.poll-answer {
+.poll-answers {
+    margin-bottom: 1em;
+    padding-left: 1em;
+}
+
+ul.poll-answers-results {
+    list-style-type: none !important;
+}
+
+.poll-answer {
     display: table-row;
     border-bottom-width: .5em;
     vertical-align: middle;
@@ -224,7 +239,7 @@ th.survey-answer {
 }
 
 /* Keep the paragraph spacing, but make the spacing vertically even. */
-li.poll-answer label.poll-answer-text p {
+.poll-answer label.poll-answer-text p {
     margin-bottom: .5em;
     margin-top: .5em;
 }
