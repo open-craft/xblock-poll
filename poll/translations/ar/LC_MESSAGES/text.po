@@ -1,0 +1,237 @@
+# 
+# Translators:
+# shefaa abu jabel <shefaa.aj@gmail.com>, 2016
+msgid ""
+msgstr ""
+"Project-Id-Version: XBlocks\n"
+"POT-Creation-Date: 2016-04-07 16:17+0500\n"
+"PO-Revision-Date: 2016-11-07 09:02+0000\n"
+"Last-Translator: shefaa abu jabel <shefaa.aj@gmail.com>\n"
+"Language-Team: Arabic (http://www.transifex.com/open-edx/xblocks/language/ar/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: ar\n"
+"Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 && n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
+"X-Generator: Poedit 1.8.7\n"
+"X-Poedit-Basepath: ../../..\n"
+"X-Poedit-SearchPath-0: poll.py\n"
+
+#: poll.py
+msgid "Whether or not to display results to the user."
+msgstr "عرض النتائج للمستخدم أم عدم عرضها."
+
+#: poll.py
+msgid "The maximum number of times a user may send a submission."
+msgstr "أقصى عدد من المرات التي يمكن فيها للمستخدم الإرسال."
+
+#: poll.py
+msgid "Number of times the user has sent a submission."
+msgstr "عدد المرات التي قام فيها المستخدم بالإرسال."
+
+#: poll.py
+msgid "Text to display after the user votes."
+msgstr "النص للعرض بعد قيام المستخدم بالتصويت."
+
+#: poll.py
+#, python-brace-format
+msgid "'{field}' is not present, or not a JSON array."
+msgstr "'{field}' غير موجود، أو ليس ضمن نسق JSON."
+
+#: poll.py
+#, python-brace-format
+msgid "{noun} {item} not a javascript object!"
+msgstr "{noun} {item} ليس خاضع ل javascript!"
+
+#: poll.py
+#, python-brace-format
+msgid "{noun} {item} contains no key."
+msgstr "{noun} {item} لا يحتوي على أي مفتاح."
+
+#: poll.py
+#, python-brace-format
+msgid ""
+"{noun} has no text or img. Please make sure all {noun_lower}s have one or "
+"the other, or both."
+msgstr "{noun} لا يحوي نص أو صورة. الرجاء التحقق من أن جميع {noun_lower} فيها أحد هذين، أو كلاهما."
+
+#: poll.py
+#, python-brace-format
+msgid ""
+"{noun} was added with no label. All {noun_lower}s must have labels. Please "
+"check the form. Check the form and explicitly delete {noun_lower}s if not "
+"needed."
+msgstr "تمت إضافة {noun} بدون تصنيف. يجب أن يكون لكل {noun_lower} تصنيفات. الرجاء التحقق من النموذج. افحص النموذج وقم بحذف {noun_lower} إذا لم يكن له حاجة بوضوح."
+
+#: poll.py
+msgid ""
+"All images must have an alternative text describing the image in a way that "
+"would allow someone to answer the poll if the image did not load."
+msgstr "يجب أن تجتوي كل الصور نص بديل الذي يصف الصورة بطريقة التي ستتيح لشخص ما الإجابة على الاستبيان إذا لم يتم تحميل الصورة."
+
+#: poll.py
+#, python-brace-format
+msgid "You must include at least one {noun_lower}."
+msgstr "يجب عليك أن تشمل ما لا يقل عن {noun_lower} واحد."
+
+#: poll.py
+msgid "Maximum Submissions missing or not an integer."
+msgstr "العدد الأقصى لمرات الإرسال ناقص أو ليس عدداً صحيحاً."
+
+#: poll.py
+msgid "Private results may not be False when Maximum Submissions is not 1."
+msgstr "لا ينبغي أن تكون النتائج الخاصة خاطئة إذا كان عدد مرات الإرسال ليس 1."
+
+#: poll.py
+msgid "Total tally of answers from students."
+msgstr "السجل الكامل لإجابات الطلاب."
+
+#: poll.py
+msgid "The student's answer"
+msgstr "إجابة الطالب"
+
+#: poll.py
+msgid "You have already voted in this poll."
+msgstr "لقد قمت بالفعل بالتصويت في هذا الاستبيان."
+
+#: poll.py
+msgid "Answer not included with request."
+msgstr "الإجابة ليست ضمن الطلب."
+
+#: poll.py
+#, python-brace-format
+msgid "No key \"{choice}\" in answers table."
+msgstr "لا يوجد \"{choice}\" أساسي في جدول الإجابات."
+
+#: poll.py
+msgid "You have already voted as many times as you are allowed."
+msgstr "لقد قمت بالفعل بالتصويت بعدد المرات المسموح لك."
+
+#: poll.py
+msgid "You must specify a question."
+msgstr "يجب عليك تحديد سؤال."
+
+#: poll.py
+msgid "Answer choices for this Survey"
+msgstr "خيارات الإجابات لهذا المسح"
+
+#: poll.py
+msgid "Are you enjoying the course?"
+msgstr "هل أنت مستمتع بهذه الدورة التدريبية؟"
+
+#: poll.py
+msgid "Would you recommend this course to your friends?"
+msgstr "هل تنصح أصدقاءك بهذه الدورة التدريبية؟"
+
+#: poll.py
+msgid "Do you think you will learn a lot?"
+msgstr "هل تعتقد بأنك ستتعلم الكثير؟"
+
+#: poll.py
+msgid "Questions for this Survey"
+msgstr "أسئلة هذا المسح"
+
+#: poll.py
+msgid "Survey"
+msgstr "مسح"
+
+#: poll.py
+msgid "The user's answers"
+msgstr "إجابات المستخدم"
+
+#: poll.py
+msgid ""
+"Not all questions were included, or unknown questions were included. Try "
+"refreshing and trying again."
+msgstr "لم يتم شمل كل الأسئلة، أو تم شمل أسئلة غير معروفة. حاول القيام بتحديث الصفحة وكرر المحاولة."
+
+#: poll.py
+#, python-format
+msgid "Found unknown answer '{answer_key}' for question key '{question_key}'"
+msgstr "العثور على إجابة غير معروفة '{answer_key}' على السؤال '{question_key}'"
+
+#: poll.py
+msgid "Poll"
+msgstr "استبيان"
+
+#: poll.py
+msgid "What is your favorite color?"
+msgstr "ما هو لونك المفضل؟"
+
+#: poll.py
+msgid "Red"
+msgstr "الأحمر"
+
+#: poll.py
+msgid "Blue"
+msgstr "الأزرق"
+
+#: poll.py
+msgid "Other"
+msgstr "آخر"
+
+#: poll.py
+msgid "The answer options on this poll."
+msgstr "خيارات الإجابة على هذا الاستبيان."
+
+#: poll.py
+msgid "Answer"
+msgstr "إجابة"
+
+#: poll.py
+msgid "Question"
+msgstr "سؤال"
+
+#: poll.py
+msgid "Yes"
+msgstr "نعم"
+
+#: poll.py
+msgid "No"
+msgstr "لا"
+
+#: poll.py
+msgid "Maybe"
+msgstr "ربما"
+
+#: public/handlebars/poll_results.handlebars
+msgid "Results gathered from {total} respondents."
+msgstr "النتائج التي تم جمعها من {total} مجيب."
+
+#: public/handlebars/poll_results.handlebars
+msgid "Results gathered from {total} respondent."
+msgstr "النتائج التي تم جمعها من {total} مجيب."
+
+#: public/handlebars/poll_studio.handlebars
+msgid "move poll up"
+msgstr "تحريك الاستبيان نحو الأعلى"
+
+#: public/handlebars/poll_studio.handlebars
+msgid "move poll down"
+msgstr "تحريك الاستبيان نحو الأسفل"
+
+#: public/handlebars/poll_studio.handlebars
+msgid "Delete"
+msgstr "حذف"
+
+#: public/handlebars/poll_studio.handlebars
+msgid "Image URL"
+msgstr "URL للصورة"
+
+#: public/handlebars/poll_studio.handlebars
+msgid "Image alternative text"
+msgstr "النص البديل للصورة"
+
+#: public/handlebars/poll_studio.handlebars
+msgid ""
+"You can make limited use of Markdown in answer texts, preferably only bold "
+"and italics."
+msgstr "يمكنك تحديد استخدام التحديد نحو الأسفل في نصوص الإجابات، يفضل استخدام المُشدد والمائل فقط."
+
+#: public/handlebars/poll_studio.handlebars
+msgid ""
+"This must have an image URL or text, and can have both.  If you add an "
+"image, you must also provide an alternative text that describes the image in"
+" a way that would allow someone to answer the poll if the image did not "
+"load."
+msgstr "يجب أن يحتوي هذا على URL لصورة أو نص، ويمكن أن يحتوي على الاثنين.  إذا أضفت صورة، يجب عليك أيضاً تحديد نص بديل الذي يصف الصورة بطريقة التي ستتيح لشخص ما الإجابة على الاستبيان إذا لم يتم تحميل الصورة."

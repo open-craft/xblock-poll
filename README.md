@@ -241,3 +241,12 @@ names in the django settings using the `XBLOCK_POLL_EXTRA_VIEW_GROUPS` setting, 
 ## Working with Translations
 
 For information about working with translations, see the [Internationalization Support](http://edx.readthedocs.io/projects/xblock-tutorial/en/latest/edx_platform/edx_lms.html#internationalization-support) section of the [Open edX XBlock Tutorial](https://xblock-tutorial.readthedocs.io/en/latest/).
+
+## Downloading translations from Transifex
+
+If you want to download translations from Transifex install [Transifex client][transifex-client] and run this command while inside project root directory
+```
+tx pull -f --mode=reviewed -l en,ar,es_419,fr,he,hi,ko_KR,pt_BR,ru,zh_CN
+```
+
+[transifex-client]: https://docs.transifex.com/client/installing-the-client

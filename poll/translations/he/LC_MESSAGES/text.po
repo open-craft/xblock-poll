@@ -1,0 +1,237 @@
+# 
+# Translators:
+# qualityalltext <quality@alltext.co.il>, 2016
+msgid ""
+msgstr ""
+"Project-Id-Version: XBlocks\n"
+"POT-Creation-Date: 2016-04-07 16:17+0500\n"
+"PO-Revision-Date: 2016-10-30 14:10+0000\n"
+"Last-Translator: qualityalltext <quality@alltext.co.il>\n"
+"Language-Team: Hebrew (http://www.transifex.com/open-edx/xblocks/language/he/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: he\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 1.8.7\n"
+"X-Poedit-Basepath: ../../..\n"
+"X-Poedit-SearchPath-0: poll.py\n"
+
+#: poll.py
+msgid "Whether or not to display results to the user."
+msgstr "האם להציג תוצאות למשתמש."
+
+#: poll.py
+msgid "The maximum number of times a user may send a submission."
+msgstr "מספר הפעמים המרבי שיכול משתמש לשלוח הגשה."
+
+#: poll.py
+msgid "Number of times the user has sent a submission."
+msgstr "מספר הפעמים ששלח המשתמש הגשה."
+
+#: poll.py
+msgid "Text to display after the user votes."
+msgstr "הטקסט שיוצג לאחר הצבעת המשתמש."
+
+#: poll.py
+#, python-brace-format
+msgid "'{field}' is not present, or not a JSON array."
+msgstr "'{field}' אינו נמצא, או אינו במערך JSON."
+
+#: poll.py
+#, python-brace-format
+msgid "{noun} {item} not a javascript object!"
+msgstr "{noun} {item} אינו אובייקט javascript!"
+
+#: poll.py
+#, python-brace-format
+msgid "{noun} {item} contains no key."
+msgstr "{noun} {item} אינו מכיל מפתח."
+
+#: poll.py
+#, python-brace-format
+msgid ""
+"{noun} has no text or img. Please make sure all {noun_lower}s have one or "
+"the other, or both."
+msgstr "ל{noun} אין טקסט או תמונה. ודא כי לכל {noun_lower} יש אחד מהם או את שניהם."
+
+#: poll.py
+#, python-brace-format
+msgid ""
+"{noun} was added with no label. All {noun_lower}s must have labels. Please "
+"check the form. Check the form and explicitly delete {noun_lower}s if not "
+"needed."
+msgstr "{noun} הוסַף ללא תווית. חייבות להיות תוויות לכל {noun_lower} . נא בדוק את הטופס. בדוק את הטופס ומחק את {noun_lower} שאינם נדרשים."
+
+#: poll.py
+msgid ""
+"All images must have an alternative text describing the image in a way that "
+"would allow someone to answer the poll if the image did not load."
+msgstr "לכל התמונות חייב להיות טקסט חלופי המתאר את התמונה כך שיתאפשר למישהו לענות על הסקר במידה והתמונה אינה עולה."
+
+#: poll.py
+#, python-brace-format
+msgid "You must include at least one {noun_lower}."
+msgstr "חובה לכלול לפחות אחת {noun_lower}."
+
+#: poll.py
+msgid "Maximum Submissions missing or not an integer."
+msgstr "חסר מספר שליחות מרבי או שאינו מספר שלם."
+
+#: poll.py
+msgid "Private results may not be False when Maximum Submissions is not 1."
+msgstr "תשובות אישיות אינן יכולות להיות 'לא נכון' כאשר מספר השליחות המרבי אינו 1."
+
+#: poll.py
+msgid "Total tally of answers from students."
+msgstr "מספר כולל של תשובות הסטודנטים."
+
+#: poll.py
+msgid "The student's answer"
+msgstr "תשובת הסטודנט"
+
+#: poll.py
+msgid "You have already voted in this poll."
+msgstr "כבר הצבעת בסקר זה."
+
+#: poll.py
+msgid "Answer not included with request."
+msgstr "התשובה איננה כלולה בבקשה."
+
+#: poll.py
+#, python-brace-format
+msgid "No key \"{choice}\" in answers table."
+msgstr "אין מפתח \"{choice}\" בטבלת התשובות."
+
+#: poll.py
+msgid "You have already voted as many times as you are allowed."
+msgstr "כבר הצבעת את מספר הפעמים המותר לך."
+
+#: poll.py
+msgid "You must specify a question."
+msgstr "עליך לציין שאלה."
+
+#: poll.py
+msgid "Answer choices for this Survey"
+msgstr "אפשרויות התשובה לסקר זה"
+
+#: poll.py
+msgid "Are you enjoying the course?"
+msgstr "האם אתה נהנה מהקורס?"
+
+#: poll.py
+msgid "Would you recommend this course to your friends?"
+msgstr "האם היית ממליץ על קורס זה לחבריך?"
+
+#: poll.py
+msgid "Do you think you will learn a lot?"
+msgstr "האם לדעתך תלמד הרבה?"
+
+#: poll.py
+msgid "Questions for this Survey"
+msgstr "שאלות לסקר זה"
+
+#: poll.py
+msgid "Survey"
+msgstr "סקר"
+
+#: poll.py
+msgid "The user's answers"
+msgstr "תשובות המשתמש"
+
+#: poll.py
+msgid ""
+"Not all questions were included, or unknown questions were included. Try "
+"refreshing and trying again."
+msgstr "לא נכללו כל השאלות או שהוצגו שאלות לא מוכרות. רענן ונסה שנית."
+
+#: poll.py
+#, python-format
+msgid "Found unknown answer '{answer_key}' for question key '{question_key}'"
+msgstr "נמצאה תשובה לא מוכרת '{answer_key}' עבור מפתח השאלה '{question_key}'"
+
+#: poll.py
+msgid "Poll"
+msgstr "מִשאל"
+
+#: poll.py
+msgid "What is your favorite color?"
+msgstr "מהו הצבע האהוב עליך?"
+
+#: poll.py
+msgid "Red"
+msgstr "אדום"
+
+#: poll.py
+msgid "Blue"
+msgstr "כחול"
+
+#: poll.py
+msgid "Other"
+msgstr "אחר"
+
+#: poll.py
+msgid "The answer options on this poll."
+msgstr "אפשרויות התשובה למשאל זה."
+
+#: poll.py
+msgid "Answer"
+msgstr "תשובה"
+
+#: poll.py
+msgid "Question"
+msgstr "שאלה"
+
+#: poll.py
+msgid "Yes"
+msgstr "כן"
+
+#: poll.py
+msgid "No"
+msgstr "לא"
+
+#: poll.py
+msgid "Maybe"
+msgstr "אולי"
+
+#: public/handlebars/poll_results.handlebars
+msgid "Results gathered from {total} respondents."
+msgstr "תשובות שנאספו מ{total} עונים."
+
+#: public/handlebars/poll_results.handlebars
+msgid "Results gathered from {total} respondent."
+msgstr "תשובות שנאספו מ{total} עונה."
+
+#: public/handlebars/poll_studio.handlebars
+msgid "move poll up"
+msgstr "העבר את המשאל למעלה"
+
+#: public/handlebars/poll_studio.handlebars
+msgid "move poll down"
+msgstr "העבר את המשאל למטה"
+
+#: public/handlebars/poll_studio.handlebars
+msgid "Delete"
+msgstr "מחק"
+
+#: public/handlebars/poll_studio.handlebars
+msgid "Image URL"
+msgstr "כתובת URL של תמונה"
+
+#: public/handlebars/poll_studio.handlebars
+msgid "Image alternative text"
+msgstr "טקסט חלופי לתמונה"
+
+#: public/handlebars/poll_studio.handlebars
+msgid ""
+"You can make limited use of Markdown in answer texts, preferably only bold "
+"and italics."
+msgstr "תוכל להשתמש באופן מוגבל ב-Markdown בתשובת טקסט, עדיף באותיות בולטות ונטויות."
+
+#: public/handlebars/poll_studio.handlebars
+msgid ""
+"This must have an image URL or text, and can have both.  If you add an "
+"image, you must also provide an alternative text that describes the image in"
+" a way that would allow someone to answer the poll if the image did not "
+"load."
+msgstr "חייבת להיות כתובת URL של תמונה או טקסט, ויכולים להיות שניהם.  בהוספת תמונה, עליך לספק טקסט חלופי המתאר את התמונה כך שתאפשר למישהו לענות על הסקר אם התמונה אינה עולה."
