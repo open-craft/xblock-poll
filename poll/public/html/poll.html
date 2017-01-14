@@ -14,19 +14,19 @@
           {% for key, value in answers %}
             <div class="poll-answer">
               <div class="poll-input-container">
-                <input type="radio" name="choice" id="{{ block_id }}-answer-{{ key }}" value="{{ key }}"
+                <input type="radio" name="choice" id="poll-{{ block_id }}-answer-{{ key }}" value="{{ key }}"
                     {% if choice == key %}checked{% endif %}/>
               </div>
               {% if any_img %}
                 <div class="poll-image">
-                  <label for="{{ block_id }}-answer-{{ key }}" class="poll-image-label">
+                  <label for="poll-{{ block_id }}-answer-{{ key }}" class="poll-image-label">
                     {% if value.img %}
                       <img src="{{ value.img }}"/>
                     {% endif %}
                   </label>
                 </div>
               {% endif %}
-              <label class="poll-answer-text" for="{{ block_id }}-answer-{{ key }}">{{ value.label|safe }}</label>
+              <label class="poll-answer-text" for="poll-{{ block_id }}-answer-{{ key }}">{{ value.label|safe }}</label>
             </div>
           {% endfor %}
         </div>
