@@ -47,7 +47,7 @@ coverage.xml
 tests.integration.*
 
 # Translations
-*.mo
+#*.mo
 *.pot
 
 # Django stuff:
