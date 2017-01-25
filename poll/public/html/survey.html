@@ -9,13 +9,13 @@
                   <tr>
                       <td></td>
                       {% for answer, label in answers %}
-                        <th id="{{block_id}}-{{answer}}" class="survey-answer">{{label}}</th>
+                        <th id="poll-{{block_id}}-{{answer}}" class="survey-answer">{{label}}</th>
                       {% endfor %}
                   </tr>
                 </thead>
             {% for key, question in questions %}
-                <tr class="survey-row" role="group" aria-labelledby="{{block_id}}-{{key}}">
-                    <th id="{{block_id}}-{{key}}" class="survey-question">
+                <tr class="survey-row" role="group" aria-labelledby="poll-{{block_id}}-{{key}}">
+                    <th id="poll-{{block_id}}-{{key}}" class="survey-question">
                         {% if question.img %}
                             <div class="poll-image-td">
                                 <img src="{{question.img}}" alt="{{question.img_alt|default_if_none:''}}"/>
@@ -29,7 +29,7 @@
                         <input type="radio"
                                name="{{key}}"
                                value="{{answer}}"{% if question.choice == answer %} checked{% endif %}
-                               aria-labelledby="{{block_id}}-{{answer}}"
+                               aria-labelledby="poll-{{block_id}}-{{answer}}"
                                />
                       </label>
                     </td>
