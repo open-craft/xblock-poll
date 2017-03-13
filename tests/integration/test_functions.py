@@ -176,17 +176,17 @@ class TestSurveyFunctions(PollBaseTest):
         self.go_to_page('Survey Functions')
         questions = self.browser.find_elements_by_css_selector('.survey-question')
         answers = self.browser.find_elements_by_css_selector('.survey-answer')
-        question_ids = [question.get_attribute('id') for question in questions]
-        answer_ids = [answer.get_attribute('id') for answer in answers]
+        question_text = [question.text for question in questions]
+        answer_text = [answer.text for answer in answers]
         rows = self.browser.find_elements_by_css_selector('.survey-row')
         self.assertEqual(len(rows), len(questions))
         for i, row in enumerate(rows):
             self.assertEqual(row.get_attribute('role'), 'group')
-            self.assertEqual(row.get_attribute('aria-labelledby'), question_ids[i])
             options = row.find_elements_by_css_selector('.survey-option input')
             self.assertEqual(len(options), len(answers))
             for j, option in enumerate(options):
-                self.assertEqual(option.get_attribute('aria-labelledby'), answer_ids[j])
+                self.assertIn(answer_text[j], option.get_attribute('aria-label'))
+                self.assertIn(question_text[i], option.get_attribute('aria-label'))
 
     def fill_survey(self, assert_submit=False):
         """
