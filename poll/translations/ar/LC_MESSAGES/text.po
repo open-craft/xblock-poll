@@ -1,11 +1,11 @@
-# 
+#
 # Translators:
 # shefaa abu jabel <shefaa.aj@gmail.com>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: XBlocks\n"
 "POT-Creation-Date: 2016-04-07 16:17+0500\n"
-"PO-Revision-Date: 2016-11-07 09:02+0000\n"
+"PO-Revision-Date: 2017-04-27 18:49+0500\n"
 "Last-Translator: shefaa abu jabel <shefaa.aj@gmail.com>\n"
 "Language-Team: Arabic (http://www.transifex.com/open-edx/xblocks/language/ar/)\n"
 "MIME-Version: 1.0\n"
@@ -13,7 +13,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: ar\n"
 "Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 && n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
-"X-Generator: Poedit 1.8.7\n"
+"X-Generator: Poedit 2.0.1\n"
 "X-Poedit-Basepath: ../../..\n"
 "X-Poedit-SearchPath-0: poll.py\n"
 
@@ -235,3 +235,6 @@ msgid ""
 " a way that would allow someone to answer the poll if the image did not "
 "load."
 msgstr "يجب أن يحتوي هذا على URL لصورة أو نص، ويمكن أن يحتوي على الاثنين.  إذا أضفت صورة، يجب عليك أيضاً تحديد نص بديل الذي يصف الصورة بطريقة التي ستتيح لشخص ما الإجابة على الاستبيان إذا لم يتم تحميل الصورة."
+
+msgid "View results"
+msgstr "عرض النتائج"

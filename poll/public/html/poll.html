@@ -1,4 +1,5 @@
 {{ js_template|safe }}
+{% load xblock_i18n %}
 <div class="poll-block themed-xblock" data-private="{% if private_results %}1{% endif %}"
      data-can-vote="{% if can_vote %}1{% endif %}">
   <div class="poll-block-form-wrapper">
@@ -57,7 +58,7 @@
 
     {% if can_view_private_results %}
       <div class="view-results-button-wrapper">
-        <button class="view-results-button">View results</button>
+        <button class="view-results-button">{% trans "View results"%}</button>
       </div>
     {% endif %}
 
