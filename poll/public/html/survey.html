@@ -1,3 +1,5 @@
+{% load i18n %}
+
 {{ js_template|safe }}
 <div class="poll-block themed-xblock" data-private="{% if private_results %}1{% endif %}"
      data-can-vote="{% if can_vote %}1{% endif %}">
