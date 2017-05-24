@@ -1,3 +1,4 @@
+{% load i18n %}
 {{ js_template|safe }}
 <div class="poll-block themed-xblock" data-private="{% if private_results %}1{% endif %}"
      data-can-vote="{% if can_vote %}1{% endif %}">
@@ -31,23 +32,23 @@
           {% endfor %}
         </div>
       </fieldset>
-      <input class="input-main" type="button" name="poll-submit" value="Submit" disabled/>
+      <input class="input-main" type="button" name="poll-submit" value='{% trans "Submit" %}' disabled/>
     </form>
 
     <div class="poll-voting-thanks
         {% if not choice or can_vote %}poll-hidden{% endif %}">
-      <span>Thank you.</span>
+      <span>{% trans "Thank you." %}</span>
     </div>
 
     <div class="poll-submissions-count poll-hidden">
-      You have used <span class="poll-current-count">{{ submissions_count }}</span>
-      out of <span class="poll-max-submissions">{{ max_submissions }}</span> submissions.
+      {% trans "You have used" %} <span class="poll-current-count">{{ submissions_count }}</span>
+      {% trans "out of" %}<span class="poll-max-submissions">{{ max_submissions }}</span> {% trans "submissions" %}.
     </div>
 
     {% if feedback %}
       <div class="poll-feedback-container{% if not choice %} poll-hidden{% endif %}">
         <hr/>
-        <h3 class="poll-header">Feedback</h3>
+        <h3 class="poll-header">{% trans "Feedback" %}</h3>
 
         <div class="poll-feedback">
           {{ feedback|safe }}
@@ -57,7 +58,7 @@
 
     {% if can_view_private_results %}
       <div class="view-results-button-wrapper">
-        <button class="view-results-button">View results</button>
+        <button class="view-results-button">{% trans "View results" %}</button>
       </div>
     {% endif %}
 
