@@ -50,6 +50,8 @@ function PollUtil (runtime, element, pollType) {
         var selector = 'input[name=choice]:checked';
         var radio = $(selector, element);
         self.submit.click(function () {
+            // Disable the submit button to avoid multiple clicks
+            self.disableSubmit();
             // We can't just use radio.selector here because the selector
             // is mangled if this is the first time this XBlock is added in
             // studio.
@@ -90,6 +92,8 @@ function PollUtil (runtime, element, pollType) {
         }
         self.answers.bind("change.enableSubmit", self.verifyAll);
         self.submit.click(function () {
+            // Disable the submit button to avoid multiple clicks
+            self.disableSubmit();
             $.ajax({
                 type: "POST",
                 url: self.voteUrl,
@@ -159,7 +163,12 @@ function PollUtil (runtime, element, pollType) {
             thanks.fadeOut(0).fadeIn('slow', 'swing');
             $('.poll-feedback-container', element).removeClass('poll-hidden');
             if (!can_vote) {
-                $('input', element).attr('disabled', true)
+                // Disable all types of input within the element,
+                // Radio button choices and the submit button.
+                $('input', element).attr('disabled', true);
+            } else {
+                // Enable the submit button.
+                self.enableSubmit();
             }
             return;
         }
@@ -207,6 +216,11 @@ function PollUtil (runtime, element, pollType) {
             }
         });
     };
+
+    this.disableSubmit = function() {
+        // Disable the submit button.
+        self.submit.attr("disabled", true);
+    }
 
     this.enableSubmit = function () {
         // Enable the submit button.
