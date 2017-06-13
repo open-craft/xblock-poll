@@ -120,11 +120,11 @@ li.poll-result .poll-image {
     vertical-align: middle;
 }
 
-.poll-image img, .poll-image-td img{
+.poll-image img, .poll-image-td img {
     width: 100%;
 }
 
-.poll-image-td{
+.poll-image-td {
     display: inline-block;
 }
 
@@ -233,7 +233,7 @@ th.survey-answer {
 }
 
 /* Counteract Markdown's wrapping in paragraphs */
-.survey-question p, div.percentage-gauge-container label.poll-answer-label p{
+.survey-question p, div.percentage-gauge-container label.poll-answer-label p {
     margin-bottom: 0;
     padding: 0;
 }
@@ -275,4 +275,70 @@ th.survey-answer {
     vertical-align: middle;
     height: 100%;
     padding-right: .5em;
+}
+
+/* in a hurry, so I will just write overrides here */
+
+.poll-header {
+    display: none;
+}
+
+.survey-table {
+    border: 1px solid #CCC !important;
+    margin-bottom: 2rem;
+}
+
+.survey-table td {
+    vertical-align: middle;
+}
+
+.survey-question {
+    line-height: 2;
+}
+
+.survey-question .question-heading {
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.survey-question .question-description {
+    font-weight: 400;
+    margin-top: 0;
+}
+
+.survey-question, .survey-option, .survey-answer {
+    padding: 10px !important;
+}
+
+/* override top row in table */
+.themed-xblock.poll-block .survey-table thead tr th.survey-answer {
+    width: auto;
+    max-width: 1rem;
+    text-transform: uppercase;
+    color: #8d8d8d;
+    font-size: 0.8em;
+    vertical-align: top;
+}
+
+.poll-block.themed-xblock {
+    padding-bottom: 1rem;
+}
+
+.poll-block-form-wrapper form {
+    position: relative;
+}
+
+.poll-block-form-wrapper form .input-main {
+    position: absolute;
+    right: 0;
+}
+
+.poll-block-form-wrapper form .input-main.ft-button-action {
+    padding: 3px 35px !important;
+    text-transform: uppercase;
+    font-size: .8rem !important;
+}
+
+.view-results-button-wrapper {
+    display: none;
 }
