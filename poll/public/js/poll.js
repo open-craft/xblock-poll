@@ -1,9 +1,9 @@
 /* Javascript for PollBlock. */
 
-function PollUtil (runtime, element, pollType) {
+function PollUtil(runtime, element, pollType) {
     var self = this;
 
-    this.init = function() {
+    this.init = function () {
         // Initialization function used for both Poll Types
         this.voteUrl = runtime.handlerUrl(element, 'vote');
         this.tallyURL = runtime.handlerUrl(element, 'get_results');
@@ -13,25 +13,29 @@ function PollUtil (runtime, element, pollType) {
 
         // Set up gettext in case it isn't available in the client runtime:
         if (typeof gettext == "undefined") {
-            window.gettext = function gettext_stub(string) { return string; };
-            window.ngettext = function ngettext_stub(strA, strB, n) { return n == 1 ? strA : strB; };
+            window.gettext = function gettext_stub(string) {
+                return string;
+            };
+            window.ngettext = function ngettext_stub(strA, strB, n) {
+                return n == 1 ? strA : strB;
+            };
         }
 
         // Make gettext available in Handlebars templates
-        Handlebars.registerHelper('i18n', function(str) {
+        Handlebars.registerHelper('i18n', function (str) {
             return gettext(str);
         });
 
         // Make ngettext available in Handlebars templates
-        Handlebars.registerHelper('i18n_ngettext', function(singular, plural, count) {
+        Handlebars.registerHelper('i18n_ngettext', function (singular, plural, count) {
             return ngettext(singular, plural, count);
         });
 
         // Add helper for interpolating values into strings in Handlebars templates
-        Handlebars.registerHelper('interpolate', function(formatString, parameters) {
+        Handlebars.registerHelper('interpolate', function (formatString, parameters) {
             parameters = parameters.hash;
             return formatString.replace(/{\w+}/g,
-                function(parameter) {
+                function (parameter) {
                     var parameterName = parameter.slice(1, -1);
                     return String(parameters[parameterName]);
                 });
@@ -45,7 +49,7 @@ function PollUtil (runtime, element, pollType) {
         return this.shouldDisplayResults();
     };
 
-    this.pollInit = function(){
+    this.pollInit = function () {
         // Initialization function for PollBlocks.
         var selector = 'input[name=choice]:checked';
         var radio = $(selector, element);
@@ -73,18 +77,20 @@ function PollUtil (runtime, element, pollType) {
         // If the user has refreshed the page, they may still have an answer
         // selected and the submit button should be enabled.
         var answers = $('input[type=radio]', element);
-        if (! radio.val()) {
+        if (!radio.val()) {
             answers.bind("change.enableSubmit", self.enableSubmit);
         } else if ($('div.poll-block', element).data('can-vote')) {
             self.enableSubmit();
         }
+
+        self.transformQuestions();
     };
 
     this.surveyInit = function () {
         // Initialization function for Survey Blocks
 
         // If the user is unable to vote, disable input.
-        if (! $('div.poll-block', element).data('can-vote')) {
+        if (!$('div.poll-block', element).data('can-vote')) {
             $('input', element).attr('disabled', true);
             return
         }
@@ -102,7 +108,7 @@ function PollUtil (runtime, element, pollType) {
         self.verifyAll();
     };
 
-    this.shouldDisplayResults = function() {
+    this.shouldDisplayResults = function () {
         return $.ajax({
             // Semantically, this would be better as GET, but we can use helper
             // functions with POST.
@@ -115,7 +121,7 @@ function PollUtil (runtime, element, pollType) {
     this.surveyChoices = function () {
         // Grabs all selections for survey answers, and returns a mapping for them.
         var choices = {};
-        self.answers.each(function(index, el) {
+        self.answers.each(function (index, el) {
             el = $(el);
             choices[el.prop('name')] = $(self.checkedElement(el), element).val();
         });
@@ -132,12 +138,12 @@ function PollUtil (runtime, element, pollType) {
         // Verify that all questions have an answer selected.
         var doEnable = true;
         self.answers.each(function (index, el) {
-            if (! $(self.checkedElement($(el)), element).length) {
+            if (!$(self.checkedElement($(el)), element).length) {
                 doEnable = false;
                 return false
             }
         });
-        if (doEnable){
+        if (doEnable) {
             self.enableSubmit();
         }
     };
@@ -172,28 +178,30 @@ function PollUtil (runtime, element, pollType) {
         function adjustGaugeBackground() {
             // Adjust the height of the grey background of the the percentage gauges.  This
             // couldn't be achieved with CSS.
-            $('ul.poll-results > li', element).each(function() {
+            $('ul.poll-results > li', element).each(function () {
                 var height = 0, width;
-                $(this).children().each(function() {
+                $(this).children().each(function () {
                     height = Math.max(height, $(this).height());
                 });
                 width = $('.percentage-gauge-container', this).width();
                 $('.percentage-gauge-background', this).height(height).width(width);
             });
         }
+
         function whenImagesLoaded(callback) {
             // Wait for all images to be loaded, then call callback.
             var missingImages = 1;
-            $('img', element).each(function() {
+            $('img', element).each(function () {
                 if ($(this).height() == 0) {
                     missingImages++;
-                    $(this).load(function() {
+                    $(this).load(function () {
                         if (--missingImages == 0) callback();
                     });
                 }
             });
             if (--missingImages == 0) callback();
         }
+
         $.ajax({
             // Semantically, this would be better as GET, but we can use helper
             // functions with POST.
@@ -215,10 +223,10 @@ function PollUtil (runtime, element, pollType) {
     };
 
     var init_map = {'poll': self.pollInit, 'survey': self.surveyInit};
-    this.init().done(function(data) {
+    this.init().done(function (data) {
         // If the submit button doesn't exist, the user has already
         // selected a choice. Render results instead of initializing machinery.
-        if (data['voted'] && ! data['private_results']) {
+        if (data['voted'] && !data['private_results']) {
             self.onSubmit({'success': true});
             $('.poll-block-form-wrapper', element).hide();
         }
@@ -230,9 +238,21 @@ function PollUtil (runtime, element, pollType) {
                 $('.poll-submissions-count', element).show();
             }
         }
-    }).always(function(){
+    }).always(function () {
         init_map[pollType]();
     });
+
+    this.transformQuestions = function () {
+        var $question = $('.survey-question p');
+        $question.each(function () {
+            var $current_question = $(this);
+            var question_text = $current_question.text();
+            var q_heading = '<p class="question-heading">' + question_text.substr(0, question_text.indexOf('#')) + '</p>';
+            var q_description = '<p class="question-description">' + question_text.substr(question_text.indexOf('#') + 1, question_text.length) + '</p>';
+            $current_question.parent().append(q_heading).append(q_description);
+            $current_question.remove();
+        });
+    }
 }
 
 function PollBlock(runtime, element) {
