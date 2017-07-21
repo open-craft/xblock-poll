@@ -78,24 +78,6 @@ class TestPrivateResults(PollBaseTest):
 
     @unpack
     @data(*scenarios)
-    def test_submit_button(self, page_name, names):
-        self.go_to_page(page_name)
-        submit = self.get_submit()
-        self.assertIn('Submit', submit.get_attribute('outerHTML'))
-
-        self.make_selections(names)
-        submit.click()
-        self.wait_until_clickable(self.browser.find_element_by_css_selector('.poll-voting-thanks'))
-
-        self.assertIn('Resubmit', submit.get_attribute('outerHTML'), 'Resubmit')
-
-        # This should persist on page reload.
-        self.go_to_page(page_name)
-        submit = self.get_submit()
-        self.assertIn('Resubmit', submit.get_attribute('outerHTML'), 'Resubmit')
-
-    @unpack
-    @data(*scenarios)
     def test_feedback_display(self, page_name, names):
         self.go_to_page(page_name)
         self.assertFalse(self.browser.find_element_by_css_selector('.poll-feedback').is_displayed())
