@@ -25,9 +25,9 @@
                     </th>
                 {% for answer, label in answers %}
                     <td class="survey-option" headers="poll-{{block_id}}-{{key}} poll-{{block_id}}-{{answer}}">
-                      <label>
                         <input type="radio"
                                name="{{key}}"
+                               id="{{key}}-{{forloop.counter}}"
                                value="{{answer}}"{% if question.choice == answer %} checked{% endif %}
                                {% if question.img_alt %}
                                   aria-label="{{question.img_alt}} {{label}}"
@@ -35,7 +35,15 @@
                                   aria-label="{{question.label|striptags}} {{label}}"
                                {% endif %}
                                />
-                      </label>
+                        {% with answer_count=forloop.counter %}
+                            {% for answer, label in answers %}
+                                {% if forloop.counter == answer_count %}
+                                    <label class="visible-mobile-only" for="{{key}}-{{answer_count}}">
+                                        {{label}}
+                                    </label>
+                                {% endif %}
+                            {% endfor %}
+                        {% endwith %}
                     </td>
                 {% endfor %}
                 </tr>
