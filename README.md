@@ -186,8 +186,8 @@ for 'Private Results':
 ![Private Results](doc_img/private_results.png)
 
 **Notes on Private Results**: Users will be able to change their vote on polls and surveys with this option enabled.
-An analytics event will not be fired upon the student viewing the results, as the results are never visible. A user 
-will see a thank you message, and optionally, any instructor-provided Feedback in an additional "Feedback" section, 
+An analytics event will not be fired upon the student viewing the results, as the results are never visible. A user
+will see a thank you message, and optionally, any instructor-provided Feedback in an additional "Feedback" section,
 when they click submit:
 
 ![Private Results Submission](doc_img/private_results_submission.png)
@@ -250,3 +250,153 @@ tx pull -f --mode=reviewed -l en,ar,es_419,fr,he,hi,ko_KR,pt_BR,ru,zh_CN
 ```
 
 [transifex-client]: https://docs.transifex.com/client/installing-the-client
+
+## API for native mobile frontends
+
+**Retrieve fixed data for all poll/survey XBlocks in a course:**
+```
+GET https://<lms_server_url>/api/courses/v1/blocks/?course_id=<course_id>&username=<username>&depth=all&requested_fields=student_view_data
+```
+
+Example poll return value:
+```
+"student_view_data": {
+    "question": "Did the explanation above make sense to you?",
+    "answers": [
+        [
+            "R",
+            {
+                "img_alt": "",
+                "img": "",
+                "label": "Yes, completely"
+            }
+        ],
+        [
+            "B",
+            {
+                "img_alt": "",
+                "img": "",
+                "label": "Yes, for the most part"
+            }
+        ],
+        [
+            "G",
+            {
+                "img_alt": "",
+                "img": "",
+                "label": "Not really"
+            }
+        ],
+        [
+            "O",
+            {
+                "img_alt": "",
+                "img": "",
+                "label": "Not at all"
+            }
+        ]
+    ]
+},
+```
+
+Example survey return value:
+```
+"student_view_data": {
+    "answers": [
+        [
+            "Y",
+            "Yes"
+        ],
+        [
+            "N",
+            "No"
+        ],
+        [
+            "M",
+            "Maybe"
+        ],
+        [
+            "1464806559402",
+            "Unsure"
+        ]
+    ],
+    "questions": [
+        [
+            "enjoy",
+            {
+                "img_alt": "",
+                "img": "",
+                "label": "Do you think you will use Polls in your course?"
+            }
+        ],
+        [
+            "recommend",
+            {
+                "img_alt": "",
+                "img": "",
+                "label": "Do you think you will use Surveys in your course?"
+            }
+        ],
+        [
+            "learn",
+            {
+                "img_alt": "",
+                "img": "",
+                "label": "Do you think the ability to query students is useful?"
+            }
+        ],
+        [
+            "1464806513240",
+            {
+                "img_alt": "",
+                "img": "",
+                "label": "Do you like taking Polls and/or Surveys?"
+            }
+        ]
+    ]
+},
+```
+
+**Retrieve current poll tally and current user's vote**
+```
+GET https://<lms_server_url>/courses/<course_id>/xblock/<poll_xblock_id>/handler/student_view_user_state
+```
+
+Example return value:
+```
+{"tally": {"B": 0, "R": 1, "O": 0, "G": 0}, "submissions_count": 1, "choice": "R"}
+```
+
+**Retrieve current survey tally and current user's vote**
+```
+GET https://<lms_server_url>/courses/<course_id>/xblock/<survey_xblock_id>/handler/student_view_user_state
+```
+
+Example return value:
+```
+{
+    "tally":{
+        "enjoy":{
+            "Y":1,
+            "M":0,
+            "N":0
+        },
+        "learn":{
+            "Y":0,
+            "M":1,
+            "N":0
+        },
+        "recommend":{
+            "Y":0,
+            "M":0,
+            "N":1
+        }
+    },
+    "submissions_count":1,
+    "choices":{
+        "enjoy":"Y",
+        "recommend":"N",
+        "learn":"M"
+    }
+}
+```
