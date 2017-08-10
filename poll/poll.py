@@ -1,3 +1,4 @@
+# pylint: disable=too-many-lines
 # -*- coding: utf-8 -*-
 #
 # Copyright (C) 2015 McKinsey Academy
@@ -20,12 +21,10 @@
 # along with this program in a file in the toplevel directory called
 # "AGPLv3".  If not, see <http://www.gnu.org/licenses/>.
 #
-
 from collections import OrderedDict
 import functools
 import json
 
-from django.template import Template, Context
 from markdown import markdown
 import pkg_resources
 from webob import Response
@@ -41,6 +40,7 @@ from .utils import _
 try:
     # pylint: disable=import-error
     from django.conf import settings
+    from django.template import Template, Context
     from api_manager.models import GroupProfile
     HAS_GROUP_PROFILE = True
 except ImportError:
@@ -133,8 +133,8 @@ class PollBase(XBlock, ResourceMixin, PublishEventMixin):
         """
         if hasattr(self, 'location'):
             return self.location.html_id()  # pylint: disable=no-member
-        else:
-            return unicode(self.scope_ids.usage_id)
+
+        return unicode(self.scope_ids.usage_id)
 
     def img_alt_mandatory(self):
         """
@@ -393,8 +393,8 @@ class PollBlock(PollBase):
         """
         if self.choice and self.choice in dict(self.answers):
             return self.choice
-        else:
-            return None
+
+        return None
 
     def student_view(self, context=None):
         """
@@ -433,6 +433,33 @@ class PollBlock(PollBase):
         return self.create_fragment(
             context, "public/html/poll.html", "public/css/poll.css",
             "public/js/poll.js", "PollBlock")
+
+    def student_view_data(self, context=None):
+        """
+        Returns a JSON representation of the poll Xblock, that can be retrieved
+        using Course Block API.
+        """
+        return {
+            'question': self.question,
+            'answers': self.answers,
+        }
+
+    @XBlock.handler
+    def student_view_user_state(self, data, suffix=''):
+        """
+        Returns a JSON representation of the student data for Poll Xblock
+        """
+        response = {
+            'choice': self.get_choice(),
+            'tally': self.tally,
+            'submissions_count': self.submissions_count,
+        }
+
+        return Response(
+            json.dumps(response),
+            content_type='application/json',
+            charset='utf8'
+        )
 
     def studio_view(self, context=None):
         if not context:
@@ -663,6 +690,33 @@ class SurveyBlock(PollBase):
         return self.create_fragment(
             context, "public/html/survey.html", "public/css/poll.css",
             "public/js/poll.js", "SurveyBlock")
+
+    def student_view_data(self, context=None):
+        """
+        Returns a JSON representation of survey XBlock, that can be retrieved
+        using Course Block API.
+        """
+        return {
+            'questions': self.questions,
+            'answers': self.answers,
+        }
+
+    @XBlock.handler
+    def student_view_user_state(self, data, suffix=''):
+        """
+        Returns a JSON representation of the student data for Survey Xblock
+        """
+        response = {
+            'choices': self.get_choices(),
+            'tally': self.tally,
+            'submissions_count': self.submissions_count,
+        }
+
+        return Response(
+            json.dumps(response),
+            content_type='application/json',
+            charset='utf8'
+        )
 
     def renderable_answers(self, questions, choices):
         """
