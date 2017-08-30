@@ -64,6 +64,10 @@
     padding-left: 1em;
 }
 
+.poll-results-wrapper:focus {
+    outline: none;
+}
+
 ul.poll-answers-results {
     list-style-type: none !important;
 }
