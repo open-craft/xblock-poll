@@ -424,6 +424,7 @@ class PollBlock(PollBase):
             'can_view_private_results': self.can_view_private_results(),
             # a11y: Transfer block ID to enable creating unique ids for questions and answers in the template
             'block_id': self._get_block_id(),
+            'i18n_service': self.runtime.service(self, "i18n"),
         })
 
         if self.choice:
@@ -446,6 +447,7 @@ class PollBlock(PollBase):
             'feedback': self.feedback,
             'js_template': js_template,
             'max_submissions': self.max_submissions,
+            'i18n_service': self.runtime.service(self, "i18n"),
         })
         return self.create_fragment(
             context, "public/html/poll_edit.html",

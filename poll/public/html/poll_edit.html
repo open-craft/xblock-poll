@@ -1,4 +1,4 @@
-{% load i18n %}
+{% load xblock_i18n %}
 {{js_template|safe}}
 <div class="wrapper-comp-settings is-active editor-with-buttons" id="settings-tab">
     <form id="poll-form">
@@ -46,7 +46,7 @@
                 <select id="poll-private-results" class="input setting-input" name="private_results"
                         aria-describedby="poll-private-results-help">
                     <!-- So far as I can see, there's not a proper style for checkboxes. LTI module does it this way. -->
-                    <option value="true" {% if private_results %} selected{% endif %}>{% trans "True" %}True</option>
+                    <option value="true" {% if private_results %} selected{% endif %}>{% trans "True" %}</option>
                     <option value="false" {% if not private_results %} selected{% endif %}>{% trans "False" %}</option>
                 </select>
             </div>
