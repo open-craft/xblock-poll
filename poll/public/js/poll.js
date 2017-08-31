@@ -211,7 +211,7 @@ function PollUtil (runtime, element, pollType) {
             data: JSON.stringify({}),
             success: function (data) {
                 $('div.poll-block', element).html(self.resultsTemplate(data));
-                $('.poll-results-wrapper').focus();
+                $('.poll-results-wrapper', element).focus();
                 whenImagesLoaded(adjustGaugeBackground);
             }
         });
