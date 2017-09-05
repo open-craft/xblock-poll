@@ -1,11 +1,11 @@
-# 
+#
 # Translators:
 # qualityalltext <quality@alltext.co.il>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: XBlocks\n"
 "POT-Creation-Date: 2016-04-07 16:17+0500\n"
-"PO-Revision-Date: 2016-10-30 14:10+0000\n"
+"PO-Revision-Date: 2017-09-05 17:10+0500\n"
 "Last-Translator: qualityalltext <quality@alltext.co.il>\n"
 "Language-Team: Hebrew (http://www.transifex.com/open-edx/xblocks/language/he/)\n"
 "MIME-Version: 1.0\n"
@@ -13,7 +13,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: he\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 1.8.7\n"
+"X-Generator: Poedit 2.0.3\n"
 "X-Poedit-Basepath: ../../..\n"
 "X-Poedit-SearchPath-0: poll.py\n"
 
@@ -50,23 +50,16 @@ msgstr "{noun} {item} אינו מכיל מפתח."
 
 #: poll.py
 #, python-brace-format
-msgid ""
-"{noun} has no text or img. Please make sure all {noun_lower}s have one or "
-"the other, or both."
+msgid "{noun} has no text or img. Please make sure all {noun_lower}s have one or the other, or both."
 msgstr "ל{noun} אין טקסט או תמונה. ודא כי לכל {noun_lower} יש אחד מהם או את שניהם."
 
 #: poll.py
 #, python-brace-format
-msgid ""
-"{noun} was added with no label. All {noun_lower}s must have labels. Please "
-"check the form. Check the form and explicitly delete {noun_lower}s if not "
-"needed."
+msgid "{noun} was added with no label. All {noun_lower}s must have labels. Please check the form. Check the form and explicitly delete {noun_lower}s if not needed."
 msgstr "{noun} הוסַף ללא תווית. חייבות להיות תוויות לכל {noun_lower} . נא בדוק את הטופס. בדוק את הטופס ומחק את {noun_lower} שאינם נדרשים."
 
 #: poll.py
-msgid ""
-"All images must have an alternative text describing the image in a way that "
-"would allow someone to answer the poll if the image did not load."
+msgid "All images must have an alternative text describing the image in a way that would allow someone to answer the poll if the image did not load."
 msgstr "לכל התמונות חייב להיות טקסט חלופי המתאר את התמונה כך שיתאפשר למישהו לענות על הסקר במידה והתמונה אינה עולה."
 
 #: poll.py
@@ -140,9 +133,7 @@ msgid "The user's answers"
 msgstr "תשובות המשתמש"
 
 #: poll.py
-msgid ""
-"Not all questions were included, or unknown questions were included. Try "
-"refreshing and trying again."
+msgid "Not all questions were included, or unknown questions were included. Try refreshing and trying again."
 msgstr "לא נכללו כל השאלות או שהוצגו שאלות לא מוכרות. רענן ונסה שנית."
 
 #: poll.py
@@ -223,15 +214,128 @@ msgid "Image alternative text"
 msgstr "טקסט חלופי לתמונה"
 
 #: public/handlebars/poll_studio.handlebars
-msgid ""
-"You can make limited use of Markdown in answer texts, preferably only bold "
-"and italics."
+msgid "You can make limited use of Markdown in answer texts, preferably only bold and italics."
 msgstr "תוכל להשתמש באופן מוגבל ב-Markdown בתשובת טקסט, עדיף באותיות בולטות ונטויות."
 
 #: public/handlebars/poll_studio.handlebars
 msgid ""
-"This must have an image URL or text, and can have both.  If you add an "
-"image, you must also provide an alternative text that describes the image in"
-" a way that would allow someone to answer the poll if the image did not "
-"load."
+"This must have an image URL or text, and can have both.  If you add an image, you must also provide an alternative text that describes the image in a way that would allow "
+"someone to answer the poll if the image did not load."
 msgstr "חייבת להיות כתובת URL של תמונה או טקסט, ויכולים להיות שניהם.  בהוספת תמונה, עליך לספק טקסט חלופי המתאר את התמונה כך שתאפשר למישהו לענות על הסקר אם התמונה אינה עולה."
+
+#: public/html/poll.html
+msgid "Submit"
+msgstr "חיפוש"
+
+#: public/html/poll.html
+msgid "Thank you."
+msgstr "תודה."
+
+#: public/html/poll.html
+msgid "View results"
+msgstr "הצג תוצאות"
+
+#: public/html/poll.html You have used {submissions_count/integer} out of {max_submissions/integer} submissions.
+msgid "You have used"
+msgstr "השתמשת"
+
+#: public/html/poll.html You have used {submissions_count/integer} out of {max_submissions/integer} submissions.
+msgid "out of"
+msgstr "מתוך"
+
+#: public/html/poll.html You have used {submissions_count/integer} out of {max_submissions/integer} submissions.
+msgid "submissions"
+msgstr "הרשמות"
+
+#: public/html/poll_edit.html
+msgid "Display Name"
+msgstr "שם תצוגה"
+
+#: public/html/poll_edit.html
+msgid "Question/Prompt"
+msgstr "שאלה/בקשה"
+
+#: public/html/poll_edit.html
+msgid "Enter the prompt for the user."
+msgstr "הזן את שורת הפקודה עבור המשתמש."
+
+#: public/html/poll_edit.html
+msgid "This text will be displayed for the user as some extra feedback after they have submitted their response to the poll."
+msgstr "טקסט זה יוצג עבור המשתמש כמו משוב נוסף לאחר ששלחו את תשובתם לסקר."
+
+#: public/html/poll_edit.html
+msgid "Private Results"
+msgstr "פרטי תוצאות"
+
+#: public/html/poll_edit.html
+msgid "True"
+msgstr "נכון"
+
+#: public/html/poll_edit.html
+msgid "False"
+msgstr "לא"
+
+#: public/html/poll_edit.html
+msgid "If this is set to True, don't display results of the poll to the user."
+msgstr "אם זה מוגדר כ- True, אל תציג תוצאות הסקר למשתמש."
+
+#: public/html/poll_edit.html
+msgid "Maximum Submissions"
+msgstr "הגשות המרבי"
+
+#: public/html/poll_edit.html
+msgid "Markdown Syntax"
+msgstr "תחביר הוזלה"
+
+#: public/html/poll_edit.html
+msgid "is supported."
+msgstr "נתמך"
+
+#: public/html/poll_edit.html
+msgid "Maximum number of times a user may submit a poll."
+msgstr "המספר המירבי של פעמים שמשתמש, תוכלו להגיש סקר."
+
+#: public/html/poll_edit.html
+msgid "Setting this to a value other than 1 will imply that 'Private Results' should be true."
+msgstr "הגדרת זה ערך שאינו 1 לרמוז כי 'פרטי תוצאות' צריך להיות נכון."
+
+#: public/html/poll_edit.html
+msgid "Setting it to 0 will allow infinite resubmissions."
+msgstr "הגדרת את זה ל- 0, יאפשר resubmissions אינסופי."
+
+#: public/html/poll_edit.html
+msgid ""
+"If you change an answer's text, all students who voted for that choice will have their votes updated tothe new text. You'll want to avoid changing an answer from "
+"something like 'True' to 'False', accordingly.If you delete an answer, any votes for that answer will also be deleted. Students whose choices are deletedmay vote again, "
+"but will not lose course progress."
+msgstr ""
+"אם אתה משנה את הטקסט של תשובה, כל התלמידים שהצביעו בעד ההחלטה הזאת יהיו קולות שלהם מעודכן כדי הטקסט החדש. רצוי להימנע לשנות תשובה ממשהו כמו 'נכון' כ- 'False', בהתאם לכך. "
+"אם תמחק תשובה, קולות על התשובה גם יימחקו. סטודנטים אשר בחירות הן deletedmay להצביע שוב, אבל לא תאבד התקדמות הקורס."
+
+#: public/html/poll_edit.html
+msgid ""
+"Questions must be similarly cared for. If a question's text is changed, any votes for that question will remain.If a question is deleted, any student who previously took "
+"the survey will be permitted to retake it, but will notlose course progress."
+msgstr ""
+"שאלות חייב להיות דומה מחבורתו. אם הטקסט של שאלה משתנה, יישאר קולות על השאלה. אם שאלה נמחק, כל סטודנט אשר בעבר לקח את הסקר יורשו לחזור על המבחן, אך יהיה notlose מסלול "
+"התקדמות."
+
+#: public/html/poll_edit.html
+msgid "Add Answer"
+msgstr "הוספת תשובה"
+
+#: public/html/poll_edit.html
+msgid "Add Question"
+msgstr "שאלה"
+
+#: public/html/poll_edit.html
+msgid "Save"
+msgstr "שמירה"
+
+#: public/html/poll_edit.html
+msgid "Cancel"
+msgstr "בטל"
+
+#: public/html/survey.html
+msgid "Feedback"
+msgstr "משוב"
