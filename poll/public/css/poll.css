@@ -160,6 +160,15 @@ li.poll-result .poll-image {
     border: 0;
 }
 
+.survey-table td{
+    text-align: center;
+}
+
+.survey-table td label{
+    display: block;
+    padding: 5px 0;
+}
+
 .survey-table td, .survey-table th {
     border: 1px solid #CCC;
     border-top: 0;
@@ -303,6 +312,9 @@ th.survey-answer {
         visibility: hidden;
     }
 
+    .survey-table .survey-option .visible-mobile-only{
+        width: calc(100% - 20px);
+    }
     .survey-table .survey-option{
         display: block;
         border: 1px solid #ccc;
@@ -326,7 +338,10 @@ th.survey-answer {
 
     .survey-table .survey-option label{
         text-align: left;
-        width: calc(100% - 18px);
         padding: 8px 0;
+    }
+
+    .survey-table tbody tr:last-child td{
+        border-bottom: 1px solid #ccc;
     }
 }
