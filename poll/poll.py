@@ -448,6 +448,7 @@ class PollBlock(PollBase):
             'js_template': js_template,
             'max_submissions': self.max_submissions,
             'i18n_service': self.runtime.service(self, "i18n"),
+            'test': "assasa"
         })
         return self.create_fragment(
             context, "public/html/poll_edit.html",
