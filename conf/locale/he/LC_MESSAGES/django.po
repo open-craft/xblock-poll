@@ -1,0 +1,155 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-09-07 07:35-0400\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: workbench/templates/poll.html:35 workbench/templates/survey.html:46
+msgid "Submit"
+msgstr ""
+
+#: workbench/templates/poll.html:40 workbench/templates/survey.html:48
+msgid "Thank you."
+msgstr ""
+
+#: workbench/templates/poll.html:44 workbench/templates/survey.html:50
+msgid "You have used"
+msgstr ""
+
+#: workbench/templates/poll.html:45 workbench/templates/survey.html:51
+msgid "out of"
+msgstr ""
+
+#: workbench/templates/poll.html:45 workbench/templates/survey.html:51
+msgid "submissions"
+msgstr ""
+
+#: workbench/templates/poll.html:51 workbench/templates/poll_edit.html:28
+#: workbench/templates/survey.html:56
+msgid "Feedback"
+msgstr ""
+
+#: workbench/templates/poll.html:61 workbench/templates/survey.html:64
+msgid "View results"
+msgstr ""
+
+#: workbench/templates/poll_edit.html:9
+msgid "Display Name"
+msgstr ""
+
+#: workbench/templates/poll_edit.html:16
+msgid "Question/Prompt"
+msgstr ""
+
+#: workbench/templates/poll_edit.html:18 workbench/templates/poll_edit.html:30
+msgid "Markdown Syntax"
+msgstr ""
+
+#: workbench/templates/poll_edit.html:18 workbench/templates/poll_edit.html:30
+msgid "is supported."
+msgstr ""
+
+#: workbench/templates/poll_edit.html:24
+msgid "Enter the prompt for the user."
+msgstr ""
+
+#: workbench/templates/poll_edit.html:36
+msgid ""
+"\n"
+"                This text will be displayed for the user as some extra "
+"feedback after they have\n"
+"                submitted their response to the poll.\n"
+"              "
+msgstr ""
+
+#: workbench/templates/poll_edit.html:45
+msgid "Private Results"
+msgstr ""
+
+#: workbench/templates/poll_edit.html:49
+msgid "True"
+msgstr ""
+
+#: workbench/templates/poll_edit.html:50
+msgid "False"
+msgstr ""
+
+#: workbench/templates/poll_edit.html:54
+msgid "If this is set to True, don't display results of the poll to the user."
+msgstr ""
+
+#: workbench/templates/poll_edit.html:59
+msgid "Maximum Submissions"
+msgstr ""
+
+#: workbench/templates/poll_edit.html:64
+msgid "Maximum number of times a user may submit a poll."
+msgstr ""
+
+#: workbench/templates/poll_edit.html:65
+msgid ""
+"Setting this to a value other than 1 will imply that 'Private Results' "
+"should be true."
+msgstr ""
+
+#: workbench/templates/poll_edit.html:66
+msgid "Setting it to 0 will allow infinite resubmissions."
+msgstr ""
+
+#: workbench/templates/poll_edit.html:71
+msgid "Notes"
+msgstr ""
+
+#: workbench/templates/poll_edit.html:72
+msgid ""
+"\n"
+"                  If you change an answer's text, all students who voted for "
+"that choice will have their votes updated to\n"
+"                  the new text. You'll want to avoid changing an answer from "
+"something like 'True' to 'False', accordingly.\n"
+"                  If you delete an answer, any votes for that answer will "
+"also be deleted. Students whose choices are deleted\n"
+"                  may vote again, but will not lose course progress.\n"
+"                "
+msgstr ""
+
+#: workbench/templates/poll_edit.html:81
+msgid ""
+"\n"
+"                    Questions must be similarly cared for. If a question's "
+"text is changed, any votes for that question will remain.\n"
+"                    If a question is deleted, any student who previously "
+"took the survey will be permitted to retake it, but will not\n"
+"                    lose course progress.\n"
+"                  "
+msgstr ""
+
+#: workbench/templates/poll_edit.html:97
+msgid "Add Answer"
+msgstr ""
+
+#: workbench/templates/poll_edit.html:101
+msgid "Add Question"
+msgstr ""
+
+#: workbench/templates/poll_edit.html:105
+msgid "Save"
+msgstr ""
+
+#: workbench/templates/poll_edit.html:108
+msgid "Cancel"
+msgstr ""
