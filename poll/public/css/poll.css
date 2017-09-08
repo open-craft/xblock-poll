@@ -160,6 +160,15 @@ li.poll-result .poll-image {
     border: 0;
 }
 
+.survey-table td{
+    text-align: center;
+}
+
+.survey-table td label{
+    display: block;
+    padding: 5px 0;
+}
+
 .survey-table td, .survey-table th {
     border: 1px solid #CCC;
     border-top: 0;
@@ -279,4 +288,60 @@ th.survey-answer {
     vertical-align: middle;
     height: 100%;
     padding-right: .5em;
+}
+
+.visible-mobile-only{
+    display: none;
+    visibility: hidden;
+}
+
+@media only screen and (max-width: 767px){
+    .visible-mobile-only{
+        display: inline-block;
+        visibility: visible;
+    }
+
+    .survey-table .survey-question{
+        display: block;
+        border: 0;
+        padding-bottom: 10px;
+    }
+
+    .survey-table thead{
+        display: none;
+        visibility: hidden;
+    }
+
+    .survey-table .survey-option .visible-mobile-only{
+        width: calc(100% - 20px);
+    }
+    .survey-table .survey-option{
+        display: block;
+        border: 1px solid #ccc;
+        text-align: left;
+        padding: 0 10px;
+        margin-bottom: 10px;
+        border-radius: 5px;
+    }
+
+    .survey-table .survey-option:last-child{
+        border-right: 1px solid #ccc;
+    }
+
+    .survey-table tr:last-child td{
+        border-bottom: 1px solid #ccc;
+    }
+
+    .survey-table tr:last-child td:first-child{
+        border-bottom: 0;
+    }
+
+    .survey-table .survey-option label{
+        text-align: left;
+        padding: 8px 0;
+    }
+
+    .survey-table tbody tr:last-child td{
+        border-bottom: 1px solid #ccc;
+    }
 }
