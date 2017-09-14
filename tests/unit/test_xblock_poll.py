@@ -1,5 +1,6 @@
 import unittest
 import json
+
 from xblock.field_data import DictFieldData
 
 from poll.poll import PollBlock, SurveyBlock

@@ -274,7 +274,8 @@ th.survey-answer {
     font-weight: bold;
 }
 
-.view-results-button-wrapper {
+.view-results-button-wrapper, .export-results-button-wrapper {
+    margin-bottom: 5px;
     text-align: right;
     cursor: pointer;
 }

@@ -69,7 +69,20 @@
         {% endif %}
 
         {% if can_view_private_results %}
-            <div class="view-results-button-wrapper"><button class="view-results-button">{% trans 'View results' %}</button></div>
+            <div class="view-results-button-wrapper">
+                <button class="view-results-button">{% trans 'View results' %}</button>
+            </div>
         {% endif %}
     </div>
 </div>
+{% if can_view_private_results %}
+  {% if not studio_edit %}
+    <div class="export-results-button-wrapper">
+      <button class="export-results-button">Export results to CSV</button>
+      <button disabled class="download-results-button">Download CSV</button>
+      <p class="error-message poll-hidden"></p>
+    </div>
+  {% else %}
+    <p>Student data and results CSV available for download in the LMS.</p>
+  {% endif %}
+{% endif %}

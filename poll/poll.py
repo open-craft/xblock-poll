@@ -24,6 +24,7 @@
 from collections import OrderedDict
 import functools
 import json
+import time
 
 from markdown import markdown
 import pkg_resources
@@ -36,6 +37,7 @@ from xblockutils.publish_event import PublishEventMixin
 from xblockutils.resources import ResourceLoader
 from xblockutils.settings import XBlockWithSettingsMixin, ThemableXBlockMixin
 from .utils import _
+
 
 try:
     # pylint: disable=import-error
@@ -83,12 +85,122 @@ class ResourceMixin(XBlockWithSettingsMixin, ThemableXBlockMixin):
         return frag
 
 
+class CSVExportMixin(object):
+    """
+    Allows Poll or Surveys XBlocks to support CSV downloads of all users'
+    details per block.
+    """
+    active_export_task_id = String(
+        # The UUID of the celery AsyncResult for the most recent export,
+        # IF we are sill waiting for it to finish
+        default="",
+        scope=Scope.user_state_summary,
+    )
+    last_export_result = Dict(
+        # The info dict returned by the most recent successful export.
+        # If the export failed, it will have an "error" key set.
+        default=None,
+        scope=Scope.user_state_summary,
+    )
+
+    @XBlock.json_handler
+    def csv_export(self, data, suffix=''):
+        """
+        Asynchronously export given data as a CSV file.
+        """
+        # Launch task
+        from .tasks import export_csv_data  # Import here since this is edX LMS specific
+
+        # Make sure we nail down our state before sending off an asynchronous task.
+        async_result = export_csv_data.delay(
+            unicode(getattr(self.scope_ids, 'usage_id', None)),
+            unicode(getattr(self.runtime, 'course_id', 'course_id')),
+        )
+        if not async_result.ready():
+            self.active_export_task_id = async_result.id
+        else:
+            self._store_export_result(async_result)
+
+        return self._get_export_status()
+
+    @XBlock.json_handler
+    def get_export_status(self, data, suffix=''):
+        """
+        Return current export's pending status, previous result,
+        and the download URL.
+        """
+        return self._get_export_status()
+
+    def _get_export_status(self):
+        self.check_pending_export()
+        return {
+            'export_pending': bool(self.active_export_task_id),
+            'last_export_result': self.last_export_result,
+            'download_url': self.download_url_for_last_report,
+        }
+
+    def check_pending_export(self):
+        """
+        If we're waiting for an export, see if it has finished, and if so, get the result.
+        """
+        from .tasks import export_csv_data  # Import here since this is edX LMS specific
+        if self.active_export_task_id:
+            async_result = export_csv_data.AsyncResult(self.active_export_task_id)
+            if async_result.ready():
+                self._store_export_result(async_result)
+
+    @property
+    def download_url_for_last_report(self):
+        """ Get the URL for the last report, if any """
+        from lms.djangoapps.instructor_task.models import ReportStore  # pylint: disable=import-error
+
+        # Unfortunately this is a bit inefficient due to the ReportStore API
+        if not self.last_export_result or self.last_export_result['error'] is not None:
+            return None
+
+        report_store = ReportStore.from_config(config_name='GRADES_DOWNLOAD')
+        course_key = getattr(self.scope_ids.usage_id, 'course_key', None)
+        return dict(report_store.links_for(course_key)).get(self.last_export_result['report_filename'])
+
+    def student_module_queryset(self):
+        from courseware.models import StudentModule  # pylint: disable=import-error
+        return StudentModule.objects.filter(
+            course_id=self.runtime.course_id,
+            module_state_key=self.scope_ids.usage_id,
+        ).order_by('-modified')
+
+    def _store_export_result(self, task_result):
+        """ Given an AsyncResult or EagerResult, save it. """
+        self.active_export_task_id = ''
+        if task_result.successful():
+            if isinstance(task_result.result, dict) and not task_result.result.get('error'):
+                self.last_export_result = task_result.result
+            else:
+                self.last_export_result = {'error': u'Unexpected result: {}'.format(repr(task_result.result))}
+        else:
+            self.last_export_result = {'error': unicode(task_result.result)}
+
+    def prepare_data(self):
+        """
+        Return a two-dimensional list containing cells of data ready for CSV export.
+        """
+        raise NotImplementedError
+
+    def get_filename(self):
+        """
+        Return a string to be used as the filename for the CSV export.
+        """
+        raise NotImplementedError
+
+
 @XBlock.wants('settings')
 @XBlock.needs('i18n')
 class PollBase(XBlock, ResourceMixin, PublishEventMixin):
     """
     Base class for Poll-like XBlocks.
     """
+    has_author_view = True
+
     event_namespace = 'xblock.pollbase'
     private_results = Boolean(default=False, help=_("Whether or not to display results to the user."))
     max_submissions = Integer(default=1, help=_("The maximum number of times a user may send a submission."))
@@ -301,7 +413,7 @@ class PollBase(XBlock, ResourceMixin, PublishEventMixin):
         return cls.json_handler(func)
 
 
-class PollBlock(PollBase):
+class PollBlock(PollBase, CSVExportMixin):
     """
     Poll XBlock. Allows a teacher to poll users, and presents the results so
     far of the poll to the user when finished.
@@ -395,6 +507,13 @@ class PollBlock(PollBase):
             return self.choice
 
         return None
+
+    def author_view(self, context=None):
+        """
+        Used to hide CSV export in Studio view
+        """
+        context['studio_edit'] = True
+        return self.student_view(context)
 
     @XBlock.supports("multi_device")  # Mark as mobile-friendly
     def student_view(self, context=None):
@@ -620,8 +739,27 @@ class PollBlock(PollBase):
              """),
         ]
 
+    def get_filename(self):
+        return u"poll-data-export-{}.csv".format(time.strftime("%Y-%m-%d-%H%M%S", time.gmtime(time.time())))
 
-class SurveyBlock(PollBase):
+    def prepare_data(self):
+        header_row = ['user_id', 'username', 'user_email', 'question', 'answer']
+        data = {}
+        answers_dict = dict(self.answers)
+        for sm in self.student_module_queryset():
+            choice = json.loads(sm.state)['choice']
+            if sm.student.id not in data:
+                data[sm.student.id] = [
+                    sm.student.id,
+                    sm.student.username,
+                    sm.student.email,
+                    self.question,
+                    answers_dict[choice]['label'],
+                ]
+        return [header_row] + data.values()
+
+
+class SurveyBlock(PollBase, CSVExportMixin):
     # pylint: disable=too-many-instance-attributes
 
     display_name = String(default=_('Survey'))
@@ -655,6 +793,13 @@ class SurveyBlock(PollBase):
     )
     choices = Dict(help=_("The user's answers"), scope=Scope.user_state)
     event_namespace = 'xblock.survey'
+
+    def author_view(self, context=None):
+        """
+        Used to hide CSV export in Studio view
+        """
+        context['studio_edit'] = True
+        return self.student_view(context)
 
     @XBlock.supports("multi_device")  # Mark as mobile-friendly
     def student_view(self, context=None):
@@ -1032,3 +1177,28 @@ class SurveyBlock(PollBase):
                  feedback="### Thank you&#10;&#10;for running the tests."/>
              """)
         ]
+
+    def get_filename(self):
+        return u"survey-data-export-{}.csv".format(time.strftime("%Y-%m-%d-%H%M%S", time.gmtime(time.time())))
+
+    def prepare_data(self):
+        header_row = ['user_id', 'username', 'user_email']
+        sorted_questions = sorted(self.questions, key=lambda x: x[0])
+        questions = [q[1]['label'] for q in sorted_questions]
+        data = {}
+        answers_dict = dict(self.answers)
+        for sm in self.student_module_queryset():
+            state = json.loads(sm.state)
+            if sm.student.id not in data and state.get('choices'):
+                row = [
+                    sm.student.id,
+                    sm.student.username,
+                    sm.student.email,
+                ]
+                for q in sorted_questions:
+                    choices = state.get('choices')
+                    if choices:
+                        choice = choices[q[0]]
+                        row.append(answers_dict[choice])
+                data[sm.student.id] = row
+        return [header_row + questions] + data.values()
