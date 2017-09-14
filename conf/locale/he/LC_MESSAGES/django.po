@@ -3,153 +3,150 @@
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
-#, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
+"Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-09-07 07:35-0400\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
+"PO-Revision-Date: 2017-09-14 16:11+0500\n"
+"Language: he\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"X-Generator: Poedit 2.0.3\n"
 
 #: workbench/templates/poll.html:35 workbench/templates/survey.html:46
 msgid "Submit"
-msgstr ""
+msgstr "חיפוש"
 
 #: workbench/templates/poll.html:40 workbench/templates/survey.html:48
 msgid "Thank you."
-msgstr ""
+msgstr "תודה."
 
 #: workbench/templates/poll.html:44 workbench/templates/survey.html:50
 msgid "You have used"
-msgstr ""
+msgstr "השתמשת"
 
 #: workbench/templates/poll.html:45 workbench/templates/survey.html:51
 msgid "out of"
-msgstr ""
+msgstr "מתוך"
 
 #: workbench/templates/poll.html:45 workbench/templates/survey.html:51
 msgid "submissions"
-msgstr ""
+msgstr "הרשמות"
 
 #: workbench/templates/poll.html:51 workbench/templates/poll_edit.html:28
 #: workbench/templates/survey.html:56
 msgid "Feedback"
-msgstr ""
+msgstr "משוב"
 
 #: workbench/templates/poll.html:61 workbench/templates/survey.html:64
 msgid "View results"
-msgstr ""
+msgstr "הצג תוצאות"
 
 #: workbench/templates/poll_edit.html:9
 msgid "Display Name"
-msgstr ""
+msgstr "שם תצוגה"
 
 #: workbench/templates/poll_edit.html:16
 msgid "Question/Prompt"
-msgstr ""
+msgstr "שאלה/בקשה"
 
 #: workbench/templates/poll_edit.html:18 workbench/templates/poll_edit.html:30
 msgid "Markdown Syntax"
-msgstr ""
+msgstr "תחביר הוזלה"
 
 #: workbench/templates/poll_edit.html:18 workbench/templates/poll_edit.html:30
-msgid "is supported."
-msgstr ""
+msgid "is supported"
+msgstr "נתמך"
 
 #: workbench/templates/poll_edit.html:24
 msgid "Enter the prompt for the user."
-msgstr ""
+msgstr "הזן את שורת הפקודה עבור המשתמש."
 
 #: workbench/templates/poll_edit.html:36
 msgid ""
-"\n"
-"                This text will be displayed for the user as some extra "
-"feedback after they have\n"
-"                submitted their response to the poll.\n"
-"              "
-msgstr ""
+"This text will be displayed for the user as some extra feedbackafter they "
+"have submitted their response to the poll."
+msgstr "טקסט זה יוצג עבור המשתמש כמו משוב נוסף לאחר ששלחו את תשובתם לסקר."
 
 #: workbench/templates/poll_edit.html:45
 msgid "Private Results"
-msgstr ""
+msgstr "פרטי תוצאות"
 
 #: workbench/templates/poll_edit.html:49
 msgid "True"
-msgstr ""
+msgstr "נכון"
 
 #: workbench/templates/poll_edit.html:50
 msgid "False"
-msgstr ""
+msgstr "לא"
 
 #: workbench/templates/poll_edit.html:54
 msgid "If this is set to True, don't display results of the poll to the user."
-msgstr ""
+msgstr "אם זה מוגדר כ- True, אל תציג תוצאות הסקר למשתמש."
 
 #: workbench/templates/poll_edit.html:59
 msgid "Maximum Submissions"
-msgstr ""
+msgstr "הגשות המרבי"
 
 #: workbench/templates/poll_edit.html:64
 msgid "Maximum number of times a user may submit a poll."
-msgstr ""
+msgstr "המספר המירבי של פעמים שמשתמש, תוכלו להגיש סקר."
 
 #: workbench/templates/poll_edit.html:65
 msgid ""
 "Setting this to a value other than 1 will imply that 'Private Results' "
 "should be true."
-msgstr ""
+msgstr "הגדרת זה ערך שאינו 1 לרמוז כי 'פרטי תוצאות' צריך להיות נכון."
 
 #: workbench/templates/poll_edit.html:66
 msgid "Setting it to 0 will allow infinite resubmissions."
-msgstr ""
+msgstr "הגדרת את זה ל- 0, יאפשר resubmissions אינסופי."
 
 #: workbench/templates/poll_edit.html:71
 msgid "Notes"
-msgstr ""
+msgstr "הערות"
 
 #: workbench/templates/poll_edit.html:72
 msgid ""
-"\n"
-"                  If you change an answer's text, all students who voted for "
-"that choice will have their votes updated to\n"
-"                  the new text. You'll want to avoid changing an answer from "
-"something like 'True' to 'False', accordingly.\n"
-"                  If you delete an answer, any votes for that answer will "
-"also be deleted. Students whose choices are deleted\n"
-"                  may vote again, but will not lose course progress.\n"
-"                "
+"If you change an answer's text, all students who voted for that choice will "
+"have their votes updated tothe new text. You'll want to avoid changing an "
+"answer from something like 'True' to 'False', accordingly.If you delete an "
+"answer, any votes for that answer will also be deleted. Students whose "
+"choices are deletedmay vote again, but will not lose course progress."
 msgstr ""
+"אם אתה משנה את הטקסט של תשובה, כל התלמידים שהצביעו בעד ההחלטה הזאת יהיו "
+"קולות שלהם מעודכן כדי הטקסט החדש. רצוי להימנע לשנות תשובה ממשהו כמו 'נכון' "
+"כ- 'False', בהתאם לכך. אם תמחק תשובה, קולות על התשובה גם יימחקו. סטודנטים "
+"אשר בחירות הן deletedmay להצביע שוב, אבל לא תאבד התקדמות הקורס."
 
 #: workbench/templates/poll_edit.html:81
 msgid ""
-"\n"
-"                    Questions must be similarly cared for. If a question's "
-"text is changed, any votes for that question will remain.\n"
-"                    If a question is deleted, any student who previously "
-"took the survey will be permitted to retake it, but will not\n"
-"                    lose course progress.\n"
-"                  "
+"Questions must be similarly cared for. If a question's text is changed, any "
+"votes for that question will remain.If a question is deleted, any student "
+"who previously took the survey will be permitted to retake it, but will "
+"notlose course progress."
 msgstr ""
+"שאלות חייב להיות דומה מחבורתו. אם הטקסט של שאלה משתנה, יישאר קולות על "
+"השאלה. אם שאלה נמחק, כל סטודנט אשר בעבר לקח את הסקר יורשו לחזור על המבחן, "
+"אך יהיה notlose מסלול התקדמות."
 
 #: workbench/templates/poll_edit.html:97
 msgid "Add Answer"
-msgstr ""
+msgstr "הוספת תשובה"
 
 #: workbench/templates/poll_edit.html:101
 msgid "Add Question"
-msgstr ""
+msgstr "שאלה"
 
 #: workbench/templates/poll_edit.html:105
 msgid "Save"
-msgstr ""
+msgstr "שמירה"
 
 #: workbench/templates/poll_edit.html:108
 msgid "Cancel"
-msgstr ""
+msgstr "בטל"
