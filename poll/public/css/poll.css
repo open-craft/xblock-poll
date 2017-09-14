@@ -288,6 +288,7 @@ th.survey-answer {
     vertical-align: middle;
     height: 100%;
     padding-right: .5em;
+    width: 5%;
 }
 
 .visible-mobile-only{
@@ -343,5 +344,19 @@ th.survey-answer {
 
     .survey-table tbody tr:last-child td{
         border-bottom: 1px solid #ccc;
+    }
+
+    /*Polls*/
+
+    .poll-answers, ul.poll-answers-results{
+        max-width: none;
+    }
+
+    .percentage-gauge-container{
+        width: calc(100% - 70px);
+    }
+    .percentage-gauge-container label.poll-answer-label p{
+        margin-top: 0;
+        line-height: 24px;
     }
 }
