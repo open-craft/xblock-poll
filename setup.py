@@ -61,5 +61,5 @@ setup(
             'survey = poll:SurveyBlock',
         ]
     },
-    package_data=package_data("poll", ["static", "public", "translations"]),
+    package_data=package_data("poll", ["static", "public", "translations", "locale"]),
 )
