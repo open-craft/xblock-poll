@@ -3,5 +3,5 @@ from django.apps import AppConfig
 
 
 class PollConfig(AppConfig):
-    name = 'poll1'
+    name = 'poll'
     verbose_name = 'poll'
