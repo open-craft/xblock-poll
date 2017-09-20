@@ -21,4 +21,4 @@
 # "AGPLv3".  If not, see <http://www.gnu.org/licenses/>.
 #
 
-from .poll import PollBlock, SurveyBlock
+default_app_config = 'poll.apps.PollConfig'
