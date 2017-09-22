@@ -302,6 +302,16 @@ th.survey-answer {
         visibility: visible;
     }
 
+    .survey-percentage span{
+        display: inline-block;
+    }
+
+    .survey-percentage .percentage{
+        width: 50px;
+        text-align: right;
+        float: right;
+    }
+
     .survey-table .survey-question{
         display: block;
         border: 0;
@@ -316,6 +326,11 @@ th.survey-answer {
     .survey-table .survey-option .visible-mobile-only{
         width: calc(100% - 20px);
     }
+
+    .survey-table .survey-percentage .visible-mobile-only{
+        width: calc(100% - 60px);
+    }
+
     .survey-table .survey-option{
         display: block;
         border: 1px solid #ccc;

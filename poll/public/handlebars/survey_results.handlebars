@@ -22,7 +22,16 @@
                         {{{label}}}
                     </th>
                     {{#each answers}}
-                        <td class="survey-percentage survey-option{{#if choice}} survey-choice{{/if}}{{#if top}} poll-top-choice{{/if}}" aria-labelledby="answer-{{key}}-{{../../block_id}}">{{percent}}%</td>
+                        <td class="survey-percentage survey-option{{#if choice}} survey-choice{{/if}}{{#if top}} poll-top-choice{{/if}}" aria-labelledby="answer-{{key}}-{{../../block_id}}">
+                            <span class="visible-mobile-only">
+                                {{#each ../../answers}}
+                                    {{#if_eq key ../key}}
+                                        {{label}}
+                                    {{/if_eq}}
+                                {{/each}}
+                            </span>
+                            <span class="percentage">{{percent}}%</span>
+                        </td>
                     {{/each}}
                 </tr>
             {{/each}}
