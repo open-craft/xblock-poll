@@ -1,3 +1,4 @@
+{% load i18n %}
 {{ js_template|safe }}
 <div class="poll-block themed-xblock" data-private="{% if private_results %}1{% endif %}"
      data-can-vote="{% if can_vote %}1{% endif %}">
@@ -49,17 +50,18 @@
                 </tr>
             {% endfor %}
             </table>
-            <input class="input-main" type="button" name="poll-submit" value="Submit" disabled />
+            <input class="input-main" type="button" name="poll-submit" value="{% trans 'Submit' %}" disabled />
         </form>
-        <div class="poll-voting-thanks{% if not choices or can_vote %} poll-hidden{% endif %}"><span>Thank you.</span></div>
+        <div class="poll-voting-thanks{% if not choices or can_vote %} poll-hidden{% endif %}"><span>{% trans 'Thank you.' %}</span></div>
         <div class="poll-submissions-count poll-hidden">
-            You have used <span class="poll-current-count">{{ submissions_count }}</span>
-            out of <span class="poll-max-submissions">{{ max_submissions }}</span> submissions.
+            {% blocktrans with submissions_count_s='<span class="poll-current-count">{{ submissions_count }}</span>' max_submissions_s='<span class="poll-max-submissions">{{ max_submissions }}</span>' %}
+                You have used {{ submissions_count_s }} out of {{ max_submissions_s }} submissions.
+            {% endblocktrans %}
         </div>
         {% if feedback %}
             <div class="poll-feedback-container{% if not choices %} poll-hidden{% endif %}">
                 <hr />
-                <h3 class="poll-header">Feedback</h3>
+                <h3 class="poll-header">{% trans 'Feedback' %}</h3>
                 <div class="poll-feedback">
                     {{feedback|safe}}
                 </div>
@@ -67,7 +69,7 @@
         {% endif %}
 
         {% if can_view_private_results %}
-            <div class="view-results-button-wrapper"><button class="view-results-button">View results</button></div>
+            <div class="view-results-button-wrapper"><button class="view-results-button">{% trans 'View results' %}</button></div>
         {% endif %}
     </div>
 </div>
