@@ -37,6 +37,15 @@ function PollUtil (runtime, element, pollType) {
                 });
         });
 
+
+        // Add helper for equality check
+        Handlebars.registerHelper('if_eq', function(a, b, opts) {
+            if(a == b)
+                return opts.fn(this);
+            else
+                return opts.inverse(this);
+        });
+
         this.resultsTemplate = Handlebars.compile($("." + pollType + "-results-template", element).html());
 
         this.viewResultsButton = $('.view-results-button', element);

@@ -44,7 +44,7 @@ def package_data(pkg, roots):
 
 setup(
     name='xblock-poll',
-    version='1.3.4',
+    version='1.3.5',
     description='An XBlock for polling users.',
     packages=[
         'poll',
