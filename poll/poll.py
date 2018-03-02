@@ -562,6 +562,9 @@ class PollBlock(PollBase, CSVExportMixin):
         return {
             'question': self.question,
             'answers': self.answers,
+            'max_submissions': self.max_submissions,
+            'private_results': self.private_results,
+            'feedback': self.feedback,
         }
 
     @XBlock.handler
@@ -846,6 +849,10 @@ class SurveyBlock(PollBase, CSVExportMixin):
         return {
             'questions': self.questions,
             'answers': self.answers,
+            'max_submissions': self.max_submissions,
+            'private_results': self.private_results,
+            'block_name': self.block_name,
+            'feedback': self.feedback,
         }
 
     @XBlock.handler

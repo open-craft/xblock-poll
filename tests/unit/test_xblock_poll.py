@@ -27,6 +27,9 @@ class TestPollBlock(unittest.TestCase):
                 ['O', {'label': 'Other'}],
             ],
             'submissions_count': 5,
+            'max_submissions': 1,
+            'private_results': False,
+            'feedback': 'My Feedback',
         }
         self.poll_block = PollBlock(
             self.runtime,
@@ -41,6 +44,9 @@ class TestPollBlock(unittest.TestCase):
         expected_poll_data = {
             'question': self.poll_data['question'],
             'answers': self.poll_data['answers'],
+            'max_submissions': self.poll_data['max_submissions'],
+            'private_results': self.poll_data['private_results'],
+            'feedback': self.poll_data['feedback'],
         }
 
         student_view_data = self.poll_block.student_view_data()
@@ -86,7 +92,11 @@ class TestSurveyBlock(unittest.TestCase):
                 ['N', 'No'],
                 ['M', 'Maybe']
             ],
-            'submissions_count': 5
+            'submissions_count': 5,
+            'max_submissions': 1,
+            'private_results': False,
+            'feedback': 'My Feedback',
+            'block_name': 'My Block Name',
         }
         self.survey_block = SurveyBlock(
             self.runtime,
@@ -101,6 +111,10 @@ class TestSurveyBlock(unittest.TestCase):
         expected_survery_data = {
             'questions': self.survery_data['questions'],
             'answers': self.survery_data['answers'],
+            'max_submissions': self.survery_data['max_submissions'],
+            'private_results': self.survery_data['private_results'],
+            'feedback': self.survery_data['feedback'],
+            'block_name': self.survery_data['block_name'],
         }
 
         student_view_data = self.survey_block.student_view_data()

@@ -261,6 +261,9 @@ GET https://<lms_server_url>/api/courses/v1/blocks/?course_id=<course_id>&userna
 Example poll return value:
 ```
 "student_view_data": {
+    "feedback": "This is feedback message survey.",
+    "private_results": false,
+    "max_submissions": 1,
     "question": "Did the explanation above make sense to you?",
     "answers": [
         [
@@ -302,6 +305,10 @@ Example poll return value:
 Example survey return value:
 ```
 "student_view_data": {
+    "feedback": "This is feedback message survey.",
+    "private_results": false,
+    "max_submissions": 1,
+    "block_name": "Poll2",
     "answers": [
         [
             "Y",
