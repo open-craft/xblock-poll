@@ -770,9 +770,9 @@ class SurveyBlock(PollBase, CSVExportMixin):
     # but either way we want it to say 'Poll' by default on the page.
     block_name = String(default=_('Poll'))
     answers = List(
-        default=(
+        default=[
             ('Y', _('Yes')), ('N', _('No')),
-            ('M', _('Maybe'))),
+            ('M', _('Maybe'))],
         scope=Scope.settings, help=_("Answer choices for this Survey")
     )
     questions = List(
