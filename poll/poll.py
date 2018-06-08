@@ -771,8 +771,10 @@ class SurveyBlock(PollBase, CSVExportMixin):
     block_name = String(default=_('Poll'))
     answers = List(
         default=[
-            ('Y', _('Yes')), ('N', _('No')),
-            ('M', _('Maybe'))],
+            ('Y', _('Yes')),
+            ('N', _('No')),
+            ('M', _('Maybe'))
+        ],
         scope=Scope.settings, help=_("Answer choices for this Survey")
     )
     questions = List(
