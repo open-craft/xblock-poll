@@ -1,13 +1,14 @@
 # 
 # Translators:
 # Larissa Azevedo <lahazevedo07@gmail.com>, 2016
+# Renata Barboza, 2016
 # Rodrigo Mozelli <romozelli@outlook.com>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: XBlocks\n"
 "POT-Creation-Date: 2016-04-07 16:17+0500\n"
-"PO-Revision-Date: 2016-10-24 19:45+0000\n"
-"Last-Translator: Rodrigo Mozelli <romozelli@outlook.com>\n"
+"PO-Revision-Date: 2018-03-09 04:31+0000\n"
+"Last-Translator: Renata Barboza\n"
 "Language-Team: Portuguese (Brazil) (http://www.transifex.com/open-edx/xblocks/language/pt_BR/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -20,41 +21,41 @@ msgstr ""
 
 #: poll.py
 msgid "Whether or not to display results to the user."
-msgstr ""
+msgstr "Exibir ou não os resultados para o usuário."
 
 #: poll.py
 msgid "The maximum number of times a user may send a submission."
-msgstr ""
+msgstr "O número máximo de vezes que um usuário poderá votar."
 
 #: poll.py
 msgid "Number of times the user has sent a submission."
-msgstr ""
+msgstr "Número de vezes que o usuário votou."
 
 #: poll.py
 msgid "Text to display after the user votes."
-msgstr ""
+msgstr "Texto a ser exibido após o voto do usuário."
 
 #: poll.py
 #, python-brace-format
 msgid "'{field}' is not present, or not a JSON array."
-msgstr ""
+msgstr "'{field}' não está presente ou não é uma matriz JSON."
 
 #: poll.py
 #, python-brace-format
 msgid "{noun} {item} not a javascript object!"
-msgstr ""
+msgstr "{noun} {item} não é um objeto javascript!"
 
 #: poll.py
 #, python-brace-format
 msgid "{noun} {item} contains no key."
-msgstr ""
+msgstr "{noun} {item} não contém chave."
 
 #: poll.py
 #, python-brace-format
 msgid ""
 "{noun} has no text or img. Please make sure all {noun_lower}s have one or "
 "the other, or both."
-msgstr ""
+msgstr "{noun} não possui texto ou imagem. Por favor, certifique-se de que todas as {noun_lower} tenham um ou o outro, ou ambos."
 
 #: poll.py
 #, python-brace-format
@@ -62,172 +63,172 @@ msgid ""
 "{noun} was added with no label. All {noun_lower}s must have labels. Please "
 "check the form. Check the form and explicitly delete {noun_lower}s if not "
 "needed."
-msgstr ""
+msgstr "{noun} foi adicionado sem etiqueta. Todos os {noun_lower}s devem ter etiquetas. Por favor, verifique o formulário. Verifique o formulário e apague {noun_lower}s caso não sejam necessários."
 
 #: poll.py
 msgid ""
 "All images must have an alternative text describing the image in a way that "
 "would allow someone to answer the poll if the image did not load."
-msgstr ""
+msgstr "Todas as imagens devem ter um texto alternativo descrevendo a imagem para permitir que usuários possam responder à enquete caso a imagem não carregue."
 
 #: poll.py
 #, python-brace-format
 msgid "You must include at least one {noun_lower}."
-msgstr ""
+msgstr "Você deve incluir ao menos um {noun_lower}."
 
 #: poll.py
 msgid "Maximum Submissions missing or not an integer."
-msgstr ""
+msgstr "Número máximo de votos omissos ou não que não são um número inteiro."
 
 #: poll.py
 msgid "Private results may not be False when Maximum Submissions is not 1."
-msgstr ""
+msgstr "Resultados privados não podem ser Falso quando o número máximo de envios for diferente de 1. "
 
 #: poll.py
 msgid "Total tally of answers from students."
-msgstr ""
+msgstr "Contagem do total das respostas dos alunos."
 
 #: poll.py
 msgid "The student's answer"
-msgstr ""
+msgstr "A resposta do aluno"
 
 #: poll.py
 msgid "You have already voted in this poll."
-msgstr ""
+msgstr "Você já votou nesta enquete."
 
 #: poll.py
 msgid "Answer not included with request."
-msgstr ""
+msgstr "A resposta não está incluída na solicitação."
 
 #: poll.py
 #, python-brace-format
 msgid "No key \"{choice}\" in answers table."
-msgstr ""
+msgstr "Não há \"{choice}\" na tabela de resposta."
 
 #: poll.py
 msgid "You have already voted as many times as you are allowed."
-msgstr ""
+msgstr "Você já votou a quantidade de vezes permitida."
 
 #: poll.py
 msgid "You must specify a question."
-msgstr ""
+msgstr "Você deve especificar uma pergunta."
 
 #: poll.py
 msgid "Answer choices for this Survey"
-msgstr ""
+msgstr "Opções de respostas para esta pesquisa"
 
 #: poll.py
 msgid "Are you enjoying the course?"
-msgstr ""
+msgstr "Você está gostando do curso?"
 
 #: poll.py
 msgid "Would you recommend this course to your friends?"
-msgstr ""
+msgstr "Você recomendaria este curso aos seus amigos?"
 
 #: poll.py
 msgid "Do you think you will learn a lot?"
-msgstr ""
+msgstr "Você acha que vai aprender bastante?"
 
 #: poll.py
 msgid "Questions for this Survey"
-msgstr ""
+msgstr "Perguntas para esta pesquisa"
 
 #: poll.py
 msgid "Survey"
-msgstr ""
+msgstr "Pesquisa"
 
 #: poll.py
 msgid "The user's answers"
-msgstr ""
+msgstr "As respostas do usuário"
 
 #: poll.py
 msgid ""
 "Not all questions were included, or unknown questions were included. Try "
 "refreshing and trying again."
-msgstr ""
+msgstr "Nem todas as perguntas foram incluídas ou há perguntas desconhecidas. \nAtualize a página e tente novamente. "
 
 #: poll.py
 #, python-format
 msgid "Found unknown answer '{answer_key}' for question key '{question_key}'"
-msgstr ""
+msgstr " Resposta desconhecida encontrada '{answer_key}' para a pergunta '{question_key}'"
 
 #: poll.py
 msgid "Poll"
-msgstr ""
+msgstr "Enquete"
 
 #: poll.py
 msgid "What is your favorite color?"
-msgstr ""
+msgstr "Qual é a sua cor preferida?"
 
 #: poll.py
 msgid "Red"
-msgstr ""
+msgstr "Vermelho"
 
 #: poll.py
 msgid "Blue"
-msgstr ""
+msgstr "Azul"
 
 #: poll.py
 msgid "Other"
-msgstr ""
+msgstr "Outra"
 
 #: poll.py
 msgid "The answer options on this poll."
-msgstr ""
+msgstr "As opções de respostas para esta enquete."
 
 #: poll.py
 msgid "Answer"
-msgstr ""
+msgstr "Resposta"
 
 #: poll.py
 msgid "Question"
-msgstr ""
+msgstr "Pergunta"
 
 #: poll.py
 msgid "Yes"
-msgstr ""
+msgstr "Sim"
 
 #: poll.py
 msgid "No"
-msgstr ""
+msgstr "Não"
 
 #: poll.py
 msgid "Maybe"
-msgstr ""
+msgstr "Talvez"
 
 #: public/handlebars/poll_results.handlebars
 msgid "Results gathered from {total} respondents."
-msgstr ""
+msgstr "Resultados obtidos de {total} entrevistados."
 
 #: public/handlebars/poll_results.handlebars
 msgid "Results gathered from {total} respondent."
-msgstr ""
+msgstr "Resultados obtidos de {total} entrevistado."
 
 #: public/handlebars/poll_studio.handlebars
 msgid "move poll up"
-msgstr ""
+msgstr "mover enquete para cima"
 
 #: public/handlebars/poll_studio.handlebars
 msgid "move poll down"
-msgstr ""
+msgstr "mover enquete para baixo"
 
 #: public/handlebars/poll_studio.handlebars
 msgid "Delete"
-msgstr ""
+msgstr "Apagar"
 
 #: public/handlebars/poll_studio.handlebars
 msgid "Image URL"
-msgstr ""
+msgstr "URL da imagem"
 
 #: public/handlebars/poll_studio.handlebars
 msgid "Image alternative text"
-msgstr ""
+msgstr "Texto alternativo da imagem"
 
 #: public/handlebars/poll_studio.handlebars
 msgid ""
 "You can make limited use of Markdown in answer texts, preferably only bold "
 "and italics."
-msgstr ""
+msgstr "Você pode fazer uso limitado do Markdown nas respostas de textos, de preferência negrito e itálico. "
 
 #: public/handlebars/poll_studio.handlebars
 msgid ""
@@ -235,4 +236,4 @@ msgid ""
 "image, you must also provide an alternative text that describes the image in"
 " a way that would allow someone to answer the poll if the image did not "
 "load."
-msgstr ""
+msgstr "Uma imagem de URL ou texto, ou ambos, devem ser adicionados. Caso uma imagem seja adicionada, é necessário que se adicione um texto alternativo descrevendo a imagem para permitir que usuários possam responder à enquete caso a imagem não carregue."

@@ -1,7 +1,7 @@
 <script class="survey-results-template" type="text/html">
     <h3 class="poll-header">{{block_name}}</h3>
     <div class="poll-results-wrapper" tabindex="0">
-        <h4 class="poll-header">{{i18n "Results" }}</h4>
+        <h4 class="poll-header">{{gettext "Results" }}</h4>
         <table class="survey-table poll-results">
             <thead>
                 <tr>
@@ -36,14 +36,14 @@
                 </tr>
             {{/each}}
         </table>
-        <input class="input-main" type="button" name="poll-submit" value="Submit" disabled>
+        <input class="input-main" type="button" name="poll-submit" value="{{gettext "Submit"}}" disabled>
         <div class="poll-footnote">
-            {{interpolate (i18n_ngettext "Results gathered from {total} respondent." "Results gathered from {total} respondents." total) total=total}}
+            {{interpolate (ngettext "Results gathered from {total} respondent." "Results gathered from {total} respondents." total) total=total}}
         </div>
 
         {{#if feedback}}
             <hr />
-            <h3 class="poll-header">{{i18n "Feedback" }}</h3>
+            <h3 class="poll-header">{{gettext "Feedback" }}</h3>
             <div class="poll-feedback">
                 {{{feedback}}}
             </div>

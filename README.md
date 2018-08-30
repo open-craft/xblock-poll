@@ -30,7 +30,7 @@ This XBlock relies on [Xblock-utils](https://github.com/edx-solutions/xblock-uti
 
 After this, XBlock-poll may be installed using its setup.py, or if you prefer to use pip, running:
 
-    pip install /path/to/xblock_poll/repo/clone
+    $ pip install git+https://github.com/open-craft/xblock-poll.git
 
 You may specify the `-e` flag if you intend to develop on the repo.
 
@@ -242,14 +242,48 @@ names in the django settings using the `XBLOCK_POLL_EXTRA_VIEW_GROUPS` setting, 
 
 For information about working with translations, see the [Internationalization Support](http://edx.readthedocs.io/projects/xblock-tutorial/en/latest/edx_platform/edx_lms.html#internationalization-support) section of the [Open edX XBlock Tutorial](https://xblock-tutorial.readthedocs.io/en/latest/).
 
-## Downloading translations from Transifex
+### Working with Transifex
+Prepare your environment:
 
-If you want to download translations from Transifex install [Transifex client][transifex-client] and run this command while inside project root directory
 ```
-tx pull -f --mode=reviewed -l en,ar,es_419,fr,he,hi,ko_KR,pt_BR,ru,zh_CN
+$ mkvirtualenv poll-xblock
+$ make requirements
 ```
 
-[transifex-client]: https://docs.transifex.com/client/installing-the-client
+Also ensure that the [Transifex client has the proper authentication](https://docs.transifex.com/client/init) 
+in the `~/.transifexrc` file.
+
+Push new strings to Transifex:
+```
+$ make push_translations
+```
+
+To get the latest translations from Transifex:
+```
+$ make pull_translations
+```
+
+For testing purposes it's faster to avoid Transifex and work on dummy Esperanto translations:
+```
+$ make build_dummy_translations
+``` 
+
+## Running Tests Locally
+The Selenium tests in this XBlock requires Firefox 36.0 (the exact version can be found in `.travis.yml`).
+On Linux, it's possible to install it via the command `$ make install_linux_dev_firefox`, but you'd
+have to install it on MacOS [manually from the Mozilla website](https://support.mozilla.org/en-US/kb/install-older-version-of-firefox), or you can rely on Travis to do that for you on the cloud.
+
+Assuming that the correct Firefox version has been installed, you can run the following command for the tests on Linux:
+```
+$ make linux_dev_test
+```
+
+or something like that on MacOS:
+
+```
+$ PATH="path/to/firefox/bin/directory:$PATH" make test
+```
+
 
 ## API for native mobile frontends
 

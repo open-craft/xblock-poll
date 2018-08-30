@@ -30,19 +30,18 @@ from markdown import markdown
 import pkg_resources
 from webob import Response
 
+from django import utils
 from xblock.core import XBlock
 from xblock.fields import Scope, String, Dict, List, Boolean, Integer
 from xblock.fragment import Fragment
 from xblockutils.publish_event import PublishEventMixin
 from xblockutils.resources import ResourceLoader
 from xblockutils.settings import XBlockWithSettingsMixin, ThemableXBlockMixin
-from .utils import _
-
+from .utils import _, DummyTranslationService
 
 try:
     # pylint: disable=import-error
     from django.conf import settings
-    from django.template import Template, Context
     from api_manager.models import GroupProfile
     HAS_GROUP_PROFILE = True
 except ImportError:
@@ -71,14 +70,34 @@ class ResourceMixin(XBlockWithSettingsMixin, ThemableXBlockMixin):
         data = pkg_resources.resource_string(__name__, path)
         return data.decode("utf8")
 
+    @property
+    def i18n_service(self):
+        """ Obtains translation service """
+        return self.runtime.service(self, "i18n") or DummyTranslationService()
+
+    def get_translation_content(self):
+        try:
+            return self.resource_string('public/js/translations/{lang}/textjs.js'.format(
+                lang=utils.translation.get_language(),
+            ))
+        except IOError:
+            return self.resource_string('public/js/translations/en/textjs.js')
+
     def create_fragment(self, context, template, css, js, js_init):
-        html = Template(
-            self.resource_string(template)).render(Context(context))
-        frag = Fragment(html)
+        frag = Fragment()
+        frag.add_content(self.loader.render_django_template(
+            template,
+            context=context,
+            i18n_service=self.i18n_service,
+        ))
         frag.add_javascript_url(
-            self.runtime.local_resource_url(
-                self, 'public/js/vendor/handlebars.js'))
+            self.runtime.local_resource_url(self, 'public/js/vendor/handlebars.js')
+        )
+
         frag.add_css(self.resource_string(css))
+
+        frag.add_javascript(self.get_translation_content())
+        frag.add_javascript(self.resource_string('public/js/poll_common.js'))
         frag.add_javascript(self.resource_string(js))
         frag.initialize_js(js_init)
         self.include_theme_files(frag)
@@ -193,8 +212,6 @@ class CSVExportMixin(object):
         raise NotImplementedError
 
 
-@XBlock.wants('settings')
-@XBlock.needs('i18n')
 class PollBase(XBlock, ResourceMixin, PublishEventMixin):
     """
     Base class for Poll-like XBlocks.
@@ -413,6 +430,8 @@ class PollBase(XBlock, ResourceMixin, PublishEventMixin):
         return cls.json_handler(func)
 
 
+@XBlock.wants('settings')
+@XBlock.needs('i18n')
 class PollBlock(PollBase, CSVExportMixin):
     """
     Poll XBlock. Allows a teacher to poll users, and presents the results so
@@ -762,6 +781,8 @@ class PollBlock(PollBase, CSVExportMixin):
         return [header_row] + data.values()
 
 
+@XBlock.wants('settings')
+@XBlock.needs('i18n')
 class SurveyBlock(PollBase, CSVExportMixin):
     # pylint: disable=too-many-instance-attributes
 

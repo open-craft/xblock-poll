@@ -2,7 +2,7 @@
     <h3 class="poll-header">{{display_name}}</h3>
     <div class="poll-question">{{{question}}}</div>
     <div class="poll-results-wrapper" role="radiogroup" tabindex="0">
-        <h4 class="poll-header">{{i18n "Results" }}</h4>
+        <h4 class="poll-header">{{gettext "Results" }}</h4>
         <ul class="poll-answers-results poll-results {{~#if any_img}} has-images{{/if}}">
         {{#each tally}}
             <li class="poll-result">
@@ -28,13 +28,13 @@
             </li>
         {{/each}}
         </ul>
-        <input class="input-main" type="button" name="poll-submit" value="Submit" disabled>
+        <input class="input-main" type="button" name="poll-submit" value="{{gettext "Submit"}}" disabled>
         <div class="poll-footnote">
-          {{interpolate (i18n_ngettext "Results gathered from {total} respondent." "Results gathered from {total} respondents." total) total=total}}
+          {{interpolate (ngettext "Results gathered from {total} respondent." "Results gathered from {total} respondents." total) total=total}}
         </div>
         {{#if feedback}}
             <hr />
-            <h3 class="poll-header">{{i18n "Feedback" }}</h3>
+            <h3 class="poll-header">{{gettext "Feedback" }}</h3>
             <div class="poll-feedback">
                 {{{feedback}}}
             </div>

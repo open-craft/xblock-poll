@@ -14,40 +14,7 @@ function PollUtil (runtime, element, pollType) {
         this.answers = $('input[type=radio]', element);
         this.errorMessage = $('.error-message', element);
 
-        // Set up gettext in case it isn't available in the client runtime:
-        if (typeof gettext == "undefined") {
-            window.gettext = function gettext_stub(string) { return string; };
-            window.ngettext = function ngettext_stub(strA, strB, n) { return n == 1 ? strA : strB; };
-        }
-
-        // Make gettext available in Handlebars templates
-        Handlebars.registerHelper('i18n', function(str) {
-            return gettext(str);
-        });
-
-        // Make ngettext available in Handlebars templates
-        Handlebars.registerHelper('i18n_ngettext', function(singular, plural, count) {
-            return ngettext(singular, plural, count);
-        });
-
-        // Add helper for interpolating values into strings in Handlebars templates
-        Handlebars.registerHelper('interpolate', function(formatString, parameters) {
-            parameters = parameters.hash;
-            return formatString.replace(/{\w+}/g,
-                function(parameter) {
-                    var parameterName = parameter.slice(1, -1);
-                    return String(parameters[parameterName]);
-                });
-        });
-
-
-        // Add helper for equality check
-        Handlebars.registerHelper('if_eq', function(a, b, opts) {
-            if(a == b)
-                return opts.fn(this);
-            else
-                return opts.inverse(this);
-        });
+        PollCommonUtil.init(Handlebars);
 
         this.resultsTemplate = Handlebars.compile($("." + pollType + "-results-template", element).html());
 
