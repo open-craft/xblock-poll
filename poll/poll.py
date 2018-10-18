@@ -183,7 +183,7 @@ class CSVExportMixin(object):
 
     def student_module_queryset(self):
         from courseware.models import StudentModule  # pylint: disable=import-error
-        return StudentModule.objects.filter(
+        return StudentModule.objects.select_related('student').filter(
             course_id=self.runtime.course_id,
             module_state_key=self.scope_ids.usage_id,
         ).order_by('-modified')
