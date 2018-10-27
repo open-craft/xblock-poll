@@ -19,37 +19,37 @@ msgstr ""
 
 #: poll/poll.py:222
 msgid "Whether or not to display results to the user."
-msgstr "Afficher ou pas les résultats à l'utilisateur."
+msgstr "結果をユーザーに表示するか否か。"
 
 #: poll/poll.py:223
 msgid "The maximum number of times a user may send a submission."
-msgstr "Le nombre maximum de fois que l'utilisateur peut soumettre un envoi"
+msgstr "ユーザーが提出を送信できる最大回数。"
 
 #: poll/poll.py:225
 msgid "Number of times the user has sent a submission."
-msgstr "Nombre de fois où l'utilisateur a soumis un envoi."
+msgstr "ユーザーが提出を送信した回数。"
 
 #: poll/poll.py:227
 msgid "Text to display after the user votes."
-msgstr "Texte à afficher après les votes des utilisateurs."
+msgstr "ユーザーの投票後に表示するテキスト。"
 
 #. Translators: {field} is either "answers" or "questions".
 #: poll/poll.py:288
 #, python-brace-format
 msgid "'{field}' is not present, or not a JSON array."
-msgstr "'{field}' n'est pas présent, n'est pas un tableau JSON."
+msgstr "「{field}」がありません、あるいはJSON配列ではありません。"
 
 #. Translators: {noun} is either "Answer" or "Question". {item} identifies the answer or question.
 #: poll/poll.py:300
 #, python-brace-format
 msgid "{noun} {item} not a javascript object!"
-msgstr "{noun} {item} n'est pas un objet JavaScript !"
+msgstr "{noun} {item}がJavaScriptオブジェクトではありません。"
 
 #. Translators: {noun} is either "Answer" or "Question". {item} identifies the answer or question.
 #: poll/poll.py:309
 #, python-brace-format
 msgid "{noun} {item} contains no key."
-msgstr "{noun} {item} ne contient aucune clé."
+msgstr "{noun} {item}にキーが含まれていません。"
 
 #. Translators: {noun} is either "Answer" or "Question".
 #. {noun_lower} is the lowercase version of {noun}.
@@ -58,7 +58,7 @@ msgstr "{noun} {item} ne contient aucune clé."
 msgid ""
 "{noun} has no text or img. Please make sure all {noun_lower}s have one or "
 "the other, or both."
-msgstr "{noun} ne contient aucun texte ou img. Assurez-vous que tous les {noun_lower}s ont l'un ou l'autre où les deux."
+msgstr "{noun}にテキストまたは画像がありません。すべての{noun_lower}にそのいずれか、または両方があることを確認してください。"
 
 #. Translators: {noun} is either "Answer" or "Question".
 #. {noun_lower} is the lowercase version of {noun}.
@@ -68,154 +68,154 @@ msgid ""
 "{noun} was added with no label. All {noun_lower}s must have labels. Please "
 "check the form. Check the form and explicitly delete {noun_lower}s if not "
 "needed."
-msgstr "{noun} a été ajouté sans étiquette. Tous les {noun_lower}s doivent avoir des étiquettes. Vérifier le formulaire. Vérifiez le formulaire et supprimez explicitement les {noun_lower}s s'ils sont inutiles."
+msgstr "{noun}がラベルなしで追加されました。すべての{noun_lower}にラベルが必要です。フォームを確認してください。フォームを確認し、不要な場合は{noun_lower}を明示的に削除してください。"
 
 #: poll/poll.py:340
 msgid ""
 "All images must have an alternative text describing the image in a way that "
 "would allow someone to answer the poll if the image did not load."
-msgstr "Toutes les images doivent d'avoir un texte alternatif décrivant l'image d'une manière qui permettrait à tout le monde de répondre au sondage si l'image ne se téléchargeait pas."
+msgstr "すべての画像には、画像が読み込めなかった場合に回答者が投票調査で回答できるように、画像を説明する代替テキストがなければなりません。"
 
 #. Translators: "{noun_lower} is either "answer" or "question".
 #: poll/poll.py:352
 #, python-brace-format
 msgid "You must include at least one {noun_lower}."
-msgstr "Vous devez inclure au moins 1 {noun_lower}."
+msgstr "1つ以上の{noun_lower}が含まれていなければなりません。"
 
 #: poll/poll.py:400
 msgid "Maximum Submissions missing or not an integer."
-msgstr "Nombre maximum d'envois manquant ou ce n'est pas un entier."
+msgstr "最大提出回数がないか、整数ではありません。"
 
 #: poll/poll.py:405
 msgid "Private results may not be False when Maximum Submissions is not 1."
-msgstr "Les résultats privés ne peuvent pas être Faux lorsque le nombre maximum d'envois n'est pas 1."
+msgstr "最大提出回数が1でない場合、非公開の結果は誤りでない場合があります。"
 
 #: poll/poll.py:442 poll/poll.py:792
 msgid "Poll"
-msgstr "Sondage"
+msgstr "投票調査"
 
 #: poll/poll.py:443
 msgid "What is your favorite color?"
-msgstr "Quelle est votre couleur préférée ?"
+msgstr "お気に入りの色は何ですか?"
 
 #: poll/poll.py:448
 msgid "Red"
-msgstr "Rouge"
+msgstr "赤"
 
 #: poll/poll.py:449
 msgid "Blue"
-msgstr "Bleu"
+msgstr "青"
 
 #: poll/poll.py:450
 msgid "Green"
-msgstr "Vert"
+msgstr "緑"
 
 #: poll/poll.py:451
 msgid "Other"
-msgstr "Autre"
+msgstr "その他"
 
 #: poll/poll.py:453
 msgid "The answer options on this poll."
-msgstr "Les options de réponse dans ce sondage."
+msgstr "この投票における回答の選択肢。"
 
 #: poll/poll.py:457 poll/poll.py:818
 msgid "Total tally of answers from students."
-msgstr "Compte total de réponses des étudiants."
+msgstr "生徒からの回答の投票集計。"
 
 #: poll/poll.py:458
 msgid "The student's answer"
-msgstr "La réponse de l'étudiant."
+msgstr "生徒の回答"
 
 #: poll/poll.py:662 poll/poll.py:1097
 msgid "You have already voted in this poll."
-msgstr "Vous avez déjà voté dans ce sondage."
+msgstr "この投票調査では既に投票済みです。"
 
 #: poll/poll.py:667
 msgid "Answer not included with request."
-msgstr "Réponse non incluse avec la demande."
+msgstr "リクエストで回答が含まれていません。"
 
 #. Translators: {choice} uniquely identifies a specific answer belonging to a poll or survey.
 #: poll/poll.py:676
 #, python-brace-format
 msgid "No key \"{choice}\" in answers table."
-msgstr "Aucune clé « {choice} » dans le tableau de réponses."
+msgstr "回答表にキー「{choice}」がありません。"
 
 #: poll/poll.py:685 poll/poll.py:1105
 msgid "You have already voted as many times as you are allowed."
-msgstr "Vous avez déjà voté autant de fois que permis."
+msgstr "許可されている投票回数に既に達しています。"
 
 #: poll/poll.py:715
 msgid "You must specify a question."
-msgstr "Vous devez spécifier une question"
+msgstr "質問を指定しなければなりません。"
 
 #: poll/poll.py:718 poll/poll.py:1159
 msgid "Answer"
-msgstr "Réponse"
+msgstr "回答"
 
 #: poll/poll.py:789
 msgid "Survey"
-msgstr "Enquête"
+msgstr "アンケート調査"
 
 #: poll/poll.py:795
 msgid "Yes"
-msgstr "Oui"
+msgstr "はい"
 
 #: poll/poll.py:796
 msgid "No"
-msgstr "Non"
+msgstr "いいえ"
 
 #: poll/poll.py:797
 msgid "Maybe"
-msgstr "Peut-être"
+msgstr "たぶん"
 
 #: poll/poll.py:799
 msgid "Answer choices for this Survey"
-msgstr "Les choix de réponse pour cette enquête"
+msgstr "このアンケート調査の回答の選択肢"
 
 #: poll/poll.py:803
 msgid "Are you enjoying the course?"
-msgstr "Avez-vous apprécié le cours ?"
+msgstr "コースを楽しんでいますか?"
 
 #: poll/poll.py:805
 msgid "Would you recommend this course to your friends?"
-msgstr "Recommanderiez-vous ce cours à vos amis ?"
+msgstr "このコースを友人に勧めようと思いますか?"
 
 #: poll/poll.py:809
 msgid "Do you think you will learn a lot?"
-msgstr "Pensez-vous que vous apprendrez beaucoup de choses ?"
+msgstr "多くのことを学べると思いますか?"
 
 #: poll/poll.py:811
 msgid "Questions for this Survey"
-msgstr "Questions pour cette enquête"
+msgstr "このアンケート調査の質問"
 
 #: poll/poll.py:820
 msgid "The user's answers"
-msgstr "Les réponses de l'utilisateur"
+msgstr "ユーザーの回答"
 
 #: poll/poll.py:1113
 msgid ""
 "Not all questions were included, or unknown questions were included. Try "
 "refreshing and trying again."
-msgstr "Toutes les questions n'ont pas été incluses, ou des questions inconnues ont été incluses. Essayez d'actualiser et réessayez."
+msgstr "含まれていない質問があったか、不明な質問が含まれていました。リフレッシュして再度お試しください。"
 
 #. Translators: {answer_key} uniquely identifies a specific answer belonging to a poll or survey.
 #. {question_key} uniquely identifies a specific question belonging to a poll or survey.
 #: poll/poll.py:1126
 #, python-brace-format
 msgid "Found unknown answer '{answer_key}' for question key '{question_key}'"
-msgstr "Réponse inconnue trouvée « {answer_key} » pour la question clé « {question_key} »"
+msgstr "質問キー「{question_key}」について不明の回答「{answer_key}」があります。"
 
 #: poll/poll.py:1160
 msgid "Question"
-msgstr "Question"
+msgstr "質問"
 
 #: poll/public/html/poll.html:35 poll/public/html/survey.html:53
 msgid "Submit"
-msgstr "Envoyer"
+msgstr "提出"
 
 #: poll/public/html/poll.html:40 poll/public/html/survey.html:55
 msgid "Thank you."
-msgstr "Merci !"
+msgstr "ありがとうございます。"
 
 #: poll/public/html/poll.html:44
 #, python-format
@@ -225,37 +225,36 @@ msgid ""
 "submissions.\n"
 "      "
 msgstr "\n"
-"        Vous avez utilisé %(submissions_count_s)s sur %(max_submissions_s)s envois.\n"
-"      "
+"        提出回数%(max_submissions_s)s回中%(submissions_count_s)s回を使用しました。"
 
 #: poll/public/html/poll.html:52 poll/public/html/poll_edit.html:27
 #: poll/public/html/survey.html:64
 msgid "Feedback"
-msgstr "Commentaire"
+msgstr "フィードバック"
 
 #: poll/public/html/poll.html:64 poll/public/html/survey.html:73
 msgid "View results"
-msgstr "Afficher les résultats"
+msgstr "結果を閲覧する"
 
 #: poll/public/html/poll.html:71 poll/public/html/survey.html:81
 msgid "Export results to CSV"
-msgstr "Exporter les résultats au format CSV"
+msgstr "結果をCSVにエクスポートする"
 
 #: poll/public/html/poll.html:72 poll/public/html/survey.html:82
 msgid "Download CSV"
-msgstr "Télécharger au format CSV"
+msgstr "CSVをダウンロードする"
 
 #: poll/public/html/poll.html:76 poll/public/html/survey.html:86
 msgid "Student data and results CSV available for download in the LMS."
-msgstr "Résultats et données d'étudiants au format CSV disponibles en téléchargement dans le LMS."
+msgstr "生徒データと結果CSVが、LMSでダウンロード可能です。"
 
 #: poll/public/html/poll_edit.html:8
 msgid "Display Name"
-msgstr "Affichage du nom"
+msgstr "表示名"
 
 #: poll/public/html/poll_edit.html:15
 msgid "Question/Prompt"
-msgstr "Question/Invite"
+msgstr "質問 / プロンプト"
 
 #: poll/public/html/poll_edit.html:16
 #, python-format
@@ -264,12 +263,11 @@ msgid ""
 "                    %(link_start)sMarkdown Syntax%(link_end)s is supported.\n"
 "                "
 msgstr "\n"
-"                    %(link_start)sSyntaxe Markdown%(link_end)s prise en charge.\n"
-"                "
+"                    %(link_start)sマークダウン記法%(link_end)sに対応しています。       "
 
 #: poll/public/html/poll_edit.html:23
 msgid "Enter the prompt for the user."
-msgstr "Saisir l'invite pour l'utilisateur"
+msgstr "ユーザー用のプロンプトを入力します。"
 
 #: poll/public/html/poll_edit.html:28
 #, python-format
@@ -278,8 +276,7 @@ msgid ""
 "                %(link_start)sMarkdown Syntax%(link_end)s is supported.\n"
 "            "
 msgstr "\n"
-"                    %(link_start)sSyntaxe Markdown%(link_end)s prise en charge.\n"
-"                "
+"                    %(link_start)sマークダウン記法%(link_end)sに対応しています。       "
 
 #: poll/public/html/poll_edit.html:36
 msgid ""
@@ -289,29 +286,27 @@ msgid ""
 "                    submitted their response to the poll.\n"
 "                "
 msgstr "\n"
-"                    Ce texte s'affichera à l'utilisateur comme commentaire supplémentaire après\n"
-"                    qu'il a envoyé sa réponse au sondage.\n"
-"                "
+"                    このテキストは、投票調査の回答提出後、ユーザーへの追加のフィードバックとして表示されます。      "
 
 #: poll/public/html/poll_edit.html:44
 msgid "Private Results"
-msgstr "Résultats privés"
+msgstr "非公開の結果"
 
 #: poll/public/html/poll_edit.html:48
 msgid "True"
-msgstr "Vrai"
+msgstr "正"
 
 #: poll/public/html/poll_edit.html:49
 msgid "False"
-msgstr "Faux"
+msgstr "誤"
 
 #: poll/public/html/poll_edit.html:53
 msgid "If this is set to True, don't display results of the poll to the user."
-msgstr "Si cette valeur est définie comme Vrai les résultats du sondage ne sont pas affichés à l’utilisateur."
+msgstr "これが「正」に設定されている場合、ユーザーには投票結果を表示しません。"
 
 #: poll/public/html/poll_edit.html:58
 msgid "Maximum Submissions"
-msgstr "Nombre maximum d'envois"
+msgstr "最大提出回数"
 
 #: poll/public/html/poll_edit.html:63
 #, python-format
@@ -323,13 +318,11 @@ msgid ""
 "to 0 will allow infinite resubmissions.\n"
 "                "
 msgstr "\n"
-"                    Nombre maximum de fois qu'un utilisateur peut répondre à un sondage. %(bold_start)sSi cette valeur n'est pas réglée sur 1 cela signifie que les\n"
-"                    « Résultats privés » doivent être vrai. %(bold_end)s Le réglage sur 0 autorise un nombre infini de de réponses.\n"
-"                "
+"                    ユーザーが投票を提出できる最大回数。%(bold_start)sこれを1以外の値に設定すると、「非公開の結果」が正であることを示唆します。%(bold_end)sこれを0に設定すると、再提出の回数が無制限となります。      "
 
 #: poll/public/html/poll_edit.html:71
 msgid "Notes:"
-msgstr "Remarques :"
+msgstr "注:"
 
 #: poll/public/html/poll_edit.html:72
 msgid ""
@@ -343,11 +336,8 @@ msgid ""
 "                    may vote again, but will not lose course progress.\n"
 "                "
 msgstr "\n"
-"                    Si vous modifiez le texte d'une réponse, tous les étudiants qui ont voté pour ce choix verront leur vote actualisé\n"
-"                    par le nouveau texte. Par conséquent, vous devez éviter de modifier une réponse de quelque chose comme « Vrai » à « Faux ».\n"
-"                    Si vous supprimez une réponse, tous les votes pour cette réponse seront aussi supprimés. Les étudiants dont les choix sont\n"
-"                    supprimés peuvent revoter, mais ils ne perdront pas sa progression actuelle dans le cours.\n"
-"                "
+"                    回答のテキストを変更すると、その選択肢に投票したすべての生徒の投票が、その新規のテキストに更新されてしまうため、「正」から「誤」への変更などは避けてください。\n"
+"                    回答を削除すると、その回答への投票もすべて削除されます。回答が削除された生徒は、再度、投票できますが、コース進度が失われることはありません。      "
 
 #: poll/public/html/poll_edit.html:81
 msgid ""
@@ -359,26 +349,24 @@ msgid ""
 "                        lose course progress.\n"
 "                    "
 msgstr "\n"
-"                        Une attention similaire doit être portée aux questions. Si le texte d'une question est modifié, tous les votes pour cette question seront conservés.\n"
-"                        Si une question est supprimée chaque étudiant qui a répondu à l'enquête sera autorisé à y répondre à nouveau mais il ne perdra pas\n"
-"                        sa progression actuelle dans le cours.\n"
-"                    "
+"                        質問についても同様に注意してください。質問のテキストが変更されると、その質問への投票はすべて残ります。\n"
+"                        質問が削除されると、以前、その調査に回答した生徒は、再度、回答できますが、コース進度が失われることはありません。                   "
 
 #: poll/public/html/poll_edit.html:97
 msgid "Add Answer"
-msgstr "Ajouter une réponse"
+msgstr "回答を追加する"
 
 #: poll/public/html/poll_edit.html:101
 msgid "Add Question"
-msgstr "Ajouter une question"
+msgstr "質問を追加する"
 
 #: poll/public/html/poll_edit.html:105
 msgid "Save"
-msgstr "Enregistrer"
+msgstr "保存する"
 
 #: poll/public/html/poll_edit.html:108
 msgid "Cancel"
-msgstr "Annuler"
+msgstr "キャンセル"
 
 #: poll/public/html/survey.html:57
 #, python-format
@@ -388,5 +376,4 @@ msgid ""
 "%(max_submissions_s)s submissions.\n"
 "            "
 msgstr "\n"
-"                Vous avez utilisé %(submissions_count_s)s sur %(max_submissions_s)s envois.\n"
-"            "
+"        提出回数%(max_submissions_s)s回中%(submissions_count_s)s回を使用しました。"

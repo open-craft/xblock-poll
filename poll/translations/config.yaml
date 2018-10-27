@@ -13,6 +13,8 @@ locales:
     - pt_BR  # Portuguese (Brazil)
     - ru  # Russian
     - zh_CN  # Chinese (China)
+    - de  # German
+    - ja  # Japaenese
 
 # The locales used for fake-accented English, for testing.
 dummy_locales:
