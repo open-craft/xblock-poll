@@ -20,6 +20,7 @@
 # along with this program in a file in the toplevel directory called
 # "AGPLv3".  If not, see <http://www.gnu.org/licenses/>.
 #
+
 """Setup for poll XBlock."""
 
 import os
@@ -44,12 +45,13 @@ def package_data(pkg, roots):
 
 setup(
     name='xblock-poll',
-    version='1.5.1',
+    version='1.6.0',
     description='An XBlock for polling users.',
     packages=[
         'poll',
     ],
     install_requires=[
+        'XBlock>=1.2',
         'markdown',
         'ddt',
         'mock',
