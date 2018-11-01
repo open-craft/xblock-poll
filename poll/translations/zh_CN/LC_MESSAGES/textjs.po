@@ -1,0 +1,66 @@
+msgid ""
+msgstr "Content-Type: text/plain; charset=utf-8\n"
+
+#: poll/public/handlebars/poll_results.handlebars:5
+#: poll/public/handlebars/survey_results.handlebars:4
+msgid "Results"
+msgstr "结果"
+
+#: poll/public/handlebars/poll_results.handlebars:31
+#: poll/public/handlebars/survey_results.handlebars:39
+msgid "Submit"
+msgstr "提交"
+
+#: poll/public/handlebars/poll_results.handlebars:33
+#: poll/public/handlebars/survey_results.handlebars:41
+msgid "Results gathered from {total} respondent."
+msgid_plural "Results gathered from {total} respondents."
+msgstr[0] "从 {total} 个回应者处收集的结果。"
+msgstr[1] "从 {total} 个回应者处收集的结果。"
+
+#: poll/public/handlebars/poll_results.handlebars:37
+#: poll/public/handlebars/survey_results.handlebars:46
+msgid "Feedback"
+msgstr "反馈"
+
+#: poll/public/handlebars/poll_studio.handlebars:6
+msgid "move poll up"
+msgstr "上移调查问卷"
+
+#: poll/public/handlebars/poll_studio.handlebars:7
+msgid "move poll down"
+msgstr "下移调查问卷"
+
+#: poll/public/handlebars/poll_studio.handlebars:9
+msgid "Delete"
+msgstr "删除"
+
+#: poll/public/handlebars/poll_studio.handlebars:11
+msgid "Answer"
+msgstr "答案"
+
+#: poll/public/handlebars/poll_studio.handlebars:12
+msgid "Question"
+msgstr "问题"
+
+#: poll/public/handlebars/poll_studio.handlebars:16
+msgid "Image URL"
+msgstr "图像 URL"
+
+#: poll/public/handlebars/poll_studio.handlebars:18
+msgid "Image alternative text"
+msgstr "图像替换文本"
+
+#: poll/public/handlebars/poll_studio.handlebars:23
+msgid ""
+"You can make limited use of Markdown in answer texts, preferably only bold "
+"and italics."
+msgstr "Markdown 在答案文本中的应用可能很有限，最好仅限于粗体和斜体。"
+
+#: poll/public/handlebars/poll_studio.handlebars:27
+msgid ""
+"This must have an image URL or text, and can have both.  If you add an "
+"image, you must also provide an alternative text that describes the image "
+"in a way that would allow someone to answer the poll if the image did not "
+"load."
+msgstr "其中必须包含图像 URL 和/或文本。如果您添加图像，还必须提供描述该图像的替换文本，以允许用户在未加载该图像的情况下回答调查问卷。"

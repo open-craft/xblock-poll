@@ -16,6 +16,28 @@
 
   django.catalog = django.catalog || {};
   
+  var newcatalog = {
+    "Answer": "\u7b54\u6848", 
+    "Delete": "\u5220\u9664", 
+    "Feedback": "\u53cd\u9988", 
+    "Image URL": "\u56fe\u50cf URL", 
+    "Image alternative text": "\u56fe\u50cf\u66ff\u6362\u6587\u672c", 
+    "Question": "\u95ee\u9898", 
+    "Results": "\u7ed3\u679c", 
+    "Results gathered from {total} respondent.": [
+      "\u4ece {total} \u4e2a\u56de\u5e94\u8005\u5904\u6536\u96c6\u7684\u7ed3\u679c\u3002", 
+      "\u4ece {total} \u4e2a\u56de\u5e94\u8005\u5904\u6536\u96c6\u7684\u7ed3\u679c\u3002"
+    ], 
+    "Submit": "\u63d0\u4ea4", 
+    "This must have an image URL or text, and can have both.  If you add an image, you must also provide an alternative text that describes the image in a way that would allow someone to answer the poll if the image did not load.": "\u5176\u4e2d\u5fc5\u987b\u5305\u542b\u56fe\u50cf URL \u548c/\u6216\u6587\u672c\u3002\u5982\u679c\u60a8\u6dfb\u52a0\u56fe\u50cf\uff0c\u8fd8\u5fc5\u987b\u63d0\u4f9b\u63cf\u8ff0\u8be5\u56fe\u50cf\u7684\u66ff\u6362\u6587\u672c\uff0c\u4ee5\u5141\u8bb8\u7528\u6237\u5728\u672a\u52a0\u8f7d\u8be5\u56fe\u50cf\u7684\u60c5\u51b5\u4e0b\u56de\u7b54\u8c03\u67e5\u95ee\u5377\u3002", 
+    "You can make limited use of Markdown in answer texts, preferably only bold and italics.": "Markdown \u5728\u7b54\u6848\u6587\u672c\u4e2d\u7684\u5e94\u7528\u53ef\u80fd\u5f88\u6709\u9650\uff0c\u6700\u597d\u4ec5\u9650\u4e8e\u7c97\u4f53\u548c\u659c\u4f53\u3002", 
+    "move poll down": "\u4e0b\u79fb\u8c03\u67e5\u95ee\u5377", 
+    "move poll up": "\u4e0a\u79fb\u8c03\u67e5\u95ee\u5377"
+  };
+  for (var key in newcatalog) {
+    django.catalog[key] = newcatalog[key];
+  }
+  
 
   if (!django.jsi18n_initialized) {
     django.gettext = function(msgid) {
@@ -66,47 +88,49 @@
     /* formatting library */
 
     django.formats = {
-    "DATETIME_FORMAT": "j\\-\\a \\d\\e F Y\\, \\j\\e H:i", 
+    "DATETIME_FORMAT": "N j, Y, P", 
     "DATETIME_INPUT_FORMATS": [
       "%Y-%m-%d %H:%M:%S", 
+      "%Y-%m-%d %H:%M:%S.%f", 
       "%Y-%m-%d %H:%M", 
       "%Y-%m-%d", 
-      "%Y.%m.%d %H:%M:%S", 
-      "%Y.%m.%d %H:%M", 
-      "%Y.%m.%d", 
-      "%d/%m/%Y %H:%M:%S", 
-      "%d/%m/%Y %H:%M", 
-      "%d/%m/%Y", 
-      "%y-%m-%d %H:%M:%S", 
-      "%y-%m-%d %H:%M", 
-      "%y-%m-%d", 
-      "%Y-%m-%d %H:%M:%S.%f"
+      "%m/%d/%Y %H:%M:%S", 
+      "%m/%d/%Y %H:%M:%S.%f", 
+      "%m/%d/%Y %H:%M", 
+      "%m/%d/%Y", 
+      "%m/%d/%y %H:%M:%S", 
+      "%m/%d/%y %H:%M:%S.%f", 
+      "%m/%d/%y %H:%M", 
+      "%m/%d/%y"
     ], 
-    "DATE_FORMAT": "j\\-\\a \\d\\e F Y", 
+    "DATE_FORMAT": "N j, Y", 
     "DATE_INPUT_FORMATS": [
       "%Y-%m-%d", 
-      "%y-%m-%d", 
-      "%Y %m %d", 
-      "%d-a de %b %Y", 
+      "%m/%d/%Y", 
+      "%m/%d/%y", 
+      "%b %d %Y", 
+      "%b %d, %Y", 
       "%d %b %Y", 
-      "%d-a de %B %Y", 
+      "%d %b, %Y", 
+      "%B %d %Y", 
+      "%B %d, %Y", 
       "%d %B %Y", 
-      "%d %m %Y"
+      "%d %B, %Y"
     ], 
-    "DECIMAL_SEPARATOR": ",", 
-    "FIRST_DAY_OF_WEEK": "1", 
-    "MONTH_DAY_FORMAT": "j\\-\\a \\d\\e F", 
-    "NUMBER_GROUPING": "3", 
-    "SHORT_DATETIME_FORMAT": "Y-m-d H:i", 
-    "SHORT_DATE_FORMAT": "Y-m-d", 
-    "THOUSAND_SEPARATOR": "\u00a0", 
-    "TIME_FORMAT": "H:i", 
+    "DECIMAL_SEPARATOR": ".", 
+    "FIRST_DAY_OF_WEEK": "0", 
+    "MONTH_DAY_FORMAT": "F j", 
+    "NUMBER_GROUPING": "0", 
+    "SHORT_DATETIME_FORMAT": "m/d/Y P", 
+    "SHORT_DATE_FORMAT": "m/d/Y", 
+    "THOUSAND_SEPARATOR": ",", 
+    "TIME_FORMAT": "P", 
     "TIME_INPUT_FORMATS": [
       "%H:%M:%S", 
-      "%H:%M", 
-      "%H:%M:%S.%f"
+      "%H:%M:%S.%f", 
+      "%H:%M"
     ], 
-    "YEAR_MONTH_FORMAT": "F \\d\\e Y"
+    "YEAR_MONTH_FORMAT": "F Y"
   };
 
     django.get_format = function(format_type) {
