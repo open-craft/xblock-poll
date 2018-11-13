@@ -31,6 +31,7 @@ import pkg_resources
 from webob import Response
 
 from django import utils
+from xblock.completable import XBlockCompletionMode
 from xblock.core import XBlock
 from xblock.fields import Scope, String, Dict, List, Boolean, Integer
 from xblock.fragment import Fragment
@@ -183,7 +184,7 @@ class CSVExportMixin(object):
 
     def student_module_queryset(self):
         from courseware.models import StudentModule  # pylint: disable=import-error
-        return StudentModule.objects.filter(
+        return StudentModule.objects.select_related('student').filter(
             course_id=self.runtime.course_id,
             module_state_key=self.scope_ids.usage_id,
         ).order_by('-modified')
@@ -216,6 +217,9 @@ class PollBase(XBlock, ResourceMixin, PublishEventMixin):
     """
     Base class for Poll-like XBlocks.
     """
+    completion_mode = XBlockCompletionMode.COMPLETABLE
+    has_custom_completion = True  # manually submits progress event in send_vote_event
+
     has_author_view = True
 
     event_namespace = 'xblock.pollbase'
