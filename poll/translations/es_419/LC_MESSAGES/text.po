@@ -1,240 +1,392 @@
-# 
-# Translators:
-# Albeiro Gonzalez <albeiro.gonzalez@edunext.co>, 2018
-# fco.aguilarm <fco.aguilarm@gmail.com>, 2017
-# Juan Camilo Montoya Franco <juan.montoya@edunext.co>, 2017
-# Liz Pacheco <alamofort@gmail.com>, 2016
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: XBlocks\n"
-"POT-Creation-Date: 2016-04-07 16:17+0500\n"
-"PO-Revision-Date: 2018-02-16 21:48+0000\n"
-"Last-Translator: Albeiro Gonzalez <albeiro.gonzalez@edunext.co>\n"
-"Language-Team: Spanish (Latin America) (http://www.transifex.com/open-edx/xblocks/language/es_419/)\n"
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2018-09-03 09:32+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: es_419\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 1.8.7\n"
-"X-Poedit-Basepath: ../../..\n"
-"X-Poedit-SearchPath-0: poll.py\n"
 
-#: poll.py
+#: poll/poll.py:222
 msgid "Whether or not to display results to the user."
-msgstr "Si desea que se muestren los resultados al usuario o no"
+msgstr "Mostrar o no resultados al usuario."
 
-#: poll.py
+#: poll/poll.py:223
 msgid "The maximum number of times a user may send a submission."
-msgstr "El máximo número de veces que un usuario puede enviar su respuesta."
+msgstr "La cantidad máxima de veces que un usuario puede enviar su respuesta."
 
-#: poll.py
+#: poll/poll.py:225
 msgid "Number of times the user has sent a submission."
-msgstr "Número de veces que el usuario ha enviado una respuesta."
+msgstr "Cantidad de veces que el usuario ha enviado una respuesta."
 
-#: poll.py
+#: poll/poll.py:227
 msgid "Text to display after the user votes."
-msgstr "Texto para mostrar después que el usuario vota."
+msgstr "Texto a mostrar después de que el usuario vota."
 
-#: poll.py
+#. Translators: {field} is either "answers" or "questions".
+#: poll/poll.py:288
 #, python-brace-format
 msgid "'{field}' is not present, or not a JSON array."
-msgstr "'{field}' no está presente, o no es un arreglo JSON."
+msgstr "\"{field}\" no está presente o no es una matriz JSON."
 
-#: poll.py
+#. Translators: {noun} is either "Answer" or "Question". {item} identifies the answer or question.
+#: poll/poll.py:300
 #, python-brace-format
 msgid "{noun} {item} not a javascript object!"
-msgstr "¡{noun} {item} no es un objeto javascript!"
+msgstr "{noun} {item} no es un objeto javascript."
 
-#: poll.py
+#. Translators: {noun} is either "Answer" or "Question". {item} identifies the answer or question.
+#: poll/poll.py:309
 #, python-brace-format
 msgid "{noun} {item} contains no key."
-msgstr "{noun} {item} no contiene llave."
+msgstr "{noun} {item} no contiene clave."
 
-#: poll.py
+#. Translators: {noun} is either "Answer" or "Question".
+#. {noun_lower} is the lowercase version of {noun}.
+#: poll/poll.py:321
 #, python-brace-format
 msgid ""
 "{noun} has no text or img. Please make sure all {noun_lower}s have one or "
 "the other, or both."
-msgstr "{noun} no tiene texto o imagen. Por favor asegúrese que todos {noun_lower}s tienen uno o el otro, o ambos."
+msgstr "{noun} no tiene texto o imagen. Asegúrese de que todos los {noun_lower} contengan alguno de los dos o ambos, texto e imagen."
 
-#: poll.py
+#. Translators: {noun} is either "Answer" or "Question".
+#. {noun_lower} is the lowercase version of {noun}.
+#: poll/poll.py:332
 #, python-brace-format
 msgid ""
 "{noun} was added with no label. All {noun_lower}s must have labels. Please "
 "check the form. Check the form and explicitly delete {noun_lower}s if not "
 "needed."
-msgstr "{noun} fue agregado sin etiqueta. Todos {noun_lower}s deben tener etiquetas. Por favor revise el formulario. Revise el formulario y explícitamente borre {noun_lower}s si no son necesarios."
+msgstr "{noun} se agregó sin etiqueta. Todos los {noun_lower} deben tener etiquetas. Verifique el formulario. Verifique el formulario y elimine explícitamente los {noun_lower}, si no son necesarios."
 
-#: poll.py
+#: poll/poll.py:340
 msgid ""
 "All images must have an alternative text describing the image in a way that "
 "would allow someone to answer the poll if the image did not load."
-msgstr "Todas las imágenes deben tener un texto alternativo describiendo la imagen de manera que permitan a alguien responder la encuesta aún si la imagen no cargara."
+msgstr "Todas las imágenes deben tener un texto alternativo que describa la imagen de manera que permita a las personas responder el sondeo si la imagen no carga."
 
-#: poll.py
+#. Translators: "{noun_lower} is either "answer" or "question".
+#: poll/poll.py:352
 #, python-brace-format
 msgid "You must include at least one {noun_lower}."
 msgstr "Debe incluir al menos un {noun_lower}."
 
-#: poll.py
+#: poll/poll.py:400
 msgid "Maximum Submissions missing or not an integer."
-msgstr "El valor de envíos máximos no está o no es un entero."
+msgstr "Envíos máximos faltantes o no integradores."
 
-#: poll.py
+#: poll/poll.py:405
 msgid "Private results may not be False when Maximum Submissions is not 1."
-msgstr "Resultados privados no puede ser Falso cuando Envíos máximos no es 1. "
+msgstr "Los resultados privados no pueden ser Falsos cuando los Envíos máximos son diferentes a 1."
 
-#: poll.py
-msgid "Total tally of answers from students."
-msgstr "Total de respuestas de los estudiantes."
-
-#: poll.py
-msgid "The student's answer"
-msgstr "La respuesta del estudiante."
-
-#: poll.py
-msgid "You have already voted in this poll."
-msgstr "Usted ya ha votado en esta encuesta."
-
-#: poll.py
-msgid "Answer not included with request."
-msgstr "Respuesta no incluida con la petición."
-
-#: poll.py
-#, python-brace-format
-msgid "No key \"{choice}\" in answers table."
-msgstr "No llave \"{choice}\" en tabla de respuestas."
-
-#: poll.py
-msgid "You have already voted as many times as you are allowed."
-msgstr "Usted ya ha votado tantas veces como le es permitido."
-
-#: poll.py
-msgid "You must specify a question."
-msgstr "Usted debe especificar la pregunta."
-
-#: poll.py
-msgid "Answer choices for this Survey"
-msgstr "Opciones de respuesta para esta encuesta."
-
-#: poll.py
-msgid "Are you enjoying the course?"
-msgstr "¿Está disfrutando del curso?"
-
-#: poll.py
-msgid "Would you recommend this course to your friends?"
-msgstr "¿Recomendaría este curso a sus amigos?"
-
-#: poll.py
-msgid "Do you think you will learn a lot?"
-msgstr "¿Piensa usted que aprenderá mucho?"
-
-#: poll.py
-msgid "Questions for this Survey"
-msgstr "Preguntas para esta encuesta"
-
-#: poll.py
-msgid "Survey"
-msgstr "Encuesta"
-
-#: poll.py
-msgid "The user's answers"
-msgstr "Las respuestas del usuario"
-
-#: poll.py
-msgid ""
-"Not all questions were included, or unknown questions were included. Try "
-"refreshing and trying again."
-msgstr "No todas las preguntas fueron incluidas, o preguntas desconocidas fueron incluidas. Intente refrescando e intentando de nuevo."
-
-#: poll.py
-#, python-format
-msgid "Found unknown answer '{answer_key}' for question key '{question_key}'"
-msgstr "Encontrada respuesta desconocida '{answer_key}' para pregunta llave '{question_key}'"
-
-#: poll.py
+#: poll/poll.py:442 poll/poll.py:792
 msgid "Poll"
-msgstr "Encuesta"
+msgstr "Sondeo"
 
-#: poll.py
+#: poll/poll.py:443
 msgid "What is your favorite color?"
-msgstr "¿Cúal es su color favorito?"
+msgstr "¿Cuál es su color favorito?"
 
-#: poll.py
+#: poll/poll.py:448
 msgid "Red"
 msgstr "Rojo"
 
-#: poll.py
+#: poll/poll.py:449
 msgid "Blue"
 msgstr "Azul"
 
-#: poll.py
+#: poll/poll.py:450
+msgid "Green"
+msgstr "Verde"
+
+#: poll/poll.py:451
 msgid "Other"
 msgstr "Otro"
 
-#: poll.py
+#: poll/poll.py:453
 msgid "The answer options on this poll."
-msgstr "Las opciones de respuesta en esta encuesta."
+msgstr "Las opciones de respuesta en este sondeo."
 
-#: poll.py
+#: poll/poll.py:457 poll/poll.py:818
+msgid "Total tally of answers from students."
+msgstr "Conteo total de respuestas de los estudiantes."
+
+#: poll/poll.py:458
+msgid "The student's answer"
+msgstr "La respuesta del estudiante"
+
+#: poll/poll.py:662 poll/poll.py:1097
+msgid "You have already voted in this poll."
+msgstr "Ya votó en este sondeo."
+
+#: poll/poll.py:667
+msgid "Answer not included with request."
+msgstr "La respuesta no está incluida con la solicitud."
+
+#. Translators: {choice} uniquely identifies a specific answer belonging to a poll or survey.
+#: poll/poll.py:676
+#, python-brace-format
+msgid "No key \"{choice}\" in answers table."
+msgstr "No existe una clave \"{choice}\" en la tabla de respuestas."
+
+#: poll/poll.py:685 poll/poll.py:1105
+msgid "You have already voted as many times as you are allowed."
+msgstr "Ya votó la cantidad de veces permitida."
+
+#: poll/poll.py:715
+msgid "You must specify a question."
+msgstr "Debe especificar una pregunta."
+
+#: poll/poll.py:718 poll/poll.py:1159
 msgid "Answer"
-msgstr "Respuesta:"
+msgstr "Respuesta"
 
-#: poll.py
-msgid "Question"
-msgstr "Pregunta"
+#: poll/poll.py:789
+msgid "Survey"
+msgstr "Encuesta"
 
-#: poll.py
+#: poll/poll.py:795
 msgid "Yes"
-msgstr "Si"
+msgstr "Sí"
 
-#: poll.py
+#: poll/poll.py:796
 msgid "No"
 msgstr "No"
 
-#: poll.py
+#: poll/poll.py:797
 msgid "Maybe"
 msgstr "Tal vez"
 
-#: public/handlebars/poll_results.handlebars
-msgid "Results gathered from {total} respondents."
-msgstr "Resultados obtenidos de {total} encuestados."
+#: poll/poll.py:799
+msgid "Answer choices for this Survey"
+msgstr "Elecciones de respuesta para esta encuesta"
 
-#: public/handlebars/poll_results.handlebars
-msgid "Results gathered from {total} respondent."
-msgstr "Resultados obtenidos de {total} encuestado."
+#: poll/poll.py:803
+msgid "Are you enjoying the course?"
+msgstr "¿Está disfrutando el curso?"
 
-#: public/handlebars/poll_studio.handlebars
-msgid "move poll up"
-msgstr "mover la encuesta arriba"
+#: poll/poll.py:805
+msgid "Would you recommend this course to your friends?"
+msgstr "¿Recomendaría este curso a sus amigos?"
 
-#: public/handlebars/poll_studio.handlebars
-msgid "move poll down"
-msgstr "mover la encuesta abajo"
+#: poll/poll.py:809
+msgid "Do you think you will learn a lot?"
+msgstr "¿Piensa que va a aprender mucho?"
 
-#: public/handlebars/poll_studio.handlebars
-msgid "Delete"
-msgstr "Borrar"
+#: poll/poll.py:811
+msgid "Questions for this Survey"
+msgstr "Preguntas para esta encuesta"
 
-#: public/handlebars/poll_studio.handlebars
-msgid "Image URL"
-msgstr "URL de la imagen"
+#: poll/poll.py:820
+msgid "The user's answers"
+msgstr "Las respuestas del usuario"
 
-#: public/handlebars/poll_studio.handlebars
-msgid "Image alternative text"
-msgstr "Texto alternativo de la imagen"
-
-#: public/handlebars/poll_studio.handlebars
+#: poll/poll.py:1113
 msgid ""
-"You can make limited use of Markdown in answer texts, preferably only bold "
-"and italics."
-msgstr "Puede hacer uso limitado de Markdown en los textos de respuesta, preferiblemente solo negritas e itálicas."
+"Not all questions were included, or unknown questions were included. Try "
+"refreshing and trying again."
+msgstr "No se incluyeron todas las preguntas o se incluyeron algunas desconocidas. Actualice la pantalla e inténtelo de nuevo."
 
-#: public/handlebars/poll_studio.handlebars
+#. Translators: {answer_key} uniquely identifies a specific answer belonging to a poll or survey.
+#. {question_key} uniquely identifies a specific question belonging to a poll or survey.
+#: poll/poll.py:1126
+#, python-brace-format
+msgid "Found unknown answer '{answer_key}' for question key '{question_key}'"
+msgstr "Se encontró la respuesta desconocida \"{answer_key}\" para la clave de la pregunta \"{question_key}\"."
+
+#: poll/poll.py:1160
+msgid "Question"
+msgstr "Pregunta"
+
+#: poll/public/html/poll.html:35 poll/public/html/survey.html:53
+msgid "Submit"
+msgstr "Enviar"
+
+#: poll/public/html/poll.html:40 poll/public/html/survey.html:55
+msgid "Thank you."
+msgstr "Gracias."
+
+#: poll/public/html/poll.html:44
+#, python-format
 msgid ""
-"This must have an image URL or text, and can have both.  If you add an "
-"image, you must also provide an alternative text that describes the image in"
-" a way that would allow someone to answer the poll if the image did not "
-"load."
-msgstr "Esto debe tener URL de imagen o texto, y puede tener ambos. Si agrega una imagen, debe además proveer un texto alternativo que describa la imagen de manera que permitan a alguien responder la encuesta aún si la imagen no carga."
+"\n"
+"        You have used %(submissions_count_s)s out of %(max_submissions_s)s "
+"submissions.\n"
+"      "
+msgstr "\n"
+"        Ha usado %(submissions_count_s)s de %(max_submissions_s)s envíos.\n"
+"      "
+
+#: poll/public/html/poll.html:52 poll/public/html/poll_edit.html:27
+#: poll/public/html/survey.html:64
+msgid "Feedback"
+msgstr "Feedback"
+
+#: poll/public/html/poll.html:64 poll/public/html/survey.html:73
+msgid "View results"
+msgstr "Ver los resultados"
+
+#: poll/public/html/poll.html:71 poll/public/html/survey.html:81
+msgid "Export results to CSV"
+msgstr "Exportar los resultados a CSV"
+
+#: poll/public/html/poll.html:72 poll/public/html/survey.html:82
+msgid "Download CSV"
+msgstr "Descargar CSV"
+
+#: poll/public/html/poll.html:76 poll/public/html/survey.html:86
+msgid "Student data and results CSV available for download in the LMS."
+msgstr "Los datos y resultados CVS del estudiante están disponibles para descargar en LMS."
+
+#: poll/public/html/poll_edit.html:8
+msgid "Display Name"
+msgstr "Nombre para mostrar"
+
+#: poll/public/html/poll_edit.html:15
+msgid "Question/Prompt"
+msgstr "Pregunta o tema"
+
+#: poll/public/html/poll_edit.html:16
+#, python-format
+msgid ""
+"\n"
+"                    %(link_start)sMarkdown Syntax%(link_end)s is supported.\n"
+"                "
+msgstr "\n"
+"                    %(link_start)sLa sintaxis del lenguaje Markdown%(link_end)s es compatible.\n"
+"                "
+
+#: poll/public/html/poll_edit.html:23
+msgid "Enter the prompt for the user."
+msgstr "Ingrese el tema para el usuario."
+
+#: poll/public/html/poll_edit.html:28
+#, python-format
+msgid ""
+"\n"
+"                %(link_start)sMarkdown Syntax%(link_end)s is supported.\n"
+"            "
+msgstr "\n"
+"                %(link_start)sLa sintaxis del lenguaje Markdown%(link_end)s es compatible.\n"
+"            "
+
+#: poll/public/html/poll_edit.html:36
+msgid ""
+"\n"
+"                    This text will be displayed for the user as some extra "
+"feedback after they have\n"
+"                    submitted their response to the poll.\n"
+"                "
+msgstr "\n"
+"                    Este texto se mostrará al usuario como feedback adicional después de que\n"
+"                    envíe su respuesta al sondeo.\n"
+"                "
+
+#: poll/public/html/poll_edit.html:44
+msgid "Private Results"
+msgstr "Resultados privados"
+
+#: poll/public/html/poll_edit.html:48
+msgid "True"
+msgstr "Verdadero"
+
+#: poll/public/html/poll_edit.html:49
+msgid "False"
+msgstr "Falso"
+
+#: poll/public/html/poll_edit.html:53
+msgid "If this is set to True, don't display results of the poll to the user."
+msgstr "Si se establece como Verdadero, no muestre los resultados del sondeo al usuario."
+
+#: poll/public/html/poll_edit.html:58
+msgid "Maximum Submissions"
+msgstr "Envíos máximos"
+
+#: poll/public/html/poll_edit.html:63
+#, python-format
+msgid ""
+"\n"
+"                    Maximum number of times a user may submit a poll. "
+"%(bold_start)sSetting this to a value other than 1 will imply that\n"
+"                    'Private Results' should be true.%(bold_end)s Setting it "
+"to 0 will allow infinite resubmissions.\n"
+"                "
+msgstr "\n"
+"                    Cantidad máxima de veces que un usuario puede responder un sondeo. %(bold_start)sConfigurarlo con un valor diferente a 1 implicará que\n"
+"                    los \"resultados privados\" deban ser verdaderos.%(bold_end)s Configurarlo con un 0 permitirá una cantidad infinita de oportunidades para responder.\n"
+"                "
+
+#: poll/public/html/poll_edit.html:71
+msgid "Notes:"
+msgstr "Notas:"
+
+#: poll/public/html/poll_edit.html:72
+msgid ""
+"\n"
+"                    If you change an answer's text, all students who voted "
+"for that choice will have their votes updated to\n"
+"                    the new text. You'll want to avoid changing an answer "
+"from something like 'True' to 'False', accordingly.\n"
+"                    If you delete an answer, any votes for that answer will "
+"also be deleted. Students whose choices are deleted\n"
+"                    may vote again, but will not lose course progress.\n"
+"                "
+msgstr "\n"
+"                    Si cambia el texto de una respuesta, todos los estudiantes que votaron por esa elección verán sus votos actualizados al\n"
+"                    texto nuevo. Por ello, es mejor evitar el cambio de una respuesta de \"Verdadero\" a \"Falso\".\n"
+"                 Si borra una respuesta, cualquier voto que esta haya obtenido también se eliminará. Los estudiantes cuyas elecciones se eliminen\n"
+"                    podrán votar de nuevo, pero no perderán el avance del curso.\n"
+"                "
+
+#: poll/public/html/poll_edit.html:81
+msgid ""
+"\n"
+"                        Questions must be similarly cared for. If a "
+"question's text is changed, any votes for that question will remain.\n"
+"                        If a question is deleted, any student who previously "
+"took the survey will be permitted to retake it, but will not\n"
+"                        lose course progress.\n"
+"                    "
+msgstr "\n"
+"                        Se debe tener el mismo tratamiento con las preguntas. Si se cambia el texto de una pregunta, se mantendrá cualquier voto de esta.\n"
+"                        Si se elimina una pregunta, cualquier estudiante que haya llenado la encuesta podrá hacerlo de nuevo, pero sin\n"
+"                        perder el avance del curso.\n"
+"                    "
+
+#: poll/public/html/poll_edit.html:97
+msgid "Add Answer"
+msgstr "Agregar respuesta"
+
+#: poll/public/html/poll_edit.html:101
+msgid "Add Question"
+msgstr "Agregar pregunta"
+
+#: poll/public/html/poll_edit.html:105
+msgid "Save"
+msgstr "Guardar"
+
+#: poll/public/html/poll_edit.html:108
+msgid "Cancel"
+msgstr "Cancelar"
+
+#: poll/public/html/survey.html:57
+#, python-format
+msgid ""
+"\n"
+"                You have used %(submissions_count_s)s out of "
+"%(max_submissions_s)s submissions.\n"
+"            "
+msgstr "\n"
+"                Ha usado %(submissions_count_s)s de %(max_submissions_s)s envíos.\n"
+"            "

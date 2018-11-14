@@ -13,13 +13,62 @@
   
 
   
-  /* gettext identity library */
+  /* gettext library */
 
-  django.gettext = function (msgid) { return msgid; };
-  django.ngettext = function (singular, plural, count) { return (count == 1) ? singular : plural; };
+  django.catalog = {
+    "Answer": "R\u00e9ponse", 
+    "Delete": "Supprimer", 
+    "Feedback": "Commentaire", 
+    "Image URL": "URL de l\u2019image", 
+    "Image alternative text": "Texte alternatif de l'image", 
+    "Question": "Question", 
+    "Results": "R\u00e9sultats", 
+    "Results gathered from {total} respondent.": [
+      "R\u00e9sultats recueillis de {total} personne interrog\u00e9e.", 
+      "R\u00e9sultats recueillis de {total} personnes interrog\u00e9es."
+    ], 
+    "Submit": "Envoyer", 
+    "This must have an image URL or text, and can have both.  If you add an image, you must also provide an alternative text that describes the image in a way that would allow someone to answer the poll if the image did not load.": "Ceci doit contenir une URL d'image ou un texte, et peut contenir les deux. Si vous ajoutez une image, vous devez aussi fournir un texte alternatif qui d\u00e9crit l'image d'une mani\u00e8re qui permettrait \u00e0 tout le monde de r\u00e9pondre au sondage si l'image ne se t\u00e9l\u00e9charger pas.", 
+    "You can make limited use of Markdown in answer texts, preferably only bold and italics.": "Vous pouvez faire un usage limit\u00e9 de Markdown dans les textes des r\u00e9ponses, de pr\u00e9f\u00e9rence uniquement en gras et en italique.", 
+    "move poll down": "Faire descendre le sondage", 
+    "move poll up": "Faire remonter le sondage"
+  };
+
+  django.gettext = function (msgid) {
+    var value = django.catalog[msgid];
+    if (typeof(value) == 'undefined') {
+      return msgid;
+    } else {
+      return (typeof(value) == 'string') ? value : value[0];
+    }
+  };
+
+  django.ngettext = function (singular, plural, count) {
+    var value = django.catalog[singular];
+    if (typeof(value) == 'undefined') {
+      return (count == 1) ? singular : plural;
+    } else {
+      return value[django.pluralidx(count)];
+    }
+  };
+
   django.gettext_noop = function (msgid) { return msgid; };
-  django.pgettext = function (context, msgid) { return msgid; };
-  django.npgettext = function (context, singular, plural, count) { return (count == 1) ? singular : plural; };
+
+  django.pgettext = function (context, msgid) {
+    var value = django.gettext(context + '\x04' + msgid);
+    if (value.indexOf('\x04') != -1) {
+      value = msgid;
+    }
+    return value;
+  };
+
+  django.npgettext = function (context, singular, plural, count) {
+    var value = django.ngettext(context + '\x04' + singular, context + '\x04' + plural, count);
+    if (value.indexOf('\x04') != -1) {
+      value = django.ngettext(singular, plural, count);
+    }
+    return value;
+  };
   
 
   django.interpolate = function (fmt, obj, named) {
