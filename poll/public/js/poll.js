@@ -178,13 +178,15 @@ function PollUtil (runtime, element, pollType) {
             // Keep polling for status updates when an export is running.
             setTimeout(getStatus, 1000);
         }
-        if (statusChanged) {
-            if (newStatus.last_export_result.error) {
-                self.errorMessage.text(error);
-                self.errorMessage.show();
-            } else {
-                self.downloadResultsButton.attr('disabled', false);
-                self.errorMessage.hide()
+        else {
+            if (statusChanged) {
+                if (newStatus.last_export_result.error) {
+                    self.errorMessage.text(error);
+                    self.errorMessage.show();
+                } else {
+                    self.downloadResultsButton.attr('disabled', false);
+                    self.errorMessage.hide()
+                }
             }
         }
     }
