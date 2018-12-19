@@ -816,9 +816,10 @@ class PollBlock(PollBase, CSVExportMixin):
 
             choice = user_state.state['choice']  # {u'submissions_count': 1, u'choice': u'R'}
             report = {
-                self.ugettext("Question"): self.question,
-                self.ugettext("Answer ID"): choice,
-                self.ugettext("Answer"): answers_dict[choice]['label'],
+                self.ugettext('Question'): self.question,
+                self.ugettext('Answer ID'): choice,
+                self.ugettext('Answer'): answers_dict[choice]['label'],
+                self.ugettext('Submissions count'): user_state.state['submissions_count']
             }
             count += 1
             yield (user_state.username, report)
@@ -1303,7 +1304,7 @@ class SurveyBlock(PollBase, CSVExportMixin):
         questions_dict = dict(self.questions)
         count = 0
         for user_state in user_state_iterator:
-            choices = user_state.state['choices']  # {u'enjoy': u'Y', u'recommend': u'N', u'learn': u'M'}
+            choices = user_state.state['choices']  # {'submissions_count': 1, 'choices': {u'enjoy': u'Y', u'recommend': u'N', u'learn': u'M'}}
             for q, a in choices.items():
 
                 if limit_responses and count >= limit_responses:
@@ -1313,10 +1314,11 @@ class SurveyBlock(PollBase, CSVExportMixin):
                 question = questions_dict[q]['label']
                 answer = answers_dict[a]
                 report = {
-                    self.ugettext("Question ID"): q,
-                    self.ugettext("Question"): question,
-                    self.ugettext("Answer ID"): a,
-                    self.ugettext("Answer"): answer
+                    self.ugettext('Question ID'): q,
+                    self.ugettext('Question'): question,
+                    self.ugettext('Answer ID'): a,
+                    self.ugettext('Answer'): answer,
+                    self.ugettext('Submissions count'): user_state.state['submissions_count']
                 }
                 count += 1
                 yield (user_state.username, report)
