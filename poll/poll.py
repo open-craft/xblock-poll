@@ -803,14 +803,24 @@ class PollBlock(PollBase, CSVExportMixin):
                            "Answer ID": "R"
             })
         """
+        if limit_responses == 0:
+            return
+
+        count = 0
         answers_dict = dict(self.answers)
         for user_state in user_state_iterator:
+
+            if limit_responses and count >= limit_responses:
+                # End the iterator here
+                return
+
             choice = user_state.state['choice']  # {u'submissions_count': 1, u'choice': u'R'}
             report = {
                 self.ugettext("Question"): self.question,
                 self.ugettext("Answer ID"): choice,
                 self.ugettext("Answer"): answers_dict[choice]['label'],
             }
+            count += 1
             yield (user_state.username, report)
 
 
@@ -1286,11 +1296,20 @@ class SurveyBlock(PollBase, CSVExportMixin):
                            "Answer ID": "1545204793464"
             })
         """
+        if limit_responses == 0:
+            return
+
         answers_dict = dict(self.answers)
         questions_dict = dict(self.questions)
+        count = 0
         for user_state in user_state_iterator:
             choices = user_state.state['choices']  # {u'enjoy': u'Y', u'recommend': u'N', u'learn': u'M'}
             for q, a in choices.items():
+
+                if limit_responses and count >= limit_responses:
+                    # End the iterator here
+                    return
+
                 question = questions_dict[q]['label']
                 answer = answers_dict[a]
                 report = {
@@ -1299,4 +1318,5 @@ class SurveyBlock(PollBase, CSVExportMixin):
                     self.ugettext("Answer ID"): a,
                     self.ugettext("Answer"): answer
                 }
+                count += 1
                 yield (user_state.username, report)
