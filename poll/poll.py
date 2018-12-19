@@ -784,6 +784,35 @@ class PollBlock(PollBase, CSVExportMixin):
                 ]
         return [header_row] + data.values()
 
+    def generate_report_data(self, user_state_iterator, limit_responses=None):
+        """
+        Return a list of student responses to this block in a readable way.
+
+        Arguments:
+            user_state_iterator: iterator over UserStateClient objects.
+                E.g. the result of user_state_client.iter_all_for_block(block_key)
+
+            limit_responses (int|None): maximum number of responses to include.
+                Set to None (default) to include all.
+
+        Returns:
+            each call returns a tuple like:
+            ("username", {
+                           "Question": "What's your favorite color?"
+                           "Answer": "Red",
+                           "Answer ID": "R"
+            })
+        """
+        answers_dict = dict(self.answers)
+        for user_state in user_state_iterator:
+            choice = user_state.state['choice']  # {u'submissions_count': 1, u'choice': u'R'}
+            report = {
+                self.ugettext("Question"): self.question,
+                self.ugettext("Answer ID"): choice,
+                self.ugettext("Answer"): answers_dict[choice]['label'],
+            }
+            yield (user_state.username, report)
+
 
 @XBlock.wants('settings')
 @XBlock.needs('i18n')
@@ -1236,3 +1265,38 @@ class SurveyBlock(PollBase, CSVExportMixin):
                         row.append(answers_dict[choice])
                 data[sm.student.id] = row
         return [header_row + questions] + data.values()
+
+    def generate_report_data(self, user_state_iterator, limit_responses=None):
+        """
+        Return a list of student responses to this block in a readable way.
+
+        Arguments:
+            user_state_iterator: iterator over UserStateClient objects.
+                E.g. the result of user_state_client.iter_all_for_block(block_key)
+
+            limit_responses (int|None): maximum number of responses to include.
+                Set to None (default) to include all.
+
+        Returns:
+            each call returns a tuple like:
+            ("username", {
+                           "Question ID": "fun"
+                           "Question": "Are you having fun?"
+                           "Answer": "Yes",
+                           "Answer ID": "1545204793464"
+            })
+        """
+        answers_dict = dict(self.answers)
+        questions_dict = dict(self.questions)
+        for user_state in user_state_iterator:
+            choices = user_state.state['choices']  # {u'enjoy': u'Y', u'recommend': u'N', u'learn': u'M'}
+            for q, a in choices.items():
+                question = questions_dict[q]['label']
+                answer = answers_dict[a]
+                report = {
+                    self.ugettext("Question ID"): q,
+                    self.ugettext("Question"): question,
+                    self.ugettext("Answer ID"): a,
+                    self.ugettext("Answer"): answer
+                }
+                yield (user_state.username, report)
