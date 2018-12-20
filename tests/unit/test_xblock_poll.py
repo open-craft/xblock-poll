@@ -2,6 +2,7 @@ import unittest
 import json
 
 from xblock.field_data import DictFieldData
+from mock import Mock
 
 from poll.poll import PollBlock, SurveyBlock
 from ..utils import MockRuntime, make_request
@@ -68,6 +69,43 @@ class TestPollBlock(unittest.TestCase):
             u'tally': {'R': 0, 'B': 0, 'G': 0, 'O': 0},
         }
         self.assertEqual(response, expected_response)
+
+    @classmethod
+    def mock_user_states(cls):
+        return (
+            Mock(username='edx', state={'submissions_count': 1, 'choice': 'R'}),
+            Mock(username='verified', state={'submissions_count': 1, 'choice': 'G'}),
+            Mock(username='staff', state={'submissions_count': 1, 'choice': 'B'}),
+            Mock(username='honor', state={'submissions_count': 1, 'choice': 'O'}),
+        )
+
+    def test_generate_report_data_dont_limit_responses(self):
+        """
+        Test generate_report_data iterator with no limit.
+        """
+        user_states = self.mock_user_states()
+        report_data = self.poll_block.generate_report_data(user_states)
+        report_data = list(report_data)
+        self.assertEqual(len(report_data), 4)
+        self.assertEqual(report_data[0],
+                         ('edx', {'Question': self.poll_block.question,
+                                  'Answer ID': 'R',
+                                  'Answer': 'Red',
+                                  'Submissions count': 1}))
+
+    def test_generate_report_data_limit_responses(self):
+        """
+        Test generate_report_data iterator with limit.
+        """
+        user_states = self.mock_user_states()
+        report_data = self.poll_block.generate_report_data(user_states, limit_responses=2)
+        report_data = list(report_data)
+        self.assertEqual(len(report_data), 2)
+        self.assertEqual(report_data[0],
+                         ('edx', {'Question': self.poll_block.question,
+                                  'Answer ID': 'R',
+                                  'Answer': 'Red',
+                                  'Submissions count': 1}))
 
 
 class TestSurveyBlock(unittest.TestCase):
@@ -140,3 +178,69 @@ class TestSurveyBlock(unittest.TestCase):
             },
         }
         self.assertEqual(response, expected_response)
+
+    @classmethod
+    def mock_user_states(cls):
+        return (
+            Mock(
+                username='edx',
+                state={
+                    'submissions_count': 1,
+                    'choices': {'enjoy': 'Y', 'recommend': 'N', 'learn': 'M'}
+                }
+            ),
+            Mock(
+                username='verified',
+                state={
+                    'submissions_count': 1,
+                    'choices': {'enjoy': 'M', 'recommend': 'N', 'learn': 'Y'}
+                }
+            ),
+            Mock(
+                username='staff',
+                state={
+                    'submissions_count': 1,
+                    'choices': {'enjoy': 'N', 'recommend': 'N', 'learn': 'N'}
+                }
+            ),
+            Mock(
+                username='honor',
+                state={
+                    'submissions_count': 1,
+                    'choices': {'enjoy': 'Y', 'recommend': 'N', 'learn': 'M'}
+                }
+            ),
+        )
+
+    def test_generate_report_data_dont_limit_responses(self):
+        """
+        Test generate_report_data iterator with no limit.
+        """
+        user_states = self.mock_user_states()
+        report_data = self.survey_block.generate_report_data(user_states)
+        report_data = list(report_data)
+        self.assertEqual(len(report_data), 12)
+        # each choice of a user gets its own row
+        # so the first three rows should be edx's choices
+        self.assertEqual(['edx', 'edx', 'edx'],
+                         [username for username, _ in report_data[:3]])
+        self.assertEqual(
+            set(['Y', 'N', 'M']),
+            set([data['Answer ID'] for _, data in report_data[:3]])
+        )
+
+    def test_generate_report_data_limit_responses(self):
+        """
+        Test generate_report_data iterator with limit.
+        """
+        user_states = self.mock_user_states()
+        report_data = self.survey_block.generate_report_data(user_states, limit_responses=2)
+        report_data = list(report_data)
+        self.assertEqual(len(report_data), 2)
+        # each choice of a user gets its own row
+        # so the first two rows should be edx's choices
+        self.assertEqual(['edx', 'edx'],
+                         [username for username, _ in report_data[:3]])
+        self.assertTrue(
+            set([data['Answer ID'] for _, data in report_data[:3]]) <= set(['Y', 'N', 'M'])
+        )

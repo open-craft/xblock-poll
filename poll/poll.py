@@ -1304,7 +1304,8 @@ class SurveyBlock(PollBase, CSVExportMixin):
         questions_dict = dict(self.questions)
         count = 0
         for user_state in user_state_iterator:
-            choices = user_state.state['choices']  # {'submissions_count': 1, 'choices': {u'enjoy': u'Y', u'recommend': u'N', u'learn': u'M'}}
+            # user_state.state={'submissions_count': 1, 'choices': {u'enjoy': u'Y', u'recommend': u'N', u'learn': u'M'}}
+            choices = user_state.state['choices']
             for q, a in choices.items():
 
                 if limit_responses and count >= limit_responses:
