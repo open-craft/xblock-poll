@@ -5,18 +5,18 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: poll/public/handlebars/poll_results.handlebars
 #: poll/public/handlebars/survey_results.handlebars
+#: poll/public/handlebars/poll_results.handlebars
 msgid "Results"
 msgstr "Résülts Ⱡ'σяєм ιρѕυм #"
 
-#: poll/public/handlebars/poll_results.handlebars
 #: poll/public/handlebars/survey_results.handlebars
+#: poll/public/handlebars/poll_results.handlebars
 msgid "Submit"
 msgstr "Süßmït Ⱡ'σяєм ιρѕυ#"
 
-#: poll/public/handlebars/poll_results.handlebars
 #: poll/public/handlebars/survey_results.handlebars
+#: poll/public/handlebars/poll_results.handlebars
 msgid "Results gathered from {total} respondent."
 msgid_plural "Results gathered from {total} respondents."
 msgstr[0] ""
@@ -26,8 +26,8 @@ msgstr[1] ""
 "Résülts gäthéréd fröm {total} réspöndénts. Ⱡ'σяєм ιρѕυм ∂σłσя ѕιт αмєт, "
 "¢σηѕє¢тєтυя#"
 
-#: poll/public/handlebars/poll_results.handlebars
 #: poll/public/handlebars/survey_results.handlebars
+#: poll/public/handlebars/poll_results.handlebars
 msgid "Feedback"
 msgstr "Féédßäçk Ⱡ'σяєм ιρѕυм ∂#"
 
