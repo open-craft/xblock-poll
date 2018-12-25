@@ -89,7 +89,6 @@ class TestPollBlock(unittest.TestCase):
         self.assertEqual(len(report_data), 4)
         self.assertEqual(report_data[0],
                          ('edx', {'Question': self.poll_block.question,
-                                  'Answer ID': 'R',
                                   'Answer': 'Red',
                                   'Submissions count': 1}))
 
@@ -103,9 +102,12 @@ class TestPollBlock(unittest.TestCase):
         self.assertEqual(len(report_data), 2)
         self.assertEqual(report_data[0],
                          ('edx', {'Question': self.poll_block.question,
-                                  'Answer ID': 'R',
                                   'Answer': 'Red',
                                   'Submissions count': 1}))
+
+        report_data = self.poll_block.generate_report_data(user_states, limit_responses=0)
+        report_data = list(report_data)
+        self.assertEqual(len(report_data), 0)
 
 
 class TestSurveyBlock(unittest.TestCase):
@@ -222,11 +224,11 @@ class TestSurveyBlock(unittest.TestCase):
         self.assertEqual(len(report_data), 12)
         # each choice of a user gets its own row
         # so the first three rows should be edx's choices
-        self.assertEqual(['edx', 'edx', 'edx'],
-                         [username for username, _ in report_data[:3]])
+        self.assertEqual(['edx', 'edx', 'edx', 'verified'],
+                         [username for username, _ in report_data[:4]])
         self.assertEqual(
-            set(['Y', 'N', 'M']),
-            set([data['Answer ID'] for _, data in report_data[:3]])
+            set(['Yes', 'No', 'Maybe']),
+            set([data['Answer'] for _, data in report_data[:4]])
         )
 
     def test_generate_report_data_limit_responses(self):
@@ -240,7 +242,11 @@ class TestSurveyBlock(unittest.TestCase):
         # each choice of a user gets its own row
         # so the first two rows should be edx's choices
         self.assertEqual(['edx', 'edx'],
-                         [username for username, _ in report_data[:3]])
+                         [username for username, _ in report_data])
         self.assertTrue(
-            set([data['Answer ID'] for _, data in report_data[:3]]) <= set(['Y', 'N', 'M'])
+            set([data['Answer'] for _, data in report_data[:3]]) <= set(['Yes', 'No', 'Maybe'])
         )
+
+        report_data = self.survey_block.generate_report_data(user_states, limit_responses=0)
+        report_data = list(report_data)
+        self.assertEqual(len(report_data), 0)

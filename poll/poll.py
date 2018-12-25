@@ -800,24 +800,20 @@ class PollBlock(PollBase, CSVExportMixin):
             ("username", {
                            "Question": "What's your favorite color?"
                            "Answer": "Red",
-                           "Answer ID": "R"
+                           "Submissions count": 1
             })
         """
-        if limit_responses == 0:
-            return
-
         count = 0
         answers_dict = dict(self.answers)
         for user_state in user_state_iterator:
 
-            if limit_responses and count >= limit_responses:
+            if limit_responses is not None and count >= limit_responses:
                 # End the iterator here
                 return
 
             choice = user_state.state['choice']  # {u'submissions_count': 1, u'choice': u'R'}
             report = {
                 self.ugettext('Question'): self.question,
-                self.ugettext('Answer ID'): choice,
                 self.ugettext('Answer'): answers_dict[choice]['label'],
                 self.ugettext('Submissions count'): user_state.state['submissions_count']
             }
@@ -1291,33 +1287,27 @@ class SurveyBlock(PollBase, CSVExportMixin):
         Returns:
             each call returns a tuple like:
             ("username", {
-                           "Question ID": "fun"
                            "Question": "Are you having fun?"
                            "Answer": "Yes",
-                           "Answer ID": "1545204793464"
+                           "Submissions count": 1
             })
         """
-        if limit_responses == 0:
-            return
-
         answers_dict = dict(self.answers)
         questions_dict = dict(self.questions)
         count = 0
         for user_state in user_state_iterator:
             # user_state.state={'submissions_count': 1, 'choices': {u'enjoy': u'Y', u'recommend': u'N', u'learn': u'M'}}
             choices = user_state.state['choices']
-            for q, a in choices.items():
+            for question_id, answer_id in choices.items():
 
-                if limit_responses and count >= limit_responses:
+                if limit_responses is not None and count >= limit_responses:
                     # End the iterator here
                     return
 
-                question = questions_dict[q]['label']
-                answer = answers_dict[a]
+                question = questions_dict[question_id]['label']
+                answer = answers_dict[answer_id]
                 report = {
-                    self.ugettext('Question ID'): q,
                     self.ugettext('Question'): question,
-                    self.ugettext('Answer ID'): a,
                     self.ugettext('Answer'): answer,
                     self.ugettext('Submissions count'): user_state.state['submissions_count']
                 }
