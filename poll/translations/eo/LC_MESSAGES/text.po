@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-12-21 02:45+0000\n"
+"POT-Creation-Date: 2018-12-25 21:42+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -206,10 +206,6 @@ msgid "Question"
 msgstr "Qüéstïön Ⱡ'σяєм ιρѕυм ∂#"
 
 #: poll/poll.py poll/poll.py
-msgid "Answer ID"
-msgstr "Ànswér ÌD Ⱡ'σяєм ιρѕυм ∂σł#"
-
-#: poll/poll.py poll/poll.py
 msgid "Submissions count"
 msgstr "Süßmïssïöns çöünt Ⱡ'σяєм ιρѕυм ∂σłσя ѕιт αмє#"
 
@@ -274,10 +270,6 @@ msgid "Found unknown answer '{answer_key}' for question key '{question_key}'"
 msgstr ""
 "Föünd ünknöwn änswér '{answer_key}' för qüéstïön kéý '{question_key}' Ⱡ'σяєм"
 " ιρѕυм ∂σłσя ѕιт αмєт, ¢σηѕє¢тєтυя α#"
-
-#: poll/poll.py
-msgid "Question ID"
-msgstr "Qüéstïön ÌD Ⱡ'σяєм ιρѕυм ∂σłσя #"
 
 #: poll/public/html/poll.html poll/public/html/survey.html
 msgid "Submit"
