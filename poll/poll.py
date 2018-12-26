@@ -784,6 +784,42 @@ class PollBlock(PollBase, CSVExportMixin):
                 ]
         return [header_row] + data.values()
 
+    def generate_report_data(self, user_state_iterator, limit_responses=None):
+        """
+        Return a list of student responses to this block in a readable way.
+
+        Arguments:
+            user_state_iterator: iterator over UserStateClient objects.
+                E.g. the result of user_state_client.iter_all_for_block(block_key)
+
+            limit_responses (int|None): maximum number of responses to include.
+                Set to None (default) to include all.
+
+        Returns:
+            each call returns a tuple like:
+            ("username", {
+                           "Question": "What's your favorite color?"
+                           "Answer": "Red",
+                           "Submissions count": 1
+            })
+        """
+        count = 0
+        answers_dict = dict(self.answers)
+        for user_state in user_state_iterator:
+
+            if limit_responses is not None and count >= limit_responses:
+                # End the iterator here
+                return
+
+            choice = user_state.state['choice']  # {u'submissions_count': 1, u'choice': u'R'}
+            report = {
+                self.ugettext('Question'): self.question,
+                self.ugettext('Answer'): answers_dict[choice]['label'],
+                self.ugettext('Submissions count'): user_state.state['submissions_count']
+            }
+            count += 1
+            yield (user_state.username, report)
+
 
 @XBlock.wants('settings')
 @XBlock.needs('i18n')
@@ -1236,3 +1272,44 @@ class SurveyBlock(PollBase, CSVExportMixin):
                         row.append(answers_dict[choice])
                 data[sm.student.id] = row
         return [header_row + questions] + data.values()
+
+    def generate_report_data(self, user_state_iterator, limit_responses=None):
+        """
+        Return a list of student responses to this block in a readable way.
+
+        Arguments:
+            user_state_iterator: iterator over UserStateClient objects.
+                E.g. the result of user_state_client.iter_all_for_block(block_key)
+
+            limit_responses (int|None): maximum number of responses to include.
+                Set to None (default) to include all.
+
+        Returns:
+            each call returns a tuple like:
+            ("username", {
+                           "Question": "Are you having fun?"
+                           "Answer": "Yes",
+                           "Submissions count": 1
+            })
+        """
+        answers_dict = dict(self.answers)
+        questions_dict = dict(self.questions)
+        count = 0
+        for user_state in user_state_iterator:
+            # user_state.state={'submissions_count': 1, 'choices': {u'enjoy': u'Y', u'recommend': u'N', u'learn': u'M'}}
+            choices = user_state.state['choices']
+            for question_id, answer_id in choices.items():
+
+                if limit_responses is not None and count >= limit_responses:
+                    # End the iterator here
+                    return
+
+                question = questions_dict[question_id]['label']
+                answer = answers_dict[answer_id]
+                report = {
+                    self.ugettext('Question'): question,
+                    self.ugettext('Answer'): answer,
+                    self.ugettext('Submissions count'): user_state.state['submissions_count']
+                }
+                count += 1
+                yield (user_state.username, report)
