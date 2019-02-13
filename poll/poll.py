@@ -511,7 +511,6 @@ class PollBlock(PollBase, CSVExportMixin):
             except ZeroDivisionError:
                 answer['percent'] = 0
 
-        tally.sort(key=lambda x: x['count'], reverse=True)
         # This should always be true, but on the off chance there are
         # no answers...
         if tally:
