@@ -1298,7 +1298,7 @@ class SurveyBlock(PollBase, CSVExportMixin):
         count = 0
         for user_state in user_state_iterator:
             # user_state.state={'submissions_count': 1, 'choices': {u'enjoy': u'Y', u'recommend': u'N', u'learn': u'M'}}
-            choices = user_state.state.get('choices', {})
+            choices = user_state.state.get('choices') or {}
             for question_id, answer_id in choices.items():
 
                 if limit_responses is not None and count >= limit_responses:

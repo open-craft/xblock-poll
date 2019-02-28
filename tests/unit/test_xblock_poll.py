@@ -78,6 +78,7 @@ class TestPollBlock(unittest.TestCase):
             Mock(username='staff', state={'submissions_count': 1, 'choice': 'B'}),
             Mock(username='honor', state={'submissions_count': 1, 'choice': 'O'}),
             Mock(username='audit', state={'submissions_count': 1}),
+            Mock(username='student', state={'submissions_count': 1, 'choice': None}),
         )
 
     def test_generate_report_data_dont_limit_responses(self):
@@ -93,6 +94,7 @@ class TestPollBlock(unittest.TestCase):
                                   'Answer': 'Red',
                                   'Submissions count': 1}))
         self.assertNotIn('audit', [username for username, _ in report_data])
+        self.assertNotIn('student', [username for username, _ in report_data])
 
     def test_generate_report_data_limit_responses(self):
         """
@@ -220,6 +222,13 @@ class TestSurveyBlock(unittest.TestCase):
                     'submissions_count': 1,
                 }
             ),
+            Mock(
+                username='student',
+                state={
+                    'submissions_count': 1,
+                    'choices': None,
+                }
+            ),
         )
 
     def test_generate_report_data_dont_limit_responses(self):
@@ -239,6 +248,7 @@ class TestSurveyBlock(unittest.TestCase):
             set([data['Answer'] for _, data in report_data[:4]])
         )
         self.assertNotIn('audit', [username for username, _ in report_data])
+        self.assertNotIn('student', [username for username, _ in report_data])
 
     def test_generate_report_data_limit_responses(self):
         """
