@@ -212,6 +212,12 @@ class TestSurveyBlock(unittest.TestCase):
                     'choices': {'enjoy': 'Y', 'recommend': 'N', 'learn': 'M'}
                 }
             ),
+            Mock(
+                username='audit',
+                state={
+                    'submissions_count': 1,
+                }
+            ),
         )
 
     def test_generate_report_data_dont_limit_responses(self):
