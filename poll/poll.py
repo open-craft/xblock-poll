@@ -810,7 +810,9 @@ class PollBlock(PollBase, CSVExportMixin):
                 # End the iterator here
                 return
 
-            choice = user_state.state['choice']  # {u'submissions_count': 1, u'choice': u'R'}
+            choice = user_state.state.get('choice')  # {u'submissions_count': 1, u'choice': u'R'}
+            if choice is None:
+                continue
             report = {
                 self.ugettext('Question'): self.question,
                 self.ugettext('Answer'): answers_dict[choice]['label'],
