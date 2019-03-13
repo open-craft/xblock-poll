@@ -511,9 +511,10 @@ class PollBlock(PollBase, CSVExportMixin):
                 answer['choice'] = True
             try:
                 answer['percent'] = round(answer['count'] / float(total) * 100)
-                answer['leader'] = answer['count'] == highest_count
             except ZeroDivisionError:
                 answer['percent'] = 0
+
+            answer['leader'] = answer['count'] == highest_count
 
         # This should always be true, but on the off chance there are
         # no answers...
