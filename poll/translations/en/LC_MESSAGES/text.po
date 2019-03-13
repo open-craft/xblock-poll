@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-03-13 22:10+0000\n"
+"POT-Creation-Date: 2019-03-13 23:02+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -90,7 +90,7 @@ msgstr ""
 msgid "Private results may not be False when Maximum Submissions is not 1."
 msgstr ""
 
-#: poll/poll.py:446 poll/poll.py:837
+#: poll/poll.py:446 poll/poll.py:838
 msgid "Poll"
 msgstr ""
 
@@ -118,7 +118,7 @@ msgstr ""
 msgid "The answer options on this poll."
 msgstr ""
 
-#: poll/poll.py:461 poll/poll.py:863
+#: poll/poll.py:461 poll/poll.py:864
 msgid "Total tally of answers from students."
 msgstr ""
 
@@ -126,81 +126,81 @@ msgstr ""
 msgid "The student's answer"
 msgstr ""
 
-#: poll/poll.py:669 poll/poll.py:1142
+#: poll/poll.py:670 poll/poll.py:1143
 msgid "You have already voted in this poll."
 msgstr ""
 
-#: poll/poll.py:674
+#: poll/poll.py:675
 msgid "Answer not included with request."
 msgstr ""
 
 #. Translators: {choice} uniquely identifies a specific answer belonging to a poll or survey.
-#: poll/poll.py:683
+#: poll/poll.py:684
 #, python-brace-format
 msgid "No key \"{choice}\" in answers table."
 msgstr ""
 
-#: poll/poll.py:692 poll/poll.py:1150
+#: poll/poll.py:693 poll/poll.py:1151
 msgid "You have already voted as many times as you are allowed."
 msgstr ""
 
-#: poll/poll.py:722
+#: poll/poll.py:723
 msgid "You must specify a question."
 msgstr ""
 
-#: poll/poll.py:725 poll/poll.py:822 poll/poll.py:1204 poll/poll.py:1316
+#: poll/poll.py:726 poll/poll.py:823 poll/poll.py:1205 poll/poll.py:1317
 msgid "Answer"
 msgstr ""
 
-#: poll/poll.py:821 poll/poll.py:1205 poll/poll.py:1315
+#: poll/poll.py:822 poll/poll.py:1206 poll/poll.py:1316
 msgid "Question"
 msgstr ""
 
-#: poll/poll.py:823 poll/poll.py:1317
+#: poll/poll.py:824 poll/poll.py:1318
 msgid "Submissions count"
 msgstr ""
 
-#: poll/poll.py:834
+#: poll/poll.py:835
 msgid "Survey"
 msgstr ""
 
-#: poll/poll.py:840
+#: poll/poll.py:841
 msgid "Yes"
 msgstr ""
 
-#: poll/poll.py:841
+#: poll/poll.py:842
 msgid "No"
 msgstr ""
 
-#: poll/poll.py:842
+#: poll/poll.py:843
 msgid "Maybe"
 msgstr ""
 
-#: poll/poll.py:844
+#: poll/poll.py:845
 msgid "Answer choices for this Survey"
 msgstr ""
 
-#: poll/poll.py:848
+#: poll/poll.py:849
 msgid "Are you enjoying the course?"
 msgstr ""
 
-#: poll/poll.py:850
+#: poll/poll.py:851
 msgid "Would you recommend this course to your friends?"
 msgstr ""
 
-#: poll/poll.py:854
+#: poll/poll.py:855
 msgid "Do you think you will learn a lot?"
 msgstr ""
 
-#: poll/poll.py:856
+#: poll/poll.py:857
 msgid "Questions for this Survey"
 msgstr ""
 
-#: poll/poll.py:865
+#: poll/poll.py:866
 msgid "The user's answers"
 msgstr ""
 
-#: poll/poll.py:1158
+#: poll/poll.py:1159
 msgid ""
 "Not all questions were included, or unknown questions were included. Try "
 "refreshing and trying again."
@@ -208,7 +208,7 @@ msgstr ""
 
 #. Translators: {answer_key} uniquely identifies a specific answer belonging to a poll or survey.
 #. {question_key} uniquely identifies a specific question belonging to a poll or survey.
-#: poll/poll.py:1171
+#: poll/poll.py:1172
 #, python-brace-format
 msgid "Found unknown answer '{answer_key}' for question key '{question_key}'"
 msgstr ""
