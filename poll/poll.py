@@ -489,8 +489,11 @@ class PollBlock(PollBase, CSVExportMixin):
         total = 0
         self.clean_tally()
         source_tally = self.tally
+        highest_count = None
         for key, value in answers.items():
             count = int(source_tally[key])
+            if highest_count is None or count > highest_count:
+                highest_count = count
             tally.append({
                 'count': count,
                 'answer': value['label'],
@@ -510,6 +513,8 @@ class PollBlock(PollBase, CSVExportMixin):
                 answer['percent'] = round(answer['count'] / float(total) * 100)
             except ZeroDivisionError:
                 answer['percent'] = 0
+
+            answer['leader'] = answer['count'] == highest_count
 
         # This should always be true, but on the off chance there are
         # no answers...
