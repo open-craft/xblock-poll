@@ -218,7 +218,7 @@ class PollBase(XBlock, ResourceMixin, PublishEventMixin):
     Base class for Poll-like XBlocks.
     """
     completion_mode = XBlockCompletionMode.COMPLETABLE
-    has_custom_completion = True  # manually submits progress event in send_vote_event
+    has_custom_completion = True  # manually submits completion event in send_vote_event
 
     has_author_view = True
 
@@ -232,7 +232,7 @@ class PollBase(XBlock, ResourceMixin, PublishEventMixin):
 
     def send_vote_event(self, choice_data):
         # Let the LMS know the user has answered the poll.
-        self.runtime.publish(self, 'progress', {})
+        self.runtime.publish(self, 'completion', {'completion': 1.0})
         # The SDK doesn't set url_name.
         event_dict = {'url_name': getattr(self, 'url_name', '')}
         event_dict.update(choice_data)
