@@ -29,7 +29,7 @@
                         {% with answer_count=forloop.counter %}
                             {% for answer, label in answers %}
                                 {% if forloop.counter == answer_count %}
-                                <label for="{{block_id}}-{{key}}-{{answer_count}}">
+                                    <label for="{{block_id}}-{{key}}-{{answer_count}}">
                                         <input type="radio"
                                                name="{{key}}"
                                                id="{{block_id}}-{{key}}-{{forloop.counter}}"
