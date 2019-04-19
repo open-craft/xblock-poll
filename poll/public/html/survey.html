@@ -29,10 +29,10 @@
                         {% with answer_count=forloop.counter %}
                             {% for answer, label in answers %}
                                 {% if forloop.counter == answer_count %}
-                                    <label for="{{key}}-{{answer_count}}">
+                                <label for="{{block_id}}-{{key}}-{{answer_count}}">
                                         <input type="radio"
                                                name="{{key}}"
-                                               id="{{key}}-{{forloop.counter}}"
+                                               id="{{block_id}}-{{key}}-{{forloop.counter}}"
                                                value="{{answer}}"{% if question.choice == answer %} checked{% endif %}
                                                {% if question.img_alt %}
                                                aria-label="{{question.img_alt}} {{label}}"
