@@ -1251,7 +1251,22 @@ class SurveyBlock(PollBase, CSVExportMixin):
                  answers='[["sa", "Strongly Agree"], ["a", "Agree"], ["n", "Neutral"],
                            ["d", "Disagree"], ["sd", "Strongly Disagree"]]'
                  feedback="### Thank you&#10;&#10;for running the tests."/>
-             """)
+             """),
+            ("Survey Multiple",
+             """
+             <vertical_demo>
+                 <survey tally='{"q1": {"sa": 5, "a": 5, "n": 3, "d": 2, "sd": 5}}'
+                     questions='[["q1", {"label": "I feel like this test will pass.", "img": null, "img_alt": null}]]'
+                     answers='[["sa", "Strongly Agree"], ["a", "Agree"], ["n", "Neutral"],
+                               ["d", "Disagree"], ["sd", "Strongly Disagree"]]'
+                     feedback="### Thank you&#10;&#10;for running the tests."/>
+                 <survey tally='{"q1": {"sa": 5, "a": 5, "n": 3, "d": 2, "sd": 5}}'
+                     questions='[["q1", {"label": "Most likely to win the World Cup.", "img": null, "img_alt": null}]]'
+                     answers='[["sa", "South Africa"], ["a", "Angola"], ["n", "Netherlands"],
+                               ["d", "Deutschland"], ["sd", "Someone different"]]'
+                     feedback="### Thank you&#10;&#10;for running the tests."/>
+             </vertical_demo>
+             """),
         ]
 
     def get_filename(self):
