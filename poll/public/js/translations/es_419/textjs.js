@@ -18,7 +18,7 @@
   django.catalog = {
     "Answer": "Respuesta", 
     "Delete": "Eliminar", 
-    "Feedback": "Comentarios",
+    "Feedback": "Comentarios", 
     "Image URL": "URL de la imagen", 
     "Image alternative text": "Texto alternativo de la imagen", 
     "Question": "Pregunta", 
