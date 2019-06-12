@@ -14,6 +14,7 @@ locales:
     - ru  # Russian
     - zh_CN  # Chinese (China)
     - de_DE  # German
+    - pl # Polish
 
 # The locales used for fake-accented English, for testing.
 dummy_locales:
