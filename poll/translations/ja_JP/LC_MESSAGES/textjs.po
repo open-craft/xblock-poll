@@ -1,5 +1,18 @@
+# Translators:
+# わたカフェの店長, 2018
+# h_yoshida <h_yoshida@matsumo-sys.com>, 2018
+# Toshiboumi Ohta <ohta@securesky-tech.com>, 2018
+# Kyoto University <edxkyotoux@gmail.com>, 2018
+# 藤田 忠光 <tadamitsu.fujita@gmail.com>, 2018
+# Machida Miki <mikimachida711@gmail.com>, 2018
+# 
 msgid ""
-msgstr "Content-Type: text/plain; charset=utf-8\n"
+msgstr ""
+"Last-Translator: Machida Miki <mikimachida711@gmail.com>, 2018\n"
+"Language-Team: Japanese (Japan) (https://www.transifex.com/open-edx/teams/6205/ja_JP/)\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Language: ja_JP\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
 
 #: poll/public/handlebars/poll_results.handlebars:5
 #: poll/public/handlebars/survey_results.handlebars:4
@@ -15,8 +28,7 @@ msgstr "提出"
 #: poll/public/handlebars/survey_results.handlebars:41
 msgid "Results gathered from {total} respondent."
 msgid_plural "Results gathered from {total} respondents."
-msgstr[0] "回答者{total}人から収集した結果。"
-msgstr[1] "回答者{total}人から収集した結果。"
+msgstr[0] "回答者からの{合計}結果を集計しました。"
 
 #: poll/public/handlebars/poll_results.handlebars:37
 #: poll/public/handlebars/survey_results.handlebars:46
@@ -25,11 +37,11 @@ msgstr "フィードバック"
 
 #: poll/public/handlebars/poll_studio.handlebars:6
 msgid "move poll up"
-msgstr "投票総数を上げる"
+msgstr "投票を上に移動"
 
 #: poll/public/handlebars/poll_studio.handlebars:7
 msgid "move poll down"
-msgstr "投票総数を下げる"
+msgstr "投票を下に移動"
 
 #: poll/public/handlebars/poll_studio.handlebars:9
 msgid "Delete"
@@ -37,7 +49,7 @@ msgstr "削除"
 
 #: poll/public/handlebars/poll_studio.handlebars:11
 msgid "Answer"
-msgstr "回答"
+msgstr "解答"
 
 #: poll/public/handlebars/poll_studio.handlebars:12
 msgid "Question"
@@ -55,12 +67,13 @@ msgstr "画像代替テキスト"
 msgid ""
 "You can make limited use of Markdown in answer texts, preferably only bold "
 "and italics."
-msgstr "回答テキストでマークダウンを限定的に使用できます。ただし、できれば太字とイタリック体のみの使用とします。"
+msgstr "回答テキストではマークダウンを限定的に使用できますが、太字と斜体のみをお勧めします。"
 
 #: poll/public/handlebars/poll_studio.handlebars:27
 msgid ""
 "This must have an image URL or text, and can have both.  If you add an "
-"image, you must also provide an alternative text that describes the image "
-"in a way that would allow someone to answer the poll if the image did not "
+"image, you must also provide an alternative text that describes the image in"
+" a way that would allow someone to answer the poll if the image did not "
 "load."
-msgstr "ここには、画像URLまたはテキスト、あるいはその両方を入力します。画像を追加した場合は、画像が読み込めなかった場合でも回答者が投票調査で回答できるように、画像を説明する代替テキストも入力しなければなりません。"
+msgstr ""
+"これには画像URLまたはテキストが必要となりますが、両方指定できます。画像を追加する場合は、画像が読み込まれなかった場合に、画像を説明する代替テキストを指定し、投票に回答できるようにする必要もあります。"
