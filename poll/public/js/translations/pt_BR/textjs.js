@@ -17,22 +17,22 @@
   django.catalog = django.catalog || {};
   
   var newcatalog = {
-    "Answer": "R\u00e9ponse", 
-    "Delete": "Supprimer", 
-    "Feedback": "Commentaire", 
-    "Image URL": "URL de l\u2019image", 
-    "Image alternative text": "Texte alternatif de l'image", 
-    "Question": "Question", 
-    "Results": "R\u00e9sultats", 
+    "Answer": "Resposta", 
+    "Delete": "Excluir", 
+    "Feedback": "Coment\u00e1rios", 
+    "Image URL": "URL da imagem", 
+    "Image alternative text": "Texto alternativo da imagem", 
+    "Question": "Pergunta", 
+    "Results": "Resultados", 
     "Results gathered from {total} respondent.": [
-      "R\u00e9sultats recueillis de {total} personne interrog\u00e9e.", 
-      "R\u00e9sultats recueillis de {total} personnes interrog\u00e9es."
+      "Resultados coletados de {total} respondente.", 
+      "Resultados coletados de {total} respondentes."
     ], 
-    "Submit": "Envoyer", 
-    "This must have an image URL or text, and can have both.  If you add an image, you must also provide an alternative text that describes the image in a way that would allow someone to answer the poll if the image did not load.": "Ceci doit contenir une URL d'image ou un texte, et peut contenir les deux. Si vous ajoutez une image, vous devez aussi fournir un texte alternatif qui d\u00e9crit l'image d'une mani\u00e8re qui permettrait \u00e0 tout le monde de r\u00e9pondre au sondage si l'image ne se t\u00e9l\u00e9charger pas.", 
-    "You can make limited use of Markdown in answer texts, preferably only bold and italics.": "Vous pouvez faire un usage limit\u00e9 de Markdown dans les textes des r\u00e9ponses, de pr\u00e9f\u00e9rence uniquement en gras et en italique.", 
-    "move poll down": "Faire descendre le sondage", 
-    "move poll up": "Faire remonter le sondage"
+    "Submit": "Enviar", 
+    "This must have an image URL or text, and can have both.  If you add an image, you must also provide an alternative text that describes the image in a way that would allow someone to answer the poll if the image did not load.": "Deve ter um URL ou texto de imagem, podendo ter ambos. Se voc\u00ea adicionar uma imagem, tamb\u00e9m dever\u00e1 fornecer um texto alternativo que descreva a imagem de forma que a pessoa consiga responder \u00e0 pesquisa se a imagem n\u00e3o for carregada.", 
+    "You can make limited use of Markdown in answer texts, preferably only bold and italics.": "Voc\u00ea pode fazer uso limitado de Markdown em textos de resposta, de prefer\u00eancia apenas negrito e it\u00e1lico.", 
+    "move poll down": "mover pesquisa para baixo", 
+    "move poll up": "mover pesquisa para cima"
   };
   for (var key in newcatalog) {
     django.catalog[key] = newcatalog[key];
@@ -88,43 +88,41 @@
     /* formatting library */
 
     django.formats = {
-    "DATETIME_FORMAT": "j F Y H:i", 
+    "DATETIME_FORMAT": "j \\d\\e F \\d\\e Y \u00e0\\s H:i", 
     "DATETIME_INPUT_FORMATS": [
       "%d/%m/%Y %H:%M:%S", 
       "%d/%m/%Y %H:%M:%S.%f", 
       "%d/%m/%Y %H:%M", 
       "%d/%m/%Y", 
-      "%d.%m.%Y %H:%M:%S", 
-      "%d.%m.%Y %H:%M:%S.%f", 
-      "%d.%m.%Y %H:%M", 
-      "%d.%m.%Y", 
+      "%d/%m/%y %H:%M:%S", 
+      "%d/%m/%y %H:%M:%S.%f", 
+      "%d/%m/%y %H:%M", 
+      "%d/%m/%y", 
       "%Y-%m-%d %H:%M:%S", 
       "%Y-%m-%d %H:%M:%S.%f", 
       "%Y-%m-%d %H:%M", 
       "%Y-%m-%d"
     ], 
-    "DATE_FORMAT": "j F Y", 
+    "DATE_FORMAT": "j \\d\\e F \\d\\e Y", 
     "DATE_INPUT_FORMATS": [
       "%d/%m/%Y", 
       "%d/%m/%y", 
-      "%d.%m.%Y", 
-      "%d.%m.%y", 
       "%Y-%m-%d"
     ], 
     "DECIMAL_SEPARATOR": ",", 
-    "FIRST_DAY_OF_WEEK": "1", 
-    "MONTH_DAY_FORMAT": "j F", 
+    "FIRST_DAY_OF_WEEK": "0", 
+    "MONTH_DAY_FORMAT": "j \\d\\e F", 
     "NUMBER_GROUPING": "3", 
-    "SHORT_DATETIME_FORMAT": "j N Y H:i", 
-    "SHORT_DATE_FORMAT": "j N Y", 
-    "THOUSAND_SEPARATOR": "\u00a0", 
+    "SHORT_DATETIME_FORMAT": "d/m/Y H:i", 
+    "SHORT_DATE_FORMAT": "d/m/Y", 
+    "THOUSAND_SEPARATOR": ".", 
     "TIME_FORMAT": "H:i", 
     "TIME_INPUT_FORMATS": [
       "%H:%M:%S", 
       "%H:%M:%S.%f", 
       "%H:%M"
     ], 
-    "YEAR_MONTH_FORMAT": "F Y"
+    "YEAR_MONTH_FORMAT": "F \\d\\e Y"
   };
 
     django.get_format = function(format_type) {
