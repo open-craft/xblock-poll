@@ -9,7 +9,14 @@
   var django = globals.django || (globals.django = {});
 
   
-  django.pluralidx = function(count) { return (count == 1) ? 0 : 1; };
+  django.pluralidx = function(n) {
+    var v=(n > 1);
+    if (typeof(v) == 'boolean') {
+      return v ? 1 : 0;
+    } else {
+      return v;
+    }
+  };
   
 
   /* gettext library */
@@ -20,19 +27,19 @@
     "Answer": "R\u00e9ponse", 
     "Delete": "Supprimer", 
     "Feedback": "Commentaire", 
-    "Image URL": "URL de l\u2019image", 
+    "Image URL": "URL de l'image", 
     "Image alternative text": "Texte alternatif de l'image", 
     "Question": "Question", 
     "Results": "R\u00e9sultats", 
     "Results gathered from {total} respondent.": [
-      "R\u00e9sultats recueillis de {total} personne interrog\u00e9e.", 
-      "R\u00e9sultats recueillis de {total} personnes interrog\u00e9es."
+      "R\u00e9sultats recueillis aupr\u00e8s de {total} r\u00e9pondant.", 
+      "R\u00e9sultats recueillis aupr\u00e8s de {total} r\u00e9pondants."
     ], 
-    "Submit": "Envoyer", 
-    "This must have an image URL or text, and can have both.  If you add an image, you must also provide an alternative text that describes the image in a way that would allow someone to answer the poll if the image did not load.": "Ceci doit contenir une URL d'image ou un texte, et peut contenir les deux. Si vous ajoutez une image, vous devez aussi fournir un texte alternatif qui d\u00e9crit l'image d'une mani\u00e8re qui permettrait \u00e0 tout le monde de r\u00e9pondre au sondage si l'image ne se t\u00e9l\u00e9charger pas.", 
-    "You can make limited use of Markdown in answer texts, preferably only bold and italics.": "Vous pouvez faire un usage limit\u00e9 de Markdown dans les textes des r\u00e9ponses, de pr\u00e9f\u00e9rence uniquement en gras et en italique.", 
-    "move poll down": "Faire descendre le sondage", 
-    "move poll up": "Faire remonter le sondage"
+    "Submit": "Soumettre", 
+    "This must have an image URL or text, and can have both.  If you add an image, you must also provide an alternative text that describes the image in a way that would allow someone to answer the poll if the image did not load.": "Cela doit avoir une URL d'image ou un texte, et peut avoir les deux. Si vous ajoutez une image, vous devez \u00e9galement fournir un texte de remplacement d\u00e9crivant l'image de mani\u00e8re \u00e0 permettre \u00e0 quelqu'un de r\u00e9pondre au sondage si l'image ne s'est pas charg\u00e9e.", 
+    "You can make limited use of Markdown in answer texts, preferably only bold and italics.": "Vous pouvez utiliser Markdown de mani\u00e8re limit\u00e9e dans les textes de r\u00e9ponse, de pr\u00e9f\u00e9rence uniquement en gras et en italique.", 
+    "move poll down": "d\u00e9placer le sondage vers le bas", 
+    "move poll up": "d\u00e9placer le sondage vers le haut"
   };
   for (var key in newcatalog) {
     django.catalog[key] = newcatalog[key];
