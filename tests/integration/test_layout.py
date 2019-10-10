@@ -25,6 +25,7 @@
 Test to make sure the layout for results is sane when taking images into
 account.
 """
+from __future__ import absolute_import
 from ddt import ddt, unpack, data
 from tests.integration.base_test import PollBaseTest
 
@@ -62,7 +63,7 @@ class TestLayout(PollBaseTest):
         self.go_to_page(scenario)
         width = self.browser.get_window_size()['width']
         poll = self.browser.find_element_by_css_selector('.poll-block')
-        self.assertLess(poll.get_attribute('width'), width)
+        self.assertLess(poll.__getattribute__('rect')['width'], width)
 
         self.browser.find_element_by_css_selector('.poll-answer-text').click()
         self.get_submit().click()
@@ -70,4 +71,4 @@ class TestLayout(PollBaseTest):
         self.wait_until_exists('.percentage-gauge')
 
         poll = self.browser.find_element_by_css_selector('.poll-block')
-        self.assertLess(poll.get_attribute('width'), width)
+        self.assertLess(poll.__getattribute__('rect')['width'], width)

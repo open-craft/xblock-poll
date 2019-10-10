@@ -21,6 +21,7 @@
 # "AGPLv3".  If not, see <http://www.gnu.org/licenses/>.
 #
 
+from __future__ import absolute_import
 from tests.integration.base_test import PollBaseTest
 
 from unittest import skip

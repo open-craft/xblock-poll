@@ -1,3 +1,4 @@
+from __future__ import absolute_import
 import unittest
 import json
 
@@ -61,7 +62,7 @@ class TestPollBlock(unittest.TestCase):
             self.poll_block.handle(
                 'student_view_user_state',
                 make_request('', method='GET')
-            ).body
+            ).body.decode('utf-8')
         )
         expected_response = {
             u'choice': None,
@@ -172,7 +173,7 @@ class TestSurveyBlock(unittest.TestCase):
             self.survey_block.handle(
                 'student_view_user_state',
                 make_request('', method='GET')
-            ).body
+            ).body.decode('utf-8')
         )
         expected_response = {
             u'choices': None,

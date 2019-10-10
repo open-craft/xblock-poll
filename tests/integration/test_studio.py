@@ -24,11 +24,12 @@
 """
 Runs tests for the studio views.
 """
+from __future__ import absolute_import
 from ddt import ddt, unpack, data
 from selenium.common.exceptions import NoSuchElementException
 from selenium.webdriver.support.wait import WebDriverWait
-from base_test import PollBaseTest
-from studio_scenarios import ddt_scenarios
+from .base_test import PollBaseTest
+from .studio_scenarios import ddt_scenarios
 
 
 @ddt
