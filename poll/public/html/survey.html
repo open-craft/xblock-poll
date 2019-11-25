@@ -5,18 +5,18 @@
     <div class="poll-block-form-wrapper">
         <h3 class="poll-header">{{block_name}}</h3>
         <form>
-            <table class="survey-table">
-                <thead>
-                  <tr>
+            <table class="survey-table" role="presentation">
+                <thead role="presentation">
+                  <tr role="group">
                       <td></td>
                       {% for answer, label in answers %}
-                        <th id="poll-{{block_id}}-{{answer}}" class="survey-answer" scope="col">{{label}}</th>
+                        <th role="presentation" id="poll-{{block_id}}-{{answer}}" class="survey-answer" scope="col">{{label}}</th>
                       {% endfor %}
                   </tr>
                 </thead>
             {% for key, question in questions %}
                 <tr class="survey-row" role="group" aria-labelledby="poll-{{block_id}}-{{key}}">
-                    <th id="poll-{{block_id}}-{{key}}" class="survey-question" scope="row">
+                    <th role="presentation" id="poll-{{block_id}}-{{key}}" class="survey-question" scope="row">
                         {% if question.img %}
                             <div class="poll-image-td">
                                 <img src="{{question.img}}" alt="{{question.img_alt|default_if_none:''}}"/>
@@ -25,7 +25,7 @@
                       {{question.label|safe}}
                     </th>
                 {% for answer, label in answers %}
-                    <td class="survey-option" headers="poll-{{block_id}}-{{key}} poll-{{block_id}}-{{answer}}">
+                    <td role="presentation" class="survey-option" headers="poll-{{block_id}}-{{key}} poll-{{block_id}}-{{answer}}">
                         {% with answer_count=forloop.counter %}
                             {% for answer, label in answers %}
                                 {% if forloop.counter == answer_count %}
@@ -37,7 +37,7 @@
                                                {% if question.img_alt %}
                                                aria-label="{{question.img_alt}} {{label}}"
                                                {% else %}
-                                               aria-label="{{question.label|striptags}} {{label}}"
+                                               aria-label="{{label|safe}}"
                                                {% endif %}
                                         />
                                         <span class="visible-mobile-only">{{label}}</span>
