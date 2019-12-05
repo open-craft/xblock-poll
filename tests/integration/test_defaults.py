@@ -25,6 +25,7 @@ Tests to verify a default poll XBlock is a functional demo.
 
 Deeper investigation should be tested in test_poll_functions.
 """
+from __future__ import absolute_import
 from selenium.common.exceptions import NoSuchElementException
 from .base_test import PollBaseTest
 
