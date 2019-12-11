@@ -428,7 +428,7 @@ class PollBase(XBlock, ResourceMixin, PublishEventMixin):
         def wrapper(self, request_json, suffix=''):
             response = json.dumps(func(self, request_json, suffix))
             response = replace_static_urls(response, course_id=self.runtime.course_id)
-            return Response(response, content_type='application/json')
+            return Response(response, content_type='application/json', charset='utf8')
 
         if HAS_STATIC_REPLACE:
             # Only use URL translation if it is available
