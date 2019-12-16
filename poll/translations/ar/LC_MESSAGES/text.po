@@ -1,261 +1,268 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-#
-#, fuzzy
+# 
+# Translators:
+# shefaa abu jabel <shefaa.aj@gmail.com>, 2016
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
+"Project-Id-Version: XBlocks\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-09-03 09:32+0000\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
+"POT-Creation-Date: 2019-11-07 09:53+0000\n"
+"PO-Revision-Date: 2018-12-26 08:03+0000\n"
+"Last-Translator: Matthew Drayer <mattdrayer@edx.org>\n"
+"Language-Team: Arabic (http://www.transifex.com/open-edx/xblocks/language/ar/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: ar\n"
+"Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 && n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
 
-#: poll/poll.py:222
+#: poll/poll.py:229
 msgid "Whether or not to display results to the user."
-msgstr "ما إذا كان سيتم عرض النتائج للمستخدم أم لا."
+msgstr "عرض النتائج للمستخدم أم عدم عرضها."
 
-#: poll/poll.py:223
+#: poll/poll.py:230
 msgid "The maximum number of times a user may send a submission."
-msgstr "أقصى عدد من المرات يمكن للمستخدم فيها إرسال إجابة."
+msgstr "أقصى عدد من المرات التي يمكن فيها للمستخدم الإرسال."
 
-#: poll/poll.py:225
+#: poll/poll.py:232
 msgid "Number of times the user has sent a submission."
-msgstr "عدد مرات التي أرسل فيه المستخدم إجابة."
+msgstr "عدد المرات التي قام فيها المستخدم بالإرسال."
 
-#: poll/poll.py:227
+#: poll/poll.py:234
 msgid "Text to display after the user votes."
-msgstr "النص المطلوب عرضه بعد تصويت المستخدمين."
+msgstr "النص للعرض بعد قيام المستخدم بالتصويت."
 
 #. Translators: {field} is either "answers" or "questions".
-#: poll/poll.py:288
+#: poll/poll.py:295
 #, python-brace-format
 msgid "'{field}' is not present, or not a JSON array."
-msgstr "'{field}' غير موجود، أو ليس صفيف JSON."
+msgstr "'{field}' غير موجود، أو ليس ضمن نسق JSON."
 
-#. Translators: {noun} is either "Answer" or "Question". {item} identifies the answer or question.
-#: poll/poll.py:300
+#. Translators: {noun} is either "Answer" or "Question". {item} identifies the
+#. answer or question.
+#: poll/poll.py:307
 #, python-brace-format
 msgid "{noun} {item} not a javascript object!"
-msgstr "{noun} {item} ليس كائن javascript!"
+msgstr "{noun} {item} ليس خاضع ل javascript!"
 
-#. Translators: {noun} is either "Answer" or "Question". {item} identifies the answer or question.
-#: poll/poll.py:309
+#. Translators: {noun} is either "Answer" or "Question". {item} identifies the
+#. answer or question.
+#: poll/poll.py:316
 #, python-brace-format
 msgid "{noun} {item} contains no key."
-msgstr "{noun} {item} لا يحتوي على مفتاح."
+msgstr "{noun} {item} لا يحتوي على أي مفتاح."
 
 #. Translators: {noun} is either "Answer" or "Question".
 #. {noun_lower} is the lowercase version of {noun}.
-#: poll/poll.py:321
+#: poll/poll.py:328
 #, python-brace-format
 msgid ""
 "{noun} has no text or img. Please make sure all {noun_lower}s have one or "
 "the other, or both."
-msgstr "{noun} لا يحتوي على نص أو صورة. يرجى التأكد من أن {noun_lower} كلها تحتوي على أحدهما أو كليهما."
+msgstr "{noun} لا يحوي نص أو صورة. الرجاء التحقق من أن جميع {noun_lower} فيها أحد هذين، أو كلاهما."
 
 #. Translators: {noun} is either "Answer" or "Question".
 #. {noun_lower} is the lowercase version of {noun}.
-#: poll/poll.py:332
+#: poll/poll.py:339
 #, python-brace-format
 msgid ""
 "{noun} was added with no label. All {noun_lower}s must have labels. Please "
 "check the form. Check the form and explicitly delete {noun_lower}s if not "
 "needed."
-msgstr "تم إضافة {noun} من دون تسمية. يجب أن تحتوي {noun_lower} كلها على تسميات. يرجى التحقق من النموذج وحذف {noun_lower} كلها بشكل نهائي في حالة عدم الحاجة إليها."
+msgstr "تمت إضافة {noun} بدون تصنيف. يجب أن يكون لكل {noun_lower} تصنيفات. الرجاء التحقق من النموذج. افحص النموذج وقم بحذف {noun_lower} إذا لم يكن له حاجة بوضوح."
 
-#: poll/poll.py:340
+#: poll/poll.py:347
 msgid ""
 "All images must have an alternative text describing the image in a way that "
 "would allow someone to answer the poll if the image did not load."
-msgstr "يجب أن تحتوي جميع الصور على نص بديل يشرح الصورة بطريقة تمكن أي شخص من الإجابة على استطلاع الرأي في حالة عدم تحميل الصورة."
+msgstr "يجب أن تجتوي كل الصور نص بديل الذي يصف الصورة بطريقة التي ستتيح لشخص ما الإجابة على الاستبيان إذا لم يتم تحميل الصورة."
 
 #. Translators: "{noun_lower} is either "answer" or "question".
-#: poll/poll.py:352
+#: poll/poll.py:359
 #, python-brace-format
 msgid "You must include at least one {noun_lower}."
-msgstr "يجب أن تقوم بتضمين {noun_lower} واحد على الأقل."
+msgstr "يجب عليك أن تشمل ما لا يقل عن {noun_lower} واحد."
 
-#: poll/poll.py:400
+#: poll/poll.py:407
 msgid "Maximum Submissions missing or not an integer."
-msgstr "الحد الأقصى من عمليات الإرسال مفقود أو ليس عددًا."
+msgstr "العدد الأقصى لمرات الإرسال ناقص أو ليس عدداً صحيحاً."
 
-#: poll/poll.py:405
+#: poll/poll.py:412
 msgid "Private results may not be False when Maximum Submissions is not 1."
-msgstr "قد لا تكون النتائج الخاصة \"خطأ\" عندما لا يكون الحد الأقصى من عمليات الإرسال 1."
+msgstr "لا ينبغي أن تكون النتائج الخاصة خاطئة إذا كان عدد مرات الإرسال ليس 1."
 
-#: poll/poll.py:442 poll/poll.py:792
+#: poll/poll.py:449 poll/poll.py:841
 msgid "Poll"
-msgstr "استطلاع الرأي"
+msgstr "استبيان"
 
-#: poll/poll.py:443
+#: poll/poll.py:450
 msgid "What is your favorite color?"
-msgstr "ماهو لونك المفضل؟"
+msgstr "ما هو لونك المفضل؟"
 
-#: poll/poll.py:448
+#: poll/poll.py:455
 msgid "Red"
 msgstr "الأحمر"
 
-#: poll/poll.py:449
+#: poll/poll.py:456
 msgid "Blue"
 msgstr "الأزرق"
 
-#: poll/poll.py:450
+#: poll/poll.py:457
 msgid "Green"
-msgstr "الأخضر"
-
-#: poll/poll.py:451
-msgid "Other"
-msgstr "غير ذلك"
-
-#: poll/poll.py:453
-msgid "The answer options on this poll."
-msgstr "خيارات الإجابة في استطلاع الرأي هذا."
-
-#: poll/poll.py:457 poll/poll.py:818
-msgid "Total tally of answers from students."
-msgstr "إجمالي عدد إجابات الطلاب."
+msgstr ""
 
 #: poll/poll.py:458
+msgid "Other"
+msgstr "آخر"
+
+#: poll/poll.py:460
+msgid "The answer options on this poll."
+msgstr "خيارات الإجابة على هذا الاستبيان."
+
+#: poll/poll.py:464 poll/poll.py:867
+msgid "Total tally of answers from students."
+msgstr "السجل الكامل لإجابات الطلاب."
+
+#: poll/poll.py:465
 msgid "The student's answer"
 msgstr "إجابة الطالب"
 
-#: poll/poll.py:662 poll/poll.py:1097
+#: poll/poll.py:673 poll/poll.py:1147
 msgid "You have already voted in this poll."
-msgstr "لقد قمت بالتصويت بالفعل في استطلاع الرأي هذا."
+msgstr "لقد قمت بالفعل بالتصويت في هذا الاستبيان."
 
-#: poll/poll.py:667
+#: poll/poll.py:678
 msgid "Answer not included with request."
-msgstr "الإجابة غير مرفقة مع الطلب."
+msgstr "الإجابة ليست ضمن الطلب."
 
-#. Translators: {choice} uniquely identifies a specific answer belonging to a poll or survey.
-#: poll/poll.py:676
+#. Translators: {choice} uniquely identifies a specific answer belonging to a
+#. poll or survey.
+#: poll/poll.py:687
 #, python-brace-format
 msgid "No key \"{choice}\" in answers table."
 msgstr "لا يوجد \"{choice}\" أساسي في جدول الإجابات."
 
-#: poll/poll.py:685 poll/poll.py:1105
+#: poll/poll.py:696 poll/poll.py:1155
 msgid "You have already voted as many times as you are allowed."
-msgstr "لقد وصلت للعد الأقصى المسموح به للتصويت."
+msgstr "لقد قمت بالفعل بالتصويت بعدد المرات المسموح لك."
 
-#: poll/poll.py:715
+#: poll/poll.py:726
 msgid "You must specify a question."
-msgstr "يجب أن تحدد سؤلاً."
+msgstr "يجب عليك تحديد سؤال."
 
-#: poll/poll.py:718 poll/poll.py:1159
+#: poll/poll.py:729 poll/poll.py:826 poll/poll.py:1209 poll/poll.py:1336
 msgid "Answer"
-msgstr "الإجابة"
+msgstr "إجابة"
 
-#: poll/poll.py:789
+#: poll/poll.py:825 poll/poll.py:1210 poll/poll.py:1335
+msgid "Question"
+msgstr "سؤال"
+
+#: poll/poll.py:827 poll/poll.py:1337
+msgid "Submissions count"
+msgstr ""
+
+#: poll/poll.py:838
 msgid "Survey"
-msgstr "الاستبيان"
+msgstr "مسح"
 
-#: poll/poll.py:795
+#: poll/poll.py:844
 msgid "Yes"
 msgstr "نعم"
 
-#: poll/poll.py:796
+#: poll/poll.py:845
 msgid "No"
 msgstr "لا"
 
-#: poll/poll.py:797
+#: poll/poll.py:846
 msgid "Maybe"
 msgstr "ربما"
 
-#: poll/poll.py:799
+#: poll/poll.py:848
 msgid "Answer choices for this Survey"
-msgstr "خيارات الإجابة لهذا الاستبيان"
+msgstr "خيارات الإجابات لهذا المسح"
 
-#: poll/poll.py:803
+#: poll/poll.py:852
 msgid "Are you enjoying the course?"
-msgstr "هل تستمتع بهذه الدورة؟"
+msgstr "هل أنت مستمتع بهذه الدورة التدريبية؟"
 
-#: poll/poll.py:805
+#: poll/poll.py:854
 msgid "Would you recommend this course to your friends?"
-msgstr "هل توصي بهذه الدورة لأصدقائك؟"
+msgstr "هل تنصح أصدقاءك بهذه الدورة التدريبية؟"
 
-#: poll/poll.py:809
+#: poll/poll.py:858
 msgid "Do you think you will learn a lot?"
-msgstr "هل تظن أنك ستتعلم الكثير؟"
+msgstr "هل تعتقد بأنك ستتعلم الكثير؟"
 
-#: poll/poll.py:811
+#: poll/poll.py:860
 msgid "Questions for this Survey"
-msgstr "أسئلة هذا الاستبيان"
+msgstr "أسئلة هذا المسح"
 
-#: poll/poll.py:820
+#: poll/poll.py:869
 msgid "The user's answers"
 msgstr "إجابات المستخدم"
 
-#: poll/poll.py:1113
+#: poll/poll.py:1163
 msgid ""
 "Not all questions were included, or unknown questions were included. Try "
 "refreshing and trying again."
-msgstr "لم يتم تضمين جميع الأسئلة أو تم تضمين أسئلة غير معروفة. جرّب تحديث الصفحة وإعادة المحاولة."
+msgstr "لم يتم شمل كل الأسئلة، أو تم شمل أسئلة غير معروفة. حاول القيام بتحديث الصفحة وكرر المحاولة."
 
-#. Translators: {answer_key} uniquely identifies a specific answer belonging to a poll or survey.
-#. {question_key} uniquely identifies a specific question belonging to a poll or survey.
-#: poll/poll.py:1126
+#. Translators: {answer_key} uniquely identifies a specific answer belonging
+#. to a poll or survey.
+#. {question_key} uniquely identifies a specific question belonging to a poll
+#. or survey.
+#: poll/poll.py:1176
 #, python-brace-format
 msgid "Found unknown answer '{answer_key}' for question key '{question_key}'"
-msgstr "تم العثور على إجابة غير معروفة '{answer_key}' لمفتاح السؤال '{question_key}'"
-
-#: poll/poll.py:1160
-msgid "Question"
-msgstr "السؤال"
+msgstr "العثور على إجابة غير معروفة '{answer_key}' على السؤال '{question_key}'"
 
 #: poll/public/html/poll.html:35 poll/public/html/survey.html:53
 msgid "Submit"
-msgstr "إرسال"
+msgstr ""
 
 #: poll/public/html/poll.html:40 poll/public/html/survey.html:55
 msgid "Thank you."
-msgstr "شكراً لك."
+msgstr ""
 
 #: poll/public/html/poll.html:44
 #, python-format
 msgid ""
 "\n"
-"        You have used %(submissions_count_s)s out of %(max_submissions_s)s "
-"submissions.\n"
+"        You have used %(submissions_count_s)s out of %(max_submissions_s)s submissions.\n"
 "      "
-msgstr "\n"
-"        لقد استخدمت %(submissions_count_s)s من أصل %(max_submissions_s)s من عمليات الإرسال.\n"
-"      "
+msgstr ""
 
 #: poll/public/html/poll.html:52 poll/public/html/poll_edit.html:27
 #: poll/public/html/survey.html:64
 msgid "Feedback"
-msgstr "التعليقات"
+msgstr ""
 
 #: poll/public/html/poll.html:64 poll/public/html/survey.html:73
 msgid "View results"
-msgstr "عرض النتائج"
+msgstr ""
 
 #: poll/public/html/poll.html:71 poll/public/html/survey.html:81
 msgid "Export results to CSV"
-msgstr "تصدير النتائج إلى ملف CSV"
+msgstr ""
 
 #: poll/public/html/poll.html:72 poll/public/html/survey.html:82
 msgid "Download CSV"
-msgstr "تنزيل ملف CSV"
+msgstr ""
 
 #: poll/public/html/poll.html:76 poll/public/html/survey.html:86
 msgid "Student data and results CSV available for download in the LMS."
-msgstr "ملف CSV الخاص ببيانات الطالب والنتائج متاح للتنزيل في نظام إدارة التعلم."
+msgstr ""
 
 #: poll/public/html/poll_edit.html:8
 msgid "Display Name"
-msgstr "عرض الاسم"
+msgstr ""
 
 #: poll/public/html/poll_edit.html:15
 msgid "Question/Prompt"
-msgstr "السؤال/مطالبة"
+msgstr ""
 
 #: poll/public/html/poll_edit.html:16
 #, python-format
@@ -263,13 +270,11 @@ msgid ""
 "\n"
 "                    %(link_start)sMarkdown Syntax%(link_end)s is supported.\n"
 "                "
-msgstr "\n"
-"                %(link_start)sبناء جملة Markdown%(link_end)s مدعوم.\n"
-"            "
+msgstr ""
 
 #: poll/public/html/poll_edit.html:23
 msgid "Enter the prompt for the user."
-msgstr "أدخل المطالبة للمستخدم."
+msgstr ""
 
 #: poll/public/html/poll_edit.html:28
 #, python-format
@@ -277,116 +282,88 @@ msgid ""
 "\n"
 "                %(link_start)sMarkdown Syntax%(link_end)s is supported.\n"
 "            "
-msgstr "\n"
-"                %(link_start)sبناء جملة Markdown%(link_end)s مدعوم.\n"
-"            "
+msgstr ""
 
 #: poll/public/html/poll_edit.html:36
 msgid ""
 "\n"
-"                    This text will be displayed for the user as some extra "
-"feedback after they have\n"
+"                    This text will be displayed for the user as some extra feedback after they have\n"
 "                    submitted their response to the poll.\n"
 "                "
-msgstr "\n"
-"                    سيتم عرض هذا النص للمستخدمين كتعليقات إضافية بعد أن\n"
-"                    يرسلوا إجابتهم لاستطلاع.\n"
-"         الرأي.        "
+msgstr ""
 
 #: poll/public/html/poll_edit.html:44
 msgid "Private Results"
-msgstr "نتائج خاصة"
+msgstr ""
 
 #: poll/public/html/poll_edit.html:48
 msgid "True"
-msgstr "صواب"
+msgstr ""
 
 #: poll/public/html/poll_edit.html:49
 msgid "False"
-msgstr "خطأ"
+msgstr ""
 
 #: poll/public/html/poll_edit.html:53
 msgid "If this is set to True, don't display results of the poll to the user."
-msgstr "إذا تم ضبط هذا على \"صواب\"، فلا تقم بعرض نتائج الاستطلاع للمستخدم."
+msgstr ""
 
 #: poll/public/html/poll_edit.html:58
 msgid "Maximum Submissions"
-msgstr "الحد الأقصى من عمليات الإرسال"
+msgstr ""
 
 #: poll/public/html/poll_edit.html:63
 #, python-format
 msgid ""
 "\n"
-"                    Maximum number of times a user may submit a poll. "
-"%(bold_start)sSetting this to a value other than 1 will imply that\n"
-"                    'Private Results' should be true.%(bold_end)s Setting it "
-"to 0 will allow infinite resubmissions.\n"
+"                    Maximum number of times a user may submit a poll. %(bold_start)sSetting this to a value other than 1 will imply that\n"
+"                    'Private Results' should be true.%(bold_end)s Setting it to 0 will allow infinite resubmissions.\n"
 "                "
-msgstr "\n"
-"                    الحد الأقصى من المرات المسموح بها للمستخدم بإرسال استطلاع. %(bold_start)sعند ضبط هذا على قيمة أكبر من 1، سيعني هذا أن\n"
-"                    'النتائج الخاصة' ينبغي أن تكون صحيحة.%(bold_end)s عند ضبطه على 0، ستتاح عمليات إعادة الإرسال بشكل لانهائي.\n"
-"                "
+msgstr ""
 
 #: poll/public/html/poll_edit.html:71
 msgid "Notes:"
-msgstr "ملاحظات:"
+msgstr ""
 
 #: poll/public/html/poll_edit.html:72
 msgid ""
 "\n"
-"                    If you change an answer's text, all students who voted "
-"for that choice will have their votes updated to\n"
-"                    the new text. You'll want to avoid changing an answer "
-"from something like 'True' to 'False', accordingly.\n"
-"                    If you delete an answer, any votes for that answer will "
-"also be deleted. Students whose choices are deleted\n"
+"                    If you change an answer's text, all students who voted for that choice will have their votes updated to\n"
+"                    the new text. You'll want to avoid changing an answer from something like 'True' to 'False', accordingly.\n"
+"                    If you delete an answer, any votes for that answer will also be deleted. Students whose choices are deleted\n"
 "                    may vote again, but will not lose course progress.\n"
 "                "
-msgstr "\n"
-"                    إذا قمت بتغيير نص إجابة، فإن جميع الطلبة الذين قاموا بالتصويت لهذا الخيار سيتم تحديث أصواتهم\n"
-"                    للنص الجديد. وبناءً على ذلك، ستحتاج إلى تجنب تغيير إجابة من شيء مثل 'صواب' إلى 'خطأ.\n"
-"                    إذا قمت بحذف إجابة، فسيتم حذف أي أصوات لهذه الإجابة أيضًا. قد يتمكن الطلبة الذين تم حذف إجاباتهم\n"
-"                    من التصويت مرة أخرى، ولكن لن يخسروا تقدمهم في الدورة.\n"
-"                "
+msgstr ""
 
 #: poll/public/html/poll_edit.html:81
 msgid ""
 "\n"
-"                        Questions must be similarly cared for. If a "
-"question's text is changed, any votes for that question will remain.\n"
-"                        If a question is deleted, any student who previously "
-"took the survey will be permitted to retake it, but will not\n"
+"                        Questions must be similarly cared for. If a question's text is changed, any votes for that question will remain.\n"
+"                        If a question is deleted, any student who previously took the survey will be permitted to retake it, but will not\n"
 "                        lose course progress.\n"
 "                    "
-msgstr "\n"
-"                        يجب الاهتمام بالأسئلة جميعها. إذا تم تغيير نص سؤال، فإن أي أصوات لهذا السؤال ستظل موجودة.\n"
-"                        إذا تم حذف سؤال، فسيُسمح لأي طالب سبق له إجراء الاستطلاع بإعادة الإجابة عليه، ولن\n"
-"                        يخسر تقدمه في الدورة.\n"
-"                    "
+msgstr ""
 
 #: poll/public/html/poll_edit.html:97
 msgid "Add Answer"
-msgstr "إضافة إجابة"
+msgstr ""
 
 #: poll/public/html/poll_edit.html:101
 msgid "Add Question"
-msgstr "إضافة سؤال"
+msgstr ""
 
 #: poll/public/html/poll_edit.html:105
 msgid "Save"
-msgstr "حفظ"
+msgstr ""
 
 #: poll/public/html/poll_edit.html:108
 msgid "Cancel"
-msgstr "إلغاء"
+msgstr ""
 
 #: poll/public/html/survey.html:57
 #, python-format
 msgid ""
 "\n"
-"                You have used %(submissions_count_s)s out of "
-"%(max_submissions_s)s submissions.\n"
+"                You have used %(submissions_count_s)s out of %(max_submissions_s)s submissions.\n"
 "            "
-msgstr "\n"
-"        لقد استخدمت %(submissions_count_s)s من أصل %(max_submissions_s)s من عمليات الإرسال.\n"
-"      "
+msgstr ""

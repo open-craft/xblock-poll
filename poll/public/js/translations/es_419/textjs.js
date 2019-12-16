@@ -9,7 +9,14 @@
   var django = globals.django || (globals.django = {});
 
   
-  django.pluralidx = function(count) { return (count == 1) ? 0 : 1; };
+  django.pluralidx = function(n) {
+    var v=(n != 1);
+    if (typeof(v) == 'boolean') {
+      return v ? 1 : 0;
+    } else {
+      return v;
+    }
+  };
   
 
   /* gettext library */
@@ -18,21 +25,21 @@
   
   var newcatalog = {
     "Answer": "Respuesta", 
-    "Delete": "Eliminar", 
-    "Feedback": "Comentarios", 
+    "Delete": "Borrar", 
+    "Feedback": "Retroalimentaci\u00f3n", 
     "Image URL": "URL de la imagen", 
     "Image alternative text": "Texto alternativo de la imagen", 
     "Question": "Pregunta", 
     "Results": "Resultados", 
     "Results gathered from {total} respondent.": [
-      "Resultados recopilados de {total} persona que respondi\u00f3.", 
-      "Resultados recopilados de {total} personas que respondieron."
+      "Resultados obtenidos de {total} encuestado.", 
+      "Resultados obtenidos de {total} encuestados."
     ], 
     "Submit": "Enviar", 
-    "This must have an image URL or text, and can have both.  If you add an image, you must also provide an alternative text that describes the image in a way that would allow someone to answer the poll if the image did not load.": "Debe tener una URL o texto de la imagen y puede contener ambos. Si agrega una imagen, tambi\u00e9n debe proporcionar un texto alternativo que describa la imagen de manera que permita a alguien responder al sondeo si no se carg\u00f3 la imagen.", 
-    "You can make limited use of Markdown in answer texts, preferably only bold and italics.": "Puede hacer uso limitado del lenguaje Markdown en los textos de respuesta, preferentemente solo en negrita y cursiva.", 
-    "move poll down": "disminuir el sondeo", 
-    "move poll up": "aumentar el sondeo"
+    "This must have an image URL or text, and can have both.  If you add an image, you must also provide an alternative text that describes the image in a way that would allow someone to answer the poll if the image did not load.": "Esto debe tener una URL de imagen o texto, y puede tener ambos. Si agrega una imagen, debe adem\u00e1s proporcionar un texto alternativo que describa la imagen de manera que permita a alguien responder la encuesta a\u00fan si la imagen no carga.", 
+    "You can make limited use of Markdown in answer texts, preferably only bold and italics.": "Puede hacer uso limitado de Markdown en los textos de respuesta, preferiblemente solo negritas e it\u00e1licas.", 
+    "move poll down": "mover la encuesta abajo", 
+    "move poll up": "mover la encuesta arriba"
   };
   for (var key in newcatalog) {
     django.catalog[key] = newcatalog[key];

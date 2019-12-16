@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: XBlocks\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-03-13 23:02+0000\n"
+"POT-Creation-Date: 2019-11-07 09:53+0000\n"
 "PO-Revision-Date: 2019-08-26 21:46+0000\n"
 "Last-Translator: Pierre Mailhot <pierre.mailhot@gmail.com>\n"
 "Language-Team: French (Canada) (http://www.transifex.com/open-edx/xblocks/language/fr_CA/)\n"
@@ -19,45 +19,45 @@ msgstr ""
 "Language: fr_CA\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-#: poll/poll.py:226
+#: poll/poll.py:229
 msgid "Whether or not to display results to the user."
 msgstr "S'il faut ou non afficher les résultats à l'utilisateur."
 
-#: poll/poll.py:227
+#: poll/poll.py:230
 msgid "The maximum number of times a user may send a submission."
 msgstr "Le nombre maximum de fois qu'un utilisateur peut envoyer une soumission."
 
-#: poll/poll.py:229
+#: poll/poll.py:232
 msgid "Number of times the user has sent a submission."
 msgstr "Nombre de fois où l'utilisateur a envoyé une soumission."
 
-#: poll/poll.py:231
+#: poll/poll.py:234
 msgid "Text to display after the user votes."
 msgstr "Texte à afficher après le vote de l'utilisateur."
 
 #. Translators: {field} is either "answers" or "questions".
-#: poll/poll.py:292
+#: poll/poll.py:295
 #, python-brace-format
 msgid "'{field}' is not present, or not a JSON array."
 msgstr "'{field}' n'est pas présent ou n'est pas un tableau JSON."
 
 #. Translators: {noun} is either "Answer" or "Question". {item} identifies the
 #. answer or question.
-#: poll/poll.py:304
+#: poll/poll.py:307
 #, python-brace-format
 msgid "{noun} {item} not a javascript object!"
 msgstr "{noun} {item} n'est pas un objet javascript!"
 
 #. Translators: {noun} is either "Answer" or "Question". {item} identifies the
 #. answer or question.
-#: poll/poll.py:313
+#: poll/poll.py:316
 #, python-brace-format
 msgid "{noun} {item} contains no key."
 msgstr "{noun} {item} ne contient pas de clé."
 
 #. Translators: {noun} is either "Answer" or "Question".
 #. {noun_lower} is the lowercase version of {noun}.
-#: poll/poll.py:325
+#: poll/poll.py:328
 #, python-brace-format
 msgid ""
 "{noun} has no text or img. Please make sure all {noun_lower}s have one or "
@@ -66,7 +66,7 @@ msgstr "{noun} n'a pas de texte ou image. Assurez-vous que tous les {noun_lower}
 
 #. Translators: {noun} is either "Answer" or "Question".
 #. {noun_lower} is the lowercase version of {noun}.
-#: poll/poll.py:336
+#: poll/poll.py:339
 #, python-brace-format
 msgid ""
 "{noun} was added with no label. All {noun_lower}s must have labels. Please "
@@ -74,138 +74,138 @@ msgid ""
 "needed."
 msgstr "{noun} a été ajouté sans étiquette. Tous les {noun_lower}s doivent avoir des étiquettes. S'il vous plaît vérifier le formulaire. Vérifier le formulaire et supprimer explicitement les {noun_lower}s si non nécessaires."
 
-#: poll/poll.py:344
+#: poll/poll.py:347
 msgid ""
 "All images must have an alternative text describing the image in a way that "
 "would allow someone to answer the poll if the image did not load."
 msgstr "Toutes les images doivent avoir un texte alternatif décrivant l'image d'une manière permettant à quelqu'un de répondre au sondage si l'image ne se charge pas."
 
 #. Translators: "{noun_lower} is either "answer" or "question".
-#: poll/poll.py:356
+#: poll/poll.py:359
 #, python-brace-format
 msgid "You must include at least one {noun_lower}."
 msgstr "Vous devez inclure au moins un {noun_lower}."
 
-#: poll/poll.py:404
+#: poll/poll.py:407
 msgid "Maximum Submissions missing or not an integer."
 msgstr "Nombre maximum de soumissions manquantes ou n'est pas un entier."
 
-#: poll/poll.py:409
+#: poll/poll.py:412
 msgid "Private results may not be False when Maximum Submissions is not 1."
 msgstr "Les résultats privés ne peuvent pas être Faux lorsque le nombre maximal de soumissions n'est pas égal à 1."
 
-#: poll/poll.py:446 poll/poll.py:838
+#: poll/poll.py:449 poll/poll.py:841
 msgid "Poll"
 msgstr "Sondage"
 
-#: poll/poll.py:447
+#: poll/poll.py:450
 msgid "What is your favorite color?"
 msgstr "Quelle est votre couleur préférée?"
 
-#: poll/poll.py:452
+#: poll/poll.py:455
 msgid "Red"
 msgstr "Rouge"
 
-#: poll/poll.py:453
+#: poll/poll.py:456
 msgid "Blue"
 msgstr "Bleu"
 
-#: poll/poll.py:454
+#: poll/poll.py:457
 msgid "Green"
 msgstr "Vert"
 
-#: poll/poll.py:455
+#: poll/poll.py:458
 msgid "Other"
 msgstr "Autre"
 
-#: poll/poll.py:457
+#: poll/poll.py:460
 msgid "The answer options on this poll."
 msgstr "Les options de réponse pour ce sondage."
 
-#: poll/poll.py:461 poll/poll.py:864
+#: poll/poll.py:464 poll/poll.py:867
 msgid "Total tally of answers from students."
 msgstr "Total des réponses des étudiants."
 
-#: poll/poll.py:462
+#: poll/poll.py:465
 msgid "The student's answer"
 msgstr "La réponse de l'étudiant"
 
-#: poll/poll.py:670 poll/poll.py:1143
+#: poll/poll.py:673 poll/poll.py:1147
 msgid "You have already voted in this poll."
 msgstr "Vous avez déjà voté à ce sondage."
 
-#: poll/poll.py:675
+#: poll/poll.py:678
 msgid "Answer not included with request."
 msgstr "Réponse non incluse avec la demande."
 
 #. Translators: {choice} uniquely identifies a specific answer belonging to a
 #. poll or survey.
-#: poll/poll.py:684
+#: poll/poll.py:687
 #, python-brace-format
 msgid "No key \"{choice}\" in answers table."
 msgstr "Pas de clé \"{choice}\" dans le tableau des réponses."
 
-#: poll/poll.py:693 poll/poll.py:1151
+#: poll/poll.py:696 poll/poll.py:1155
 msgid "You have already voted as many times as you are allowed."
 msgstr "Vous avez déjà voté autant de fois que vous êtes autorisé."
 
-#: poll/poll.py:723
+#: poll/poll.py:726
 msgid "You must specify a question."
 msgstr "Vous devez spécifier une question."
 
-#: poll/poll.py:726 poll/poll.py:823 poll/poll.py:1205 poll/poll.py:1317
+#: poll/poll.py:729 poll/poll.py:826 poll/poll.py:1209 poll/poll.py:1336
 msgid "Answer"
 msgstr "Réponse"
 
-#: poll/poll.py:822 poll/poll.py:1206 poll/poll.py:1316
+#: poll/poll.py:825 poll/poll.py:1210 poll/poll.py:1335
 msgid "Question"
 msgstr "Question"
 
-#: poll/poll.py:824 poll/poll.py:1318
+#: poll/poll.py:827 poll/poll.py:1337
 msgid "Submissions count"
 msgstr "Nombre de soumissions"
 
-#: poll/poll.py:835
+#: poll/poll.py:838
 msgid "Survey"
 msgstr "Sondage"
 
-#: poll/poll.py:841
+#: poll/poll.py:844
 msgid "Yes"
 msgstr "Oui"
 
-#: poll/poll.py:842
+#: poll/poll.py:845
 msgid "No"
 msgstr "Non"
 
-#: poll/poll.py:843
+#: poll/poll.py:846
 msgid "Maybe"
 msgstr "Peut-être"
 
-#: poll/poll.py:845
+#: poll/poll.py:848
 msgid "Answer choices for this Survey"
 msgstr "Choix de réponses pour ce sondage"
 
-#: poll/poll.py:849
+#: poll/poll.py:852
 msgid "Are you enjoying the course?"
 msgstr "Appréciez-vous le cours?"
 
-#: poll/poll.py:851
+#: poll/poll.py:854
 msgid "Would you recommend this course to your friends?"
 msgstr "Recommanderiez-vous ce cours à vos amis?"
 
-#: poll/poll.py:855
+#: poll/poll.py:858
 msgid "Do you think you will learn a lot?"
 msgstr "Pensez-vous que vous allez apprendre beaucoup?"
 
-#: poll/poll.py:857
+#: poll/poll.py:860
 msgid "Questions for this Survey"
 msgstr "Questions pour ce sondage"
 
-#: poll/poll.py:866
+#: poll/poll.py:869
 msgid "The user's answers"
 msgstr "Les réponses de l'utilisateur"
 
-#: poll/poll.py:1159
+#: poll/poll.py:1163
 msgid ""
 "Not all questions were included, or unknown questions were included. Try "
 "refreshing and trying again."
@@ -215,7 +215,7 @@ msgstr "Toutes les questions n'étaient pas incluses ou des questions inconnues 
 #. to a poll or survey.
 #. {question_key} uniquely identifies a specific question belonging to a poll
 #. or survey.
-#: poll/poll.py:1172
+#: poll/poll.py:1176
 #, python-brace-format
 msgid "Found unknown answer '{answer_key}' for question key '{question_key}'"
 msgstr "Réponse inconnue trouvée '{answer_key}' pour la clé de question '{question_key}'"
