@@ -823,7 +823,7 @@ class PollBlock(PollBase, CSVExportMixin):
                 continue
             report = {
                 self.ugettext('Question'): self.question,
-                self.ugettext('Answer'): answers_dict[choice]['label'],
+                self.ugettext('Answer'): answers_dict.get(choice, {}).get('label', ''),
                 self.ugettext('Submissions count'): user_state.state['submissions_count']
             }
             count += 1
