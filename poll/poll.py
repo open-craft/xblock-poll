@@ -823,7 +823,8 @@ class PollBlock(PollBase, CSVExportMixin):
                 continue
             report = {
                 self.ugettext('Question'): self.question,
-                self.ugettext('Answer'): answers_dict.get(choice, {}).get('label') or "[Removed Poll Option {}]".format(choice),
+                self.ugettext('Answer'): answers_dict.get(choice, {}).get('label') or
+                                         "[Removed Poll Option {}]".format(choice),
                 self.ugettext('Submissions count'): user_state.state['submissions_count']
             }
             count += 1
@@ -1329,8 +1330,9 @@ class SurveyBlock(PollBase, CSVExportMixin):
                     # End the iterator here
                     return
 
-                question = questions_dict[question_id]['label']
-                answer = answers_dict[answer_id]
+                question = questions_dict.get(question_id, {}).get('label') \
+                           or "[Removed Survey Question {}]".format(question_id)
+                answer = answers_dict.get(answer_id) or "[Removed Survey Option {}]".format(question_id)
                 report = {
                     self.ugettext('Question'): question,
                     self.ugettext('Answer'): answer,
