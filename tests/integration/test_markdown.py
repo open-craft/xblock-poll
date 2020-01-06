@@ -23,6 +23,7 @@
 """
 Tests to make sure that markdown is both useful and secure.
 """
+from __future__ import absolute_import
 from ddt import ddt, unpack, data
 from .markdown_scenarios import ddt_scenarios
 from .base_test import PollBaseTest

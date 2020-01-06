@@ -32,7 +32,7 @@
                                     <label for="{{block_id}}-{{key}}-{{answer_count}}">
                                         <input type="radio"
                                                name="{{key}}"
-                                               id="{{block_id}}-{{key}}-{{forloop.counter}}"
+                                               id="{{usage_id}}-{{key}}-{{forloop.counter}}"
                                                value="{{answer}}"{% if question.choice == answer %} checked{% endif %}
                                                {% if question.img_alt %}
                                                aria-label="{{question.img_alt}} {{label}}"

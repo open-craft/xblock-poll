@@ -46,16 +46,18 @@ requirements: node_requirements python_requirements ## install development envir
 install_linux_dev_firefox: ## Downloads custom version of firefox for Selenium in Linux
 	@echo "This works only on Linux. For MacOS please check the README file"
 
-	rm -rf .firefox
-	mkdir .firefox
+	rm -rf .firefox .geckodriver
+	mkdir .firefox .geckodriver
 
 	curl http://ftp.mozilla.org/pub/firefox/releases/$(FIREFOX_VERSION)/linux-$(FIREFOX_LINUX_ARCH)/en-US/firefox-$(FIREFOX_VERSION).tar.bz2 \
 		                --output .firefox/firefox.tar.bz2
 
 	cd .firefox && tar -xvjf firefox.tar.bz2
+	cd .geckodriver && wget https://github.com/mozilla/geckodriver/releases/download/v0.15.0/geckodriver-v0.15.0-linux64.tar.gz
+	cd .geckodriver && tar -xzf geckodriver-v0.15.0-linux64.tar.gz
 
 linux_dev_test: ## Run tests in development environment to use custom firefox
-	PATH=".firefox/firefox:$(PATH)" make test
+	PATH=.firefox/firefox/:.geckodriver/:$(PATH) make test
 
 test: ## run tests in the current virtualenv
 	mkdir -p var  # for var/workbench.log

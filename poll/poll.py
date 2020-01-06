@@ -21,27 +21,30 @@
 # along with this program in a file in the toplevel directory called
 # "AGPLv3".  If not, see <http://www.gnu.org/licenses/>.
 #
-from collections import OrderedDict
+from __future__ import absolute_import
+
 import functools
 import json
 import time
+from collections import OrderedDict
 
-from markdown import markdown
 import pkg_resources
-from webob import Response
-
+import six
 from django import utils
+from markdown import markdown
+from webob import Response
 from xblock.completable import XBlockCompletionMode
 from xblock.core import XBlock
-from xblock.fields import Scope, String, Dict, List, Boolean, Integer
+from xblock.fields import Boolean, Dict, Integer, List, Scope, String
 from xblock.fragment import Fragment
 from xblockutils.publish_event import PublishEventMixin
 from xblockutils.resources import ResourceLoader
-from xblockutils.settings import XBlockWithSettingsMixin, ThemableXBlockMixin
-from .utils import _, DummyTranslationService
+from xblockutils.settings import ThemableXBlockMixin, XBlockWithSettingsMixin
+
+from .utils import DummyTranslationService, _
 
 try:
-    # pylint: disable=import-error
+    # pylint: disable=import-error, bad-option-value, ungrouped-imports
     from django.conf import settings
     from api_manager.models import GroupProfile
     HAS_GROUP_PROFILE = True
@@ -133,8 +136,8 @@ class CSVExportMixin(object):
 
         # Make sure we nail down our state before sending off an asynchronous task.
         async_result = export_csv_data.delay(
-            unicode(getattr(self.scope_ids, 'usage_id', None)),
-            unicode(getattr(self.runtime, 'course_id', 'course_id')),
+            six.text_type(getattr(self.scope_ids, 'usage_id', None)),
+            six.text_type(getattr(self.runtime, 'course_id', 'course_id')),
         )
         if not async_result.ready():
             self.active_export_task_id = async_result.id
@@ -198,7 +201,7 @@ class CSVExportMixin(object):
             else:
                 self.last_export_result = {'error': u'Unexpected result: {}'.format(repr(task_result.result))}
         else:
-            self.last_export_result = {'error': unicode(task_result.result)}
+            self.last_export_result = {'error': six.text_type(task_result.result)}
 
     def prepare_data(self):
         """
@@ -267,7 +270,7 @@ class PollBase(XBlock, ResourceMixin, PublishEventMixin):
         if hasattr(self, 'location'):
             return self.location.html_id()  # pylint: disable=no-member
 
-        return unicode(self.scope_ids.usage_id)
+        return six.text_type(self.scope_ids.usage_id)
 
     def img_alt_mandatory(self):
         """
@@ -425,7 +428,7 @@ class PollBase(XBlock, ResourceMixin, PublishEventMixin):
         def wrapper(self, request_json, suffix=''):
             response = json.dumps(func(self, request_json, suffix))
             response = replace_static_urls(response, course_id=self.runtime.course_id)
-            return Response(response, content_type='application/json')
+            return Response(response, content_type='application/json', charset='utf8')
 
         if HAS_STATIC_REPLACE:
             # Only use URL translation if it is available
@@ -474,7 +477,7 @@ class PollBlock(PollBase, CSVExportMixin):
             if key not in self.tally:
                 self.tally[key] = 0
 
-        for key in self.tally.keys():
+        for key in list(self.tally):
             if key not in answers:
                 del self.tally[key]
 
@@ -904,8 +907,8 @@ class SurveyBlock(PollBase, CSVExportMixin):
             'can_view_private_results': self.can_view_private_results(),
             # a11y: Transfer block ID to enable creating unique ids for questions and answers in the template
             'block_id': self._get_block_id(),
+            'usage_id': six.text_type(self.scope_ids.usage_id),
         })
-
         return self.create_fragment(
             context, "public/html/survey.html", "public/css/poll.css",
             "public/js/poll.js", "SurveyBlock")
@@ -1033,8 +1036,9 @@ class SurveyBlock(PollBase, CSVExportMixin):
         """
         questions = dict(self.questions)
         answers = dict(self.answers)
+        # pylint: disable=bad-option-value, consider-iterating-dictionary
         default_answers = {answer: 0 for answer in answers.keys()}
-        for key in questions.keys():
+        for key in questions.keys():  # pylint: disable=bad-option-value, consider-iterating-dictionary
             if key not in self.tally:
                 self.tally[key] = dict(default_answers)
             else:
@@ -1047,7 +1051,7 @@ class SurveyBlock(PollBase, CSVExportMixin):
                         del new_answers[existing_key]
                 self.tally[key] = new_answers
         # Keys for questions that no longer exist can break calculations.
-        for key in self.tally.keys():
+        for key in list(self.tally):
             if key not in questions:
                 del self.tally[key]
 
@@ -1292,7 +1296,7 @@ class SurveyBlock(PollBase, CSVExportMixin):
                         choice = choices[q[0]]
                         row.append(answers_dict[choice])
                 data[sm.student.id] = row
-        return [header_row + questions] + data.values()
+        return [header_row + questions] + list(data.values())
 
     def generate_report_data(self, user_state_iterator, limit_responses=None):
         """

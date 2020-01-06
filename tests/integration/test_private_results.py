@@ -21,11 +21,12 @@
 # "AGPLv3".  If not, see <http://www.gnu.org/licenses/>.
 #
 
+from __future__ import absolute_import
 from ddt import ddt, unpack, data
 from selenium.common.exceptions import NoSuchElementException
 
 from poll.poll import PollBase
-from base_test import PollBaseTest, DEFAULT_SURVEY_NAMES, DEFAULT_POLL_NAMES
+from .base_test import PollBaseTest, DEFAULT_SURVEY_NAMES, DEFAULT_POLL_NAMES
 
 
 scenarios = ('Survey Private', DEFAULT_SURVEY_NAMES), ('Poll Private', DEFAULT_POLL_NAMES)

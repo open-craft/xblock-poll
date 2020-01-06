@@ -1,4 +1,5 @@
 # Test mocks and helpers
+from __future__ import absolute_import
 from webob import Request
 from xblock.runtime import DictKeyValueStore, KvsFieldData
 from xblock.test.tools import TestRuntime

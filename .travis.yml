@@ -1,9 +1,20 @@
 language: python
 dist: xenial
+
+python:
+  - "2.7"
+  - "3.5"
+
 services:
   - xvfb
-python:
-    - "2.7"
+
+before_install:
+  - wget https://github.com/mozilla/geckodriver/releases/download/v0.15.0/geckodriver-v0.15.0-linux64.tar.gz
+  - mkdir geckodriver
+  - tar -xzf geckodriver-v0.15.0-linux64.tar.gz -C geckodriver
+  - export PATH=$PATH:$(pwd)/geckodriver
+  - pip install -U pip
+  - export BOTO_CONFIG=/dev/null
 install:
   - make requirements
 script:
@@ -11,7 +22,8 @@ script:
   - make quality
   - make test
   - make validate_translations
+
 notifications:
   email: false
 addons:
-  firefox: 36.0
+  firefox: "52.0.1"

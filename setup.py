@@ -23,6 +23,7 @@
 
 """Setup for poll XBlock."""
 
+from __future__ import absolute_import
 import os
 from setuptools import setup
 
@@ -45,7 +46,7 @@ def package_data(pkg, roots):
 
 setup(
     name='xblock-poll',
-    version='1.9',
+    version='1.9.1',
     description='An XBlock for polling users.',
     packages=[
         'poll',
@@ -56,7 +57,6 @@ setup(
         'ddt',
         'mock',
     ],
-    dependency_links=['http://github.com/edx/xblock-utils/tarball/master#egg=xblock-utils'],
     entry_points={
         'xblock.v1': [
             'poll = poll:PollBlock',
