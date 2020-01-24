@@ -186,7 +186,6 @@ class TestSurveyFunctions(PollBaseTest):
             self.assertEqual(len(options), len(answers))
             for j, option in enumerate(options):
                 self.assertIn(answer_text[j], option.get_attribute('aria-label'))
-                self.assertIn(question_text[i], option.get_attribute('aria-label'))
 
     def fill_survey(self, assert_submit=False):
         """
