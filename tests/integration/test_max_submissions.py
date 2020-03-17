@@ -39,6 +39,8 @@ scenarios_max = (
 
 @ddt
 class TestPrivateResults(PollBaseTest):
+    timeout = 30 # seconds, increased from default (10) to prevent flaky tests on Travis CI
+
     @unpack
     @data(*scenarios_infinite)
     def test_infinite_submissions(self, page, names):
