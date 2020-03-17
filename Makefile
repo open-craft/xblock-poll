@@ -89,6 +89,7 @@ extract_translations: ## extract strings to be translated, outputting .po files
 	ls poll/public/handlebars/*.handlebars \
 	    | xargs node node_modules/.bin/xgettext-template --from-code utf8 \
 	        --language Handlebars \
+	        --force-po \
 	        --output locale/en/LC_MESSAGES/textjs.po
 
 compile_translations: ## compile translation files, outputting .mo files for each supported language
