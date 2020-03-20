@@ -553,8 +553,7 @@ class PollBlock(PollBase, CSVExportMixin):
         """
         if not context:
             context = {}
-        js_template = self.resource_string(
-            'public/handlebars/poll_results.handlebars')
+        js_template = self.resource_string('/public/handlebars/poll_results.handlebars')
 
         choice = self.get_choice()
 
@@ -618,7 +617,7 @@ class PollBlock(PollBase, CSVExportMixin):
         if not context:
             context = {}
 
-        js_template = self.resource_string('public/handlebars/poll_studio.handlebars')
+        js_template = self.resource_string('/public/handlebars/poll_studio.handlebars')
         context.update({
             'question': self.question,
             'display_name': self.display_name,
@@ -629,7 +628,7 @@ class PollBlock(PollBase, CSVExportMixin):
         })
         return self.create_fragment(
             context, "public/html/poll_edit.html",
-            "public/css/poll_edit.css", "public/js/poll_edit.js", "PollEdit")
+            "/public/css/poll_edit.css", "public/js/poll_edit.js", "PollEdit")
 
     @XBlock.json_handler
     def load_answers(self, data, suffix=''):
@@ -886,8 +885,7 @@ class SurveyBlock(PollBase, CSVExportMixin):
         if not context:
             context = {}
 
-        js_template = self.resource_string(
-            'public/handlebars/survey_results.handlebars')
+        js_template = self.resource_string('/public/handlebars/survey_results.handlebars')
 
         choices = self.get_choices()
 
@@ -960,7 +958,7 @@ class SurveyBlock(PollBase, CSVExportMixin):
         if not context:
             context = {}
 
-        js_template = self.resource_string('public/handlebars/poll_studio.handlebars')
+        js_template = self.resource_string('/public/handlebars/poll_studio.handlebars')
         context.update({
             'feedback': self.feedback,
             'display_name': self.block_name,
@@ -971,7 +969,7 @@ class SurveyBlock(PollBase, CSVExportMixin):
         })
         return self.create_fragment(
             context, "public/html/poll_edit.html",
-            "public/css/poll_edit.css", "public/js/poll_edit.js", "SurveyEdit")
+            "/public/css/poll_edit.css", "public/js/poll_edit.js", "SurveyEdit")
 
     def tally_detail(self):
         """
