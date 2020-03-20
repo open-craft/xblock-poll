@@ -958,7 +958,7 @@ class SurveyBlock(PollBase, CSVExportMixin):
         if not context:
             context = {}
 
-        js_template = self.resource_string('/public/handlebars/poll_studio.handlebars')
+        js_template = self.resource_string('public/handlebars/poll_studio.handlebars')
         context.update({
             'feedback': self.feedback,
             'display_name': self.block_name,
@@ -969,7 +969,7 @@ class SurveyBlock(PollBase, CSVExportMixin):
         })
         return self.create_fragment(
             context, "public/html/poll_edit.html",
-            "/public/css/poll_edit.css", "public/js/poll_edit.js", "SurveyEdit")
+            "public/css/poll_edit.css", "public/js/poll_edit.js", "SurveyEdit")
 
     def tally_detail(self):
         """
