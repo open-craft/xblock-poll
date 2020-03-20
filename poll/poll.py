@@ -30,7 +30,7 @@ import pkg_resources
 
 from xblock.core import XBlock
 from xblock.fields import Scope, String, Dict, List, Boolean, Integer
-from xblock.fragment import Fragment
+from web_fragments.fragment import Fragment
 from xblockutils.publish_event import PublishEventMixin
 from xblockutils.resources import ResourceLoader
 
@@ -315,8 +315,7 @@ class PollBlock(PollBase):
         """
         if not context:
             context = {}
-        js_template = self.resource_string(
-            '/public/handlebars/poll_results.handlebars')
+        js_template = self.resource_string('public/handlebars/poll_results.handlebars')
 
         choice = self.get_choice()
 
@@ -350,8 +349,7 @@ class PollBlock(PollBase):
     def studio_view(self, context=None):
         if not context:
             context = {}
-
-        js_template = self.resource_string('/public/handlebars/poll_studio.handlebars')
+        js_template = self.resource_string('public/handlebars/poll_studio.handlebars')
         context.update({
             'question': self.question,
             'display_name': self.display_name,
@@ -362,7 +360,7 @@ class PollBlock(PollBase):
         })
         return self.create_fragment(
             context, "public/html/poll_edit.html",
-            "/public/css/poll_edit.css", "public/js/poll_edit.js", "PollEdit")
+            "public/css/poll_edit.css", "public/js/poll_edit.js", "PollEdit")
 
     @XBlock.json_handler
     def load_answers(self, data, suffix=''):
@@ -529,7 +527,7 @@ class SurveyBlock(PollBase):
             context = {}
 
         js_template = self.resource_string(
-            '/public/handlebars/survey_results.handlebars')
+            'public/handlebars/survey_results.handlebars')
 
         choices = self.get_choices()
 
@@ -570,8 +568,7 @@ class SurveyBlock(PollBase):
     def studio_view(self, context=None):
         if not context:
             context = {}
-
-        js_template = self.resource_string('/public/handlebars/poll_studio.handlebars')
+        js_template = self.resource_string('public/handlebars/poll_studio.handlebars')
         context.update({
             'feedback': self.feedback,
             'display_name': self.block_name,
@@ -582,7 +579,7 @@ class SurveyBlock(PollBase):
         })
         return self.create_fragment(
             context, "public/html/poll_edit.html",
-            "/public/css/poll_edit.css", "public/js/poll_edit.js", "SurveyEdit")
+            "public/css/poll_edit.css", "public/js/poll_edit.js", "SurveyEdit")
 
     def tally_detail(self):
         """
