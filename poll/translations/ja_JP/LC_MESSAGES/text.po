@@ -1,0 +1,379 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2018-09-03 09:32+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: poll/poll.py:222
+msgid "Whether or not to display results to the user."
+msgstr "結果をユーザーに表示するか否か。"
+
+#: poll/poll.py:223
+msgid "The maximum number of times a user may send a submission."
+msgstr "ユーザーが提出を送信できる最大回数。"
+
+#: poll/poll.py:225
+msgid "Number of times the user has sent a submission."
+msgstr "ユーザーが提出を送信した回数。"
+
+#: poll/poll.py:227
+msgid "Text to display after the user votes."
+msgstr "ユーザーの投票後に表示するテキスト。"
+
+#. Translators: {field} is either "answers" or "questions".
+#: poll/poll.py:288
+#, python-brace-format
+msgid "'{field}' is not present, or not a JSON array."
+msgstr "「{field}」がありません、あるいはJSON配列ではありません。"
+
+#. Translators: {noun} is either "Answer" or "Question". {item} identifies the answer or question.
+#: poll/poll.py:300
+#, python-brace-format
+msgid "{noun} {item} not a javascript object!"
+msgstr "{noun} {item}がJavaScriptオブジェクトではありません。"
+
+#. Translators: {noun} is either "Answer" or "Question". {item} identifies the answer or question.
+#: poll/poll.py:309
+#, python-brace-format
+msgid "{noun} {item} contains no key."
+msgstr "{noun} {item}にキーが含まれていません。"
+
+#. Translators: {noun} is either "Answer" or "Question".
+#. {noun_lower} is the lowercase version of {noun}.
+#: poll/poll.py:321
+#, python-brace-format
+msgid ""
+"{noun} has no text or img. Please make sure all {noun_lower}s have one or "
+"the other, or both."
+msgstr "{noun}にテキストまたは画像がありません。すべての{noun_lower}にそのいずれか、または両方があることを確認してください。"
+
+#. Translators: {noun} is either "Answer" or "Question".
+#. {noun_lower} is the lowercase version of {noun}.
+#: poll/poll.py:332
+#, python-brace-format
+msgid ""
+"{noun} was added with no label. All {noun_lower}s must have labels. Please "
+"check the form. Check the form and explicitly delete {noun_lower}s if not "
+"needed."
+msgstr "{noun}がラベルなしで追加されました。すべての{noun_lower}にラベルが必要です。フォームを確認してください。フォームを確認し、不要な場合は{noun_lower}を明示的に削除してください。"
+
+#: poll/poll.py:340
+msgid ""
+"All images must have an alternative text describing the image in a way that "
+"would allow someone to answer the poll if the image did not load."
+msgstr "すべての画像には、画像が読み込めなかった場合に回答者が投票調査で回答できるように、画像を説明する代替テキストがなければなりません。"
+
+#. Translators: "{noun_lower} is either "answer" or "question".
+#: poll/poll.py:352
+#, python-brace-format
+msgid "You must include at least one {noun_lower}."
+msgstr "1つ以上の{noun_lower}が含まれていなければなりません。"
+
+#: poll/poll.py:400
+msgid "Maximum Submissions missing or not an integer."
+msgstr "最大提出回数がないか、整数ではありません。"
+
+#: poll/poll.py:405
+msgid "Private results may not be False when Maximum Submissions is not 1."
+msgstr "最大提出回数が1でない場合、非公開の結果は誤りでない場合があります。"
+
+#: poll/poll.py:442 poll/poll.py:792
+msgid "Poll"
+msgstr "投票調査"
+
+#: poll/poll.py:443
+msgid "What is your favorite color?"
+msgstr "お気に入りの色は何ですか?"
+
+#: poll/poll.py:448
+msgid "Red"
+msgstr "赤"
+
+#: poll/poll.py:449
+msgid "Blue"
+msgstr "青"
+
+#: poll/poll.py:450
+msgid "Green"
+msgstr "緑"
+
+#: poll/poll.py:451
+msgid "Other"
+msgstr "その他"
+
+#: poll/poll.py:453
+msgid "The answer options on this poll."
+msgstr "この投票における回答の選択肢。"
+
+#: poll/poll.py:457 poll/poll.py:818
+msgid "Total tally of answers from students."
+msgstr "生徒からの回答の投票集計。"
+
+#: poll/poll.py:458
+msgid "The student's answer"
+msgstr "生徒の回答"
+
+#: poll/poll.py:662 poll/poll.py:1097
+msgid "You have already voted in this poll."
+msgstr "この投票調査では既に投票済みです。"
+
+#: poll/poll.py:667
+msgid "Answer not included with request."
+msgstr "リクエストで回答が含まれていません。"
+
+#. Translators: {choice} uniquely identifies a specific answer belonging to a poll or survey.
+#: poll/poll.py:676
+#, python-brace-format
+msgid "No key \"{choice}\" in answers table."
+msgstr "回答表にキー「{choice}」がありません。"
+
+#: poll/poll.py:685 poll/poll.py:1105
+msgid "You have already voted as many times as you are allowed."
+msgstr "許可されている投票回数に既に達しています。"
+
+#: poll/poll.py:715
+msgid "You must specify a question."
+msgstr "質問を指定しなければなりません。"
+
+#: poll/poll.py:718 poll/poll.py:1159
+msgid "Answer"
+msgstr "回答"
+
+#: poll/poll.py:789
+msgid "Survey"
+msgstr "アンケート調査"
+
+#: poll/poll.py:795
+msgid "Yes"
+msgstr "はい"
+
+#: poll/poll.py:796
+msgid "No"
+msgstr "いいえ"
+
+#: poll/poll.py:797
+msgid "Maybe"
+msgstr "たぶん"
+
+#: poll/poll.py:799
+msgid "Answer choices for this Survey"
+msgstr "このアンケート調査の回答の選択肢"
+
+#: poll/poll.py:803
+msgid "Are you enjoying the course?"
+msgstr "コースを楽しんでいますか?"
+
+#: poll/poll.py:805
+msgid "Would you recommend this course to your friends?"
+msgstr "このコースを友人に勧めようと思いますか?"
+
+#: poll/poll.py:809
+msgid "Do you think you will learn a lot?"
+msgstr "多くのことを学べると思いますか?"
+
+#: poll/poll.py:811
+msgid "Questions for this Survey"
+msgstr "このアンケート調査の質問"
+
+#: poll/poll.py:820
+msgid "The user's answers"
+msgstr "ユーザーの回答"
+
+#: poll/poll.py:1113
+msgid ""
+"Not all questions were included, or unknown questions were included. Try "
+"refreshing and trying again."
+msgstr "含まれていない質問があったか、不明な質問が含まれていました。リフレッシュして再度お試しください。"
+
+#. Translators: {answer_key} uniquely identifies a specific answer belonging to a poll or survey.
+#. {question_key} uniquely identifies a specific question belonging to a poll or survey.
+#: poll/poll.py:1126
+#, python-brace-format
+msgid "Found unknown answer '{answer_key}' for question key '{question_key}'"
+msgstr "質問キー「{question_key}」について不明の回答「{answer_key}」があります。"
+
+#: poll/poll.py:1160
+msgid "Question"
+msgstr "質問"
+
+#: poll/public/html/poll.html:35 poll/public/html/survey.html:53
+msgid "Submit"
+msgstr "送信"
+
+#: poll/public/html/poll.html:40 poll/public/html/survey.html:55
+msgid "Thank you."
+msgstr "ありがとうございます。"
+
+#: poll/public/html/poll.html:44
+#, python-format
+msgid ""
+"\n"
+"        You have used %(submissions_count_s)s out of %(max_submissions_s)s "
+"submissions.\n"
+"      "
+msgstr "\n"
+"        提出回数%(max_submissions_s)s回中%(submissions_count_s)s回を使用しました。"
+
+#: poll/public/html/poll.html:52 poll/public/html/poll_edit.html:27
+#: poll/public/html/survey.html:64
+msgid "Feedback"
+msgstr "フィードバック"
+
+#: poll/public/html/poll.html:64 poll/public/html/survey.html:73
+msgid "View results"
+msgstr "結果を閲覧する"
+
+#: poll/public/html/poll.html:71 poll/public/html/survey.html:81
+msgid "Export results to CSV"
+msgstr "結果をCSVにエクスポートする"
+
+#: poll/public/html/poll.html:72 poll/public/html/survey.html:82
+msgid "Download CSV"
+msgstr "CSVをダウンロードする"
+
+#: poll/public/html/poll.html:76 poll/public/html/survey.html:86
+msgid "Student data and results CSV available for download in the LMS."
+msgstr "生徒データと結果CSVが、LMSでダウンロード可能です。"
+
+#: poll/public/html/poll_edit.html:8
+msgid "Display Name"
+msgstr "表示名"
+
+#: poll/public/html/poll_edit.html:15
+msgid "Question/Prompt"
+msgstr "質問 / プロンプト"
+
+#: poll/public/html/poll_edit.html:16
+#, python-format
+msgid ""
+"\n"
+"                    %(link_start)sMarkdown Syntax%(link_end)s is supported.\n"
+"                "
+msgstr "\n"
+"                    %(link_start)sマークダウン記法%(link_end)sに対応しています。       "
+
+#: poll/public/html/poll_edit.html:23
+msgid "Enter the prompt for the user."
+msgstr "ユーザー用のプロンプトを入力します。"
+
+#: poll/public/html/poll_edit.html:28
+#, python-format
+msgid ""
+"\n"
+"                %(link_start)sMarkdown Syntax%(link_end)s is supported.\n"
+"            "
+msgstr "\n"
+"                    %(link_start)sマークダウン記法%(link_end)sに対応しています。       "
+
+#: poll/public/html/poll_edit.html:36
+msgid ""
+"\n"
+"                    This text will be displayed for the user as some extra "
+"feedback after they have\n"
+"                    submitted their response to the poll.\n"
+"                "
+msgstr "\n"
+"                    このテキストは、投票調査の回答提出後、ユーザーへの追加のフィードバックとして表示されます。      "
+
+#: poll/public/html/poll_edit.html:44
+msgid "Private Results"
+msgstr "非公開の結果"
+
+#: poll/public/html/poll_edit.html:48
+msgid "True"
+msgstr "正"
+
+#: poll/public/html/poll_edit.html:49
+msgid "False"
+msgstr "誤"
+
+#: poll/public/html/poll_edit.html:53
+msgid "If this is set to True, don't display results of the poll to the user."
+msgstr "これが「正」に設定されている場合、ユーザーには投票結果を表示しません。"
+
+#: poll/public/html/poll_edit.html:58
+msgid "Maximum Submissions"
+msgstr "最大提出回数"
+
+#: poll/public/html/poll_edit.html:63
+#, python-format
+msgid ""
+"\n"
+"                    Maximum number of times a user may submit a poll. "
+"%(bold_start)sSetting this to a value other than 1 will imply that\n"
+"                    'Private Results' should be true.%(bold_end)s Setting it "
+"to 0 will allow infinite resubmissions.\n"
+"                "
+msgstr "\n"
+"                    ユーザーが投票を提出できる最大回数。%(bold_start)sこれを1以外の値に設定すると、「非公開の結果」が正であることを示唆します。%(bold_end)sこれを0に設定すると、再提出の回数が無制限となります。      "
+
+#: poll/public/html/poll_edit.html:71
+msgid "Notes:"
+msgstr "注:"
+
+#: poll/public/html/poll_edit.html:72
+msgid ""
+"\n"
+"                    If you change an answer's text, all students who voted "
+"for that choice will have their votes updated to\n"
+"                    the new text. You'll want to avoid changing an answer "
+"from something like 'True' to 'False', accordingly.\n"
+"                    If you delete an answer, any votes for that answer will "
+"also be deleted. Students whose choices are deleted\n"
+"                    may vote again, but will not lose course progress.\n"
+"                "
+msgstr "\n"
+"                    回答のテキストを変更すると、その選択肢に投票したすべての生徒の投票が、その新規のテキストに更新されてしまうため、「正」から「誤」への変更などは避けてください。\n"
+"                    回答を削除すると、その回答への投票もすべて削除されます。回答が削除された生徒は、再度、投票できますが、コース進度が失われることはありません。      "
+
+#: poll/public/html/poll_edit.html:81
+msgid ""
+"\n"
+"                        Questions must be similarly cared for. If a "
+"question's text is changed, any votes for that question will remain.\n"
+"                        If a question is deleted, any student who previously "
+"took the survey will be permitted to retake it, but will not\n"
+"                        lose course progress.\n"
+"                    "
+msgstr "\n"
+"                        質問についても同様に注意してください。質問のテキストが変更されると、その質問への投票はすべて残ります。\n"
+"                        質問が削除されると、以前、その調査に回答した生徒は、再度、回答できますが、コース進度が失われることはありません。                   "
+
+#: poll/public/html/poll_edit.html:97
+msgid "Add Answer"
+msgstr "回答を追加する"
+
+#: poll/public/html/poll_edit.html:101
+msgid "Add Question"
+msgstr "質問を追加する"
+
+#: poll/public/html/poll_edit.html:105
+msgid "Save"
+msgstr "保存する"
+
+#: poll/public/html/poll_edit.html:108
+msgid "Cancel"
+msgstr "キャンセル"
+
+#: poll/public/html/survey.html:57
+#, python-format
+msgid ""
+"\n"
+"                You have used %(submissions_count_s)s out of "
+"%(max_submissions_s)s submissions.\n"
+"            "
+msgstr "\n"
+"        提出回数%(max_submissions_s)s回中%(submissions_count_s)s回を使用しました。"

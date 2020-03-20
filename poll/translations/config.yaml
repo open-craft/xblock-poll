@@ -1,0 +1,25 @@
+# Configuration for i18n workflow.
+
+locales:
+    - en  # English - Source Language
+    - eo  # Esperanto
+    - ar  # Arabic
+    - es_419  # Spanish (Latin America)
+    - ja_JP  # Japanese
+    - fr  # French
+    - fr_CA  # French (Canada)
+    - he  # Hebrew
+    - hi  # Hindi
+    - ko_KR  # Korean (Korea)
+    - pt_BR  # Portuguese (Brazil)
+    - ru  # Russian
+    - zh_CN  # Chinese (China)
+    - de_DE  # German
+    - pl # Polish
+
+# The locales used for fake-accented English, for testing.
+dummy_locales:
+    - eo
+
+generate_merge: {}
+segment: {}

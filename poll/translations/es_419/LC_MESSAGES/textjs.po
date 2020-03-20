@@ -1,0 +1,66 @@
+msgid ""
+msgstr "Content-Type: text/plain; charset=utf-8\n"
+
+#: poll/public/handlebars/poll_results.handlebars:5
+#: poll/public/handlebars/survey_results.handlebars:4
+msgid "Results"
+msgstr "Resultados"
+
+#: poll/public/handlebars/poll_results.handlebars:31
+#: poll/public/handlebars/survey_results.handlebars:39
+msgid "Submit"
+msgstr "Enviar"
+
+#: poll/public/handlebars/poll_results.handlebars:33
+#: poll/public/handlebars/survey_results.handlebars:41
+msgid "Results gathered from {total} respondent."
+msgid_plural "Results gathered from {total} respondents."
+msgstr[0] "Resultados recopilados de {total} persona que respondió."
+msgstr[1] "Resultados recopilados de {total} personas que respondieron."
+
+#: poll/public/handlebars/poll_results.handlebars:37
+#: poll/public/handlebars/survey_results.handlebars:46
+msgid "Feedback"
+msgstr "Comentarios"
+
+#: poll/public/handlebars/poll_studio.handlebars:6
+msgid "move poll up"
+msgstr "aumentar el sondeo"
+
+#: poll/public/handlebars/poll_studio.handlebars:7
+msgid "move poll down"
+msgstr "disminuir el sondeo"
+
+#: poll/public/handlebars/poll_studio.handlebars:9
+msgid "Delete"
+msgstr "Eliminar"
+
+#: poll/public/handlebars/poll_studio.handlebars:11
+msgid "Answer"
+msgstr "Respuesta"
+
+#: poll/public/handlebars/poll_studio.handlebars:12
+msgid "Question"
+msgstr "Pregunta"
+
+#: poll/public/handlebars/poll_studio.handlebars:16
+msgid "Image URL"
+msgstr "URL de la imagen"
+
+#: poll/public/handlebars/poll_studio.handlebars:18
+msgid "Image alternative text"
+msgstr "Texto alternativo de la imagen"
+
+#: poll/public/handlebars/poll_studio.handlebars:23
+msgid ""
+"You can make limited use of Markdown in answer texts, preferably only bold "
+"and italics."
+msgstr "Puede hacer uso limitado del lenguaje Markdown en los textos de respuesta, preferentemente solo en negrita y cursiva."
+
+#: poll/public/handlebars/poll_studio.handlebars:27
+msgid ""
+"This must have an image URL or text, and can have both.  If you add an "
+"image, you must also provide an alternative text that describes the image "
+"in a way that would allow someone to answer the poll if the image did not "
+"load."
+msgstr "Debe tener una URL o texto de la imagen y puede contener ambos. Si agrega una imagen, también debe proporcionar un texto alternativo que describa la imagen de manera que permita a alguien responder al sondeo si no se cargó la imagen."

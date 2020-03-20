@@ -1,4 +1,3 @@
-
 function PollEditUtil(runtime, element, pollType) {
     var self = this;
     var notify;
@@ -13,7 +12,10 @@ function PollEditUtil(runtime, element, pollType) {
 
     this.init = function () {
         // Set up the editing form for a Poll or Survey.
-        var temp = $('#poll-form-component', element).html();
+        var temp = $('.poll-form-component', element).html();
+
+        PollCommonUtil.init(Handlebars);
+
         self.answerTemplate = Handlebars.compile(temp);
 
         $(element).find('.cancel-button', element).bind('click', function() {
@@ -93,7 +95,7 @@ function PollEditUtil(runtime, element, pollType) {
 
         // A 'key' element will have to be added after the fact, since it needs to be
         // generated with the current time.
-        return self.extend({'text': '', 'img': ''}, extra)
+        return self.extend({'text': '', 'img': '', 'img_alt': ''}, extra)
     };
 
     this.empowerDeletes = function (scope) {
@@ -105,14 +107,15 @@ function PollEditUtil(runtime, element, pollType) {
 
     this.empowerArrows = function(scope, topMarker, bottomMarker) {
         // Activates the arrows on rendered line items.
-        $('.poll-move-up', scope).click(function () {
+        $('.poll-move-up', scope).click(function (ev) {
             var tag = $(this).parents('li');
             if (tag.index() <= ($(topMarker).index() + 1)){
                 return;
             }
             tag.prev().before(tag);
             tag.fadeOut(0).fadeIn('slow', 'swing');
-            self.scrollTo(tag)
+            self.scrollTo(tag);
+            ev.preventDefault();
         });
         $('.poll-move-down', scope).click(function () {
             var tag = $(this).parents('li');
@@ -121,7 +124,8 @@ function PollEditUtil(runtime, element, pollType) {
             }
             tag.next().after(tag);
             tag.fadeOut(0).fadeIn('slow', 'swing');
-            self.scrollTo(tag)
+            self.scrollTo(tag);
+            ev.preventDefault();
         });
     };
 
@@ -175,16 +179,19 @@ function PollEditUtil(runtime, element, pollType) {
     this.gather = function (scope, tracker, data, prefix, field) {
         var key = 'label';
         var name = scope.name.replace(prefix + '-', '');
-        if (name.indexOf('img-') == 0){
+        if (name.indexOf('img_alt-') == 0) {
+            name = name.replace('img_alt-', '');
+            key = 'img_alt'
+        } else if (name.indexOf('img-') == 0) {
             name = name.replace('img-', '');
             key = 'img'
-        } else if (name.indexOf('label-') == 0){
+        } else if (name.indexOf('label-') == 0) {
             name = name.replace('label-', '');
         }
         if (! (scope.name.indexOf(prefix + '-') >= 0)) {
             return
         }
-        if (tracker.indexOf(name) == -1){
+        if (tracker.indexOf(name) == -1) {
             tracker.push(name);
             data[field].push({'key': name})
         }
@@ -227,7 +234,7 @@ function PollEditUtil(runtime, element, pollType) {
         data['private_results'] = eval($('#poll-private-results', element).val());
 
         if (notify) {
-            runtime.notify('save', {state: 'start', message: "Saving"});
+            runtime.notify('save', {state: 'start', message: gettext("Saving")});
         }
         $.ajax({
             type: "POST",

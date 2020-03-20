@@ -1,0 +1,37 @@
+.themed-xblock.poll-block .poll-voting-thanks span {
+    /* default LMS colors - contrast 11.0 */
+    background-color: #ffffff;
+    color: #3c3c3c;
+}
+
+.themed-xblock.poll-block .poll-top-choice {
+    /* close to LMS color for links and menu items - contrast 5.5 with white and 4.6 with e5ebee*/
+    color: #0070a0;
+}
+
+.themed-xblock.poll-block .poll-answer-label {
+    vertical-align: middle;
+}
+
+.themed-xblock.poll-block .survey-table thead tr td,
+.themed-xblock.poll-block .survey-table thead tr th {
+    font-size: 1em;
+}
+
+.themed-xblock.poll-block .survey-row td,
+.themed-xblock.poll-block .survey-row th {
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+/* LMS have very specific css selector that sets ~1.5em bottom margin */
+.themed-xblock.poll-block table.survey-table .survey-row td p,
+.themed-xblock.poll-block table.survey-table .survey-row th p,
+.themed-xblock.poll-block .poll-answers .poll-answer .poll-answer p,
+.themed-xblock.poll-block ul.poll-results li.poll-result .poll-answer-label p {
+    margin-bottom: 0;
+}
+
+.themed-xblock.poll-block ul.poll-results li.poll-spacer {
+    margin-bottom: 0;
+}

@@ -24,13 +24,15 @@ and images. Formatting for images is handled by the XBlock's formatters to keep 
 The feedback section of a poll or survey is shown after a user has completed the block. It, along with a poll block's
 question field, are intended to make full use of Markdown.
 
+These blocks currently do not support grading.
+
 ## Installation and configuration
 
 This XBlock relies on [Xblock-utils](https://github.com/edx-solutions/xblock-utils), which should be installed first.
 
 After this, XBlock-poll may be installed using its setup.py, or if you prefer to use pip, running:
 
-    pip install /path/to/xblock_poll/repo/clone
+    $ pip install git+https://github.com/open-craft/xblock-poll.git
 
 You may specify the `-e` flag if you intend to develop on the repo.
 
@@ -61,7 +63,7 @@ is presented to them.
 
 ![Poll example results](doc_img/poll_result.png)
 
-The top choice's percentage is shown in *orange* while the user's selection is marked by a selected (but disabled)
+The top choice's percentage is highlighted while the user's selection is marked by a selected (but disabled)
 radio button on the side.
 
 ### Poll variations
@@ -75,13 +77,14 @@ of the answers:
 
 ![Image-only poll](doc_img/img_poll.png)
 
+Please note that using only images is not accessible as Poll XBlock does not provide means for specifying alternate
+text for images. Instead use images *and* texts:
+
+![Image and Label label poll](doc_img/img_and_label_poll.png)
+
 This poll also contains a feedback section, which is enhanced with Markdown:
 
 ![Image-only poll results](doc_img/img_poll_result.png)
-
-Polls may also have images and with text.
-
-![Image and Label label poll](doc_img/img_and_label_poll.png)
 
 Or they may have a mix of both.
 
@@ -186,7 +189,8 @@ for 'Private Results':
 
 **Notes on Private Results**: Users will be able to change their vote on polls and surveys with this option enabled.
 An analytics event will not be fired upon the student viewing the results, as the results are never visible. A user
-will see a thank you message and any feedback provided upon submission:
+will see a thank you message, and optionally, any instructor-provided Feedback in an additional "Feedback" section,
+when they click submit:
 
 ![Private Results Submission](doc_img/private_results_submission.png)
 
@@ -213,10 +217,6 @@ or their score.
 Things that could make a poll's previous answers ambiguous include adding or removing a question, or adding or
 removing an answer.
 
-## Grading
-
-Each block has a score value of 1, credited to the student upon completion of the block.
-
 ## Analytics
 
 Two events are fired by the XBlocks-- one for viewing the results of a poll, and one for submitting the user's choice.
@@ -239,3 +239,207 @@ If you want to grant members of other groups ability to view the results, you ca
 names in the django settings using the `XBLOCK_POLL_EXTRA_VIEW_GROUPS` setting, for example:
 
     XBLOCK_POLL_EXTRA_VIEW_GROUPS = ['poll_staff']
+
+## Working with Translations
+
+For information about working with translations, see the [Internationalization Support](http://edx.readthedocs.io/projects/xblock-tutorial/en/latest/edx_platform/edx_lms.html#internationalization-support) section of the [Open edX XBlock Tutorial](https://xblock-tutorial.readthedocs.io/en/latest/).
+
+### Working with Transifex
+Prepare your environment:
+
+```
+$ mkvirtualenv poll-xblock
+$ make requirements
+```
+
+Also ensure that the [Transifex client has the proper authentication](https://docs.transifex.com/client/init) 
+in the `~/.transifexrc` file.
+
+Push new strings to Transifex:
+```
+$ make push_translations
+```
+
+To get the latest translations from Transifex:
+```
+$ make pull_translations
+```
+
+For testing purposes it's faster to avoid Transifex and work on dummy Esperanto translations:
+```
+$ make build_dummy_translations
+``` 
+
+## Running Tests Locally
+The Selenium tests in this XBlock requires Firefox 36.0 (the exact version can be found in `.travis.yml`).
+On Linux, it's possible to install it via the command `$ make install_linux_dev_firefox`, but you'd
+have to install it on MacOS [manually from the Mozilla website](https://support.mozilla.org/en-US/kb/install-older-version-of-firefox), or you can rely on Travis to do that for you on the cloud.
+
+Assuming that the correct Firefox version has been installed, you can run the following command for the tests on Linux:
+```
+$ make linux_dev_test
+```
+
+or something like that on MacOS:
+
+```
+$ PATH="path/to/firefox/bin/directory:$PATH" make test
+```
+
+
+## API for native mobile frontends
+
+**Retrieve fixed data for all poll/survey XBlocks in a course:**
+```
+GET https://<lms_server_url>/api/courses/v1/blocks/?course_id=<course_id>&username=<username>&depth=all&requested_fields=student_view_data
+```
+
+Example poll return value:
+```
+"student_view_data": {
+    "feedback": "This is feedback message survey.",
+    "private_results": false,
+    "max_submissions": 1,
+    "question": "Did the explanation above make sense to you?",
+    "answers": [
+        [
+            "R",
+            {
+                "img_alt": "",
+                "img": "",
+                "label": "Yes, completely"
+            }
+        ],
+        [
+            "B",
+            {
+                "img_alt": "",
+                "img": "",
+                "label": "Yes, for the most part"
+            }
+        ],
+        [
+            "G",
+            {
+                "img_alt": "",
+                "img": "",
+                "label": "Not really"
+            }
+        ],
+        [
+            "O",
+            {
+                "img_alt": "",
+                "img": "",
+                "label": "Not at all"
+            }
+        ]
+    ]
+},
+```
+
+Example survey return value:
+```
+"student_view_data": {
+    "feedback": "This is feedback message survey.",
+    "private_results": false,
+    "max_submissions": 1,
+    "block_name": "Poll2",
+    "answers": [
+        [
+            "Y",
+            "Yes"
+        ],
+        [
+            "N",
+            "No"
+        ],
+        [
+            "M",
+            "Maybe"
+        ],
+        [
+            "1464806559402",
+            "Unsure"
+        ]
+    ],
+    "questions": [
+        [
+            "enjoy",
+            {
+                "img_alt": "",
+                "img": "",
+                "label": "Do you think you will use Polls in your course?"
+            }
+        ],
+        [
+            "recommend",
+            {
+                "img_alt": "",
+                "img": "",
+                "label": "Do you think you will use Surveys in your course?"
+            }
+        ],
+        [
+            "learn",
+            {
+                "img_alt": "",
+                "img": "",
+                "label": "Do you think the ability to query students is useful?"
+            }
+        ],
+        [
+            "1464806513240",
+            {
+                "img_alt": "",
+                "img": "",
+                "label": "Do you like taking Polls and/or Surveys?"
+            }
+        ]
+    ]
+},
+```
+
+**Retrieve current poll tally and current user's vote**
+```
+GET https://<lms_server_url>/courses/<course_id>/xblock/<poll_xblock_id>/handler/student_view_user_state
+```
+
+Example return value:
+```
+{"tally": {"B": 0, "R": 1, "O": 0, "G": 0}, "submissions_count": 1, "choice": "R"}
+```
+
+**Retrieve current survey tally and current user's vote**
+```
+GET https://<lms_server_url>/courses/<course_id>/xblock/<survey_xblock_id>/handler/student_view_user_state
+```
+
+Example return value:
+```
+{
+    "tally":{
+        "enjoy":{
+            "Y":1,
+            "M":0,
+            "N":0
+        },
+        "learn":{
+            "Y":0,
+            "M":1,
+            "N":0
+        },
+        "recommend":{
+            "Y":0,
+            "M":0,
+            "N":1
+        }
+    },
+    "submissions_count":1,
+    "choices":{
+        "enjoy":"Y",
+        "recommend":"N",
+        "learn":"M"
+    }
+}
+```

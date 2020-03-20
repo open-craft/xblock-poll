@@ -1,55 +1,88 @@
+{% load i18n %}
 {{ js_template|safe }}
-<div class="poll-block" data-private="{% if private_results %}1{% endif %}" data-can-vote="{% if can_vote %}1{% endif %}">
-    {# If no form is present, the Javascript will load the results instead. #}
-    {% if not choices or private_results %}
-    <h3 class="poll-header">{{block_name}}</h3>
-    <form>
-        <table class="survey-table">
-            <thead>
-              <tr>
-                  <th></th>
-                  {% for answer, label in answers %}
-                    <th class="survey-answer">{{label}}</th>
-                  {% endfor %}
-              </tr>
-            </thead>
-        {% for key, question in questions %}
-            <tr class="survey-row">
-                <td class="survey-question">
-                    {% if question.img %}
-                        <div class="poll-image-td">
-                                <img src="{{question.img}}" />
-                        </div>
-                    {% endif %}
-                  {{question.label|safe}}
-                </td>
-            {% for answer, answer_details in answers %}
-                <td class="survey-option">
-                    <input type="radio" name="{{key}}" value="{{answer}}"{% if question.choice == answer %} checked{% endif %}/>
-                </td>
+<div class="poll-block themed-xblock" data-private="{% if private_results %}1{% endif %}"
+     data-can-vote="{% if can_vote %}1{% endif %}">
+    <div class="poll-block-form-wrapper">
+        <h3 class="poll-header">{{block_name}}</h3>
+        <form>
+            <table class="survey-table" role="presentation">
+                <thead role="presentation">
+                  <tr role="group">
+                      <td></td>
+                      {% for answer, label in answers %}
+                        <th role="presentation" id="poll-{{block_id}}-{{answer}}" class="survey-answer" scope="col">{{label}}</th>
+                      {% endfor %}
+                  </tr>
+                </thead>
+            {% for key, question in questions %}
+                <tr class="survey-row" role="group" aria-labelledby="poll-{{block_id}}-{{key}}">
+                    <th role="presentation" id="poll-{{block_id}}-{{key}}" class="survey-question" scope="row">
+                        {% if question.img %}
+                            <div class="poll-image-td">
+                                <img src="{{question.img}}" alt="{{question.img_alt|default_if_none:''}}"/>
+                            </div>
+                        {% endif %}
+                      {{question.label|safe}}
+                    </th>
+                {% for answer, label in answers %}
+                    <td role="presentation" class="survey-option" headers="poll-{{block_id}}-{{key}} poll-{{block_id}}-{{answer}}">
+                        {% with answer_count=forloop.counter %}
+                            {% for answer, label in answers %}
+                                {% if forloop.counter == answer_count %}
+                                    <label for="{{block_id}}-{{key}}-{{answer_count}}">
+                                        <input type="radio"
+                                               name="{{key}}"
+                                               id="{{usage_id}}-{{key}}-{{forloop.counter}}"
+                                               value="{{answer}}"{% if question.choice == answer %} checked{% endif %}
+                                               {% if question.img_alt %}
+                                               aria-label="{{question.img_alt}} {{label}}"
+                                               {% else %}
+                                               aria-label="{{label|safe}}"
+                                               {% endif %}
+                                        />
+                                        <span class="visible-mobile-only">{{label}}</span>
+                                    </label>
+                                {% endif %}
+                            {% endfor %}
+                        {% endwith %}
+                    </td>
+                {% endfor %}
+                </tr>
             {% endfor %}
-            </tr>
-        {% endfor %}
-        </table>
-        <input class="input-main" type="button" name="poll-submit" value="{% if choices and can_vote %}Resubmit{% else %}Submit{% endif %}" disabled />
-    </form>
-    <div class="poll-voting-thanks{% if not choices or can_vote %} poll-hidden{% endif %}"><span>Thank you for your submission!</span></div>
-    <div class="poll-submissions-count poll-hidden">
-        You have used <span class="poll-current-count">{{ submissions_count }}</span>
-        out of <span class="poll-max-submissions">{{ max_submissions }}</span> submissions.
-    </div>
-    {% if feedback %}
-        <div class="poll-feedback-container{% if not choices %} poll-hidden{% endif %}">
-            <hr />
-            <h3 class="poll-header">Feedback</h3>
-            <div class="poll-feedback">
-                {{feedback|safe}}
-            </div>
+            </table>
+            <input class="input-main" type="button" name="poll-submit" value="{% trans 'Submit' %}" disabled />
+        </form>
+        <div class="poll-voting-thanks{% if not choices or can_vote %} poll-hidden{% endif %}"><span>{% trans 'Thank you.' %}</span></div>
+        <div class="poll-submissions-count poll-hidden">
+            {% blocktrans with submissions_count_s='<span class="poll-current-count">{{ submissions_count }}</span>' max_submissions_s='<span class="poll-max-submissions">{{ max_submissions }}</span>' %}
+                You have used {{ submissions_count_s }} out of {{ max_submissions_s }} submissions.
+            {% endblocktrans %}
         </div>
-    {% endif %}
+        {% if feedback %}
+            <div class="poll-feedback-container{% if not choices %} poll-hidden{% endif %}">
+                <hr />
+                <h3 class="poll-header">{% trans 'Feedback' %}</h3>
+                <div class="poll-feedback">
+                    {{feedback|safe}}
+                </div>
+            </div>
+        {% endif %}
 
-    {% if can_view_private_results %}
-        <div class="view-results-button-wrapper"><a class="view-results-button">View results</a></div>
-    {% endif %}
-  {% endif %}
+        {% if can_view_private_results %}
+            <div class="view-results-button-wrapper">
+                <button class="view-results-button">{% trans "View results" %}</button>
+            </div>
+        {% endif %}
+    </div>
 </div>
+{% if can_view_private_results %}
+  {% if not studio_edit %}
+    <div class="export-results-button-wrapper">
+      <button class="export-results-button">{% trans "Export results to CSV" %}</button>
+      <button disabled class="download-results-button">{% trans "Download CSV" %}</button>
+      <p class="error-message poll-hidden"></p>
+    </div>
+  {% else %}
+    <p>{% trans "Student data and results CSV available for download in the LMS." %}</p>
+  {% endif %}
+{% endif %}

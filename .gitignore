@@ -1,5 +1,7 @@
 # Created by https://www.gitignore.io
 
+tests.integration.*.png
+
 ### Python ###
 # Byte-compiled / optimized / DLL files
 __pycache__/
@@ -7,6 +9,14 @@ __pycache__/
 
 # C extensions
 *.so
+
+# Selenium Firefox for Dev Testing
+.firefox
+
+# NodeJS
+node_modules
+yarn-error.log
+npm-debug.log
 
 # Distribution / packaging
 .Python
@@ -43,9 +53,10 @@ htmlcov/
 nosetests.xml
 coverage.xml
 tests.integration.*
+.noseids
 
 # Translations
-*.mo
+#*.mo
 *.pot
 
 # Django stuff:

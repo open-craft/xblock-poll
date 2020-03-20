@@ -21,7 +21,9 @@ disable=
 	too-many-ancestors,
 	too-many-arguments,
 	too-many-locals,
-	unused-argument
+	unused-argument,
+	useless-object-inheritance,
+	import-outside-toplevel
 
 [SIMILARITIES]
 min-similarity-lines=8

@@ -1,10 +1,18 @@
 /* CSS for PollBlock Student View */
 
+.poll-question {
+    /* Make sure vertical whitespace below poll question is consistent across browsers.
+     * Some browsers use custom user agent stylesheets that modify the value of the "display" property
+     * for <legend> elements. */
+    display: inline;
+}
+
 .poll-answer-text {
-    margin-left: 1em;
     margin-bottom: 0;
     font-weight: bold;
     vertical-align: middle;
+    display: table-cell;
+    padding-left: .5em;
 }
 
 .percentage-gauge {
@@ -17,7 +25,7 @@
 }
 
 .poll-result-input-container {
-    display: table-cell;
+    display: inline-block;
     vertical-align: middle;
 }
 
@@ -25,20 +33,46 @@
     margin: 0 .5em 0 0;
 }
 
+.poll-input-container input[type="radio"] {
+    margin: 0;
+}
+
+.percentage-gauge-background {
+    position: absolute;
+    display: inline-block;
+    background-color: #fafbfc;
+}
+
 .percentage-gauge-container {
-    display: table-cell;
-    width: 100%;
+    display: inline-block;
+    width: calc(100% - 75px);
     vertical-align: middle;
     position: relative;
     background-color: #fafbfc;
 }
 
-ul.poll-answers, ul.poll-answers-results {
-    list-style-type: none !important;
+.poll-results.has-images .percentage-gauge-container {
+    width: 65%;
+}
+
+.poll-answers, ul.poll-answers-results {
     max-width: 80%;
 }
 
-li.poll-answer {
+.poll-answers {
+    margin-bottom: 1em;
+    padding-left: 1em;
+}
+
+.poll-results-wrapper:focus {
+    outline: none;
+}
+
+ul.poll-answers-results {
+    list-style-type: none !important;
+}
+
+.poll-answer {
     display: table-row;
     border-bottom-width: .5em;
     vertical-align: middle;
@@ -49,14 +83,10 @@ li.poll-spacer {
     height: .25em;
 }
 
-ul.poll-answers-results {
-    display: table;
-}
-
-li.poll-result {
+div.poll-block ul.poll-results li.poll-result {
+    /* The selector above needs all three parts to trump some margin setting from the LMS. */
     width: 100%;
-    display: table-row;
-    padding-bottom: .2em;
+    margin-bottom: 4px;
 }
 
 .poll-answer-label {
@@ -66,15 +96,13 @@ li.poll-result {
     margin-bottom: 5px;
     margin-top: 5px;
     position: relative;
+    padding-left: .5em;
 }
 
 .poll-image {
     width: 25%;
     display: table-cell;
     vertical-align: middle;
-}
-
-.poll-image {
     margin-left: .5em;
 }
 
@@ -83,12 +111,17 @@ li.poll-result {
 }
 
 li.poll-result .poll-image {
-    display: table-cell;
+    width: 22%;
+    display: inline-block;
     margin-left: 0;
 }
 
 .poll-image-td {
     width: 25%;
+}
+
+.poll-image img {
+    vertical-align: middle;
 }
 
 .poll-image img, .poll-image-td img{
@@ -100,7 +133,7 @@ li.poll-result .poll-image {
 }
 
 .poll-percent-container {
-    display: table-cell;
+    display: inline-block;
     text-align: left;
     padding-left: .2em;
     vertical-align: middle;
@@ -127,12 +160,22 @@ li.poll-result .poll-image {
     border: 0;
 }
 
+.survey-table td{
+    text-align: center;
+}
+
+.survey-table td label{
+    display: block;
+    padding: 5px 0;
+}
+
 .survey-table td, .survey-table th {
     border: 1px solid #CCC;
     border-top: 0;
 }
 
-.survey-table tr:last-child td {
+.survey-table tbody tr:last-child td,
+.survey-table tbody tr:last-child th {
     border-bottom: 0;
 }
 
@@ -151,6 +194,7 @@ li.poll-result .poll-image {
     background: none;
 }
 
+.survey-table thead tr td,
 .survey-table thead tr th {
     font-weight: bold;
     font-size: .9rem;
@@ -160,7 +204,11 @@ li.poll-result .poll-image {
     background: none !important;
 }
 
-.survey-table .survey-option {
+.survey-table .survey-row .survey-question {
+    text-align: left;
+}
+
+.survey-table .survey-option label {
     text-align: center;
     vertical-align: middle;
 }
@@ -204,7 +252,7 @@ th.survey-answer {
 }
 
 /* Keep the paragraph spacing, but make the spacing vertically even. */
-li.poll-answer label.poll-answer-text p {
+.poll-answer label.poll-answer-text p {
     margin-bottom: .5em;
     margin-top: .5em;
 }
@@ -226,9 +274,14 @@ li.poll-answer label.poll-answer-text p {
     font-weight: bold;
 }
 
-.view-results-button-wrapper {
+.view-results-button-wrapper, .export-results-button-wrapper {
+    margin-bottom: 5px;
     text-align: right;
     cursor: pointer;
+}
+
+.poll-block-form-wrapper {
+    display: none;
 }
 
 .poll-input-container {
@@ -236,4 +289,123 @@ li.poll-answer label.poll-answer-text p {
     vertical-align: middle;
     height: 100%;
     padding-right: .5em;
+    width: 5%;
+}
+
+.visible-mobile-only{
+    display: none;
+    visibility: hidden;
+}
+
+@media only screen and (max-width: 767px){
+    .visible-mobile-only{
+        display: inline-block;
+        visibility: visible;
+    }
+
+    .survey-percentage span{
+        display: inline-block;
+    }
+
+    .survey-percentage .percentage{
+        width: 50px;
+        text-align: right;
+        float: right;
+    }
+
+    .survey-table .survey-question{
+        display: block;
+        border: 0;
+        padding-bottom: 10px;
+    }
+
+    .survey-table thead{
+        display: none;
+        visibility: hidden;
+    }
+
+    .survey-table .survey-option .visible-mobile-only{
+        width: calc(100% - 20px);
+    }
+
+    .survey-table .survey-percentage .visible-mobile-only{
+        width: calc(100% - 60px);
+    }
+
+    .survey-table .survey-option{
+        display: block;
+        border: 1px solid #ccc;
+        text-align: left;
+        padding: 0 10px;
+        margin-bottom: 10px;
+        border-radius: 5px;
+    }
+
+    .survey-table .survey-option:last-child{
+        border-right: 1px solid #ccc;
+    }
+
+    .survey-table tr:last-child td{
+        border-bottom: 1px solid #ccc;
+    }
+
+    .survey-table tr:last-child td:first-child{
+        border-bottom: 0;
+    }
+
+    .survey-table .survey-option label{
+        text-align: left;
+        padding: 8px 0;
+    }
+
+    .survey-table tbody tr:last-child td{
+        border-bottom: 1px solid #ccc;
+    }
+
+    /*Polls*/
+
+    .poll-answers, ul.poll-answers-results{
+        max-width: none;
+    }
+
+    .percentage-gauge-container label.poll-answer-label p{
+        margin-top: 0;
+        line-height: 24px;
+    }
+}
+
+ /*RTL specified CSS for polls & survey*/
+
+.rtl .poll-input-container, .rtl .poll-answer-text{
+    padding-left: .5em;
+    padding-right: 0;
+}
+
+.rtl .poll-result-input-container input{
+    margin: 0 0 0 .5em;
+}
+
+.rtl .poll-answer-label{
+    margin-left: 0;
+    padding-left: 0;
+    margin-right: .2em;
+    padding-right: .5em;
+}
+
+.rtl .poll-percent-container{
+    padding-right: .2em;
+    padding-left: 0;
+}
+
+.rtl .survey-table .survey-row .survey-question{
+    text-align: right;
+}
+
+.rtl .survey-table tr td:first-child, .rtl .survey-table tr th:first-child{
+    border-right: 0;
+    border-left: 1px solid #ccc;
+}
+
+.rtl .survey-table tr td:last-child, .rtl .survey-table tr th:last-child{
+    border-left: 0;
 }

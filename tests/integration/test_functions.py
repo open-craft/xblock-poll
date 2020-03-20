@@ -24,7 +24,9 @@
 Tests a realistic, configured Poll to make sure that everything works as it
 should.
 """
+
 from .base_test import PollBaseTest
+
 
 ANSWER_SELECTOR = 'label.poll-answer-text'
 
@@ -101,6 +103,21 @@ class TestPollFunctions(PollBaseTest):
         self.go_to_page('Poll Functions')
         self.assertFalse(self.get_submit().is_enabled())
 
+    def test_poll_options_a11y(self):
+        """
+        Checks if there is a programmatic relationship between the question text of a poll
+        and the radio buttons representing poll options.
+
+        - The entire poll should be wrapped in a <fieldset> element.
+        - The question text of the poll should be wrapped in a <legend> element.
+        """
+        self.go_to_page('Poll Functions')
+
+        poll = self.browser.find_element_by_css_selector('fieldset.poll-container')
+        question = poll.find_element_by_css_selector('legend.poll-question')
+
+        self.assertEqual(question.text, 'How long have you been studying with us?')
+
 
 class TestSurveyFunctions(PollBaseTest):
 
@@ -148,6 +165,28 @@ class TestSurveyFunctions(PollBaseTest):
 
         submit_button = self.get_submit()
         self.assertFalse(submit_button.is_enabled())
+
+    def test_survey_options_a11y(self):
+        """
+        Checks if radio buttons representing survey options are linked to corresponding question and answer.
+
+        This is to ensure that screen reader users can be certain that a given radio button
+        is tied to a specific question and answer.
+        """
+        self.go_to_page('Survey Functions')
+        questions = self.browser.find_elements_by_css_selector('.survey-question')
+        answers = self.browser.find_elements_by_css_selector('.survey-answer')
+        question_text = [question.text for question in questions]
+        answer_text = [answer.text for answer in answers]
+        rows = self.browser.find_elements_by_css_selector('.survey-row')
+        self.assertEqual(len(rows), len(questions))
+        for i, row in enumerate(rows):
+            self.assertEqual(row.get_attribute('role'), 'group')
+            options = row.find_elements_by_css_selector('.survey-option input')
+            self.assertEqual(len(options), len(answers))
+            for j, option in enumerate(options):
+                self.assertIn(answer_text[j], option.get_attribute('aria-label'))
+                self.assertIn(option.get_attribute('aria-label'), answer_text)
 
     def fill_survey(self, assert_submit=False):
         """
@@ -226,3 +265,14 @@ class TestSurveyFunctions(PollBaseTest):
 
         self.go_to_page('Poll Functions')
         self.assertFalse(self.get_submit().is_enabled())
+
+    def test_survey_radio_ids_unique(self):
+        """
+        Verify that multiple surveys on the same page with the same question
+        IDs still produce unique HTML radio button IDs.
+        """
+        self.go_to_page('Survey Multiple')
+        elements = self.browser.find_elements_by_css_selector('.survey-option input[type=radio]')
+        all_ids = sorted([element.get_attribute('id') for element in elements])
+        unique_ids = sorted(list(set(all_ids)))
+        self.assertSequenceEqual(all_ids, unique_ids)

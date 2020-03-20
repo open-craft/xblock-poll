@@ -1,0 +1,14 @@
+[main]
+host = https://www.transifex.com
+
+[xblocks.xblock-poll]
+source_file = poll/translations/en/LC_MESSAGES/text.po
+file_filter = poll/translations/<lang>/LC_MESSAGES/text.po
+source_lang = en
+type = PO
+
+[xblocks.xblock-poll-js]
+source_file = poll/translations/en/LC_MESSAGES/textjs.po
+file_filter = poll/translations/<lang>/LC_MESSAGES/textjs.po
+source_lang = en
+type = PO

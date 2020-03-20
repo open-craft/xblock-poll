@@ -21,11 +21,12 @@
 # "AGPLv3".  If not, see <http://www.gnu.org/licenses/>.
 #
 
+from __future__ import absolute_import
 from ddt import ddt, unpack, data
 from selenium.common.exceptions import NoSuchElementException
 
 from poll.poll import PollBase
-from base_test import PollBaseTest, DEFAULT_SURVEY_NAMES, DEFAULT_POLL_NAMES
+from .base_test import PollBaseTest, DEFAULT_SURVEY_NAMES, DEFAULT_POLL_NAMES
 
 
 scenarios = ('Survey Private', DEFAULT_SURVEY_NAMES), ('Poll Private', DEFAULT_POLL_NAMES)
@@ -87,12 +88,9 @@ class TestPrivateResults(PollBaseTest):
         submit.click()
         self.wait_until_clickable(self.browser.find_element_by_css_selector('.poll-voting-thanks'))
 
-        self.assertIn('Resubmit', submit.get_attribute('outerHTML'), 'Resubmit')
-
-        # This should persist on page reload.
-        self.go_to_page(page_name)
-        submit = self.get_submit()
-        self.assertIn('Resubmit', submit.get_attribute('outerHTML'), 'Resubmit')
+        self.assertIn('Submit', submit.get_attribute('outerHTML'))
+        # ^ Note that in previous versions, this text would change to "Resubmit",
+        # but we removed that functionality in v1.2.2
 
     @unpack
     @data(*scenarios)
@@ -121,7 +119,7 @@ class TestPrivateResults(PollBaseTest):
     @stub_view_permission(True)
     def test_results_button(self, page_name, names):
         self.go_to_page(page_name)
-        button = self.browser.find_element_by_css_selector('a.view-results-button')
+        button = self.browser.find_element_by_css_selector('.view-results-button')
         button.click()
         self.wait_until_exists('.poll-results')
         self.wait_until_exists('.poll-footnote')

@@ -1,42 +1,43 @@
-<script id="poll-results-template" type="text/html">
+<script class="poll-results-template" type="text/html">
     <h3 class="poll-header">{{display_name}}</h3>
-    <div class="poll-question-container">{{{question}}}</div>
-    <ul class="poll-answers-results poll-results">
-    {{#each tally}}
-        <li class="poll-result">
-            <div class="poll-result-input-container">
-              <input id="answer-{{key}}" type="radio" disabled {{#if choice}}checked="True"{{/if}} />
-            </div>
-            {{#if any_img}}
-                <div class="poll-image result-image">
-                    <label for="answer-{{key}}" class="poll-image-label">
-                        {{#if img}}
-                          <img src="{{img}}" />
-                        {{/if}}
-                    </label>
+    <div class="poll-question">{{{question}}}</div>
+    <div class="poll-results-wrapper" role="radiogroup" tabindex="0">
+        <h4 class="poll-header">{{gettext "Results" }}</h4>
+        <ul class="poll-answers-results poll-results {{~#if any_img}} has-images{{/if}}">
+        {{#each tally}}
+            <li class="poll-result">
+                <div class="poll-result-input-container">
+                  <input id="answer-{{key}}-{{../block_id}}" type="radio" disabled {{#if choice}}checked{{/if}} />
                 </div>
-            {{/if}}
-            <div class="percentage-gauge-container">
-              <div class="percentage-gauge" style="width:{{percent}}%;"></div>
-              <label class="poll-answer-label" for="answer-{{key}}">{{{answer}}}</label>
-            </div>
-            <div class="poll-percent-container">
-                <span class="poll-percent-display{{#if first}} poll-top-choice{{/if}}">{{percent}}%</span>
-            </div>
-        </li>
-       {{^last}}
-        <li class="poll-spacer">
-        </li>
-       {{/last}}
-    {{/each}}
-    </ul>
-    <input class="input-main" type="button" name="poll-submit" value="Submit" disabled>
-    <div class="poll-footnote">Results gathered from {{total}} respondent{{#if plural}}s{{/if}}.</div>
-    {{#if feedback}}
-        <hr />
-        <h3 class="poll-header">Feedback</h3>
-        <div class="poll-feedback">
-            {{{feedback}}}
+                {{~#if ../any_img~}}
+                    <div class="poll-image result-image">
+                        <label for="answer-{{key}}-{{../block_id}}" class="poll-image-label">
+                            {{#if img}}
+                              <img src="{{img}}" alt="{{img_alt}}"/>
+                            {{/if}}
+                        </label>
+                    </div><div class="percentage-gauge-background"></div>
+                {{~/if~}}
+                <div class="percentage-gauge-container">
+                  <div class="percentage-gauge" style="width:{{percent}}%;"></div>
+                  <label class="poll-answer-label" for="answer-{{key}}-{{../block_id}}">{{{answer}}}</label>
+                </div>
+                <div class="poll-percent-container">
+                    <span class="poll-percent-display{{#if leader}} poll-top-choice{{/if}}">{{percent}}%</span>
+                </div>
+            </li>
+        {{/each}}
+        </ul>
+        <input class="input-main" type="button" name="poll-submit" value="{{gettext "Submit"}}" disabled>
+        <div class="poll-footnote">
+          {{interpolate (ngettext "Results gathered from {total} respondent." "Results gathered from {total} respondents." total) total=total}}
         </div>
-    {{/if}}
+        {{#if feedback}}
+            <hr />
+            <h3 class="poll-header">{{gettext "Feedback" }}</h3>
+            <div class="poll-feedback">
+                {{{feedback}}}
+            </div>
+        {{/if}}
+    </div>
 </script>

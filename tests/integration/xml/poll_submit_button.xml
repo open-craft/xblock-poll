@@ -1,0 +1,6 @@
+<poll tally="{'long': 20, 'short': 29, 'not_saying': 15, 'longer' : 35}"
+      question="## How long have you been studying with us?"
+      answers='[["long", {"label": "A very long time", "img": null}], ["short", {"label": "Not very long", "img": null}], ["not_saying", {"label": "I shall not say", "img": null}], ["longer", {"label": "Longer than you", "img": null}]]'
+      feedback="### Thank you&#10;&#10;for being a valued student."
+      private_results="true"
+      max_submissions="0"/>

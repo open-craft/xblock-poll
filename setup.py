@@ -20,8 +20,10 @@
 # along with this program in a file in the toplevel directory called
 # "AGPLv3".  If not, see <http://www.gnu.org/licenses/>.
 #
+
 """Setup for poll XBlock."""
 
+from __future__ import absolute_import
 import os
 from setuptools import setup
 
@@ -44,24 +46,22 @@ def package_data(pkg, roots):
 
 setup(
     name='xblock-poll',
-    version='0.2',
+    version='1.9.3',
     description='An XBlock for polling users.',
     packages=[
         'poll',
     ],
     install_requires=[
-        'XBlock',
+        'XBlock>=1.2',
         'markdown',
-        'xblock-utils',
         'ddt',
         'mock',
     ],
-    dependency_links=['http://github.com/edx-solutions/xblock-utils/tarball/master#egg=xblock-utils'],
     entry_points={
         'xblock.v1': [
             'poll = poll:PollBlock',
             'survey = poll:SurveyBlock',
         ]
     },
-    package_data=package_data("poll", ["static", "public"]),
+    package_data=package_data("poll", ["static", "public", "translations"]),
 )

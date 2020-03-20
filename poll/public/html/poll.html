@@ -1,50 +1,78 @@
+{% load i18n %}
 {{ js_template|safe }}
-<div class="poll-block" data-private="{% if private_results %}1{% endif %}" data-can-vote="{% if can_vote %}1{% endif %}">
-{# If no form is present, the Javascript will load the results instead. #}
-{% if private_results or not choice %}
-  <h3 class="poll-header">{{display_name}}</h3>
-  <form>
-      <div class="poll-question-container">
-          {{question|safe}}
-      </div>
-      <ul class="poll-answers">
-      {% for key, value in answers %}
-          <li class="poll-answer">
+<div class="poll-block themed-xblock" data-private="{% if private_results %}1{% endif %}"
+     data-can-vote="{% if can_vote %}1{% endif %}">
+  <div class="poll-block-form-wrapper">
+
+    <h3 class="poll-header">{{ display_name }}</h3>
+
+    <form>
+      <fieldset class="poll-container">
+        <legend class="poll-question">
+          {{ question|safe }}
+        </legend>
+        <div class="poll-answers">
+          {% for key, value in answers %}
+            <div class="poll-answer">
               <div class="poll-input-container">
-                  <input type="radio" name="choice" id="{{url_name}}-answer-{{key}}" value="{{key}}" {% if choice == key %}checked{% endif %}/>
+                <input type="radio" name="choice" id="poll-{{ block_id }}-answer-{{ key }}" value="{{ key }}"
+                    {% if choice == key %}checked{% endif %}/>
               </div>
               {% if any_img %}
-                  <div class="poll-image">
-                      <label for="{{url_name}}-answer-{{key}}" class="poll-image-label">
-                          {% if value.img %}
-                          <img src="{{value.img}}" />
-                          {% endif %}
-                      </label>
-                  </div>
+                <div class="poll-image">
+                  <label for="poll-{{ block_id }}-answer-{{ key }}" class="poll-image-label">
+                    {% if value.img %}
+                      <img src="{{ value.img }}"/>
+                    {% endif %}
+                  </label>
+                </div>
               {% endif %}
-              <label class="poll-answer-text" for="{{url_name}}-answer-{{key}}">{{value.label|safe}}</label>
-          </li>
-      {% endfor %}
-      </ul>
-      <input class="input-main" type="button" name="poll-submit" value="{% if choice %}Resubmit{% else %}Submit{% endif %}" disabled />
-  </form>
-  <div class="poll-voting-thanks{% if not choice or can_vote %} poll-hidden{% endif %}"><span>Thank you for your submission!</span></div>
-  <div class="poll-submissions-count poll-hidden">
-      You have used <span class="poll-current-count">{{ submissions_count }}</span>
-      out of <span class="poll-max-submissions">{{ max_submissions }}</span> submissions.
-  </div>
-  {% if feedback %}
-  <div class="poll-feedback-container{% if not choice %} poll-hidden{% endif %}">
-      <hr />
-      <h3 class="poll-header">Feedback</h3>
-      <div class="poll-feedback">
-          {{feedback|safe}}
-      </div>
-  </div>
-  {% endif %}
+              <label class="poll-answer-text" for="poll-{{ block_id }}-answer-{{ key }}">{{ value.label|safe }}</label>
+            </div>
+          {% endfor %}
+        </div>
+      </fieldset>
+      <input class="input-main" type="button" name="poll-submit" value="{% trans 'Submit' %}" disabled/>
+    </form>
 
-  {% if can_view_private_results %}
-      <div class="view-results-button-wrapper"><a class="view-results-button">View results</a></div>
+    <div class="poll-voting-thanks
+        {% if not choice or can_vote %}poll-hidden{% endif %}">
+      <span>{% trans 'Thank you.' %}</span>
+    </div>
+
+    <div class="poll-submissions-count poll-hidden">
+      {% blocktrans with submissions_count_s='<span class="poll-current-count">{{ submissions_count }}</span>' max_submissions_s='<span class="poll-max-submissions">{{ max_submissions }}</span>' %}
+        You have used {{ submissions_count_s }} out of {{ max_submissions_s }} submissions.
+      {% endblocktrans %}
+    </div>
+
+    {% if feedback %}
+      <div class="poll-feedback-container{% if not choice %} poll-hidden{% endif %}">
+        <hr/>
+        <h3 class="poll-header">{% trans 'Feedback' %}</h3>
+
+        <div class="poll-feedback">
+          {{ feedback|safe }}
+        </div>
+      </div>
+    {% endif %}
+
+
+  </div>
+      {% if can_view_private_results %}
+      <div class="view-results-button-wrapper">
+        <button class="view-results-button">{% trans 'View results' %}</button>
+      </div>
+    {% endif %}
+</div>
+{% if can_view_private_results %}
+  {% if not studio_edit %}
+    <div class="export-results-button-wrapper">
+      <button class="export-results-button">{% trans "Export results to CSV" %}</button>
+      <button disabled class="download-results-button">{% trans "Download CSV" %}</button>
+      <p class="error-message poll-hidden"></p>
+    </div>
+  {% else %}
+    <p>{% trans "Student data and results CSV available for download in the LMS." %}</p>
   {% endif %}
 {% endif %}
-</div>

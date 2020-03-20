@@ -25,6 +25,7 @@ Tests to verify a default poll XBlock is a functional demo.
 
 Deeper investigation should be tested in test_poll_functions.
 """
+from __future__ import absolute_import
 from selenium.common.exceptions import NoSuchElementException
 from .base_test import PollBaseTest
 
@@ -73,8 +74,8 @@ class TestDefault(PollBaseTest):
 
         # Should now be on the results page.
         for element in self.browser.find_elements_by_css_selector('table > tr'):
-            # First element is question, second is first answer result.
-            self.assertEqual(element.find_elements_by_css_selector('td')[1].text, '100%')
+            # Questions are 'th', so the first 'td' is the first answer.
+            self.assertEqual(element.find_elements_by_css_selector('td')[0].text, '100%')
 
         # No feedback section.
         self.assertRaises(NoSuchElementException, self.browser.find_element_by_css_selector, '.poll-feedback')

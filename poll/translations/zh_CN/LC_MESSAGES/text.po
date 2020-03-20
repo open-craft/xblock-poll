@@ -1,0 +1,392 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2018-09-03 09:32+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: poll/poll.py:222
+msgid "Whether or not to display results to the user."
+msgstr "是否向用户显示结果。"
+
+#: poll/poll.py:223
+msgid "The maximum number of times a user may send a submission."
+msgstr "用户可以发送提交的最多次数。"
+
+#: poll/poll.py:225
+msgid "Number of times the user has sent a submission."
+msgstr "用户已发送提交的次数。"
+
+#: poll/poll.py:227
+msgid "Text to display after the user votes."
+msgstr "用户投票后要显示的文本。"
+
+#. Translators: {field} is either "answers" or "questions".
+#: poll/poll.py:288
+#, python-brace-format
+msgid "'{field}' is not present, or not a JSON array."
+msgstr "“{field}”不存在，或者不是 JSON 数组。"
+
+#. Translators: {noun} is either "Answer" or "Question". {item} identifies the answer or question.
+#: poll/poll.py:300
+#, python-brace-format
+msgid "{noun} {item} not a javascript object!"
+msgstr "{noun} {item} 不是 javascript 对象！"
+
+#. Translators: {noun} is either "Answer" or "Question". {item} identifies the answer or question.
+#: poll/poll.py:309
+#, python-brace-format
+msgid "{noun} {item} contains no key."
+msgstr "{noun} {item} 不包含键。"
+
+#. Translators: {noun} is either "Answer" or "Question".
+#. {noun_lower} is the lowercase version of {noun}.
+#: poll/poll.py:321
+#, python-brace-format
+msgid ""
+"{noun} has no text or img. Please make sure all {noun_lower}s have one or "
+"the other, or both."
+msgstr "{noun} 不包含文本或图像。请确保所有的 {noun_lower} 都有文本和/或图像。"
+
+#. Translators: {noun} is either "Answer" or "Question".
+#. {noun_lower} is the lowercase version of {noun}.
+#: poll/poll.py:332
+#, python-brace-format
+msgid ""
+"{noun} was added with no label. All {noun_lower}s must have labels. Please "
+"check the form. Check the form and explicitly delete {noun_lower}s if not "
+"needed."
+msgstr "{noun} 已添加，但不带标签。所有的 {noun_lower} 都必须带有标签。请检查表单。请检查表单并明确删除不必要的 {noun_lower}。"
+
+#: poll/poll.py:340
+msgid ""
+"All images must have an alternative text describing the image in a way that "
+"would allow someone to answer the poll if the image did not load."
+msgstr "所有图像都必须包含描述图像的替换文本，以允许用户在图像未加载的情况下回答调查问卷。"
+
+#. Translators: "{noun_lower} is either "answer" or "question".
+#: poll/poll.py:352
+#, python-brace-format
+msgid "You must include at least one {noun_lower}."
+msgstr "您必须至少包含一个 {noun_lower}。"
+
+#: poll/poll.py:400
+msgid "Maximum Submissions missing or not an integer."
+msgstr "最多提交次数缺失或不是整数。"
+
+#: poll/poll.py:405
+msgid "Private results may not be False when Maximum Submissions is not 1."
+msgstr "如果“最多提交次数”不是 1，则私有结果可能不是 False。"
+
+#: poll/poll.py:442 poll/poll.py:792
+msgid "Poll"
+msgstr "调查问卷"
+
+#: poll/poll.py:443
+msgid "What is your favorite color?"
+msgstr "您最喜欢的颜色是什么？"
+
+#: poll/poll.py:448
+msgid "Red"
+msgstr "红色"
+
+#: poll/poll.py:449
+msgid "Blue"
+msgstr "蓝色"
+
+#: poll/poll.py:450
+msgid "Green"
+msgstr "绿色"
+
+#: poll/poll.py:451
+msgid "Other"
+msgstr "其他"
+
+#: poll/poll.py:453
+msgid "The answer options on this poll."
+msgstr "此调查问卷中的答案选项。"
+
+#: poll/poll.py:457 poll/poll.py:818
+msgid "Total tally of answers from students."
+msgstr "学员的答案总分。"
+
+#: poll/poll.py:458
+msgid "The student's answer"
+msgstr "学员的答案"
+
+#: poll/poll.py:662 poll/poll.py:1097
+msgid "You have already voted in this poll."
+msgstr "您已在此调查问卷中投票。"
+
+#: poll/poll.py:667
+msgid "Answer not included with request."
+msgstr "请求中不包含答案。"
+
+#. Translators: {choice} uniquely identifies a specific answer belonging to a poll or survey.
+#: poll/poll.py:676
+#, python-brace-format
+msgid "No key \"{choice}\" in answers table."
+msgstr "答案表格中不包含键“{choice}”。"
+
+#: poll/poll.py:685 poll/poll.py:1105
+msgid "You have already voted as many times as you are allowed."
+msgstr "您已按允许的次数投票。"
+
+#: poll/poll.py:715
+msgid "You must specify a question."
+msgstr "您必须指定问题。"
+
+#: poll/poll.py:718 poll/poll.py:1159
+msgid "Answer"
+msgstr "答案"
+
+#: poll/poll.py:789
+msgid "Survey"
+msgstr "调查"
+
+#: poll/poll.py:795
+msgid "Yes"
+msgstr "是"
+
+#: poll/poll.py:796
+msgid "No"
+msgstr "否"
+
+#: poll/poll.py:797
+msgid "Maybe"
+msgstr "也许"
+
+#: poll/poll.py:799
+msgid "Answer choices for this Survey"
+msgstr "此调查中的答案选项"
+
+#: poll/poll.py:803
+msgid "Are you enjoying the course?"
+msgstr "您是否喜欢本课程？"
+
+#: poll/poll.py:805
+msgid "Would you recommend this course to your friends?"
+msgstr "您是否会向朋友推荐本课程？"
+
+#: poll/poll.py:809
+msgid "Do you think you will learn a lot?"
+msgstr "您认为您会学到很多知识吗？"
+
+#: poll/poll.py:811
+msgid "Questions for this Survey"
+msgstr "此调查中的问题"
+
+#: poll/poll.py:820
+msgid "The user's answers"
+msgstr "学员的答案"
+
+#: poll/poll.py:1113
+msgid ""
+"Not all questions were included, or unknown questions were included. Try "
+"refreshing and trying again."
+msgstr "并非包含所有问题，或者包含未知的问题。请尝试刷新，然后重试。"
+
+#. Translators: {answer_key} uniquely identifies a specific answer belonging to a poll or survey.
+#. {question_key} uniquely identifies a specific question belonging to a poll or survey.
+#: poll/poll.py:1126
+#, python-brace-format
+msgid "Found unknown answer '{answer_key}' for question key '{question_key}'"
+msgstr "对于问题键“{question_key}”，已找到未知的答案“{answer_key}”。"
+
+#: poll/poll.py:1160
+msgid "Question"
+msgstr "问题"
+
+#: poll/public/html/poll.html:35 poll/public/html/survey.html:53
+msgid "Submit"
+msgstr "提交"
+
+#: poll/public/html/poll.html:40 poll/public/html/survey.html:55
+msgid "Thank you."
+msgstr "谢谢！"
+
+#: poll/public/html/poll.html:44
+#, python-format
+msgid ""
+"\n"
+"        You have used %(submissions_count_s)s out of %(max_submissions_s)s "
+"submissions.\n"
+"      "
+msgstr "\n"
+"        您已使用 %(submissions_count_s)s 次提交（共 %(max_submissions_s)s 次）。\n"
+"      "
+
+#: poll/public/html/poll.html:52 poll/public/html/poll_edit.html:27
+#: poll/public/html/survey.html:64
+msgid "Feedback"
+msgstr "反馈"
+
+#: poll/public/html/poll.html:64 poll/public/html/survey.html:73
+msgid "View results"
+msgstr "查看结果"
+
+#: poll/public/html/poll.html:71 poll/public/html/survey.html:81
+msgid "Export results to CSV"
+msgstr "将结果导出为 CSV"
+
+#: poll/public/html/poll.html:72 poll/public/html/survey.html:82
+msgid "Download CSV"
+msgstr "下载 CSV"
+
+#: poll/public/html/poll.html:76 poll/public/html/survey.html:86
+msgid "Student data and results CSV available for download in the LMS."
+msgstr "学员数据和结果 CSV 在 LMS 中可供下载。"
+
+#: poll/public/html/poll_edit.html:8
+msgid "Display Name"
+msgstr "显示名称"
+
+#: poll/public/html/poll_edit.html:15
+msgid "Question/Prompt"
+msgstr "问题/提示"
+
+#: poll/public/html/poll_edit.html:16
+#, python-format
+msgid ""
+"\n"
+"                    %(link_start)sMarkdown Syntax%(link_end)s is supported.\n"
+"                "
+msgstr "\n"
+"                    支持 %(link_start)sMarkdown 语法%(link_end)s。\n"
+"                "
+
+#: poll/public/html/poll_edit.html:23
+msgid "Enter the prompt for the user."
+msgstr "为用户输入提示。"
+
+#: poll/public/html/poll_edit.html:28
+#, python-format
+msgid ""
+"\n"
+"                %(link_start)sMarkdown Syntax%(link_end)s is supported.\n"
+"            "
+msgstr "\n"
+"                支持 %(link_start)sMarkdown 语法%(link_end)s。\n"
+"                "
+
+#: poll/public/html/poll_edit.html:36
+msgid ""
+"\n"
+"                    This text will be displayed for the user as some extra "
+"feedback after they have\n"
+"                    submitted their response to the poll.\n"
+"                "
+msgstr "\n"
+"                    在用户提交了他们填好的调查问卷后，\n"
+"                    此文本将为他们显示为一些额外的反馈。\n"
+"                "
+
+#: poll/public/html/poll_edit.html:44
+msgid "Private Results"
+msgstr "私有结果"
+
+#: poll/public/html/poll_edit.html:48
+msgid "True"
+msgstr "True"
+
+#: poll/public/html/poll_edit.html:49
+msgid "False"
+msgstr "False"
+
+#: poll/public/html/poll_edit.html:53
+msgid "If this is set to True, don't display results of the poll to the user."
+msgstr "如果将此项设置为 True，则不向用户显示调查问卷的结果。"
+
+#: poll/public/html/poll_edit.html:58
+msgid "Maximum Submissions"
+msgstr "最多提交次数"
+
+#: poll/public/html/poll_edit.html:63
+#, python-format
+msgid ""
+"\n"
+"                    Maximum number of times a user may submit a poll. "
+"%(bold_start)sSetting this to a value other than 1 will imply that\n"
+"                    'Private Results' should be true.%(bold_end)s Setting it "
+"to 0 will allow infinite resubmissions.\n"
+"                "
+msgstr "\n"
+"                    用户可以提交调查问卷的最多次数。%(bold_start)s如果未将该值设置为 1，则表示\n"
+"                    “私有结果”应为 True。%(bold_end)s如果设置为 0，则允许无限次提交。\n"
+"                "
+
+#: poll/public/html/poll_edit.html:71
+msgid "Notes:"
+msgstr "注意："
+
+#: poll/public/html/poll_edit.html:72
+msgid ""
+"\n"
+"                    If you change an answer's text, all students who voted "
+"for that choice will have their votes updated to\n"
+"                    the new text. You'll want to avoid changing an answer "
+"from something like 'True' to 'False', accordingly.\n"
+"                    If you delete an answer, any votes for that answer will "
+"also be deleted. Students whose choices are deleted\n"
+"                    may vote again, but will not lose course progress.\n"
+"                "
+msgstr "\n"
+"                    如果更改答案的文本，则针对该选项投票的所有学员的投票都将更新为\n"
+"                    新文本。因此，您要避免将答案从“True”更改为“False”。\n"
+"                    如果您删除答案，同时将删除该答案的任何投票。选项被删除的学员\n"
+"                    可以重新投票，而不会中断课程进度。\n"
+"                "
+
+#: poll/public/html/poll_edit.html:81
+msgid ""
+"\n"
+"                        Questions must be similarly cared for. If a "
+"question's text is changed, any votes for that question will remain.\n"
+"                        If a question is deleted, any student who previously "
+"took the survey will be permitted to retake it, but will not\n"
+"                        lose course progress.\n"
+"                    "
+msgstr "\n"
+"                        问题必须得到同样的处理。如果更改问题的文本，则该问题的任何投票都将保持不变。\n"
+"                        如果删除问题，则以前参加过该调查的任何学员都将可以重新参加，而不会\n"
+"                        中断课程进度。\n"
+"                    "
+
+#: poll/public/html/poll_edit.html:97
+msgid "Add Answer"
+msgstr "添加答案"
+
+#: poll/public/html/poll_edit.html:101
+msgid "Add Question"
+msgstr "添加问题"
+
+#: poll/public/html/poll_edit.html:105
+msgid "Save"
+msgstr "保存"
+
+#: poll/public/html/poll_edit.html:108
+msgid "Cancel"
+msgstr "取消"
+
+#: poll/public/html/survey.html:57
+#, python-format
+msgid ""
+"\n"
+"                You have used %(submissions_count_s)s out of "
+"%(max_submissions_s)s submissions.\n"
+"            "
+msgstr "\n"
+"                您已使用 %(submissions_count_s)s 次提交（共 %(max_submissions_s)s 次）。\n"
+"      "

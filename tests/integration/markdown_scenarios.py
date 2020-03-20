@@ -25,7 +25,7 @@ Contains a list of lists that will be used as the DDT arguments for the markdown
 """
 ddt_scenarios = [
     [
-        "Poll Markdown", '.poll-question-container',
+        "Poll Markdown", '.poll-question',
         """<h2>This is a test</h2>
 <h1>This is only a &gt;&lt;test</h1>
 
