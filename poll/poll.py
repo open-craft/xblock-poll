@@ -621,7 +621,7 @@ class PollBlock(PollBase, CSVExportMixin):
         if not context:
             context = {}
 
-        js_template = self.resource_string('/public/handlebars/poll_studio.handlebars')
+        js_template = self.resource_string('public/handlebars/poll_studio.handlebars')
         context.update({
             'question': self.question,
             'display_name': self.display_name,
@@ -631,8 +631,12 @@ class PollBlock(PollBase, CSVExportMixin):
             'max_submissions': self.max_submissions,
         })
         return self.create_fragment(
-            context, "public/html/poll_edit.html",
-            "/public/css/poll_edit.css", "public/js/poll_edit.js", "PollEdit")
+            context,
+            template="public/html/poll_edit.html",
+            css="public/css/poll_edit.css",
+            js="public/js/poll_edit.js",
+            js_init="PollEdit"
+        )
 
     @XBlock.json_handler
     def load_answers(self, data, suffix=''):
@@ -889,7 +893,7 @@ class SurveyBlock(PollBase, CSVExportMixin):
         if not context:
             context = {}
 
-        js_template = self.resource_string('/public/handlebars/survey_results.handlebars')
+        js_template = self.resource_string('public/handlebars/survey_results.handlebars')
 
         choices = self.get_choices()
 
@@ -913,8 +917,12 @@ class SurveyBlock(PollBase, CSVExportMixin):
             'usage_id': six.text_type(self.scope_ids.usage_id),
         })
         return self.create_fragment(
-            context, "public/html/survey.html", "public/css/poll.css",
-            "public/js/poll.js", "SurveyBlock")
+            context,
+            template="public/html/survey.html",
+            css="public/css/poll.css",
+            js="public/js/poll.js",
+            js_init="SurveyBlock"
+        )
 
     def student_view_data(self, context=None):
         """
