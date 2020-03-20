@@ -553,7 +553,7 @@ class PollBlock(PollBase, CSVExportMixin):
         """
         if not context:
             context = {}
-        js_template = self.resource_string('/public/handlebars/poll_results.handlebars')
+        js_template = self.resource_string('public/handlebars/poll_results.handlebars')
 
         choice = self.get_choice()
 
@@ -580,8 +580,12 @@ class PollBlock(PollBase, CSVExportMixin):
             context.update({'tally': detail, 'total': total, 'plural': total > 1})
 
         return self.create_fragment(
-            context, "public/html/poll.html", "public/css/poll.css",
-            "public/js/poll.js", "PollBlock")
+            context,
+            template="public/html/poll.html",
+            css="public/css/poll.css",
+            js="public/js/poll.js",
+            js_init="PollBlock"
+        )
 
     def student_view_data(self, context=None):
         """
@@ -968,8 +972,12 @@ class SurveyBlock(PollBase, CSVExportMixin):
             'multiquestion': True,
         })
         return self.create_fragment(
-            context, "public/html/poll_edit.html",
-            "public/css/poll_edit.css", "public/js/poll_edit.js", "SurveyEdit")
+            context,
+            template="public/html/poll_edit.html",
+            css="public/css/poll_edit.css",
+            js="public/js/poll_edit.js",
+            js_init="SurveyEdit"
+        )
 
     def tally_detail(self):
         """
