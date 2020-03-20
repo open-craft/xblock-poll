@@ -21,7 +21,7 @@ script:
   - make selfcheck
   - make quality
   - make test
-  - make validate_translations
+  - travis_retry make validate_translations
 
 notifications:
   email: false
