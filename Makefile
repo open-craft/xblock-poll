@@ -84,9 +84,9 @@ extract_translations: ## extract strings to be translated, outputting .po files
 	@# django-admin makemessages -l en -v1 -d djangojs -e js
 
 	# Extract Handlebars i18n strings
-	echo > locale/en/LC_MESSAGES/textjs.po  # Ensure it's empty
+	> locale/en/LC_MESSAGES/textjs.po  # Ensure it's empty
 	# The sort to avoid bash arbitrary file order
-	ls poll/public/handlebars/*.handlebars | sort \
+	ls poll/public/handlebars/*.handlebars \
 	    | xargs node node_modules/.bin/xgettext-template --from-code utf8 \
 	        --language Handlebars \
 	        --force-po \

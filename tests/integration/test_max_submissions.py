@@ -53,7 +53,7 @@ class TestPrivateResults(PollBaseTest):
             self.go_to_page(page)
             for ___ in range(1, 5):
                 self.do_submit(names)
-            self.assertTrue(self.get_submit().is_enabled())
+            self.wait_until_exists('input[name=poll-submit]:enabled')
 
     @unpack
     @data(*scenarios_max)
