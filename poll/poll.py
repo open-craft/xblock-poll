@@ -36,7 +36,7 @@ from webob import Response
 from xblock.completable import XBlockCompletionMode
 from xblock.core import XBlock
 from xblock.fields import Boolean, Dict, Integer, List, Scope, String
-from xblock.fragment import Fragment
+from web_fragments.fragment import Fragment
 from xblockutils.publish_event import PublishEventMixin
 from xblockutils.resources import ResourceLoader
 from xblockutils.settings import ThemableXBlockMixin, XBlockWithSettingsMixin
@@ -553,8 +553,7 @@ class PollBlock(PollBase, CSVExportMixin):
         """
         if not context:
             context = {}
-        js_template = self.resource_string(
-            '/public/handlebars/poll_results.handlebars')
+        js_template = self.resource_string('public/handlebars/poll_results.handlebars')
 
         choice = self.get_choice()
 
@@ -581,8 +580,12 @@ class PollBlock(PollBase, CSVExportMixin):
             context.update({'tally': detail, 'total': total, 'plural': total > 1})
 
         return self.create_fragment(
-            context, "public/html/poll.html", "public/css/poll.css",
-            "public/js/poll.js", "PollBlock")
+            context,
+            template="public/html/poll.html",
+            css="public/css/poll.css",
+            js="public/js/poll.js",
+            js_init="PollBlock"
+        )
 
     def student_view_data(self, context=None):
         """
@@ -618,7 +621,7 @@ class PollBlock(PollBase, CSVExportMixin):
         if not context:
             context = {}
 
-        js_template = self.resource_string('/public/handlebars/poll_studio.handlebars')
+        js_template = self.resource_string('public/handlebars/poll_studio.handlebars')
         context.update({
             'question': self.question,
             'display_name': self.display_name,
@@ -628,8 +631,12 @@ class PollBlock(PollBase, CSVExportMixin):
             'max_submissions': self.max_submissions,
         })
         return self.create_fragment(
-            context, "public/html/poll_edit.html",
-            "/public/css/poll_edit.css", "public/js/poll_edit.js", "PollEdit")
+            context,
+            template="public/html/poll_edit.html",
+            css="public/css/poll_edit.css",
+            js="public/js/poll_edit.js",
+            js_init="PollEdit"
+        )
 
     @XBlock.json_handler
     def load_answers(self, data, suffix=''):
@@ -886,8 +893,7 @@ class SurveyBlock(PollBase, CSVExportMixin):
         if not context:
             context = {}
 
-        js_template = self.resource_string(
-            '/public/handlebars/survey_results.handlebars')
+        js_template = self.resource_string('public/handlebars/survey_results.handlebars')
 
         choices = self.get_choices()
 
@@ -911,8 +917,12 @@ class SurveyBlock(PollBase, CSVExportMixin):
             'usage_id': six.text_type(self.scope_ids.usage_id),
         })
         return self.create_fragment(
-            context, "public/html/survey.html", "public/css/poll.css",
-            "public/js/poll.js", "SurveyBlock")
+            context,
+            template="public/html/survey.html",
+            css="public/css/poll.css",
+            js="public/js/poll.js",
+            js_init="SurveyBlock"
+        )
 
     def student_view_data(self, context=None):
         """
@@ -960,7 +970,7 @@ class SurveyBlock(PollBase, CSVExportMixin):
         if not context:
             context = {}
 
-        js_template = self.resource_string('/public/handlebars/poll_studio.handlebars')
+        js_template = self.resource_string('public/handlebars/poll_studio.handlebars')
         context.update({
             'feedback': self.feedback,
             'display_name': self.block_name,
@@ -970,8 +980,12 @@ class SurveyBlock(PollBase, CSVExportMixin):
             'multiquestion': True,
         })
         return self.create_fragment(
-            context, "public/html/poll_edit.html",
-            "/public/css/poll_edit.css", "public/js/poll_edit.js", "SurveyEdit")
+            context,
+            template="public/html/poll_edit.html",
+            css="public/css/poll_edit.css",
+            js="public/js/poll_edit.js",
+            js_init="SurveyEdit"
+        )
 
     def tally_detail(self):
         """
