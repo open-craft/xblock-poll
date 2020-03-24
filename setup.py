@@ -29,11 +29,11 @@ from setuptools import setup
 
 
 def package_data(pkg, roots):
-    """Generic function to find package_data.
+    """
+    Generic function to find package_data.
 
     All of the files under each of the `roots` will be declared as package
     data for package `pkg`.
-
     """
     data = []
     for root in roots:
@@ -46,7 +46,7 @@ def package_data(pkg, roots):
 
 setup(
     name='xblock-poll',
-    version='1.9.6',
+    version='1.9.',
     description='An XBlock for polling users.',
     packages=[
         'poll',
