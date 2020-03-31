@@ -186,7 +186,7 @@ class CSVExportMixin(object):
         return dict(report_store.links_for(course_key)).get(self.last_export_result['report_filename'])
 
     def student_module_queryset(self):
-        from courseware.models import StudentModule  # pylint: disable=import-error
+        from lms.djangoapps.courseware.models import StudentModule  # pylint: disable=import-error
         return StudentModule.objects.select_related('student').filter(
             course_id=self.runtime.course_id,
             module_state_key=self.scope_ids.usage_id,
@@ -796,7 +796,7 @@ class PollBlock(PollBase, CSVExportMixin):
                     self.question,
                     answers_dict[choice]['label'],
                 ]
-        return [header_row] + data.values()
+        return [header_row] + list(data.values())
 
     def generate_report_data(self, user_state_iterator, limit_responses=None):
         """
