@@ -9,14 +9,7 @@
   var django = globals.django || (globals.django = {});
 
   
-  django.pluralidx = function(n) {
-    var v=0;
-    if (typeof(v) == 'boolean') {
-      return v ? 1 : 0;
-    } else {
-      return v;
-    }
-  };
+  django.pluralidx = function(count) { return (count == 1) ? 0 : 1; };
   
 
   /* gettext library */
@@ -32,6 +25,7 @@
     "Question": "\uc9c8\ubb38", 
     "Results": "\uacb0\uacfc", 
     "Results gathered from {total} respondent.": [
+      "\ucd1d {total}\uba85\uc758 \uc751\ub2f5\uc790\ub85c\ubd80\ud130 \uc218\uc9d1\ud55c \uacb0\uacfc\uc785\ub2c8\ub2e4.", 
       "\ucd1d {total}\uba85\uc758 \uc751\ub2f5\uc790\ub85c\ubd80\ud130 \uc218\uc9d1\ud55c \uacb0\uacfc\uc785\ub2c8\ub2e4."
     ], 
     "Submit": "\uc81c\ucd9c", 
