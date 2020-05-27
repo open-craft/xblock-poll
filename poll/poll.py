@@ -81,14 +81,8 @@ class ResourceMixin(XBlockWithSettingsMixin, ThemableXBlockMixin):
 
     def get_translation_content(self):
         try:
-            language = utils.translation.get_language().split('-')
-            if len(language) == 2:
-                new_lang = language[0] + "_" + language[1].upper()
-            else:
-                new_lang = utils.translation.get_language()
-
             return self.resource_string('public/js/translations/{lang}/textjs.js'.format(
-                lang=new_lang,
+                lang=utils.translation.to_locale(utils.translation.get_language()),
             ))
         except IOError:
             return self.resource_string('public/js/translations/en/textjs.js')
