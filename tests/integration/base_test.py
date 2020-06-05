@@ -21,6 +21,7 @@
 # "AGPLv3".  If not, see <http://www.gnu.org/licenses/>.
 #
 
+from __future__ import absolute_import
 from xblockutils.base_test import SeleniumBaseTest
 from mock import patch
 
@@ -37,6 +38,8 @@ class PollBaseTest(SeleniumBaseTest):
     def setUp(self):
         super(PollBaseTest, self).setUp()
         self.translation_merge_patch = patch('django.utils.translation.trans_real.DjangoTranslation.merge')
+        self.translation_domain_patch = patch('django.utils.translation.trans_real.DjangoTranslation.domain')
+        self.translation_domain_patch.start()
         self.translation_merge_patch.start()
 
     def get_submit(self):
@@ -61,3 +64,4 @@ class PollBaseTest(SeleniumBaseTest):
     def tearDown(self):
         super(PollBaseTest, self).tearDown()
         self.translation_merge_patch.stop()
+        self.translation_domain_patch.stop()

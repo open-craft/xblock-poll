@@ -1,8 +1,12 @@
 # Internationalization and Localization requirements
--e git://github.com/edx/xblock-sdk.git@v0.1.2#egg=xblock-sdk==v0.1.2
-Django==1.8
+-e git://github.com/edx/xblock-sdk.git@v0.1.6#egg=xblock-sdk==v0.1.6
+Django==1.11.25
+# Latest version(1.0.4) of django-appconf do not support python 2
+django-appconf==1.0.3
 django-statici18n==1.8.2
 transifex-client==0.12.1
-edx-i18n-tools==0.4.5
+edx-i18n-tools==0.5.0
 pycodestyle==2.4.0
-pylint==0.28.0
+pylint
+tox==3.14.0
+django-nose==1.4.6

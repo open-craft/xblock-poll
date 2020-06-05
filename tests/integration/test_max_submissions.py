@@ -21,8 +21,10 @@
 # "AGPLv3".  If not, see <http://www.gnu.org/licenses/>.
 #
 
+from __future__ import absolute_import
 from ddt import ddt, unpack, data
 from tests.integration.base_test import PollBaseTest, DEFAULT_POLL_NAMES, DEFAULT_SURVEY_NAMES
+from six.moves import range
 
 scenarios_infinite = (
     ('Survey Max Submissions Infinite', DEFAULT_SURVEY_NAMES),
@@ -51,7 +53,7 @@ class TestPrivateResults(PollBaseTest):
             self.go_to_page(page)
             for ___ in range(1, 5):
                 self.do_submit(names)
-            self.assertTrue(self.get_submit().is_enabled())
+            self.wait_until_exists('input[name=poll-submit]:enabled')
 
     @unpack
     @data(*scenarios_max)

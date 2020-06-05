@@ -186,7 +186,7 @@ class TestSurveyFunctions(PollBaseTest):
             self.assertEqual(len(options), len(answers))
             for j, option in enumerate(options):
                 self.assertIn(answer_text[j], option.get_attribute('aria-label'))
-                self.assertIn(question_text[i], option.get_attribute('aria-label'))
+                self.assertIn(option.get_attribute('aria-label'), answer_text)
 
     def fill_survey(self, assert_submit=False):
         """
@@ -265,3 +265,14 @@ class TestSurveyFunctions(PollBaseTest):
 
         self.go_to_page('Poll Functions')
         self.assertFalse(self.get_submit().is_enabled())
+
+    def test_survey_radio_ids_unique(self):
+        """
+        Verify that multiple surveys on the same page with the same question
+        IDs still produce unique HTML radio button IDs.
+        """
+        self.go_to_page('Survey Multiple')
+        elements = self.browser.find_elements_by_css_selector('.survey-option input[type=radio]')
+        all_ids = sorted([element.get_attribute('id') for element in elements])
+        unique_ids = sorted(list(set(all_ids)))
+        self.assertSequenceEqual(all_ids, unique_ids)

@@ -1,3 +1,4 @@
+from __future__ import absolute_import
 import time
 
 from celery.decorators import task  # pylint: disable=import-error
@@ -7,7 +8,7 @@ from opaque_keys.edx.keys import CourseKey, UsageKey  # pylint: disable=import-e
 from xmodule.modulestore.django import modulestore  # pylint: disable=import-error
 
 
-@task()
+@task(name='poll.tasks.export_csv_data')
 def export_csv_data(block_id, course_id):
     """
     Exports student answers to all supported questions to a CSV file.
