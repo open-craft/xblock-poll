@@ -186,7 +186,10 @@ class CSVExportMixin(object):
         return dict(report_store.links_for(course_key)).get(self.last_export_result['report_filename'])
 
     def student_module_queryset(self):
-        from lms.djangoapps.courseware.models import StudentModule  # pylint: disable=import-error
+        try:
+            from lms.djangoapps.courseware.models import StudentModule  # pylint: disable=import-error
+        except RuntimeError:
+            from courseware.models import StudentModule
         return StudentModule.objects.select_related('student').filter(
             course_id=self.runtime.course_id,
             module_state_key=self.scope_ids.usage_id,
