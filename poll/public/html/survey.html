@@ -10,14 +10,16 @@
         </div>
         <form>
             <table class="survey-table">
-                <thead>
-                  <tr>
-                      <td></td>
-                      {% for answer, label in answers %}
-                        <th id="poll-{{block_id}}-{{answer}}" class="survey-answer" scope="col">{{label}}</th>
-                      {% endfor %}
-                  </tr>
-                </thead>
+              <tr class="survey-row">
+                  <th class="survey-question survey-question-header" scope="row">
+                      <p class="survey-header-placeholder"></p>
+                  </th>
+                  {% for answer, label in answers %}
+                    <th id="poll-{{block_id}}-{{answer}}" class="survey-answer" scope="col">
+                        <span class="survey-answer-label">{{label}}</span>
+                    </th>
+                  {% endfor %}
+              </tr>
             {% for key, question in questions %}
                 <tr class="survey-row" role="group" aria-labelledby="poll-{{block_id}}-{{key}}">
                     <th id="poll-{{block_id}}-{{key}}" class="survey-question" scope="row">

@@ -2,15 +2,19 @@
     <h3 class="poll-header">{{block_name}}</h3>
     <div class="poll-results-wrapper" tabindex="0">
         <h4 class="poll-header">{{gettext "Results" }}</h4>
+        <div class="block-label poll-label">
+          <span class="fal fa-poll-h block-label-icon"></span>
+          <span class="block-label-text">{{ gettext "Survey" }}</span>
+        </div>
         <table class="survey-table poll-results">
-            <thead>
-                <tr>
-                    <td></td>
-                    {{#each answers}}
-                        <th id="answer-{{key}}-{{../block_id}}" class="survey-answer">{{{label}}}</th>
-                    {{/each}}
-                </tr>
-            </thead>
+            <tr>
+                <th class="survey-question survey-question-header" scope="row">
+                    <p class="survey-header-placeholder"></p>
+                </th>
+                {{#each answers}}
+                    <th id="answer-{{key}}-{{../block_id}}" class="survey-answer">{{{label}}}</th>
+                {{/each}}
+            </tr>
             {{#each tally}}
                 <tr class="survey-row">
                     <th class="survey-question">
