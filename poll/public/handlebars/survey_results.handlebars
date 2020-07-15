@@ -1,11 +1,14 @@
 <script class="survey-results-template" type="text/html">
-    <h3 class="poll-header">{{block_name}}</h3>
+    <div class="block-header-wrapper problem-header-wrapper poll-header-wrapper-results">
+        <h3 class="poll-header">{{block_name}}</h3>
+    </div>
+    <div class="block-label poll-label">
+      <span class="fal fa-poll-h block-label-icon"></span>
+      <span class="block-label-text">{{ gettext "Survey" }}</span>
+    </div>
+    <hr class="sep-line">
     <div class="poll-results-wrapper" tabindex="0">
         <h4 class="poll-header">{{gettext "Results" }}</h4>
-        <div class="block-label poll-label">
-          <span class="fal fa-poll-h block-label-icon"></span>
-          <span class="block-label-text">{{ gettext "Survey" }}</span>
-        </div>
         <table class="survey-table poll-results">
             <tr>
                 <th class="survey-question survey-question-header" scope="row">
