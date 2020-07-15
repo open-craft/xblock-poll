@@ -3,4 +3,5 @@ markdown
 ddt
 mock
 django-nose==1.4.6
+bleach==3.1.5
 -e .
