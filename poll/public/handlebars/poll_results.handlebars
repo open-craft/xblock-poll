@@ -1,5 +1,12 @@
 <script class="poll-results-template" type="text/html">
-    <h3 class="poll-header">{{display_name}}</h3>
+    <div class="block-header-wrapper problem-header-wrapper poll-header-wrapper-results">
+        <h3 class="poll-header">{{display_name}}</h3>
+    </div>
+    <div class="block-label poll-label">
+      <span class="fal fa-poll block-label-icon"></span>
+      <span class="block-label-text">{{ gettext "Poll" }}</span>
+    </div>
+    <hr class="sep-line">
     <div class="poll-question">{{{question}}}</div>
     <div class="poll-results-wrapper" role="radiogroup" tabindex="0">
         <h4 class="poll-header">{{gettext "Results" }}</h4>

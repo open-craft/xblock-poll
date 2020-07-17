@@ -3,17 +3,26 @@
 <div class="poll-block themed-xblock" data-private="{% if private_results %}1{% endif %}"
      data-can-vote="{% if can_vote %}1{% endif %}">
     <div class="poll-block-form-wrapper">
-        <h3 class="poll-header">{{block_name}}</h3>
+        <div class="block-header-wrapper problem-header-wrapper poll-header-wrapper-question">
+            <h3 class="poll-header">{{block_name}}</h3>
+        </div>
+        <div class="block-label poll-label poll-label-question">
+          <span class="fal fa-poll-h block-label-icon"></span>
+          <span class="block-label-text">{% trans 'Survey' %}</span>
+        </div>
+        <hr class="sep-line poll-hr">
         <form>
             <table class="survey-table">
-                <thead>
-                  <tr>
-                      <td></td>
-                      {% for answer, label in answers %}
-                        <th id="poll-{{block_id}}-{{answer}}" class="survey-answer" scope="col">{{label}}</th>
-                      {% endfor %}
-                  </tr>
-                </thead>
+              <tr class="survey-row">
+                  <th class="survey-question survey-question-header" scope="row">
+                      <p class="survey-header-placeholder"></p>
+                  </th>
+                  {% for answer, label in answers %}
+                    <th id="poll-{{block_id}}-{{answer}}" class="survey-answer" scope="col">
+                        <span class="survey-answer-label">{{label}}</span>
+                    </th>
+                  {% endfor %}
+              </tr>
             {% for key, question in questions %}
                 <tr class="survey-row" role="group" aria-labelledby="poll-{{block_id}}-{{key}}">
                     <th id="poll-{{block_id}}-{{key}}" class="survey-question" scope="row">

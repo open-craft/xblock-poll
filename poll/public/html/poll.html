@@ -4,7 +4,16 @@
      data-can-vote="{% if can_vote %}1{% endif %}">
   <div class="poll-block-form-wrapper">
 
-    <h3 class="poll-header">{{ display_name }}</h3>
+    <div class="block-header-wrapper problem-header-wrapper poll-header-wrapper-question">
+      <h3 class="poll-header">{{ display_name }}</h3>
+    </div>
+
+    <div class="block-label poll-label poll-label-question">
+      <span class="fal fa-poll block-label-icon"></span>
+      <span class="block-label-text">{% trans 'Poll' %}</span>
+    </div>
+
+    <hr class="sep-line poll-hr">
 
     <form>
       <fieldset class="poll-container">
