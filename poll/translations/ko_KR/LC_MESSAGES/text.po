@@ -1,4 +1,4 @@
-# 
+#
 # Translators:
 msgid ""
 msgstr ""
@@ -214,7 +214,7 @@ msgstr "질문 키 '{question_key}'에 대해 알려지지 않은 답변 '{answe
 
 #: poll/public/html/poll.html:35 poll/public/html/survey.html:53
 msgid "Submit"
-msgstr "제출"
+msgstr "제출하기"
 
 #: poll/public/html/poll.html:40 poll/public/html/survey.html:55
 msgid "Thank you."
