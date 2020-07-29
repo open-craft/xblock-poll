@@ -9,7 +9,7 @@ msgstr "결과"
 #: poll/public/handlebars/poll_results.handlebars:31
 #: poll/public/handlebars/survey_results.handlebars:39
 msgid "Submit"
-msgstr "제출"
+msgstr "제출하기"
 
 #: poll/public/handlebars/poll_results.handlebars:33
 #: poll/public/handlebars/survey_results.handlebars:41

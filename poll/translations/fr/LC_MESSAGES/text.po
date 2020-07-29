@@ -211,7 +211,7 @@ msgstr "Question"
 
 #: poll/public/html/poll.html:35 poll/public/html/survey.html:53
 msgid "Submit"
-msgstr "Envoyer"
+msgstr "Soumettre"
 
 #: poll/public/html/poll.html:40 poll/public/html/survey.html:55
 msgid "Thank you."
