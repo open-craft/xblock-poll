@@ -41,7 +41,7 @@ from xblockutils.publish_event import PublishEventMixin
 from xblockutils.resources import ResourceLoader
 from xblockutils.settings import ThemableXBlockMixin, XBlockWithSettingsMixin
 
-from .utils import DummyTranslationService, _
+from .utils import DummyTranslationService, _, remove_markdown_and_html_tags
 
 try:
     # pylint: disable=import-error, bad-option-value, ungrouped-imports
@@ -840,6 +840,41 @@ class PollBlock(PollBase, CSVExportMixin):
             count += 1
             yield (user_state.username, report)
 
+    def index_dictionary(self):
+        """
+        Return dictionary prepared with module content and type for indexing.
+        """
+        # return key/value fields in a Python dict object
+        # values may be numeric / string or dict
+        # default implementation is an empty dict
+        xblock_body = super(PollBlock, self).index_dictionary()
+        answers = {
+            "option_{}".format(answer_i): remove_markdown_and_html_tags(answer[1]['label'])
+            for answer_i, answer in enumerate(self.answers)
+            if len(answer) == 2 and 'label' in answer[1] and answer[1]['label']
+        }
+        image_alt_text = {
+            "image_alt_{}".format(answer_i): answer[1]['img_alt']
+            for answer_i, answer in enumerate(self.answers)
+            if len(answer) == 2 and 'img_alt' in answer[1] and answer[1]['img_alt']
+        }
+
+        index_body = {
+            "display_name": self.display_name,
+            "question": remove_markdown_and_html_tags(self.question),
+        }
+        index_body.update(answers)
+        index_body.update(image_alt_text)
+
+        if "content" in xblock_body:
+            xblock_body["content"].update(index_body)
+        else:
+            xblock_body["content"] = index_body
+
+        xblock_body["content_type"] = "Poll"
+
+        return xblock_body
+
 
 @XBlock.wants('settings')
 @XBlock.needs('i18n')
@@ -1357,3 +1392,44 @@ class SurveyBlock(PollBase, CSVExportMixin):
                 }
                 count += 1
                 yield (user_state.username, report)
+
+    def index_dictionary(self):
+        """
+        Return dictionary prepared with module content and type for indexing.
+        """
+        # return key/value fields in a Python dict object
+        # values may be numeric / string or dict
+        # default implementation is an empty dict
+        xblock_body = super(SurveyBlock, self).index_dictionary()
+
+        questions = {
+            "question_{}".format(question_i): remove_markdown_and_html_tags(question[1]['label'])
+            for question_i, question in enumerate(self.questions)
+            if len(question) == 2 and 'label' in question[1] and question[1]['label']
+        }
+        answers = {
+            "option_{}".format(answer_i): remove_markdown_and_html_tags(answer[1])
+            for answer_i, answer in enumerate(self.answers)
+            if len(answer) == 2 and answer[1]
+        }
+        image_alt_text = {
+            "image_alt_{}".format(question_i): question[1]['img_alt']
+            for question_i, question in enumerate(self.questions)
+            if len(question) == 2 and 'img_alt' in question[1] and question[1]['img_alt']
+        }
+
+        index_body = {
+            "display_name": self.display_name,
+        }
+        index_body.update(questions)
+        index_body.update(answers)
+        index_body.update(image_alt_text)
+
+        if "content" in xblock_body:
+            xblock_body["content"].update(index_body)
+        else:
+            xblock_body["content"] = index_body
+
+        xblock_body["content_type"] = "Survey"
+
+        return xblock_body
