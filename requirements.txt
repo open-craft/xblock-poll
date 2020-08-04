@@ -2,5 +2,5 @@ markdown
 -e git://github.com/edx/xblock-utils.git#egg=xblock-utils
 ddt
 mock
-django-nose
+django-nose==1.4.6
 -e .
