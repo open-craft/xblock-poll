@@ -2,8 +2,8 @@
 -e 'git://github.com/edx/xblock-sdk.git@v0.1.6#egg=xblock-sdk==v0.1.6 ; python_version == "2.7"'
 -e 'git://github.com/edx/xblock-sdk.git@0.2.2#egg=xblock-sdk==v0.2.2 ; python_version > "2.7"'
 
-Django<1.12; python_version == '2.7'
-Django<2.3; python_version > '2.7'
+Django~=1.11; python_version == '2.7'
+Django~=2.2; python_version > '2.7'
 
 # Latest version(1.0.4) of django-appconf do not support python 2
 django-appconf==1.0.3; python_version == '2.7'
