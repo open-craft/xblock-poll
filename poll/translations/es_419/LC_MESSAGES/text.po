@@ -155,7 +155,7 @@ msgstr "Encontrada respuesta desconocida '{answer_key}' para pregunta llave '{qu
 
 #: poll.py
 msgid "Poll"
-msgstr "Encuesta"
+msgstr "Votación"
 
 #: poll.py
 msgid "What is your favorite color?"
