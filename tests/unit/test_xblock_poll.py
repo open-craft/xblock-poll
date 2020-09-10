@@ -114,7 +114,21 @@ class TestPollBlock(unittest.TestCase):
         report_data = list(report_data)
         self.assertEqual(len(report_data), 0)
 
-
+    def test_indexing(self):
+        self.assertEqual(
+            self.poll_block.index_dictionary(),
+            {
+                'content': {
+                    'display_name': 'My Poll',
+                    'question': 'What is your favorite color?',
+                    'option_0': 'Red',
+                    'option_1': 'Blue',
+                    'option_2': 'Green',
+                    'option_3': 'Other',
+                },
+                'content_type': 'Poll'
+            }
+        )
 class TestSurveyBlock(unittest.TestCase):
     """
     Tests for XBlock Survey.
@@ -270,3 +284,20 @@ class TestSurveyBlock(unittest.TestCase):
         report_data = self.survey_block.generate_report_data(user_states, limit_responses=0)
         report_data = list(report_data)
         self.assertEqual(len(report_data), 0)
+
+    def test_indexing(self):
+        self.assertEqual(
+            self.survey_block.index_dictionary(),
+            {
+                'content': {
+                    'display_name': 'My Survey',
+                    'question_0': 'Are you enjoying the course?',
+                    'question_1': 'Would you recommend this course to your friends?',
+                    'question_2': 'Do you think you will learn a lot?',
+                    'option_0': 'Yes',
+                    'option_1': 'No',
+                    'option_2': 'Maybe',
+                },
+                'content_type': 'Survey'
+            }
+        )

@@ -28,7 +28,7 @@
       "R\u00e9sultats recueillis de {total} personne interrog\u00e9e.", 
       "R\u00e9sultats recueillis de {total} personnes interrog\u00e9es."
     ], 
-    "Submit": "Envoyer", 
+    "Submit": "Soumettre", 
     "This must have an image URL or text, and can have both.  If you add an image, you must also provide an alternative text that describes the image in a way that would allow someone to answer the poll if the image did not load.": "Ceci doit contenir une URL d'image ou un texte, et peut contenir les deux. Si vous ajoutez une image, vous devez aussi fournir un texte alternatif qui d\u00e9crit l'image d'une mani\u00e8re qui permettrait \u00e0 tout le monde de r\u00e9pondre au sondage si l'image ne se t\u00e9l\u00e9charger pas.", 
     "You can make limited use of Markdown in answer texts, preferably only bold and italics.": "Vous pouvez faire un usage limit\u00e9 de Markdown dans les textes des r\u00e9ponses, de pr\u00e9f\u00e9rence uniquement en gras et en italique.", 
     "move poll down": "Faire descendre le sondage", 
