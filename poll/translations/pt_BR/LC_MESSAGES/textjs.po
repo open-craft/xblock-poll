@@ -21,7 +21,7 @@ msgstr[1] "Resultados coletados de {total} respondentes."
 #: poll/public/handlebars/poll_results.handlebars:37
 #: poll/public/handlebars/survey_results.handlebars:46
 msgid "Feedback"
-msgstr "Comentários"
+msgstr "Comentário"
 
 #: poll/public/handlebars/poll_studio.handlebars:6
 msgid "move poll up"

@@ -231,7 +231,7 @@ msgstr "\n"
 #: poll/public/html/poll.html:52 poll/public/html/poll_edit.html:27
 #: poll/public/html/survey.html:64
 msgid "Feedback"
-msgstr "Comentários"
+msgstr "Comentário"
 
 #: poll/public/html/poll.html:64 poll/public/html/survey.html:73
 msgid "View results"

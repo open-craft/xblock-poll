@@ -19,7 +19,7 @@
   var newcatalog = {
     "Answer": "Resposta", 
     "Delete": "Excluir", 
-    "Feedback": "Coment\u00e1rios", 
+    "Feedback": "Coment\u00e1rio", 
     "Image URL": "URL da imagem", 
     "Image alternative text": "Texto alternativo da imagem", 
     "Question": "Pergunta", 
