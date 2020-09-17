@@ -23,7 +23,8 @@ disable=
 	too-many-locals,
 	unused-argument,
 	useless-object-inheritance,
-	import-outside-toplevel
+	import-outside-toplevel,
+	super-with-arguments
 
 [SIMILARITIES]
 min-similarity-lines=8

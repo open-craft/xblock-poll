@@ -840,7 +840,6 @@ class PollBlock(PollBase, CSVExportMixin):
             count += 1
             yield (user_state.username, report)
 
-    # pylint: disable=R1725
     def index_dictionary(self):
         """
         Return dictionary prepared with module content and type for indexing.
@@ -1394,7 +1393,6 @@ class SurveyBlock(PollBase, CSVExportMixin):
                 count += 1
                 yield (user_state.username, report)
 
-    # pylint: disable=R1725
     def index_dictionary(self):
         """
         Return dictionary prepared with module content and type for indexing.
