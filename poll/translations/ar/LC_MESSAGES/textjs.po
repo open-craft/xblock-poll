@@ -9,7 +9,7 @@ msgstr "النتائج"
 #: poll/public/handlebars/poll_results.handlebars:31
 #: poll/public/handlebars/survey_results.handlebars:39
 msgid "Submit"
-msgstr "إرسال"
+msgstr "تقديم"
 
 #: poll/public/handlebars/poll_results.handlebars:33
 #: poll/public/handlebars/survey_results.handlebars:41
