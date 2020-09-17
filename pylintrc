@@ -28,6 +28,3 @@ disable=
 
 [SIMILARITIES]
 min-similarity-lines=8
-
-[TYPECHECK]
-disable=bad-option-value
