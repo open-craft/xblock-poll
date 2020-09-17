@@ -840,6 +840,7 @@ class PollBlock(PollBase, CSVExportMixin):
             count += 1
             yield (user_state.username, report)
 
+    # pylint: disable=R1725
     def index_dictionary(self):
         """
         Return dictionary prepared with module content and type for indexing.
@@ -847,7 +848,7 @@ class PollBlock(PollBase, CSVExportMixin):
         # return key/value fields in a Python dict object
         # values may be numeric / string or dict
         # default implementation is an empty dict
-        xblock_body = super().index_dictionary()
+        xblock_body = super(PollBlock, self).index_dictionary()
         answers = {
             "option_{}".format(answer_i): remove_markdown_and_html_tags(answer[1]['label'])
             for answer_i, answer in enumerate(self.answers)
@@ -1393,6 +1394,7 @@ class SurveyBlock(PollBase, CSVExportMixin):
                 count += 1
                 yield (user_state.username, report)
 
+    # pylint: disable=R1725
     def index_dictionary(self):
         """
         Return dictionary prepared with module content and type for indexing.
@@ -1400,7 +1402,7 @@ class SurveyBlock(PollBase, CSVExportMixin):
         # return key/value fields in a Python dict object
         # values may be numeric / string or dict
         # default implementation is an empty dict
-        xblock_body = super().index_dictionary()
+        xblock_body = super(SurveyBlock, self).index_dictionary()
 
         questions = {
             "question_{}".format(question_i): remove_markdown_and_html_tags(question[1]['label'])
