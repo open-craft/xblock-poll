@@ -2,13 +2,11 @@
 
 function PollUtil (runtime, element, pollType) {
     var self = this;
-    var exportStatus = {};
 
     this.init = function() {
         // Initialization function used for both Poll Types
         this.voteUrl = runtime.handlerUrl(element, 'vote');
         this.tallyURL = runtime.handlerUrl(element, 'get_results');
-        this.csv_url= runtime.handlerUrl(element, 'csv_export');
         this.votedUrl = runtime.handlerUrl(element, 'student_voted');
         this.submit = $('input[type=button]', element);
         this.answers = $('input[type=radio]', element);
@@ -20,12 +18,6 @@ function PollUtil (runtime, element, pollType) {
 
         this.viewResultsButton = $('.view-results-button', element);
         this.viewResultsButton.click(this.getResults);
-
-        this.exportResultsButton = $('.export-results-button', element);
-        this.exportResultsButton.click(this.exportCsv);
-
-        this.downloadResultsButton = $('.download-results-button', element);
-        this.downloadResultsButton.click(this.downloadCsv);
 
         return this.shouldDisplayResults();
     };
@@ -160,48 +152,6 @@ function PollUtil (runtime, element, pollType) {
         }
         // Used if results are not private, to show the user how other students voted.
         self.getResults();
-    };
-
-    function getStatus() {
-        $.ajax({
-            type: 'POST',
-            url: runtime.handlerUrl(element, 'get_export_status'),
-            data: '{}',
-            success: updateStatus,
-            dataType: 'json'
-        });
-    }
-
-    function updateStatus(newStatus) {
-        var statusChanged = ! _.isEqual(newStatus, exportStatus);
-        exportStatus = newStatus;
-        if (exportStatus.export_pending) {
-            // Keep polling for status updates when an export is running.
-            setTimeout(getStatus, 1000);
-        }
-        else {
-            if (statusChanged) {
-                if (newStatus.last_export_result.error) {
-                    self.errorMessage.text(error);
-                    self.errorMessage.show();
-                } else {
-                    self.downloadResultsButton.attr('disabled', false);
-                    self.errorMessage.hide()
-                }
-            }
-        }
-    }
-
-    this.exportCsv = function() {
-        $.ajax({
-            type: "POST",
-            url: self.csv_url,
-            data: JSON.stringify({}),
-            success: updateStatus
-        });
-    };
-    this.downloadCsv = function() {
-        window.location = exportStatus.download_url;
     };
 
     this.getResults = function () {

@@ -65,14 +65,4 @@
       </div>
     {% endif %}
 </div>
-{% if can_view_private_results %}
-  {% if not studio_edit %}
-    <div class="export-results-button-wrapper">
-      <button class="export-results-button">{% trans "Export results to CSV" %}</button>
-      <button disabled class="download-results-button">{% trans "Download CSV" %}</button>
-      <p class="error-message poll-hidden"></p>
-    </div>
-  {% else %}
-    <p>{% trans "Student data and results CSV available for download in the LMS." %}</p>
-  {% endif %}
-{% endif %}
+
