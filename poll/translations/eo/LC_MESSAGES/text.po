@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-03-17 14:23+0000\n"
+"POT-Creation-Date: 2020-09-23 16:26+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -298,20 +298,6 @@ msgstr "Féédßäçk Ⱡ'σяєм ιρѕυм ∂#"
 #: poll/public/html/poll.html poll/public/html/survey.html
 msgid "View results"
 msgstr "Vïéw résülts Ⱡ'σяєм ιρѕυм ∂σłσя ѕ#"
-
-#: poll/public/html/poll.html poll/public/html/survey.html
-msgid "Export results to CSV"
-msgstr "Éxpört résülts tö ÇSV Ⱡ'σяєм ιρѕυм ∂σłσя ѕιт αмєт, #"
-
-#: poll/public/html/poll.html poll/public/html/survey.html
-msgid "Download CSV"
-msgstr "Döwnlöäd ÇSV Ⱡ'σяєм ιρѕυм ∂σłσя ѕ#"
-
-#: poll/public/html/poll.html poll/public/html/survey.html
-msgid "Student data and results CSV available for download in the LMS."
-msgstr ""
-"Stüdént dätä änd résülts ÇSV äväïläßlé för döwnlöäd ïn thé LMS. Ⱡ'σяєм ιρѕυм"
-" ∂σłσя ѕιт αмєт, ¢σηѕє¢тєтυя α#"
 
 #: poll/public/html/poll_edit.html
 msgid "Display Name"
