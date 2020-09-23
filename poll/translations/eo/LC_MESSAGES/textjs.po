@@ -5,6 +5,32 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
+#: poll/public/handlebars/survey_results.handlebars
+#: poll/public/handlebars/poll_results.handlebars
+msgid "Results"
+msgstr "Résülts Ⱡ'σяєм ιρѕυм #"
+
+#: poll/public/handlebars/survey_results.handlebars
+#: poll/public/handlebars/poll_results.handlebars
+msgid "Submit"
+msgstr "Süßmït Ⱡ'σяєм ιρѕυ#"
+
+#: poll/public/handlebars/survey_results.handlebars
+#: poll/public/handlebars/poll_results.handlebars
+msgid "Results gathered from {total} respondent."
+msgid_plural "Results gathered from {total} respondents."
+msgstr[0] ""
+"Résülts gäthéréd fröm {total} réspöndént. Ⱡ'σяєм ιρѕυм ∂σłσя ѕιт αмєт, "
+"¢σηѕє¢тєтυ#"
+msgstr[1] ""
+"Résülts gäthéréd fröm {total} réspöndénts. Ⱡ'σяєм ιρѕυм ∂σłσя ѕιт αмєт, "
+"¢σηѕє¢тєтυя#"
+
+#: poll/public/handlebars/survey_results.handlebars
+#: poll/public/handlebars/poll_results.handlebars
+msgid "Feedback"
+msgstr "Féédßäçk Ⱡ'σяєм ιρѕυм ∂#"
+
 #: poll/public/handlebars/poll_studio.handlebars
 msgid "move poll up"
 msgstr "mövé pöll üp Ⱡ'σяєм ιρѕυм ∂σłσя ѕ#"
@@ -56,29 +82,3 @@ msgstr ""
 " νєηιαм, qυιѕ ησѕтяυ∂ єχєя¢ιтαтιση υłłαм¢σ łαвσяιѕ ηιѕι υт αłιqυιρ єχ єα "
 "¢σммσ∂σ ¢σηѕєqυαт. ∂υιѕ αυтє ιяυяє ∂σłσя ιη яєρяєнєη∂єяιт ιη νσłυρтαтє νєłιт"
 " єѕѕє ¢ιłłυм ∂σłσяє єυ ƒυgιαт #"
-
-#: poll/public/handlebars/survey_results.handlebars
-#: poll/public/handlebars/poll_results.handlebars
-msgid "Results"
-msgstr "Résülts Ⱡ'σяєм ιρѕυм #"
-
-#: poll/public/handlebars/survey_results.handlebars
-#: poll/public/handlebars/poll_results.handlebars
-msgid "Submit"
-msgstr "Süßmït Ⱡ'σяєм ιρѕυ#"
-
-#: poll/public/handlebars/survey_results.handlebars
-#: poll/public/handlebars/poll_results.handlebars
-msgid "Results gathered from {total} respondent."
-msgid_plural "Results gathered from {total} respondents."
-msgstr[0] ""
-"Résülts gäthéréd fröm {total} réspöndént. Ⱡ'σяєм ιρѕυм ∂σłσя ѕιт αмєт, "
-"¢σηѕє¢тєтυ#"
-msgstr[1] ""
-"Résülts gäthéréd fröm {total} réspöndénts. Ⱡ'σяєм ιρѕυм ∂σłσя ѕιт αмєт, "
-"¢σηѕє¢тєтυя#"
-
-#: poll/public/handlebars/survey_results.handlebars
-#: poll/public/handlebars/poll_results.handlebars
-msgid "Feedback"
-msgstr "Féédßäçk Ⱡ'σяєм ιρѕυм ∂#"
