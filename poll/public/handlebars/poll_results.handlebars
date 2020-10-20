@@ -35,16 +35,17 @@
             </li>
         {{/each}}
         </ul>
-        <input class="input-main" type="button" name="poll-submit" value="{{gettext "Submit"}}" disabled>
+        <br>
         <div class="poll-footnote">
           {{interpolate (ngettext "Results gathered from {total} respondent." "Results gathered from {total} respondents." total) total=total}}
         </div>
         {{#if feedback}}
             <hr />
-            <h3 class="poll-header">{{gettext "Feedback" }}</h3>
+            <h3 class="poll-header poll-feedback-header">{{gettext "Feedback" }}</h3>
             <div class="poll-feedback">
                 {{{feedback}}}
             </div>
         {{/if}}
+        <input class="input-main" type="button" name="poll-submit" value="{{gettext "Submit"}}" disabled>
     </div>
 </script>
