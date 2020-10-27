@@ -17,21 +17,21 @@
   django.catalog = django.catalog || {};
   
   var newcatalog = {
-    "Answer": "Resposta", 
-    "Delete": "Excluir", 
-    "Feedback": "Coment\u00e1rio", 
-    "Image URL": "URL da imagem", 
-    "Image alternative text": "Texto alternativo da imagem", 
-    "Question": "Pergunta", 
-    "Results": "Resultados", 
+    "Answer": "Resposta",
+    "Delete": "Excluir",
+    "Feedback": "Coment\u00e1rio",
+    "Image URL": "URL da imagem",
+    "Image alternative text": "Texto alternativo da imagem",
+    "Question": "Pergunta",
+    "Results": "Resultados",
     "Results gathered from {total} respondent.": [
-      "Resultados coletados de {total} respondente.", 
+      "Resultados coletados de {total} respondente.",
       "Resultados coletados de {total} respondentes."
-    ], 
-    "Submit": "Enviar", 
-    "This must have an image URL or text, and can have both.  If you add an image, you must also provide an alternative text that describes the image in a way that would allow someone to answer the poll if the image did not load.": "Deve ter um URL ou texto de imagem, podendo ter ambos. Se voc\u00ea adicionar uma imagem, tamb\u00e9m dever\u00e1 fornecer um texto alternativo que descreva a imagem de forma que a pessoa consiga responder \u00e0 pesquisa se a imagem n\u00e3o for carregada.", 
-    "You can make limited use of Markdown in answer texts, preferably only bold and italics.": "Voc\u00ea pode fazer uso limitado de Markdown em textos de resposta, de prefer\u00eancia apenas negrito e it\u00e1lico.", 
-    "move poll down": "mover pesquisa para baixo", 
+    ],
+    "Submit": "Enviar",
+    "This must have an image URL or text, and can have both.  If you add an image, you must also provide an alternative text that describes the image in a way that would allow someone to answer the poll if the image did not load.": "Deve ter um URL ou texto de imagem, podendo ter ambos. Se voc\u00ea adicionar uma imagem, tamb\u00e9m dever\u00e1 fornecer um texto alternativo que descreva a imagem de forma que a pessoa consiga responder \u00e0 pesquisa se a imagem n\u00e3o for carregada.",
+    "You can make limited use of Markdown in answer texts, preferably only bold and italics.": "Voc\u00ea pode fazer uso limitado de Markdown em textos de resposta, de prefer\u00eancia apenas negrito e it\u00e1lico.",
+    "move poll down": "mover pesquisa para baixo",
     "move poll up": "mover pesquisa para cima"
   };
   for (var key in newcatalog) {
@@ -54,7 +54,7 @@
       if (typeof(value) == 'undefined') {
         return (count == 1) ? singular : plural;
       } else {
-        return value[django.pluralidx(count)];
+        return value.constructor === Array ? value[django.pluralidx(count)] : value;
       }
     };
 
@@ -88,40 +88,40 @@
     /* formatting library */
 
     django.formats = {
-    "DATETIME_FORMAT": "j \\d\\e F \\d\\e Y \u00e0\\s H:i", 
+    "DATETIME_FORMAT": "j \\d\\e F \\d\\e Y \u00e0\\s H:i",
     "DATETIME_INPUT_FORMATS": [
-      "%d/%m/%Y %H:%M:%S", 
-      "%d/%m/%Y %H:%M:%S.%f", 
-      "%d/%m/%Y %H:%M", 
-      "%d/%m/%Y", 
-      "%d/%m/%y %H:%M:%S", 
-      "%d/%m/%y %H:%M:%S.%f", 
-      "%d/%m/%y %H:%M", 
-      "%d/%m/%y", 
-      "%Y-%m-%d %H:%M:%S", 
-      "%Y-%m-%d %H:%M:%S.%f", 
-      "%Y-%m-%d %H:%M", 
+      "%d/%m/%Y %H:%M:%S",
+      "%d/%m/%Y %H:%M:%S.%f",
+      "%d/%m/%Y %H:%M",
+      "%d/%m/%Y",
+      "%d/%m/%y %H:%M:%S",
+      "%d/%m/%y %H:%M:%S.%f",
+      "%d/%m/%y %H:%M",
+      "%d/%m/%y",
+      "%Y-%m-%d %H:%M:%S",
+      "%Y-%m-%d %H:%M:%S.%f",
+      "%Y-%m-%d %H:%M",
       "%Y-%m-%d"
-    ], 
-    "DATE_FORMAT": "j \\d\\e F \\d\\e Y", 
+    ],
+    "DATE_FORMAT": "j \\d\\e F \\d\\e Y",
     "DATE_INPUT_FORMATS": [
-      "%d/%m/%Y", 
-      "%d/%m/%y", 
+      "%d/%m/%Y",
+      "%d/%m/%y",
       "%Y-%m-%d"
-    ], 
-    "DECIMAL_SEPARATOR": ",", 
-    "FIRST_DAY_OF_WEEK": "0", 
-    "MONTH_DAY_FORMAT": "j \\d\\e F", 
-    "NUMBER_GROUPING": "3", 
-    "SHORT_DATETIME_FORMAT": "d/m/Y H:i", 
-    "SHORT_DATE_FORMAT": "d/m/Y", 
-    "THOUSAND_SEPARATOR": ".", 
-    "TIME_FORMAT": "H:i", 
+    ],
+    "DECIMAL_SEPARATOR": ",",
+    "FIRST_DAY_OF_WEEK": 0,
+    "MONTH_DAY_FORMAT": "j \\d\\e F",
+    "NUMBER_GROUPING": 3,
+    "SHORT_DATETIME_FORMAT": "d/m/Y H:i",
+    "SHORT_DATE_FORMAT": "d/m/Y",
+    "THOUSAND_SEPARATOR": ".",
+    "TIME_FORMAT": "H:i",
     "TIME_INPUT_FORMATS": [
-      "%H:%M:%S", 
-      "%H:%M:%S.%f", 
+      "%H:%M:%S",
+      "%H:%M:%S.%f",
       "%H:%M"
-    ], 
+    ],
     "YEAR_MONTH_FORMAT": "F \\d\\e Y"
   };
 

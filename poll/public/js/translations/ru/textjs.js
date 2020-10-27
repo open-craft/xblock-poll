@@ -32,7 +32,7 @@
       if (typeof(value) == 'undefined') {
         return (count == 1) ? singular : plural;
       } else {
-        return value[django.pluralidx(count)];
+        return value.constructor === Array ? value[django.pluralidx(count)] : value;
       }
     };
 
@@ -66,40 +66,40 @@
     /* formatting library */
 
     django.formats = {
-    "DATETIME_FORMAT": "j E Y \u0433. G:i", 
+    "DATETIME_FORMAT": "j E Y \u0433. G:i",
     "DATETIME_INPUT_FORMATS": [
-      "%d.%m.%Y %H:%M:%S", 
-      "%d.%m.%Y %H:%M:%S.%f", 
-      "%d.%m.%Y %H:%M", 
-      "%d.%m.%Y", 
-      "%d.%m.%y %H:%M:%S", 
-      "%d.%m.%y %H:%M:%S.%f", 
-      "%d.%m.%y %H:%M", 
-      "%d.%m.%y", 
-      "%Y-%m-%d %H:%M:%S", 
-      "%Y-%m-%d %H:%M:%S.%f", 
-      "%Y-%m-%d %H:%M", 
+      "%d.%m.%Y %H:%M:%S",
+      "%d.%m.%Y %H:%M:%S.%f",
+      "%d.%m.%Y %H:%M",
+      "%d.%m.%Y",
+      "%d.%m.%y %H:%M:%S",
+      "%d.%m.%y %H:%M:%S.%f",
+      "%d.%m.%y %H:%M",
+      "%d.%m.%y",
+      "%Y-%m-%d %H:%M:%S",
+      "%Y-%m-%d %H:%M:%S.%f",
+      "%Y-%m-%d %H:%M",
       "%Y-%m-%d"
-    ], 
-    "DATE_FORMAT": "j E Y \u0433.", 
+    ],
+    "DATE_FORMAT": "j E Y \u0433.",
     "DATE_INPUT_FORMATS": [
-      "%d.%m.%Y", 
-      "%d.%m.%y", 
+      "%d.%m.%Y",
+      "%d.%m.%y",
       "%Y-%m-%d"
-    ], 
-    "DECIMAL_SEPARATOR": ",", 
-    "FIRST_DAY_OF_WEEK": "1", 
-    "MONTH_DAY_FORMAT": "j F", 
-    "NUMBER_GROUPING": "3", 
-    "SHORT_DATETIME_FORMAT": "d.m.Y H:i", 
-    "SHORT_DATE_FORMAT": "d.m.Y", 
-    "THOUSAND_SEPARATOR": "\u00a0", 
-    "TIME_FORMAT": "G:i", 
+    ],
+    "DECIMAL_SEPARATOR": ",",
+    "FIRST_DAY_OF_WEEK": 1,
+    "MONTH_DAY_FORMAT": "j F",
+    "NUMBER_GROUPING": 3,
+    "SHORT_DATETIME_FORMAT": "d.m.Y H:i",
+    "SHORT_DATE_FORMAT": "d.m.Y",
+    "THOUSAND_SEPARATOR": "\u00a0",
+    "TIME_FORMAT": "G:i",
     "TIME_INPUT_FORMATS": [
-      "%H:%M:%S", 
-      "%H:%M:%S.%f", 
+      "%H:%M:%S",
+      "%H:%M:%S.%f",
       "%H:%M"
-    ], 
+    ],
     "YEAR_MONTH_FORMAT": "F Y \u0433."
   };
 
