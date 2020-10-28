@@ -58,7 +58,7 @@
     {% if feedback %}
       <div class="poll-feedback-container{% if not choice %} poll-hidden{% endif %}">
         <hr/>
-        <h3 class="poll-header">{% trans 'Feedback' %}</h3>
+        <h3 class="poll-header poll-feedback-header">{% trans 'Feedback' %}</h3>
 
         <div class="poll-feedback">
           {{ feedback|safe }}
