@@ -53,7 +53,7 @@ except ImportError:
 
 try:
     # pylint: disable=import-error
-    from static_replace import replace_static_urls
+    from common.djangoapps.static_replace import replace_static_urls
     HAS_STATIC_REPLACE = True
 except ImportError:
     HAS_STATIC_REPLACE = False
