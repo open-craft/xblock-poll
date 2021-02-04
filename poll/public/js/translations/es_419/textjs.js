@@ -16,28 +16,6 @@
 
   django.catalog = django.catalog || {};
   
-  var newcatalog = {
-    "Answer": "Respuesta", 
-    "Delete": "Eliminar", 
-    "Feedback": "Realimentaci\u00f3n", 
-    "Image URL": "URL de la imagen", 
-    "Image alternative text": "Texto alternativo de la imagen", 
-    "Question": "Pregunta", 
-    "Results": "Resultados", 
-    "Results gathered from {total} respondent.": [
-      "Resultados recopilados de {total} persona que respondi\u00f3.", 
-      "Resultados recopilados de {total} personas que respondieron."
-    ], 
-    "Submit": "Enviar", 
-    "This must have an image URL or text, and can have both.  If you add an image, you must also provide an alternative text that describes the image in a way that would allow someone to answer the poll if the image did not load.": "Debe tener una URL o texto de la imagen y puede contener ambos. Si agrega una imagen, tambi\u00e9n debe proporcionar un texto alternativo que describa la imagen de manera que permita a alguien responder al sondeo si no se carg\u00f3 la imagen.", 
-    "You can make limited use of Markdown in answer texts, preferably only bold and italics.": "Puede hacer uso limitado del lenguaje Markdown en los textos de respuesta, preferentemente solo en negrita y cursiva.", 
-    "move poll down": "disminuir el sondeo", 
-    "move poll up": "aumentar el sondeo"
-  };
-  for (var key in newcatalog) {
-    django.catalog[key] = newcatalog[key];
-  }
-  
 
   if (!django.jsi18n_initialized) {
     django.gettext = function(msgid) {
@@ -54,7 +32,7 @@
       if (typeof(value) == 'undefined') {
         return (count == 1) ? singular : plural;
       } else {
-        return value[django.pluralidx(count)];
+        return value.constructor === Array ? value[django.pluralidx(count)] : value;
       }
     };
 
@@ -88,38 +66,38 @@
     /* formatting library */
 
     django.formats = {
-    "DATETIME_FORMAT": "j \\d\\e F \\d\\e Y \\a \\l\\a\\s H:i", 
+    "DATETIME_FORMAT": "j \\d\\e F \\d\\e Y \\a \\l\\a\\s H:i",
     "DATETIME_INPUT_FORMATS": [
-      "%d/%m/%Y %H:%M:%S", 
-      "%d/%m/%Y %H:%M:%S.%f", 
-      "%d/%m/%Y %H:%M", 
-      "%d/%m/%y %H:%M:%S", 
-      "%d/%m/%y %H:%M:%S.%f", 
-      "%d/%m/%y %H:%M", 
-      "%Y-%m-%d %H:%M:%S", 
-      "%Y-%m-%d %H:%M:%S.%f", 
-      "%Y-%m-%d %H:%M", 
+      "%d/%m/%Y %H:%M:%S",
+      "%d/%m/%Y %H:%M:%S.%f",
+      "%d/%m/%Y %H:%M",
+      "%d/%m/%y %H:%M:%S",
+      "%d/%m/%y %H:%M:%S.%f",
+      "%d/%m/%y %H:%M",
+      "%Y-%m-%d %H:%M:%S",
+      "%Y-%m-%d %H:%M:%S.%f",
+      "%Y-%m-%d %H:%M",
       "%Y-%m-%d"
-    ], 
-    "DATE_FORMAT": "j \\d\\e F \\d\\e Y", 
+    ],
+    "DATE_FORMAT": "j \\d\\e F \\d\\e Y",
     "DATE_INPUT_FORMATS": [
-      "%d/%m/%Y", 
-      "%d/%m/%y", 
+      "%d/%m/%Y",
+      "%d/%m/%y",
       "%Y-%m-%d"
-    ], 
-    "DECIMAL_SEPARATOR": ",", 
-    "FIRST_DAY_OF_WEEK": "1", 
-    "MONTH_DAY_FORMAT": "j \\d\\e F", 
-    "NUMBER_GROUPING": "3", 
-    "SHORT_DATETIME_FORMAT": "d/m/Y H:i", 
-    "SHORT_DATE_FORMAT": "d/m/Y", 
-    "THOUSAND_SEPARATOR": ".", 
-    "TIME_FORMAT": "H:i", 
+    ],
+    "DECIMAL_SEPARATOR": ",",
+    "FIRST_DAY_OF_WEEK": 1,
+    "MONTH_DAY_FORMAT": "j \\d\\e F",
+    "NUMBER_GROUPING": 3,
+    "SHORT_DATETIME_FORMAT": "d/m/Y H:i",
+    "SHORT_DATE_FORMAT": "d/m/Y",
+    "THOUSAND_SEPARATOR": ".",
+    "TIME_FORMAT": "H:i",
     "TIME_INPUT_FORMATS": [
-      "%H:%M:%S", 
-      "%H:%M:%S.%f", 
+      "%H:%M:%S",
+      "%H:%M:%S.%f",
       "%H:%M"
-    ], 
+    ],
     "YEAR_MONTH_FORMAT": "F \\d\\e Y"
   };
 
