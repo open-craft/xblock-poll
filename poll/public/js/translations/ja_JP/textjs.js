@@ -9,12 +9,40 @@
   var django = globals.django || (globals.django = {});
 
   
-  django.pluralidx = function(count) { return (count == 1) ? 0 : 1; };
+  django.pluralidx = function(n) {
+    var v=0;
+    if (typeof(v) == 'boolean') {
+      return v ? 1 : 0;
+    } else {
+      return v;
+    }
+  };
   
 
   /* gettext library */
 
   django.catalog = django.catalog || {};
+  
+  var newcatalog = {
+    "Answer": "\u89e3\u7b54",
+    "Delete": "\u524a\u9664",
+    "Feedback": "\u30d5\u30a3\u30fc\u30c9\u30d0\u30c3\u30af",
+    "Image URL": "\u753b\u50cfURL",
+    "Image alternative text": "\u753b\u50cf\u4ee3\u66ff\u30c6\u30ad\u30b9\u30c8",
+    "Question": "\u8cea\u554f",
+    "Results": "\u7d50\u679c",
+    "Results gathered from {total} respondent.": [
+      "\u56de\u7b54\u8005\u304b\u3089\u306e{\u5408\u8a08}\u7d50\u679c\u3092\u96c6\u8a08\u3057\u307e\u3057\u305f\u3002"
+    ],
+    "Submit": "\u63d0\u51fa",
+    "This must have an image URL or text, and can have both.  If you add an image, you must also provide an alternative text that describes the image in a way that would allow someone to answer the poll if the image did not load.": "\u3053\u308c\u306b\u306f\u753b\u50cfURL\u307e\u305f\u306f\u30c6\u30ad\u30b9\u30c8\u304c\u5fc5\u8981\u3068\u306a\u308a\u307e\u3059\u304c\u3001\u4e21\u65b9\u6307\u5b9a\u3067\u304d\u307e\u3059\u3002\u753b\u50cf\u3092\u8ffd\u52a0\u3059\u308b\u5834\u5408\u306f\u3001\u753b\u50cf\u304c\u8aad\u307f\u8fbc\u307e\u308c\u306a\u304b\u3063\u305f\u5834\u5408\u306b\u3001\u753b\u50cf\u3092\u8aac\u660e\u3059\u308b\u4ee3\u66ff\u30c6\u30ad\u30b9\u30c8\u3092\u6307\u5b9a\u3057\u3001\u6295\u7968\u306b\u56de\u7b54\u3067\u304d\u308b\u3088\u3046\u306b\u3059\u308b\u5fc5\u8981\u3082\u3042\u308a\u307e\u3059\u3002",
+    "You can make limited use of Markdown in answer texts, preferably only bold and italics.": "\u56de\u7b54\u30c6\u30ad\u30b9\u30c8\u3067\u306f\u30de\u30fc\u30af\u30c0\u30a6\u30f3\u3092\u9650\u5b9a\u7684\u306b\u4f7f\u7528\u3067\u304d\u307e\u3059\u304c\u3001\u592a\u5b57\u3068\u659c\u4f53\u306e\u307f\u3092\u304a\u52e7\u3081\u3057\u307e\u3059\u3002",
+    "move poll down": "\u6295\u7968\u3092\u4e0b\u306b\u79fb\u52d5",
+    "move poll up": "\u6295\u7968\u3092\u4e0a\u306b\u79fb\u52d5"
+  };
+  for (var key in newcatalog) {
+    django.catalog[key] = newcatalog[key];
+  }
   
 
   if (!django.jsi18n_initialized) {

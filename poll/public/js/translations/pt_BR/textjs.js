@@ -9,12 +9,29 @@
   var django = globals.django || (globals.django = {});
 
   
-  django.pluralidx = function(count) { return (count == 1) ? 0 : 1; };
+  django.pluralidx = function(n) {
+    var v=(n > 1);
+    if (typeof(v) == 'boolean') {
+      return v ? 1 : 0;
+    } else {
+      return v;
+    }
+  };
   
 
   /* gettext library */
 
   django.catalog = django.catalog || {};
+  
+  var newcatalog = {
+    "Answer": "Resposta",
+    "Submit": "Enviar",
+    "This must have an image URL or text, and can have both.  If you add an image, you must also provide an alternative text that describes the image in a way that would allow someone to answer the poll if the image did not load.": "Uma imagem de URL ou texto, ou ambos, devem ser adicionados. Caso uma imagem seja adicionada, \u00e9 necess\u00e1rio que se adicione um texto alternativo descrevendo a imagem para permitir que usu\u00e1rios possam responder \u00e0 enquete caso a imagem n\u00e3o carregue.",
+    "You can make limited use of Markdown in answer texts, preferably only bold and italics.": "Voc\u00ea pode fazer uso limitado do Markdown nas respostas de textos, de prefer\u00eancia negrito e it\u00e1lico. "
+  };
+  for (var key in newcatalog) {
+    django.catalog[key] = newcatalog[key];
+  }
   
 
   if (!django.jsi18n_initialized) {
