@@ -9,12 +9,41 @@
   var django = globals.django || (globals.django = {});
 
   
-  django.pluralidx = function(count) { return (count == 1) ? 0 : 1; };
+  django.pluralidx = function(n) {
+    var v=(n != 1);
+    if (typeof(v) == 'boolean') {
+      return v ? 1 : 0;
+    } else {
+      return v;
+    }
+  };
   
 
   /* gettext library */
 
   django.catalog = django.catalog || {};
+  
+  var newcatalog = {
+    "Answer": "Antwort",
+    "Delete": "L\u00f6schen",
+    "Feedback": "R\u00fcckmeldung",
+    "Image URL": "Bild URL",
+    "Image alternative text": "Alternativtext zum Bild",
+    "Question": "Frage",
+    "Results": "Ergebnisse",
+    "Results gathered from {total} respondent.": [
+      "Ergebnisse von {total} Befragten erfasst.",
+      "Ergebnisse von {total} Befragten erfasst."
+    ],
+    "Submit": "Absenden",
+    "This must have an image URL or text, and can have both.  If you add an image, you must also provide an alternative text that describes the image in a way that would allow someone to answer the poll if the image did not load.": "Dieser muss eine Bild-URL und/oder einen Text haben. Wenn Sie ein Bild hinzuf\u00fcgen, m\u00fcssen Sie auch einen alternativen Text angeben, der das Bild so beschreibt, dass jemand auf die Umfrage antworten kann, wenn das Bild nicht geladen wurde.",
+    "You can make limited use of Markdown in answer texts, preferably only bold and italics.": "In den Antworttexten k\u00f6nnen Sie die Markdown-Funktion nur begrenzt verwenden, vorzugsweise nur fett und kursiv.",
+    "move poll down": "Umfrage nach unten bewegen",
+    "move poll up": "Umfrage nach oben bewegen"
+  };
+  for (var key in newcatalog) {
+    django.catalog[key] = newcatalog[key];
+  }
   
 
   if (!django.jsi18n_initialized) {
