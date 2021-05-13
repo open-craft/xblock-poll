@@ -221,7 +221,7 @@ msgstr "נמצאה תשובה לא מוכרת '{answer_key}' עבור מפתח �
 
 #: poll/public/html/poll.html:35 poll/public/html/survey.html:53
 msgid "Submit"
-msgstr ""
+msgstr "הגשה"
 
 #: poll/public/html/poll.html:40 poll/public/html/survey.html:55
 msgid "Thank you."
