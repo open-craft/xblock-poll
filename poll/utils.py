@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 #
-from bleach.sanitizer import Cleaner
 from markdown import markdown
 
 
@@ -16,7 +15,14 @@ def ngettext_fallback(text_singular, text_plural, number):
 
 def remove_html_tags(data):
     """ Remove html tags from provided data """
-    cleaner = Cleaner(tags=[], strip=True)
+    try:
+        from bleach.sanitizer import Cleaner
+        cleaner = Cleaner(tags=[], strip=True)
+    except ImportError:
+        # Bleach <2.0 compatibility fix
+        import bleach
+        cleaner = bleach
+
     return cleaner.clean(data)
 
 
