@@ -235,3 +235,7 @@ msgid ""
 " a way that would allow someone to answer the poll if the image did not "
 "load."
 msgstr "חייבת להיות כתובת URL של תמונה או טקסט, ויכולים להיות שניהם.  בהוספת תמונה, עליך לספק טקסט חלופי המתאר את התמונה כך שתאפשר למישהו לענות על הסקר אם התמונה אינה עולה."
+
+#: poll/public/html/poll.html:35 poll/public/html/survey.html:53
+msgid "Submit"
+msgstr "הגשה"
