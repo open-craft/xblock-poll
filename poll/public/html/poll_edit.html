@@ -11,26 +11,39 @@
             </div>
         </li>
         {% if not multiquestion %}
-            <li class="field comp-setting-entry is-set">
-                <h2><label for="poll-question-editor">{% trans 'Question/Prompt' %}</label></h2>
-                {% blocktrans with link_start='<a href="//daringfireball.net/projects/markdown/syntax" target="_blank">' link_end='</a>' %}
-                    {{link_start}}Markdown Syntax{{link_end}} is supported.
-                {% endblocktrans %}
-                <div id="poll-question-editor-container">
+            <li class="field comp-setting-entry high-field is-set">
+                <span class="setting-label">
+                    <h2><label for="poll-question-editor">{% trans 'Question/Prompt' %}</label></h2>
+                    <small>
+                    {% blocktrans with link_start='<a href="//daringfireball.net/projects/markdown/syntax" target="_blank">' link_end='</a>' %}
+                        {{link_start}}Markdown Syntax{{link_end}} is supported.
+                    {% endblocktrans %}
+                    </small>
+                </span>
+                <div id="poll-question-editor-container" class="setting-input-wrapper">
                     <textarea class="input setting-input" name="question" id="poll-question-editor"
                               aria-describedby="poll-question-editor-help">{{question}}</textarea>
+                    <span class="question-mark-wrapper" data-title="{% trans 'Enter the prompt for the user.' %}"></span>
                 </div>
                 <span class="tip setting-help" id="poll-question-editor-help">{% trans 'Enter the prompt for the user.' %}</span>
             </li>
         {% endif %}
-        <li class="field comp-setting-entry is-set">
-            <h2><label for="poll-feedback-editor">{% trans 'Feedback' %}</label></h2>
-            {% blocktrans with link_start='<a href="//daringfireball.net/projects/markdown/syntax" target="_blank">' link_end='</a>' %}
-                {{link_start}}Markdown Syntax{{link_end}} is supported.
-            {% endblocktrans %}
-            <div id="poll-feedback-editor-container">
+        <li class="field comp-setting-entry high-field is-set">
+            <span class="setting-label">
+                <h2><label for="poll-feedback-editor">{% trans 'Feedback' %}</label></h2>
+                <small>
+                {% blocktrans with link_start='<a href="//daringfireball.net/projects/markdown/syntax" target="_blank">' link_end='</a>' %}
+                    {{link_start}}Markdown Syntax{{link_end}} is supported.
+                {% endblocktrans %}
+                </small>
+            </span>
+            <div id="poll-feedback-editor-container" class="setting-input-wrapper">
                 <textarea class="input setting-input" name="feedback" id="poll-feedback-editor"
                           aria-describedby="poll-feedback-editor-help">{{feedback}}</textarea>
+                <span class="question-mark-wrapper" data-title="{% blocktrans %}
+                    This text will be displayed for the user as some extra feedback after they have
+                    submitted their response to the poll.
+                {% endblocktrans %}"/>
             </div>
             <span class="tip setting-help" id="poll-feedback-editor-help">
                 {% blocktrans %}
@@ -48,6 +61,8 @@
                     <option value="true" {% if private_results %} selected{% endif %}>{% trans 'True' %}</option>
                     <option value="false" {% if not private_results %} selected{% endif %}>{% trans 'False' %}</option>
                 </select>
+                <span class="switcher-wrapper"></span>
+                <span class="question-mark-wrapper" data-title="{% trans "If this is set to True, don't display results of the poll to the user." %}" />
             </div>
             <span class="tip setting-help" id="poll-private-results-help">
                 {% trans "If this is set to True, don't display results of the poll to the user." %}
@@ -58,6 +73,10 @@
                 <label class="label setting-label poll-setting-label" for="poll-max-submissions">{% trans 'Maximum Submissions' %}</label>
                 <input id="poll-max-submissions" type="number" min="0" step="1" value="{{ max_submissions }}"
                        aria-describedby="poll-max-submissions-help"/>
+                <span class="question-mark-wrapper" data-title="{% blocktrans with bold_start='<strong>' bold_end='</strong>' %}
+                    Maximum number of times a user may submit a poll. {{bold_start}}Setting this to a value other than 1 will imply that
+                    'Private Results' should be true.{{bold_end}} Setting it to 0 will allow infinite resubmissions.
+                {% endblocktrans %}" />
             </div>
             <span class="tip setting-help" id="poll-max-submissions-help">
                 {% blocktrans with bold_start='<strong>' bold_end='</strong>' %}
@@ -67,6 +86,7 @@
             </span>
         </li>
         <li class="field comp-setting-entry is-set">
+            <div class="warning">
             <p>
                 <strong>{% trans 'Notes:' %}</strong>
                 {% blocktrans %}
@@ -85,27 +105,37 @@
                     {% endblocktrans %}
                 </p>
             {% endif %}
+            </div>
         </li>
         <li id="poll-answer-marker"></li>
         <li id="poll-answer-end-marker"></li>
         <li id="poll-question-marker"></li>
         <li id="poll-question-end-marker"></li>
+        <li class="field comp-setting-entry">
+            <ul class="appending-actions">
+                <li class="action-item" id="poll-add-answer">
+                    <a href="#" class="button action-button" class="poll-add-item-link" onclick="return false;">
+                        <i class="fal fa-plus"></i><span>{% trans 'Add Answer' %}</span>
+                    </a>
+                </li>
+                {% if multiquestion %}
+                    <li class="action-item" id="poll-add-question">
+                        <a href="#" class="button action-button" class="poll-add-item-link" onclick="return false;">
+                            <i class="fal fa-plus"></i><span>{% trans 'Add Question' %}</span>
+                        </a>
+                    </li>
+                {% endif %}
+            </ul>
+        </li>
     </ul>
+
     <div class="xblock-actions">
         <ul>
-            <li class="action-item" id="poll-add-answer">
-                <a href="#" class="button action-button" class="poll-add-item-link" onclick="return false;">{% trans 'Add Answer' %}</a>
-            </li>
-            {% if multiquestion %}
-                <li class="action-item" id="poll-add-question">
-                    <a href="#" class="button action-button" class="poll-add-item-link" onclick="return false;">{% trans 'Add Question' %}</a>
-                </li>
-            {% endif %}
-            <li class="action-item">
-                <input id="poll-submit-options" type="submit" class="button action-primary save-button" value="{% trans 'Save' %}" onclick="return false;" />
-            </li>
             <li class="action-item">
                 <a href="#" class="button cancel-button">{% trans 'Cancel' %}</a>
+            </li>
+            <li class="action-item">
+                <input id="poll-submit-options" type="submit" class="button action-primary save-button" value="{% trans 'Save' %}" onclick="return false;" />
             </li>
         </ul>
     </div>

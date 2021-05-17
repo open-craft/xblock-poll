@@ -25,7 +25,7 @@
             <div class="poll-answer">
               <div class="poll-input-container">
                 <input type="radio" name="choice" id="poll-{{ block_id }}-answer-{{ key }}" value="{{ key }}"
-                    {% if choice == key %}checked{% endif %}/>
+                    {% if choice == key %}checked{% endif %}/><label for="poll-{{ block_id }}-answer-{{ key }}"></label>
               </div>
               {% if any_img %}
                 <div class="poll-image">

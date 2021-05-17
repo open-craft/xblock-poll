@@ -1,24 +1,53 @@
 <script class="poll-form-component" type="text/html">
 {{#each items}}
 <li class="field comp-setting-entry is-set poll-{{noun}}-studio-item">
-    <div class="wrapper-comp-setting">
+    <div class="{{noun}}">
+    <div class="header">
+        <h5>
+            {{translateNoun noun }}
+        </h5>
+        <i class="fal fa-times poll-delete-answer"/>
+        <!--<button class="button action-button poll-delete-answer">{{gettext "Delete" }}</button>-->
+    </div>
+    <ul>
+        <li>
+            <label class="label setting-label poll-setting-label" for="{{noun}}-label-{{key}}">{{translateNoun noun }}</label>
+            <input class="input setting-input" name="{{noun}}-label-{{key}}" id="{{noun}}-label-{{key}}" value="{{text}}" type="text" />
+        </li>
+        {{#if image}}
+        <li>
+            <label class="label setting-label" for="{{noun}}-img-{{key}}">{{gettext "Image URL"}}</label>
+            <input class="input setting-input" name="{{noun}}-img-{{key}}" id="{{noun}}-img-{{key}}" value="{{img}}" type="text" />
+        </li>
+        <li>
+            <label class="label setting-label" for="{{noun}}-img_alt-{{key}}">{{gettext "Image alternative text"}}</label>
+            <input class="input setting-input" name="{{noun}}-img_alt-{{key}}" id="{{noun}}-img_alt-{{key}}" value="{{img_alt}}" type="text" />
+        </li>
+        {{/if}}
+    </ul>
+    <div class="actions">
         <div class="poll-move">
             <button class="poll-move-up">&#9650;<span class="sr">&nbsp;{{gettext "move poll up"}}</span></button>
             <button class="poll-move-down">&#9660;<span class="sr">&nbsp;{{gettext "move poll down"}}</span></button>
         </div>
-        <button class="button action-button poll-delete-answer">{{gettext "Delete" }}</button>
+        <!--<button class="button action-button poll-delete-answer">{{gettext "Delete" }}</button>-->
+    </div>
+
+    <!--<div class="wrapper-comp-setting">
         <label class="label setting-label poll-setting-label" for="{{noun}}-label-{{key}}">
-            {{#if_eq noun "answer"}}{{gettext "Answer"}}{{/if_eq}}
-            {{#if_eq noun "question"}}{{gettext "Question"}}{{/if_eq}}
+            {{gettext noun}}
         </label>
+        <div class="setting-input-wrapper">
         <input class="input setting-input" name="{{noun}}-label-{{key}}" id="{{noun}}-label-{{key}}" value="{{text}}" type="text" /><br />
         {{#if image}}
         <label class="label setting-label" for="{{noun}}-img-{{key}}">{{gettext "Image URL"}}</label>
         <input class="input setting-input" name="{{noun}}-img-{{key}}" id="{{noun}}-img-{{key}}" value="{{img}}" type="text" /><br />
         <label class="label setting-label" for="{{noun}}-img_alt-{{key}}">{{gettext "Image alternative text"}}</label>
-        <input class="input setting-input" name="{{noun}}-img_alt-{{key}}" id="{{noun}}-img_alt-{{key}}" value="{{img_alt}}" type="text" /><br />
+        <input class="input setting-input" name="{{noun}}-img_alt-{{key}}" id="{{noun}}-img_alt-{{key}}" value="{{img_alt}}" type="text" />
         {{/if}}
-    </div>
+        </div>
+
+    </div>-->
     <span class="tip setting-help">
         {{gettext "You can make limited use of Markdown in answer texts, preferably only bold and italics."}}
     </span>
@@ -27,6 +56,7 @@
         {{gettext "This must have an image URL or text, and can have both.  If you add an image, you must also provide an alternative text that describes the image in a way that would allow someone to answer the poll if the image did not load."}}
         {{/if}}
     </span>
+    </div>
 </li>
 {{/each}}
 </script>
