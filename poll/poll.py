@@ -31,6 +31,7 @@ from collections import OrderedDict
 import pkg_resources
 import six
 from django import utils
+from django.conf import settings
 from markdown import markdown
 from webob import Response
 from xblock.completable import XBlockCompletionMode
@@ -44,8 +45,7 @@ from xblockutils.settings import ThemableXBlockMixin, XBlockWithSettingsMixin
 from .utils import DummyTranslationService, _, remove_markdown_and_html_tags
 
 try:
-    # pylint: disable=import-error, bad-option-value, ungrouped-imports
-    from django.conf import settings
+    # pylint: disable=import-error
     from api_manager.models import GroupProfile
     HAS_GROUP_PROFILE = True
 except ImportError:
@@ -57,6 +57,10 @@ try:
     HAS_STATIC_REPLACE = True
 except ImportError:
     HAS_STATIC_REPLACE = False
+
+if settings.ROOT_URLCONF == 'lms.urls':  # Our celery tasks are LMS-specific
+    # Register tasks with celery:
+    from .tasks import export_csv_data  
 
 
 class ResourceMixin(XBlockWithSettingsMixin, ThemableXBlockMixin):
@@ -132,8 +136,6 @@ class CSVExportMixin(object):
         Asynchronously export given data as a CSV file.
         """
         # Launch task
-        from .tasks import export_csv_data  # Import here since this is edX LMS specific
-
         # Make sure we nail down our state before sending off an asynchronous task.
         async_result = export_csv_data.delay(
             six.text_type(getattr(self.scope_ids, 'usage_id', None)),
@@ -166,7 +168,6 @@ class CSVExportMixin(object):
         """
         If we're waiting for an export, see if it has finished, and if so, get the result.
         """
-        from .tasks import export_csv_data  # Import here since this is edX LMS specific
         if self.active_export_task_id:
             async_result = export_csv_data.AsyncResult(self.active_export_task_id)
             if async_result.ready():
