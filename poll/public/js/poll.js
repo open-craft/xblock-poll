@@ -182,7 +182,7 @@ function PollUtil (runtime, element, pollType) {
         else {
             if (statusChanged) {
                 if (newStatus.last_export_result.error) {
-                    self.errorMessage.text(error);
+                    self.errorMessage.text("Error: " + newStatus.last_export_result.error);
                     self.errorMessage.show();
                 } else {
                     self.downloadResultsButton.attr('disabled', false);
