@@ -1,0 +1,86 @@
+# 
+# Translators:
+# Carlos <carlos.c.saraiva@gmail.com>, 2018
+# Waldo Luis Ribeiro, 2018
+# Developer QUEO <developer@queo.pt>, 2018
+# Manuela Silva <mmsrs@sky.com>, 2018
+# Rui Ribeiro <info@nau.edu.pt>, 2019
+# Ivo Branco <ivo.branco@fccn.pt>, 2021
+# 
+msgid ""
+msgstr ""
+"Last-Translator: Ivo Branco <ivo.branco@fccn.pt>, 2021\n"
+"Language-Team: Portuguese (Portugal) (https://www.transifex.com/open-edx/teams/6205/pt_PT/)\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Language: pt_PT\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: poll/public/handlebars/poll_results.handlebars:5
+#: poll/public/handlebars/survey_results.handlebars:4
+msgid "Results"
+msgstr "Resultados"
+
+#: poll/public/handlebars/poll_results.handlebars:31
+#: poll/public/handlebars/survey_results.handlebars:39
+msgid "Submit"
+msgstr "Submeter"
+
+#: poll/public/handlebars/poll_results.handlebars:33
+#: poll/public/handlebars/survey_results.handlebars:41
+msgid "Results gathered from {total} respondent."
+msgid_plural "Results gathered from {total} respondents."
+msgstr[0] "Resultados recolhidos de {total} respondente."
+msgstr[1] "Resultados recolhidos de {total} respondentes."
+
+#: poll/public/handlebars/poll_results.handlebars:37
+#: poll/public/handlebars/survey_results.handlebars:46
+msgid "Feedback"
+msgstr "Comentário"
+
+#: poll/public/handlebars/poll_studio.handlebars:6
+msgid "move poll up"
+msgstr "mover sondagem para cima"
+
+#: poll/public/handlebars/poll_studio.handlebars:7
+msgid "move poll down"
+msgstr "mover sondagem para baixo"
+
+#: poll/public/handlebars/poll_studio.handlebars:9
+msgid "Delete"
+msgstr "Eliminar"
+
+#: poll/public/handlebars/poll_studio.handlebars:11
+msgid "Answer"
+msgstr "Resposta"
+
+#: poll/public/handlebars/poll_studio.handlebars:12
+msgid "Question"
+msgstr "Pergunta"
+
+#: poll/public/handlebars/poll_studio.handlebars:16
+msgid "Image URL"
+msgstr "URL da Imagem"
+
+#: poll/public/handlebars/poll_studio.handlebars:18
+msgid "Image alternative text"
+msgstr "Texto alternativo da imagem"
+
+#: poll/public/handlebars/poll_studio.handlebars:23
+msgid ""
+"You can make limited use of Markdown in answer texts, preferably only bold "
+"and italics."
+msgstr ""
+"Pode fazer um uso limitado do Markdown nos textos de resposta, de "
+"preferência apenas em negrito e itálico."
+
+#: poll/public/handlebars/poll_studio.handlebars:27
+msgid ""
+"This must have an image URL or text, and can have both.  If you add an "
+"image, you must also provide an alternative text that describes the image in"
+" a way that would allow someone to answer the poll if the image did not "
+"load."
+msgstr ""
+"Este deve ter um URL ou texto de imagem, e pode ter ambos. Se adicionar uma "
+"imagem, deve também fornecer um texto alternativo que descreva a imagem de "
+"uma forma que permita a alguém responder à sondagem se a imagem não for "
+"carregada."
