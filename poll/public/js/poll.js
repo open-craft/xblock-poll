@@ -180,7 +180,7 @@ function PollUtil (runtime, element, pollType) {
         }
         if (statusChanged) {
             if (newStatus.last_export_result.error) {
-                self.errorMessage.text(error);
+                self.errorMessage.text(newStatus.last_export_result.error);
                 self.errorMessage.show();
             } else {
                 self.downloadResultsButton.attr('disabled', false);
