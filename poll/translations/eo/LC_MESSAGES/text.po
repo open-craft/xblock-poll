@@ -1,0 +1,456 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-11-09 12:04+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: eo\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: poll/poll.py
+msgid "Whether or not to display results to the user."
+msgstr ""
+"Whéthér ör nöt tö dïspläý résülts tö thé üsér. Ⱡ'σяєм ιρѕυм ∂σłσя ѕιт αмєт, "
+"¢σηѕє¢тєтυя α#"
+
+#: poll/poll.py
+msgid "The maximum number of times a user may send a submission."
+msgstr ""
+"Thé mäxïmüm nümßér öf tïmés ä üsér mäý sénd ä süßmïssïön. Ⱡ'σяєм ιρѕυм ∂σłσя"
+" ѕιт αмєт, ¢σηѕє¢тєтυя α#"
+
+#: poll/poll.py
+msgid "Number of times the user has sent a submission."
+msgstr ""
+"Nümßér öf tïmés thé üsér häs sént ä süßmïssïön. Ⱡ'σяєм ιρѕυм ∂σłσя ѕιт αмєт,"
+" ¢σηѕє¢тєтυя α#"
+
+#: poll/poll.py
+msgid "Text to display after the user votes."
+msgstr ""
+"Téxt tö dïspläý äftér thé üsér vötés. Ⱡ'σяєм ιρѕυм ∂σłσя ѕιт αмєт, "
+"¢σηѕє¢тєтυ#"
+
+#. Translators: {field} is either "answers" or "questions".
+#: poll/poll.py
+#, python-brace-format
+msgid "'{field}' is not present, or not a JSON array."
+msgstr ""
+"'{field}' ïs nöt présént, ör nöt ä JSÖN ärräý. Ⱡ'σяєм ιρѕυм ∂σłσя ѕιт αмєт, "
+"¢σηѕє¢тєтυя #"
+
+#. Translators: {noun} is either "Answer" or "Question". {item} identifies the
+#. answer or question.
+#: poll/poll.py
+#, python-brace-format
+msgid "{noun} {item} not a javascript object!"
+msgstr ""
+"{noun} {item} nöt ä jäväsçrïpt ößjéçt! Ⱡ'σяєм ιρѕυм ∂σłσя ѕιт αмєт, "
+"¢σηѕє¢тє#"
+
+#. Translators: {noun} is either "Answer" or "Question". {item} identifies the
+#. answer or question.
+#: poll/poll.py
+#, python-brace-format
+msgid "{noun} {item} contains no key."
+msgstr "{noun} {item} çöntäïns nö kéý. Ⱡ'σяєм ιρѕυм ∂σłσя ѕιт αмєт, ¢ση#"
+
+#. Translators: {noun} is either "Answer" or "Question".
+#. {noun_lower} is the lowercase version of {noun}.
+#: poll/poll.py
+#, python-brace-format
+msgid ""
+"{noun} has no text or img. Please make sure all {noun_lower}s have one or "
+"the other, or both."
+msgstr ""
+"{noun} häs nö téxt ör ïmg. Pléäsé mäké süré äll {noun_lower}s hävé öné ör "
+"thé öthér, ör ßöth. Ⱡ'σяєм ιρѕυм ∂σłσя ѕιт αмєт, ¢σηѕє¢тє#"
+
+#. Translators: {noun} is either "Answer" or "Question".
+#. {noun_lower} is the lowercase version of {noun}.
+#: poll/poll.py
+#, python-brace-format
+msgid ""
+"{noun} was added with no label. All {noun_lower}s must have labels. Please "
+"check the form. Check the form and explicitly delete {noun_lower}s if not "
+"needed."
+msgstr ""
+"{noun} wäs äddéd wïth nö läßél. Àll {noun_lower}s müst hävé läßéls. Pléäsé "
+"çhéçk thé förm. Çhéçk thé förm änd éxplïçïtlý délété {noun_lower}s ïf nöt "
+"néédéd. Ⱡ'σяєм ιρѕυм ∂σłσя ѕιт αмєт, ¢σηѕє¢тєтυя α∂ιριѕι¢ιηg єłιт, ѕє∂ ∂σ "
+"єιυѕмσ∂ тємρσя ιη¢ι∂ι∂υηт υт łαвσяє єт ∂σłσяє мαgηα αłιqυα. υт єηιм α∂ мιηιм"
+" νєηιαм, qυιѕ ησѕтяυ∂ єχєя¢ιтαтιση υłłαм¢σ łαвσяιѕ ηιѕι υт αłιqυιρ єχ єα "
+"¢σммσ∂σ ¢σηѕєqυαт. ∂υιѕ αυтє ιяυяє ∂σłσя ιη яєρяєнєη∂єяιт ιη νσłυρтαтє νєłιт"
+" єѕѕє ¢ιłłυм ∂σłσяє єυ ƒυgιαт ηυłłα ραяιαтυя. єχ¢єρтєυя ѕιηт σ¢¢αє¢αт "
+"¢υρι∂αтαт ηση ρяσι∂єηт, ѕυηт ιη ¢υłρα qυι σƒƒι¢ια ∂єѕєяυηт мσłłιт αηιм ι∂ "
+"єѕт łαвσяυ#"
+
+#: poll/poll.py
+msgid ""
+"All images must have an alternative text describing the image in a way that "
+"would allow someone to answer the poll if the image did not load."
+msgstr ""
+"Àll ïmägés müst hävé än ältérnätïvé téxt désçrïßïng thé ïmägé ïn ä wäý thät "
+"wöüld ällöw söméöné tö änswér thé pöll ïf thé ïmägé dïd nöt löäd. Ⱡ'σяєм "
+"ιρѕυм ∂σłσя ѕιт αмєт, ¢σηѕє¢тєтυя α∂ιριѕι¢ιηg єłιт, ѕє∂ ∂σ єιυѕмσ∂ тємρσя "
+"ιη¢ι∂ι∂υηт υт łαвσяє єт ∂σłσяє мαgηα αłιqυα. υт єηιм α∂ мιηιм νєηιαм, qυιѕ "
+"ησѕтяυ∂ єχєя¢ιтαтιση υłłαм¢σ łαвσяιѕ ηιѕι υт αłιqυιρ єχ єα ¢σммσ∂σ "
+"¢σηѕєqυαт. ∂υιѕ αυтє ιяυяє ∂σłσя ιη яєρяєнєη∂єяιт ιη νσłυρтαтє νєłιт єѕѕє "
+"¢ιłłυм ∂σłσяє єυ ƒυgιαт ηυłłα ραяιαтυя. єχ¢єρтєυя ѕιηт σ¢¢αє¢αт ¢υρι∂αтαт "
+"ηση ρяσι∂єηт, ѕυηт ιη ¢υłρα qυι σƒƒι¢ια ∂єѕєяυηт мσłłιт αηιм ι∂ єѕт #"
+
+#. Translators: "{noun_lower} is either "answer" or "question".
+#: poll/poll.py
+#, python-brace-format
+msgid "You must include at least one {noun_lower}."
+msgstr ""
+"Ýöü müst ïnçlüdé ät léäst öné {noun_lower}. Ⱡ'σяєм ιρѕυм ∂σłσя ѕιт αмєт, "
+"¢σηѕє¢тєт#"
+
+#: poll/poll.py
+msgid "Maximum Submissions missing or not an integer."
+msgstr ""
+"Mäxïmüm Süßmïssïöns mïssïng ör nöt än ïntégér. Ⱡ'σяєм ιρѕυм ∂σłσя ѕιт αмєт, "
+"¢σηѕє¢тєтυя α#"
+
+#: poll/poll.py
+msgid "Private results may not be False when Maximum Submissions is not 1."
+msgstr ""
+"Prïväté résülts mäý nöt ßé Fälsé whén Mäxïmüm Süßmïssïöns ïs nöt 1. Ⱡ'σяєм "
+"ιρѕυм ∂σłσя ѕιт αмєт, ¢σηѕє¢тєтυя #"
+
+#: poll/poll.py poll/poll.py
+msgid "Poll"
+msgstr "Pöll Ⱡ'σяєм ι#"
+
+#: poll/poll.py
+msgid "What is your favorite color?"
+msgstr "Whät ïs ýöür fävörïté çölör? Ⱡ'σяєм ιρѕυм ∂σłσя ѕιт αмєт, ¢σηѕє¢#"
+
+#: poll/poll.py
+msgid "Red"
+msgstr "Réd Ⱡ'σяєм#"
+
+#: poll/poll.py
+msgid "Blue"
+msgstr "Blüé Ⱡ'σяєм ι#"
+
+#: poll/poll.py
+msgid "Green"
+msgstr "Gréén Ⱡ'σяєм ιρѕ#"
+
+#: poll/poll.py
+msgid "Other"
+msgstr "Öthér Ⱡ'σяєм ιρѕ#"
+
+#: poll/poll.py
+msgid "The answer options on this poll."
+msgstr ""
+"Thé änswér öptïöns ön thïs pöll. Ⱡ'σяєм ιρѕυм ∂σłσя ѕιт αмєт, ¢σηѕє¢тє#"
+
+#: poll/poll.py poll/poll.py
+msgid "Total tally of answers from students."
+msgstr ""
+"Tötäl tällý öf änswérs fröm stüdénts. Ⱡ'σяєм ιρѕυм ∂σłσя ѕιт αмєт, "
+"¢σηѕє¢тєтυ#"
+
+#: poll/poll.py
+msgid "The student's answer"
+msgstr "Thé stüdént's änswér Ⱡ'σяєм ιρѕυм ∂σłσя ѕιт αмєт, #"
+
+#: poll/poll.py poll/poll.py
+msgid "You have already voted in this poll."
+msgstr ""
+"Ýöü hävé älréädý vötéd ïn thïs pöll. Ⱡ'σяєм ιρѕυм ∂σłσя ѕιт αмєт, "
+"¢σηѕє¢тєтυ#"
+
+#: poll/poll.py
+msgid "Answer not included with request."
+msgstr ""
+"Ànswér nöt ïnçlüdéd wïth réqüést. Ⱡ'σяєм ιρѕυм ∂σłσя ѕιт αмєт, ¢σηѕє¢тє#"
+
+#. Translators: {choice} uniquely identifies a specific answer belonging to a
+#. poll or survey.
+#: poll/poll.py
+#, python-brace-format
+msgid "No key \"{choice}\" in answers table."
+msgstr ""
+"Nö kéý \"{choice}\" ïn änswérs täßlé. Ⱡ'σяєм ιρѕυм ∂σłσя ѕιт αмєт, ¢σηѕє¢т#"
+
+#: poll/poll.py poll/poll.py
+msgid "You have already voted as many times as you are allowed."
+msgstr ""
+"Ýöü hävé älréädý vötéd äs mäný tïmés äs ýöü äré ällöwéd. Ⱡ'σяєм ιρѕυм ∂σłσя "
+"ѕιт αмєт, ¢σηѕє¢тєтυя α#"
+
+#: poll/poll.py
+msgid "You must specify a question."
+msgstr "Ýöü müst spéçïfý ä qüéstïön. Ⱡ'σяєм ιρѕυм ∂σłσя ѕιт αмєт, ¢σηѕє¢#"
+
+#: poll/poll.py poll/poll.py poll/poll.py poll/poll.py
+msgid "Answer"
+msgstr "Ànswér Ⱡ'σяєм ιρѕυ#"
+
+#: poll/poll.py poll/poll.py poll/poll.py
+msgid "Question"
+msgstr "Qüéstïön Ⱡ'σяєм ιρѕυм ∂#"
+
+#: poll/poll.py poll/poll.py
+msgid "Submissions count"
+msgstr "Süßmïssïöns çöünt Ⱡ'σяєм ιρѕυм ∂σłσя ѕιт αмє#"
+
+#: poll/poll.py
+msgid "Survey"
+msgstr "Sürvéý Ⱡ'σяєм ιρѕυ#"
+
+#: poll/poll.py
+msgid "Yes"
+msgstr "Ýés Ⱡ'σяєм#"
+
+#: poll/poll.py
+msgid "No"
+msgstr "Nö Ⱡ'σя#"
+
+#: poll/poll.py
+msgid "Maybe"
+msgstr "Mäýßé Ⱡ'σяєм ιρѕ#"
+
+#: poll/poll.py
+msgid "Answer choices for this Survey"
+msgstr "Ànswér çhöïçés för thïs Sürvéý Ⱡ'σяєм ιρѕυм ∂σłσя ѕιт αмєт, ¢σηѕє¢т#"
+
+#: poll/poll.py
+msgid "Are you enjoying the course?"
+msgstr "Àré ýöü énjöýïng thé çöürsé? Ⱡ'σяєм ιρѕυм ∂σłσя ѕιт αмєт, ¢σηѕє¢#"
+
+#: poll/poll.py
+msgid "Would you recommend this course to your friends?"
+msgstr ""
+"Wöüld ýöü réçömménd thïs çöürsé tö ýöür frïénds? Ⱡ'σяєм ιρѕυм ∂σłσя ѕιт "
+"αмєт, ¢σηѕє¢тєтυя α#"
+
+#: poll/poll.py
+msgid "Do you think you will learn a lot?"
+msgstr ""
+"Dö ýöü thïnk ýöü wïll léärn ä löt? Ⱡ'σяєм ιρѕυм ∂σłσя ѕιт αмєт, ¢σηѕє¢тєт#"
+
+#: poll/poll.py
+msgid "Questions for this Survey"
+msgstr "Qüéstïöns för thïs Sürvéý Ⱡ'σяєм ιρѕυм ∂σłσя ѕιт αмєт, ¢σηѕ#"
+
+#: poll/poll.py
+msgid "The user's answers"
+msgstr "Thé üsér's änswérs Ⱡ'σяєм ιρѕυм ∂σłσя ѕιт αмєт#"
+
+#: poll/poll.py
+msgid ""
+"Not all questions were included, or unknown questions were included. Try "
+"refreshing and trying again."
+msgstr ""
+"Nöt äll qüéstïöns wéré ïnçlüdéd, ör ünknöwn qüéstïöns wéré ïnçlüdéd. Trý "
+"réfréshïng änd trýïng ägäïn. Ⱡ'σяєм ιρѕυм ∂σłσя ѕιт αмє#"
+
+#. Translators: {answer_key} uniquely identifies a specific answer belonging
+#. to a poll or survey.
+#. {question_key} uniquely identifies a specific question belonging to a poll
+#. or survey.
+#: poll/poll.py
+#, python-brace-format
+msgid "Found unknown answer '{answer_key}' for question key '{question_key}'"
+msgstr ""
+"Föünd ünknöwn änswér '{answer_key}' för qüéstïön kéý '{question_key}' Ⱡ'σяєм"
+" ιρѕυм ∂σłσя ѕιт αмєт, ¢σηѕє¢тєтυя α#"
+
+#: poll/public/html/poll.html poll/public/html/survey.html
+msgid "Submit"
+msgstr "Süßmït Ⱡ'σяєм ιρѕυ#"
+
+#: poll/public/html/poll.html poll/public/html/survey.html
+msgid "Thank you."
+msgstr "Thänk ýöü. Ⱡ'σяєм ιρѕυм ∂σłσ#"
+
+#: poll/public/html/poll.html
+#, python-format
+msgid ""
+"\n"
+"        You have used %(submissions_count_s)s out of %(max_submissions_s)s submissions.\n"
+"      "
+msgstr ""
+"\n"
+"        Ýöü hävé üséd %(submissions_count_s)s öüt öf %(max_submissions_s)s süßmïssïöns.\n"
+"       Ⱡ'σяєм ιρѕυм ∂σłσя ѕιт αмєт, ¢σηѕє¢тєтυя α#"
+
+#: poll/public/html/poll.html poll/public/html/poll_edit.html
+#: poll/public/html/survey.html
+msgid "Feedback"
+msgstr "Féédßäçk Ⱡ'σяєм ιρѕυм ∂#"
+
+#: poll/public/html/poll.html poll/public/html/survey.html
+msgid "View results"
+msgstr "Vïéw résülts Ⱡ'σяєм ιρѕυм ∂σłσя ѕ#"
+
+#: poll/public/html/poll.html poll/public/html/survey.html
+msgid "Export results to CSV"
+msgstr "Éxpört résülts tö ÇSV Ⱡ'σяєм ιρѕυм ∂σłσя ѕιт αмєт, #"
+
+#: poll/public/html/poll.html poll/public/html/survey.html
+msgid "Download CSV"
+msgstr "Döwnlöäd ÇSV Ⱡ'σяєм ιρѕυм ∂σłσя ѕ#"
+
+#: poll/public/html/poll.html poll/public/html/survey.html
+msgid "Student data and results CSV available for download in the LMS."
+msgstr ""
+"Stüdént dätä änd résülts ÇSV äväïläßlé för döwnlöäd ïn thé LMS. Ⱡ'σяєм ιρѕυм"
+" ∂σłσя ѕιт αмєт, ¢σηѕє¢тєтυя α#"
+
+#: poll/public/html/poll_edit.html
+msgid "Display Name"
+msgstr "Dïspläý Nämé Ⱡ'σяєм ιρѕυм ∂σłσя ѕ#"
+
+#: poll/public/html/poll_edit.html
+msgid "Question/Prompt"
+msgstr "Qüéstïön/Prömpt Ⱡ'σяєм ιρѕυм ∂σłσя ѕιт α#"
+
+#: poll/public/html/poll_edit.html
+#, python-format
+msgid ""
+"\n"
+"                    %(link_start)sMarkdown Syntax%(link_end)s is supported.\n"
+"                "
+msgstr ""
+"\n"
+"                    %(link_start)sMärkdöwn Sýntäx%(link_end)s ïs süppörtéd.\n"
+"                 Ⱡ'σяєм ιρѕυм ∂σłσя ѕιт αмєт, ¢σηѕє¢тєтυя#"
+
+#: poll/public/html/poll_edit.html
+msgid "Enter the prompt for the user."
+msgstr "Éntér thé prömpt för thé üsér. Ⱡ'σяєм ιρѕυм ∂σłσя ѕιт αмєт, ¢σηѕє¢т#"
+
+#: poll/public/html/poll_edit.html
+#, python-format
+msgid ""
+"\n"
+"                %(link_start)sMarkdown Syntax%(link_end)s is supported.\n"
+"            "
+msgstr ""
+"\n"
+"                %(link_start)sMärkdöwn Sýntäx%(link_end)s ïs süppörtéd.\n"
+"             Ⱡ'σяєм ιρѕυм ∂σłσя ѕιт αмєт, ¢σηѕє¢тєтυя α#"
+
+#: poll/public/html/poll_edit.html
+msgid ""
+"\n"
+"                    This text will be displayed for the user as some extra feedback after they have\n"
+"                    submitted their response to the poll.\n"
+"                "
+msgstr ""
+"\n"
+"                    Thïs téxt wïll ßé dïspläýéd för thé üsér äs sömé éxträ féédßäçk äftér théý hävé\n"
+"                    süßmïttéd théïr réspönsé tö thé pöll.\n"
+"                 Ⱡ'σяєм ιρѕυм ∂σłσя ѕιт αмєт, ¢σηѕє¢тєтυя α∂ιριѕι¢ιηg єłιт, ѕє∂ ∂σ єιυѕмσ∂ тємρσя ιη¢ι∂ι∂υηт υт łαвσяє єт ∂σłσяє мαgηα αłιqυα. υт єηιм α∂ мιηιм νєηιαм, qυιѕ ησѕтяυ∂ єχєя¢ιтαтιση υłłαм¢σ łαвσяιѕ ηιѕι υт αłιqυιρ єχ єα ¢σммσ∂σ ¢σηѕєqυαт. ∂υιѕ αυтє ιяυяє ∂σłσя ιη яєρяєнєη∂єяιт ιη νσłυρтαтє νєłιт єѕѕє ¢ιłłυм ∂σłσяє єυ ƒυgιαт ηυłłα ραяιαтυя. єχ¢єρтєυя ѕιηт σ¢¢αє¢αт ¢υρι∂αтαт ηση ρяσι∂єηт, ѕυηт ιη ¢υłρ#"
+
+#: poll/public/html/poll_edit.html
+msgid "Private Results"
+msgstr "Prïväté Résülts Ⱡ'σяєм ιρѕυм ∂σłσя ѕιт α#"
+
+#: poll/public/html/poll_edit.html
+msgid "True"
+msgstr "Trüé Ⱡ'σяєм ι#"
+
+#: poll/public/html/poll_edit.html
+msgid "False"
+msgstr "Fälsé Ⱡ'σяєм ιρѕ#"
+
+#: poll/public/html/poll_edit.html
+msgid "If this is set to True, don't display results of the poll to the user."
+msgstr ""
+"Ìf thïs ïs sét tö Trüé, dön't dïspläý résülts öf thé pöll tö thé üsér. "
+"Ⱡ'σяєм ιρѕυм ∂σłσя ѕιт αмєт, ¢σηѕє¢тєтυя #"
+
+#: poll/public/html/poll_edit.html
+msgid "Maximum Submissions"
+msgstr "Mäxïmüm Süßmïssïöns Ⱡ'σяєм ιρѕυм ∂σłσя ѕιт αмєт,#"
+
+#: poll/public/html/poll_edit.html
+#, python-format
+msgid ""
+"\n"
+"                    Maximum number of times a user may submit a poll. %(bold_start)sSetting this to a value other than 1 will imply that\n"
+"                    'Private Results' should be true.%(bold_end)s Setting it to 0 will allow infinite resubmissions.\n"
+"                "
+msgstr ""
+"\n"
+"                    Mäxïmüm nümßér öf tïmés ä üsér mäý süßmït ä pöll. %(bold_start)sSéttïng thïs tö ä välüé öthér thän 1 wïll ïmplý thät\n"
+"                    'Prïväté Résülts' shöüld ßé trüé.%(bold_end)s Séttïng ït tö 0 wïll ällöw ïnfïnïté résüßmïssïöns.\n"
+"                 Ⱡ'σяєм ιρѕυм ∂σłσя ѕιт αмєт, ¢σηѕє¢тєтυя α∂ιριѕι¢ιηg єłιт, ѕє∂ ∂σ єιυѕмσ∂ тємρσя ιη¢ι∂ι∂υηт υт łαвσяє єт ∂σłσяє мαgηα αłιqυα. υт єηιм α∂ мιηιм νєηιαм, qυιѕ ησѕтяυ∂ єχєя¢ιтαтιση υłłαм¢σ łαвσяιѕ ηιѕι υт αłιqυιρ єχ єα ¢σммσ∂σ ¢σηѕєqυαт. ∂υιѕ αυтє ιяυяє ∂σłσя ιη яєρяєнєη∂єяιт#"
+
+#: poll/public/html/poll_edit.html
+msgid "Notes:"
+msgstr "Nötés: Ⱡ'σяєм ιρѕυ#"
+
+#: poll/public/html/poll_edit.html
+msgid ""
+"\n"
+"                    If you change an answer's text, all students who voted for that choice will have their votes updated to\n"
+"                    the new text. You'll want to avoid changing an answer from something like 'True' to 'False', accordingly.\n"
+"                    If you delete an answer, any votes for that answer will also be deleted. Students whose choices are deleted\n"
+"                    may vote again, but will not lose course progress.\n"
+"                "
+msgstr ""
+"\n"
+"                    Ìf ýöü çhängé än änswér's téxt, äll stüdénts whö vötéd för thät çhöïçé wïll hävé théïr vötés üpdätéd tö\n"
+"                    thé néw téxt. Ýöü'll wänt tö ävöïd çhängïng än änswér fröm söméthïng lïké 'Trüé' tö 'Fälsé', äççördïnglý.\n"
+"                    Ìf ýöü délété än änswér, äný vötés för thät änswér wïll älsö ßé délétéd. Stüdénts whösé çhöïçés äré délétéd\n"
+"                    mäý vöté ägäïn, ßüt wïll nöt lösé çöürsé prögréss.\n"
+"                #"
+
+#: poll/public/html/poll_edit.html
+msgid ""
+"\n"
+"                        Questions must be similarly cared for. If a question's text is changed, any votes for that question will remain.\n"
+"                        If a question is deleted, any student who previously took the survey will be permitted to retake it, but will not\n"
+"                        lose course progress.\n"
+"                    "
+msgstr ""
+"\n"
+"                        Qüéstïöns müst ßé sïmïlärlý çäréd för. Ìf ä qüéstïön's téxt ïs çhängéd, äný vötés för thät qüéstïön wïll rémäïn.\n"
+"                        Ìf ä qüéstïön ïs délétéd, äný stüdént whö prévïöüslý töök thé sürvéý wïll ßé pérmïttéd tö rétäké ït, ßüt wïll nöt\n"
+"                        lösé çöürsé prögréss.\n"
+"                     Ⱡ'σяєм ιρѕυм ∂σłσя ѕιт αмєт, ¢σηѕє¢тєтυя α∂ιριѕι¢ιηg єłιт, ѕє∂ ∂σ єιυѕмσ∂ тєм#"
+
+#: poll/public/html/poll_edit.html
+msgid "Add Answer"
+msgstr "Àdd Ànswér Ⱡ'σяєм ιρѕυм ∂σłσ#"
+
+#: poll/public/html/poll_edit.html
+msgid "Add Question"
+msgstr "Àdd Qüéstïön Ⱡ'σяєм ιρѕυм ∂σłσя ѕ#"
+
+#: poll/public/html/poll_edit.html
+msgid "Save"
+msgstr "Sävé Ⱡ'σяєм ι#"
+
+#: poll/public/html/poll_edit.html
+msgid "Cancel"
+msgstr "Çänçél Ⱡ'σяєм ιρѕυ#"
+
+#: poll/public/html/survey.html
+#, python-format
+msgid ""
+"\n"
+"                You have used %(submissions_count_s)s out of %(max_submissions_s)s submissions.\n"
+"            "
+msgstr ""
+"\n"
+"                Ýöü hävé üséd %(submissions_count_s)s öüt öf %(max_submissions_s)s süßmïssïöns.\n"
+"             Ⱡ'σяєм ιρѕυм ∂σłσя ѕιт αмєт, ¢σηѕє¢тєтυя#"

@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: XBlocks\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-03-17 14:23+0000\n"
+"POT-Creation-Date: 2021-11-09 11:57+0000\n"
 "PO-Revision-Date: 2018-12-28 15:14+0000\n"
 "Last-Translator: Machida Miki <mikimachida711@gmail.com>\n"
 "Language-Team: Japanese (Japan) (http://www.transifex.com/open-edx/xblocks/language/ja_JP/)\n"
@@ -19,45 +19,45 @@ msgstr ""
 "Language: ja_JP\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-#: poll/poll.py:229
+#: poll/poll.py:232
 msgid "Whether or not to display results to the user."
 msgstr "ユーザーに結果を表示するかどうか。"
 
-#: poll/poll.py:230
+#: poll/poll.py:233
 msgid "The maximum number of times a user may send a submission."
 msgstr "ユーザーが提出を送信できる最大回数。"
 
-#: poll/poll.py:232
+#: poll/poll.py:235
 msgid "Number of times the user has sent a submission."
 msgstr "ユーザーが提出を送信した回数。"
 
-#: poll/poll.py:234
+#: poll/poll.py:237
 msgid "Text to display after the user votes."
 msgstr "ユーザーが投票した後に表示するテキスト。"
 
 #. Translators: {field} is either "answers" or "questions".
-#: poll/poll.py:295
+#: poll/poll.py:298
 #, python-brace-format
 msgid "'{field}' is not present, or not a JSON array."
 msgstr "'{field}' が存在しないか、JSON配列ではありません。"
 
 #. Translators: {noun} is either "Answer" or "Question". {item} identifies the
 #. answer or question.
-#: poll/poll.py:307
+#: poll/poll.py:310
 #, python-brace-format
 msgid "{noun} {item} not a javascript object!"
 msgstr "{noun} {item}はjavascriptオブジェクトではありません！"
 
 #. Translators: {noun} is either "Answer" or "Question". {item} identifies the
 #. answer or question.
-#: poll/poll.py:316
+#: poll/poll.py:319
 #, python-brace-format
 msgid "{noun} {item} contains no key."
 msgstr "{noun} {item}にはキーが含まれていません。"
 
 #. Translators: {noun} is either "Answer" or "Question".
 #. {noun_lower} is the lowercase version of {noun}.
-#: poll/poll.py:328
+#: poll/poll.py:331
 #, python-brace-format
 msgid ""
 "{noun} has no text or img. Please make sure all {noun_lower}s have one or "
@@ -66,7 +66,7 @@ msgstr "{noun}にはテキストまたは画像がありません。すべての
 
 #. Translators: {noun} is either "Answer" or "Question".
 #. {noun_lower} is the lowercase version of {noun}.
-#: poll/poll.py:339
+#: poll/poll.py:342
 #, python-brace-format
 msgid ""
 "{noun} was added with no label. All {noun_lower}s must have labels. Please "
@@ -74,138 +74,138 @@ msgid ""
 "needed."
 msgstr "{noun}はラベルなしで追加されました。すべての{noun_lower}にラベルが必要です。フォームを確認してください。フォームを確認し、必要ない場合は{noun_lower}を明示的に削除してください。"
 
-#: poll/poll.py:347
+#: poll/poll.py:350
 msgid ""
 "All images must have an alternative text describing the image in a way that "
 "would allow someone to answer the poll if the image did not load."
 msgstr "すべての画像には、画像が読み込まれなかった場合に誰かが投票に回答できるような方法で画像を説明する代替テキストが必要です。"
 
 #. Translators: "{noun_lower} is either "answer" or "question".
-#: poll/poll.py:359
+#: poll/poll.py:362
 #, python-brace-format
 msgid "You must include at least one {noun_lower}."
 msgstr "少なくとも1つの{noun_lower}を含める必要があります。"
 
-#: poll/poll.py:407
+#: poll/poll.py:410
 msgid "Maximum Submissions missing or not an integer."
 msgstr "最大提出回数がないか、整数ではありません。"
 
-#: poll/poll.py:412
+#: poll/poll.py:415
 msgid "Private results may not be False when Maximum Submissions is not 1."
 msgstr "最大提出回数が1でない場合、非公開の結果はFalseにならない場合があります。"
 
-#: poll/poll.py:449 poll/poll.py:842
+#: poll/poll.py:452 poll/poll.py:887
 msgid "Poll"
 msgstr "投票"
 
-#: poll/poll.py:450
+#: poll/poll.py:453
 msgid "What is your favorite color?"
 msgstr "お気に入りの色は何ですか？"
 
-#: poll/poll.py:455
+#: poll/poll.py:458
 msgid "Red"
 msgstr "赤"
 
-#: poll/poll.py:456
+#: poll/poll.py:459
 msgid "Blue"
 msgstr "青"
 
-#: poll/poll.py:457
+#: poll/poll.py:460
 msgid "Green"
 msgstr "緑"
 
-#: poll/poll.py:458
+#: poll/poll.py:461
 msgid "Other"
 msgstr "その他"
 
-#: poll/poll.py:460
+#: poll/poll.py:463
 msgid "The answer options on this poll."
 msgstr "このアンケートの回答オプション。"
 
-#: poll/poll.py:464 poll/poll.py:868
+#: poll/poll.py:467 poll/poll.py:913
 msgid "Total tally of answers from students."
 msgstr "受講者からの回答の集計。"
 
-#: poll/poll.py:465
+#: poll/poll.py:468
 msgid "The student's answer"
 msgstr "受講者の回答"
 
-#: poll/poll.py:673 poll/poll.py:1148
+#: poll/poll.py:683 poll/poll.py:1200
 msgid "You have already voted in this poll."
 msgstr "この調査にはすでに投票しています。"
 
-#: poll/poll.py:678
+#: poll/poll.py:688
 msgid "Answer not included with request."
 msgstr "回答はリクエストに含まれていません。"
 
 #. Translators: {choice} uniquely identifies a specific answer belonging to a
 #. poll or survey.
-#: poll/poll.py:687
+#: poll/poll.py:697
 #, python-brace-format
 msgid "No key \"{choice}\" in answers table."
 msgstr "回答テーブルにキー\"{choice}\"がありません。"
 
-#: poll/poll.py:696 poll/poll.py:1156
+#: poll/poll.py:706 poll/poll.py:1208
 msgid "You have already voted as many times as you are allowed."
 msgstr "すでに許可された最大回数投票しています。"
 
-#: poll/poll.py:726
+#: poll/poll.py:736
 msgid "You must specify a question."
 msgstr "質問を指定する必要があります"
 
-#: poll/poll.py:729 poll/poll.py:826 poll/poll.py:1210 poll/poll.py:1338
+#: poll/poll.py:739 poll/poll.py:836 poll/poll.py:1262 poll/poll.py:1390
 msgid "Answer"
 msgstr "回答"
 
-#: poll/poll.py:825 poll/poll.py:1211 poll/poll.py:1337
+#: poll/poll.py:835 poll/poll.py:1263 poll/poll.py:1389
 msgid "Question"
 msgstr "質問"
 
-#: poll/poll.py:828 poll/poll.py:1339
+#: poll/poll.py:838 poll/poll.py:1391
 msgid "Submissions count"
 msgstr "提出回数"
 
-#: poll/poll.py:839
+#: poll/poll.py:884
 msgid "Survey"
 msgstr "アンケート調査"
 
-#: poll/poll.py:845
+#: poll/poll.py:890
 msgid "Yes"
 msgstr "はい"
 
-#: poll/poll.py:846
+#: poll/poll.py:891
 msgid "No"
 msgstr "いいえ"
 
-#: poll/poll.py:847
+#: poll/poll.py:892
 msgid "Maybe"
 msgstr "たぶん"
 
-#: poll/poll.py:849
+#: poll/poll.py:894
 msgid "Answer choices for this Survey"
 msgstr "このアンケートの回答の選択肢"
 
-#: poll/poll.py:853
+#: poll/poll.py:898
 msgid "Are you enjoying the course?"
 msgstr "コースをお楽しみいいただいていますか？"
 
-#: poll/poll.py:855
+#: poll/poll.py:900
 msgid "Would you recommend this course to your friends?"
 msgstr "お友達にこのコースをお勧めしますか？"
 
-#: poll/poll.py:859
+#: poll/poll.py:904
 msgid "Do you think you will learn a lot?"
 msgstr "多くのことを学べると思われますか？"
 
-#: poll/poll.py:861
+#: poll/poll.py:906
 msgid "Questions for this Survey"
 msgstr "このアンケートに関する質問"
 
-#: poll/poll.py:870
+#: poll/poll.py:915
 msgid "The user's answers"
 msgstr "ユーザーの回答"
 
-#: poll/poll.py:1164
+#: poll/poll.py:1216
 msgid ""
 "Not all questions were included, or unknown questions were included. Try "
 "refreshing and trying again."
@@ -215,7 +215,7 @@ msgstr "すべての質問が含まれていないか、不明な質問が含ま
 #. to a poll or survey.
 #. {question_key} uniquely identifies a specific question belonging to a poll
 #. or survey.
-#: poll/poll.py:1177
+#: poll/poll.py:1229
 #, python-brace-format
 msgid "Found unknown answer '{answer_key}' for question key '{question_key}'"
 msgstr "質問キー'{question_key}'の不明な応答'{answer_key}'が見つかりました。"

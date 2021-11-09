@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: XBlocks\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-03-17 14:23+0000\n"
+"POT-Creation-Date: 2021-11-09 11:57+0000\n"
 "PO-Revision-Date: 2018-12-26 08:03+0000\n"
 "Last-Translator: Matthew Drayer <mattdrayer@edx.org>\n"
 "Language-Team: Hebrew (http://www.transifex.com/open-edx/xblocks/language/he/)\n"
@@ -18,45 +18,45 @@ msgstr ""
 "Language: he\n"
 "Plural-Forms: nplurals=4; plural=(n == 1 && n % 1 == 0) ? 0 : (n == 2 && n % 1 == 0) ? 1: (n % 10 == 0 && n % 1 == 0 && n > 10) ? 2 : 3;\n"
 
-#: poll/poll.py:229
+#: poll/poll.py:232
 msgid "Whether or not to display results to the user."
 msgstr "האם להציג תוצאות למשתמש."
 
-#: poll/poll.py:230
+#: poll/poll.py:233
 msgid "The maximum number of times a user may send a submission."
 msgstr "מספר הפעמים המרבי שיכול משתמש לשלוח הגשה."
 
-#: poll/poll.py:232
+#: poll/poll.py:235
 msgid "Number of times the user has sent a submission."
 msgstr "מספר הפעמים ששלח המשתמש הגשה."
 
-#: poll/poll.py:234
+#: poll/poll.py:237
 msgid "Text to display after the user votes."
 msgstr "הטקסט שיוצג לאחר הצבעת המשתמש."
 
 #. Translators: {field} is either "answers" or "questions".
-#: poll/poll.py:295
+#: poll/poll.py:298
 #, python-brace-format
 msgid "'{field}' is not present, or not a JSON array."
 msgstr "'{field}' אינו נמצא, או אינו במערך JSON."
 
 #. Translators: {noun} is either "Answer" or "Question". {item} identifies the
 #. answer or question.
-#: poll/poll.py:307
+#: poll/poll.py:310
 #, python-brace-format
 msgid "{noun} {item} not a javascript object!"
 msgstr "{noun} {item} אינו אובייקט javascript!"
 
 #. Translators: {noun} is either "Answer" or "Question". {item} identifies the
 #. answer or question.
-#: poll/poll.py:316
+#: poll/poll.py:319
 #, python-brace-format
 msgid "{noun} {item} contains no key."
 msgstr "{noun} {item} אינו מכיל מפתח."
 
 #. Translators: {noun} is either "Answer" or "Question".
 #. {noun_lower} is the lowercase version of {noun}.
-#: poll/poll.py:328
+#: poll/poll.py:331
 #, python-brace-format
 msgid ""
 "{noun} has no text or img. Please make sure all {noun_lower}s have one or "
@@ -65,7 +65,7 @@ msgstr "ל{noun} אין טקסט או תמונה. ודא כי לכל {noun_lower
 
 #. Translators: {noun} is either "Answer" or "Question".
 #. {noun_lower} is the lowercase version of {noun}.
-#: poll/poll.py:339
+#: poll/poll.py:342
 #, python-brace-format
 msgid ""
 "{noun} was added with no label. All {noun_lower}s must have labels. Please "
@@ -73,138 +73,138 @@ msgid ""
 "needed."
 msgstr "{noun} הוסַף ללא תווית. חייבות להיות תוויות לכל {noun_lower} . נא בדוק את הטופס. בדוק את הטופס ומחק את {noun_lower} שאינם נדרשים."
 
-#: poll/poll.py:347
+#: poll/poll.py:350
 msgid ""
 "All images must have an alternative text describing the image in a way that "
 "would allow someone to answer the poll if the image did not load."
 msgstr "לכל התמונות חייב להיות טקסט חלופי המתאר את התמונה כך שיתאפשר למישהו לענות על הסקר במידה והתמונה אינה עולה."
 
 #. Translators: "{noun_lower} is either "answer" or "question".
-#: poll/poll.py:359
+#: poll/poll.py:362
 #, python-brace-format
 msgid "You must include at least one {noun_lower}."
 msgstr "חובה לכלול לפחות אחת {noun_lower}."
 
-#: poll/poll.py:407
+#: poll/poll.py:410
 msgid "Maximum Submissions missing or not an integer."
 msgstr "חסר מספר שליחות מרבי או שאינו מספר שלם."
 
-#: poll/poll.py:412
+#: poll/poll.py:415
 msgid "Private results may not be False when Maximum Submissions is not 1."
 msgstr "תשובות אישיות אינן יכולות להיות 'לא נכון' כאשר מספר השליחות המרבי אינו 1."
 
-#: poll/poll.py:449 poll/poll.py:842
+#: poll/poll.py:452 poll/poll.py:887
 msgid "Poll"
 msgstr "מִשאל"
 
-#: poll/poll.py:450
+#: poll/poll.py:453
 msgid "What is your favorite color?"
 msgstr "מהו הצבע האהוב עליך?"
 
-#: poll/poll.py:455
+#: poll/poll.py:458
 msgid "Red"
 msgstr "אדום"
 
-#: poll/poll.py:456
+#: poll/poll.py:459
 msgid "Blue"
 msgstr "כחול"
 
-#: poll/poll.py:457
+#: poll/poll.py:460
 msgid "Green"
 msgstr ""
 
-#: poll/poll.py:458
+#: poll/poll.py:461
 msgid "Other"
 msgstr "אחר"
 
-#: poll/poll.py:460
+#: poll/poll.py:463
 msgid "The answer options on this poll."
 msgstr "אפשרויות התשובה למשאל זה."
 
-#: poll/poll.py:464 poll/poll.py:868
+#: poll/poll.py:467 poll/poll.py:913
 msgid "Total tally of answers from students."
 msgstr "מספר כולל של תשובות הסטודנטים."
 
-#: poll/poll.py:465
+#: poll/poll.py:468
 msgid "The student's answer"
 msgstr "תשובת הסטודנט"
 
-#: poll/poll.py:673 poll/poll.py:1148
+#: poll/poll.py:683 poll/poll.py:1200
 msgid "You have already voted in this poll."
 msgstr "כבר הצבעת בסקר זה."
 
-#: poll/poll.py:678
+#: poll/poll.py:688
 msgid "Answer not included with request."
 msgstr "התשובה איננה כלולה בבקשה."
 
 #. Translators: {choice} uniquely identifies a specific answer belonging to a
 #. poll or survey.
-#: poll/poll.py:687
+#: poll/poll.py:697
 #, python-brace-format
 msgid "No key \"{choice}\" in answers table."
 msgstr "אין מפתח \"{choice}\" בטבלת התשובות."
 
-#: poll/poll.py:696 poll/poll.py:1156
+#: poll/poll.py:706 poll/poll.py:1208
 msgid "You have already voted as many times as you are allowed."
 msgstr "כבר הצבעת את מספר הפעמים המותר לך."
 
-#: poll/poll.py:726
+#: poll/poll.py:736
 msgid "You must specify a question."
 msgstr "עליך לציין שאלה."
 
-#: poll/poll.py:729 poll/poll.py:826 poll/poll.py:1210 poll/poll.py:1338
+#: poll/poll.py:739 poll/poll.py:836 poll/poll.py:1262 poll/poll.py:1390
 msgid "Answer"
 msgstr "תשובה"
 
-#: poll/poll.py:825 poll/poll.py:1211 poll/poll.py:1337
+#: poll/poll.py:835 poll/poll.py:1263 poll/poll.py:1389
 msgid "Question"
 msgstr "שאלה"
 
-#: poll/poll.py:828 poll/poll.py:1339
+#: poll/poll.py:838 poll/poll.py:1391
 msgid "Submissions count"
 msgstr ""
 
-#: poll/poll.py:839
+#: poll/poll.py:884
 msgid "Survey"
 msgstr "סקר"
 
-#: poll/poll.py:845
+#: poll/poll.py:890
 msgid "Yes"
 msgstr "כן"
 
-#: poll/poll.py:846
+#: poll/poll.py:891
 msgid "No"
 msgstr "לא"
 
-#: poll/poll.py:847
+#: poll/poll.py:892
 msgid "Maybe"
 msgstr "אולי"
 
-#: poll/poll.py:849
+#: poll/poll.py:894
 msgid "Answer choices for this Survey"
 msgstr "אפשרויות התשובה לסקר זה"
 
-#: poll/poll.py:853
+#: poll/poll.py:898
 msgid "Are you enjoying the course?"
 msgstr "האם אתה נהנה מהקורס?"
 
-#: poll/poll.py:855
+#: poll/poll.py:900
 msgid "Would you recommend this course to your friends?"
 msgstr "האם היית ממליץ על קורס זה לחבריך?"
 
-#: poll/poll.py:859
+#: poll/poll.py:904
 msgid "Do you think you will learn a lot?"
 msgstr "האם לדעתך תלמד הרבה?"
 
-#: poll/poll.py:861
+#: poll/poll.py:906
 msgid "Questions for this Survey"
 msgstr "שאלות לסקר זה"
 
-#: poll/poll.py:870
+#: poll/poll.py:915
 msgid "The user's answers"
 msgstr "תשובות המשתמש"
 
-#: poll/poll.py:1164
+#: poll/poll.py:1216
 msgid ""
 "Not all questions were included, or unknown questions were included. Try "
 "refreshing and trying again."
@@ -214,7 +214,7 @@ msgstr "לא נכללו כל השאלות או שהוצגו שאלות לא מו
 #. to a poll or survey.
 #. {question_key} uniquely identifies a specific question belonging to a poll
 #. or survey.
-#: poll/poll.py:1177
+#: poll/poll.py:1229
 #, python-brace-format
 msgid "Found unknown answer '{answer_key}' for question key '{question_key}'"
 msgstr "נמצאה תשובה לא מוכרת '{answer_key}' עבור מפתח השאלה '{question_key}'"

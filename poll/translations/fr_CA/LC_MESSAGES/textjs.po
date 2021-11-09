@@ -10,28 +10,6 @@ msgstr ""
 "Language: fr_CA\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-#: poll/public/handlebars/poll_results.handlebars:5
-#: poll/public/handlebars/survey_results.handlebars:4
-msgid "Results"
-msgstr "Résultats"
-
-#: poll/public/handlebars/poll_results.handlebars:31
-#: poll/public/handlebars/survey_results.handlebars:39
-msgid "Submit"
-msgstr "Soumettre"
-
-#: poll/public/handlebars/poll_results.handlebars:33
-#: poll/public/handlebars/survey_results.handlebars:41
-msgid "Results gathered from {total} respondent."
-msgid_plural "Results gathered from {total} respondents."
-msgstr[0] "Résultats recueillis auprès de {total} répondant."
-msgstr[1] "Résultats recueillis auprès de {total} répondants."
-
-#: poll/public/handlebars/poll_results.handlebars:37
-#: poll/public/handlebars/survey_results.handlebars:46
-msgid "Feedback"
-msgstr "Commentaire"
-
 #: poll/public/handlebars/poll_studio.handlebars:6
 msgid "move poll up"
 msgstr "déplacer le sondage vers le haut"
@@ -79,3 +57,25 @@ msgstr ""
 " ajoutez une image, vous devez également fournir un texte de remplacement "
 "décrivant l'image de manière à permettre à quelqu'un de répondre au sondage "
 "si l'image ne s'est pas chargée."
+
+#: poll/public/handlebars/poll_results.handlebars:5
+#: poll/public/handlebars/survey_results.handlebars:4
+msgid "Results"
+msgstr "Résultats"
+
+#: poll/public/handlebars/poll_results.handlebars:31
+#: poll/public/handlebars/survey_results.handlebars:39
+msgid "Submit"
+msgstr "Soumettre"
+
+#: poll/public/handlebars/poll_results.handlebars:33
+#: poll/public/handlebars/survey_results.handlebars:41
+msgid "Results gathered from {total} respondent."
+msgid_plural "Results gathered from {total} respondents."
+msgstr[0] "Résultats recueillis auprès de {total} répondant."
+msgstr[1] "Résultats recueillis auprès de {total} répondants."
+
+#: poll/public/handlebars/poll_results.handlebars:37
+#: poll/public/handlebars/survey_results.handlebars:46
+msgid "Feedback"
+msgstr "Commentaire"

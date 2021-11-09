@@ -1,6 +1,6 @@
 # 
 # Translators:
-# Ron Lucke <ronlucke@googlemail.com>, 2018
+# Ron Lucke <lucke@elan-ev.de>, 2018
 # Alexander L. <alexander.lohberg@ufo-style.de>, 2018
 # yamahapsr200 <yamahapsr200@googlemail.com>, 2018
 # mc <marc.mannsfeld@phil.hhu.de>, 2018
@@ -14,28 +14,6 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language: de_DE\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-
-#: poll/public/handlebars/poll_results.handlebars:5
-#: poll/public/handlebars/survey_results.handlebars:4
-msgid "Results"
-msgstr "Ergebnisse"
-
-#: poll/public/handlebars/poll_results.handlebars:31
-#: poll/public/handlebars/survey_results.handlebars:39
-msgid "Submit"
-msgstr "Absenden"
-
-#: poll/public/handlebars/poll_results.handlebars:33
-#: poll/public/handlebars/survey_results.handlebars:41
-msgid "Results gathered from {total} respondent."
-msgid_plural "Results gathered from {total} respondents."
-msgstr[0] "Ergebnisse von {total} Befragten erfasst."
-msgstr[1] "Ergebnisse von {total} Befragten erfasst."
-
-#: poll/public/handlebars/poll_results.handlebars:37
-#: poll/public/handlebars/survey_results.handlebars:46
-msgid "Feedback"
-msgstr "Rückmeldung"
 
 #: poll/public/handlebars/poll_studio.handlebars:6
 msgid "move poll up"
@@ -84,3 +62,25 @@ msgstr ""
 "hinzufügen, müssen Sie auch einen alternativen Text angeben, der das Bild so"
 " beschreibt, dass jemand auf die Umfrage antworten kann, wenn das Bild nicht"
 " geladen wurde."
+
+#: poll/public/handlebars/poll_results.handlebars:5
+#: poll/public/handlebars/survey_results.handlebars:4
+msgid "Results"
+msgstr "Ergebnisse"
+
+#: poll/public/handlebars/poll_results.handlebars:31
+#: poll/public/handlebars/survey_results.handlebars:39
+msgid "Submit"
+msgstr "Absenden"
+
+#: poll/public/handlebars/poll_results.handlebars:33
+#: poll/public/handlebars/survey_results.handlebars:41
+msgid "Results gathered from {total} respondent."
+msgid_plural "Results gathered from {total} respondents."
+msgstr[0] "Ergebnisse von {total} Befragten erfasst."
+msgstr[1] "Ergebnisse von {total} Befragten erfasst."
+
+#: poll/public/handlebars/poll_results.handlebars:37
+#: poll/public/handlebars/survey_results.handlebars:46
+msgid "Feedback"
+msgstr "Rückmeldung"
