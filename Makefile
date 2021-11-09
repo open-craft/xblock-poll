@@ -2,9 +2,8 @@
 
 .DEFAULT_GOAL := help
 
-FIREFOX_VERSION := $(shell grep firefox -- .travis.yml  | egrep -o [0-9\.]+)
+FIREFOX_VERSION := "94.0.1"
 FIREFOX_LINUX_ARCH := $(shell uname -m)
-
 
 help: ## display this help message
 	@echo "Please use \`make <target>' where <target> is one of"
@@ -35,7 +34,7 @@ node_requirements: ## Install requirements for handlebar templates i18n extracti
 python_requirements: ## install development environment requirements
 	pip install -r requirements.txt --exists-action w
 	pip install -r requirements-dev.txt --exists-action w
-	cd $(VIRTUAL_ENV)/src/xblock-sdk && \
+	cd ./src/xblock-sdk && \
 		pip install -r requirements/base.txt && \
 		pip install -r requirements/test.txt
 	pip install -e .
