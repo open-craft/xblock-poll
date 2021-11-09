@@ -133,3 +133,6 @@ Session.vim
 
 # Gecko logs
 geckodriver.log
+
+# Misc
+.DS_Store
