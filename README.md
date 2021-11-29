@@ -8,8 +8,8 @@ AGPLv3 licence (see the [LICENSE](LICENSE) file). It has been developed by [Open
 ## Introduction
 
 This XBlock enables a course author to create survey/poll elements to get
-feedback from students. The XBlocks can either be *poll* or *survey* XBlocks. *Poll* XBlocks have one
-question, and a series of answers. *Survey* XBlocks have several questions and a handful of (terse) answers that
+feedback from students. The XBlocks can either be _poll_ or _survey_ XBlocks. _Poll_ XBlocks have one
+question, and a series of answers. _Survey_ XBlocks have several questions and a handful of (terse) answers that
 a student is expect to answer each one from (Such as 'True', and 'False', or 'Agree' or 'Disagree')
 
 ## Feature Overview
@@ -30,7 +30,9 @@ This XBlock relies on [Xblock-utils](https://github.com/edx-solutions/xblock-uti
 
 After this, XBlock-poll may be installed using its setup.py, or if you prefer to use pip, running:
 
-    $ pip install git+https://github.com/open-craft/xblock-poll.git
+```shell
+$ pip install git+https://github.com/open-craft/xblock-poll.git
+```
 
 You may specify the `-e` flag if you intend to develop on the repo.
 
@@ -41,7 +43,7 @@ for the Advanced settings link in the top menus.
 
 ![Advanced Settings](doc_img/advanced_settings.png)
 
-Once there, look for the *Advanced Modules List* and add `"poll"` and `"survey"` to it.
+Once there, look for the _Advanced Modules List_ and add `"poll"` and `"survey"` to it.
 
 ![Advanced modules configuration](doc_img/advanced_modules_list.png)
 
@@ -76,7 +78,7 @@ of the answers:
 ![Image-only poll](doc_img/img_poll.png)
 
 Please note that using only images is not accessible as Poll XBlock does not provide means for specifying alternate
-text for images. Instead use images *and* texts:
+text for images. Instead use images _and_ texts:
 
 ![Image and Label label poll](doc_img/img_and_label_poll.png)
 
@@ -104,7 +106,7 @@ When the user hits `submit`, their answer is sent to the server for tally. The r
 
 ![Survey results](doc_img/survey_result.png)
 
-The top choice's percentage is shown in *orange* while the user's selection is marked with a shaded background.
+The top choice's percentage is shown in _orange_ while the user's selection is marked with a shaded background.
 
 ### Survey Variations
 
@@ -146,20 +148,20 @@ For example, putting this into a Poll's Answer field:
 
 ![Markdown mixed with HTML](doc_img/mixed_markdown.png)
 
-...Would yield this when rendered:
+... Would yield this when rendered:
 
 ![Rendered Markdown mixed with HTML](doc_img/mixed_markdown_render.png)
 
 The following fields are customizable with [Markdown](http://daringfireball.net/projects/markdown/syntax) and custom HTML on Polls:
 
-* Question
-* Feedback
-* Answers
+- Question
+- Feedback
+- Answers
 
 The following fields are customizable with Markdown and custom HTML on Surveys:
 
-* Feedback
-* Questions
+- Feedback
+- Questions
 
 You may add another answer (or question, if creating a survey) by clicking the add links at the bottom of the form:
 
@@ -221,14 +223,17 @@ Two events are fired by the XBlocks-- one for viewing the results of a poll, and
 
 The resulting events look like this for polls:
 
-    {"username": "staff", "host": "precise64", "event_source": "server", "event_type": "xblock.poll.submitted", "context": {"course_user_tags": {}, "user_id": 1, "org_id": "JediAcademy", "module": {"display_name": "Poll"}, "course_id": "JediAcademy/FW301/2015", "path": "/courses/JediAcademy/FW301/2015/xblock/i4x:;_;_JediAcademy;_FW301;_poll;_2d25e451be884aa7a15b33860d7c9647/handler/vote"}, "time": "2015-01-12T19:13:39.199098+00:00", "ip": "10.0.2.2", "event": {"url_name": "2d25e451be884aa7a15b33860d7c9647", "choice": "B"}, "agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.9; rv:34.0) Gecko/20100101 Firefox/34.0", "page": "x_module"}
-    {"username": "staff", "host": "precise64", "event_source": "server", "event_type": "xblock.poll.view_results", "context": {"course_user_tags": {}, "user_id": 1, "org_id": "JediAcademy", "module": {"display_name": "Poll"}, "course_id": "JediAcademy/FW301/2015", "path": "/courses/JediAcademy/FW301/2015/xblock/i4x:;_;_JediAcademy;_FW301;_poll;_2d25e451be884aa7a15b33860d7c9647/handler/get_results"}, "time": "2015-01-12T19:13:39.474514+00:00", "ip": "10.0.2.2", "event": {}, "agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.9; rv:34.0) Gecko/20100101 Firefox/34.0", "page": "x_module"}
+```json
+{"username": "staff", "host": "precise64", "event_source": "server", "event_type": "xblock.poll.submitted", "context": {"course_user_tags": {}, "user_id": 1, "org_id": "JediAcademy", "module": {"display_name": "Poll"}, "course_id": "JediAcademy/FW301/2015", "path": "/courses/JediAcademy/FW301/2015/xblock/i4x:;_;_JediAcademy;_FW301;_poll;_2d25e451be884aa7a15b33860d7c9647/handler/vote"}, "time": "2015-01-12T19:13:39.199098+00:00", "ip": "10.0.2.2", "event": {"url_name": "2d25e451be884aa7a15b33860d7c9647", "choice": "B"}, "agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.9; rv:34.0) Gecko/20100101 Firefox/34.0", "page": "x_module"}
+{"username": "staff", "host": "precise64", "event_source": "server", "event_type": "xblock.poll.view_results", "context": {"course_user_tags": {}, "user_id": 1, "org_id": "JediAcademy", "module": {"display_name": "Poll"}, "course_id": "JediAcademy/FW301/2015", "path": "/courses/JediAcademy/FW301/2015/xblock/i4x:;_;_JediAcademy;_FW301;_poll;_2d25e451be884aa7a15b33860d7c9647/handler/get_results"}, "time": "2015-01-12T19:13:39.474514+00:00", "ip": "10.0.2.2", "event": {}, "agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.9; rv:34.0) Gecko/20100101 Firefox/34.0", "page": "x_module"}
+```
 
-...And like this for surveys:
+... And like this for surveys:
 
-    {"username": "staff", "host": "precise64", "event_source": "server", "event_type": "xblock.survey.submitted", "context": {"course_user_tags": {}, "user_id": 1, "org_id": "JediAcademy", "module": {"display_name": "Survey"}, "course_id": "JediAcademy/FW301/2015", "path": "/courses/JediAcademy/FW301/2015/xblock/i4x:;_;_JediAcademy;_FW301;_survey;_e4975240b6c64a1e988bad86ea917070/handler/vote"}, "time": "2015-01-12T19:13:13.115038+00:00", "ip": "10.0.2.2", "event": {"url_name": "e4975240b6c64a1e988bad86ea917070", "choices": {"enjoy": "Y", "learn": "M", "recommend": "N"}}, "agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.9; rv:34.0) Gecko/20100101 Firefox/34.0", "page": "x_module"}
-    {"username": "staff", "host": "precise64", "event_source": "server", "event_type": "xblock.survey.view_results", "context": {"course_user_tags": {}, "user_id": 1, "org_id": "JediAcademy", "module": {"display_name": "Survey"}, "course_id": "JediAcademy/FW301/2015", "path": "/courses/JediAcademy/FW301/2015/xblock/i4x:;_;_JediAcademy;_FW301;_survey;_e4975240b6c64a1e988bad86ea917070/handler/get_results"}, "time": "2015-01-12T19:13:13.513909+00:00", "ip": "10.0.2.2", "event": {}, "agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.9; rv:34.0) Gecko/20100101 Firefox/34.0", "page": "x_module"}
-
+```json
+{"username": "staff", "host": "precise64", "event_source": "server", "event_type": "xblock.survey.submitted", "context": {"course_user_tags": {}, "user_id": 1, "org_id": "JediAcademy", "module": {"display_name": "Survey"}, "course_id": "JediAcademy/FW301/2015", "path": "/courses/JediAcademy/FW301/2015/xblock/i4x:;_;_JediAcademy;_FW301;_survey;_e4975240b6c64a1e988bad86ea917070/handler/vote"}, "time": "2015-01-12T19:13:13.115038+00:00", "ip": "10.0.2.2", "event": {"url_name": "e4975240b6c64a1e988bad86ea917070", "choices": {"enjoy": "Y", "learn": "M", "recommend": "N"}}, "agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.9; rv:34.0) Gecko/20100101 Firefox/34.0", "page": "x_module"}
+{"username": "staff", "host": "precise64", "event_source": "server", "event_type": "xblock.survey.view_results", "context": {"course_user_tags": {}, "user_id": 1, "org_id": "JediAcademy", "module": {"display_name": "Survey"}, "course_id": "JediAcademy/FW301/2015", "path": "/courses/JediAcademy/FW301/2015/xblock/i4x:;_;_JediAcademy;_FW301;_survey;_e4975240b6c64a1e988bad86ea917070/handler/get_results"}, "time": "2015-01-12T19:13:13.513909+00:00", "ip": "10.0.2.2", "event": {}, "agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.9; rv:34.0) Gecko/20100101 Firefox/34.0", "page": "x_module"}
+```
 
 ## Viewing the Results
 
@@ -236,64 +241,77 @@ When running inside the edX LMS, course staff members have the ability to view r
 If you want to grant members of other groups ability to view the results, you can configure the group
 names in the django settings using the `XBLOCK_POLL_EXTRA_VIEW_GROUPS` setting, for example:
 
-    XBLOCK_POLL_EXTRA_VIEW_GROUPS = ['poll_staff']
+```python
+XBLOCK_POLL_EXTRA_VIEW_GROUPS = ['poll_staff']
+```
 
 ## Working with Translations
 
 For information about working with translations, see the [Internationalization Support](http://edx.readthedocs.io/projects/xblock-tutorial/en/latest/edx_platform/edx_lms.html#internationalization-support) section of the [Open edX XBlock Tutorial](https://xblock-tutorial.readthedocs.io/en/latest/).
 
 ### Working with Transifex
+
 Prepare your environment:
 
-```
-$ mkvirtualenv poll-xblock
+```shell
+$ virtualenv -p 3.8 poll-xblock
+$ source poll-xblock/bin/activate
 $ make requirements
 ```
 
-Also ensure that the [Transifex client has the proper authentication](https://docs.transifex.com/client/init) 
+Also ensure that the [Transifex client has the proper authentication](https://docs.transifex.com/client/init)
 in the `~/.transifexrc` file.
 
 Push new strings to Transifex:
-```
+
+```shell
 $ make push_translations
 ```
 
 To get the latest translations from Transifex:
-```
+
+```shell
 $ make pull_translations
 ```
 
 For testing purposes it's faster to avoid Transifex and work on dummy Esperanto translations:
-```
+
+```shell
 $ make build_dummy_translations
-``` 
+```
 
 ## Running Tests Locally
-The Selenium tests in this XBlock requires Firefox 36.0 (the exact version can be found in `.travis.yml`).
+
+The Selenium tests in this XBlock requires Firefox 94.0.1 (the exact version can be found in `Makefile`).
+
 On Linux, it's possible to install it via the command `$ make install_linux_dev_firefox`, but you'd
 have to install it on MacOS [manually from the Mozilla website](https://support.mozilla.org/en-US/kb/install-older-version-of-firefox), or you can rely on Travis to do that for you on the cloud.
 
-Assuming that the correct Firefox version has been installed, you can run the following command for the tests on Linux:
-```
+  * [ ] Assuming that the correct Firefox version has been installed, you can run the following command for the tests on Linux:
+
+```shell
 $ make linux_dev_test
 ```
 
 or something like that on MacOS:
 
-```
+```shell
 $ PATH="path/to/firefox/bin/directory:$PATH" make test
 ```
 
+To run tests using `tox`, simply run: `tox`. Please note that if not all supported python versions are installed, tox will compile and install python from source. For compilation it may need extra dependencies depending on your system.
 
 ## API for native mobile frontends
 
 **Retrieve fixed data for all poll/survey XBlocks in a course:**
-```
+
+```shell
 GET https://<lms_server_url>/api/courses/v1/blocks/?course_id=<course_id>&username=<username>&depth=all&requested_fields=student_view_data
 ```
 
 Example poll return value:
-```
+
+```json
 "student_view_data": {
     "feedback": "This is feedback message survey.",
     "private_results": false,
@@ -337,7 +355,8 @@ Example poll return value:
 ```
 
 Example survey return value:
-```
+
+```json
 "student_view_data": {
     "feedback": "This is feedback message survey.",
     "private_results": false,
@@ -399,45 +418,49 @@ Example survey return value:
 ```
 
 **Retrieve current poll tally and current user's vote**
-```
+
+```shell
 GET https://<lms_server_url>/courses/<course_id>/xblock/<poll_xblock_id>/handler/student_view_user_state
 ```
 
 Example return value:
-```
+
+```json
 {"tally": {"B": 0, "R": 1, "O": 0, "G": 0}, "submissions_count": 1, "choice": "R"}
 ```
 
 **Retrieve current survey tally and current user's vote**
+
 ```
 GET https://<lms_server_url>/courses/<course_id>/xblock/<survey_xblock_id>/handler/student_view_user_state
 ```
 
 Example return value:
-```
+
+```json
 {
-    "tally":{
-        "enjoy":{
-            "Y":1,
-            "M":0,
-            "N":0
-        },
-        "learn":{
-            "Y":0,
-            "M":1,
-            "N":0
-        },
-        "recommend":{
-            "Y":0,
-            "M":0,
-            "N":1
-        }
+  "tally": {
+    "enjoy": {
+      "Y": 1,
+      "M": 0,
+      "N": 0
     },
-    "submissions_count":1,
-    "choices":{
-        "enjoy":"Y",
-        "recommend":"N",
-        "learn":"M"
+    "learn": {
+      "Y": 0,
+      "M": 1,
+      "N": 0
+    },
+    "recommend": {
+      "Y": 0,
+      "M": 0,
+      "N": 1
     }
+  },
+  "submissions_count": 1,
+  "choices": {
+    "enjoy": "Y",
+    "recommend": "N",
+    "learn": "M"
+  }
 }
 ```

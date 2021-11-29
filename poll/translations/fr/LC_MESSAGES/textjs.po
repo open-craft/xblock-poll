@@ -1,53 +1,55 @@
 # 
 # Translators:
-# Juan Camilo Montoya Franco <juan.montoya@edunext.co>, 2018
-# fco.aguilarm <fco.aguilarm@gmail.com>, 2018
-# Diego Rojas <diego.rojas@edunext.co>, 2018
-# Albeiro Gonzalez <albeiro.gonzalez@edunext.co>, 2018
+# Sébastien Vigneau <sebastien.vigneau@gmail.com>, 2018
+# Françoise Docq, 2018
+# rafcha <raphael.chay@gmail.com>, 2018
+# Eric Fischer <efischer@edx.org>, 2018
+# Manuel Dias <manueldias30@gmail.com>, 2018
+# Abdessamad Derraz <derraz.abdessamad@gmail.com>, 2021
 # 
 msgid ""
 msgstr ""
-"Last-Translator: Albeiro Gonzalez <albeiro.gonzalez@edunext.co>, 2018\n"
-"Language-Team: Spanish (Latin America) (https://www.transifex.com/open-edx/teams/6205/es_419/)\n"
+"Last-Translator: Abdessamad Derraz <derraz.abdessamad@gmail.com>, 2021\n"
+"Language-Team: French (https://www.transifex.com/open-edx/teams/6205/fr/)\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Language: es_419\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Language: fr\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
 #: poll/public/handlebars/poll_studio.handlebars:6
 msgid "move poll up"
-msgstr "mover la encuesta arriba"
+msgstr "déplacer le sondage vers le haut"
 
 #: poll/public/handlebars/poll_studio.handlebars:7
 msgid "move poll down"
-msgstr "mover la encuesta abajo"
+msgstr "déplacer le sondage vers le bas"
 
 #: poll/public/handlebars/poll_studio.handlebars:9
 msgid "Delete"
-msgstr "Borrar"
+msgstr "Supprimer"
 
 #: poll/public/handlebars/poll_studio.handlebars:11
 msgid "Answer"
-msgstr "Respuesta"
+msgstr "Réponse"
 
 #: poll/public/handlebars/poll_studio.handlebars:12
 msgid "Question"
-msgstr "Pregunta"
+msgstr "Question"
 
 #: poll/public/handlebars/poll_studio.handlebars:16
 msgid "Image URL"
-msgstr "URL de la imagen"
+msgstr "URL de l'image"
 
 #: poll/public/handlebars/poll_studio.handlebars:18
 msgid "Image alternative text"
-msgstr "Texto alternativo de la imagen"
+msgstr "Texte alternatif de l'image"
 
 #: poll/public/handlebars/poll_studio.handlebars:23
 msgid ""
 "You can make limited use of Markdown in answer texts, preferably only bold "
 "and italics."
 msgstr ""
-"Puede hacer uso limitado de Markdown en los textos de respuesta, "
-"preferiblemente solo negritas e itálicas."
+"Vous pouvez utiliser Markdown de manière limitée dans les textes de réponse,"
+" de préférence uniquement en gras et en italique."
 
 #: poll/public/handlebars/poll_studio.handlebars:27
 msgid ""
@@ -56,29 +58,29 @@ msgid ""
 " a way that would allow someone to answer the poll if the image did not "
 "load."
 msgstr ""
-"Esto debe tener una URL de imagen o texto, y puede tener ambos. Si agrega "
-"una imagen, debe además proporcionar un texto alternativo que describa la "
-"imagen de manera que permita a alguien responder la encuesta aún si la "
-"imagen no carga."
+"Cela doit avoir une URL d'image ou un texte, et peut avoir les deux. Si vous"
+" ajoutez une image, vous devez également fournir un texte de remplacement "
+"décrivant l'image de manière à permettre à quelqu'un de répondre au sondage "
+"si l'image ne s'est pas chargée."
 
 #: poll/public/handlebars/poll_results.handlebars:5
 #: poll/public/handlebars/survey_results.handlebars:4
 msgid "Results"
-msgstr "Resultados"
+msgstr "Résultats"
 
 #: poll/public/handlebars/poll_results.handlebars:31
 #: poll/public/handlebars/survey_results.handlebars:39
 msgid "Submit"
-msgstr "Enviar"
+msgstr "Soumettre"
 
 #: poll/public/handlebars/poll_results.handlebars:33
 #: poll/public/handlebars/survey_results.handlebars:41
 msgid "Results gathered from {total} respondent."
 msgid_plural "Results gathered from {total} respondents."
-msgstr[0] "Resultados obtenidos de {total} encuestado."
-msgstr[1] "Resultados obtenidos de {total} encuestados."
+msgstr[0] "Résultats recueillis auprès de {total} répondant."
+msgstr[1] "Résultats recueillis auprès de {total} répondants."
 
 #: poll/public/handlebars/poll_results.handlebars:37
 #: poll/public/handlebars/survey_results.handlebars:46
 msgid "Feedback"
-msgstr "Retroalimentación"
+msgstr "Commentaire"

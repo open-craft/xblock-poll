@@ -1,0 +1,84 @@
+#
+msgid ""
+msgstr ""
+"Language: eo\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: poll/public/handlebars/survey_results.handlebars
+#: poll/public/handlebars/poll_results.handlebars
+msgid "Results"
+msgstr "Résülts Ⱡ'σяєм ιρѕυм #"
+
+#: poll/public/handlebars/survey_results.handlebars
+#: poll/public/handlebars/poll_results.handlebars
+msgid "Submit"
+msgstr "Süßmït Ⱡ'σяєм ιρѕυ#"
+
+#: poll/public/handlebars/survey_results.handlebars
+#: poll/public/handlebars/poll_results.handlebars
+msgid "Results gathered from {total} respondent."
+msgid_plural "Results gathered from {total} respondents."
+msgstr[0] ""
+"Résülts gäthéréd fröm {total} réspöndént. Ⱡ'σяєм ιρѕυм ∂σłσя ѕιт αмєт, "
+"¢σηѕє¢тєтυ#"
+msgstr[1] ""
+"Résülts gäthéréd fröm {total} réspöndénts. Ⱡ'σяєм ιρѕυм ∂σłσя ѕιт αмєт, "
+"¢σηѕє¢тєтυя#"
+
+#: poll/public/handlebars/survey_results.handlebars
+#: poll/public/handlebars/poll_results.handlebars
+msgid "Feedback"
+msgstr "Féédßäçk Ⱡ'σяєм ιρѕυм ∂#"
+
+#: poll/public/handlebars/poll_studio.handlebars
+msgid "move poll up"
+msgstr "mövé pöll üp Ⱡ'σяєм ιρѕυм ∂σłσя ѕ#"
+
+#: poll/public/handlebars/poll_studio.handlebars
+msgid "move poll down"
+msgstr "mövé pöll döwn Ⱡ'σяєм ιρѕυм ∂σłσя ѕιт#"
+
+#: poll/public/handlebars/poll_studio.handlebars
+msgid "Delete"
+msgstr "Délété Ⱡ'σяєм ιρѕυ#"
+
+#: poll/public/handlebars/poll_studio.handlebars
+msgid "Answer"
+msgstr "Ànswér Ⱡ'σяєм ιρѕυ#"
+
+#: poll/public/handlebars/poll_studio.handlebars
+msgid "Question"
+msgstr "Qüéstïön Ⱡ'σяєм ιρѕυм ∂#"
+
+#: poll/public/handlebars/poll_studio.handlebars
+msgid "Image URL"
+msgstr "Ìmägé ÛRL Ⱡ'σяєм ιρѕυм ∂σł#"
+
+#: poll/public/handlebars/poll_studio.handlebars
+msgid "Image alternative text"
+msgstr "Ìmägé ältérnätïvé téxt Ⱡ'σяєм ιρѕυм ∂σłσя ѕιт αмєт, ¢#"
+
+#: poll/public/handlebars/poll_studio.handlebars
+msgid ""
+"You can make limited use of Markdown in answer texts, preferably only bold "
+"and italics."
+msgstr ""
+"Ýöü çän mäké lïmïtéd üsé öf Märkdöwn ïn änswér téxts, préféräßlý önlý ßöld "
+"änd ïtälïçs. Ⱡ'σяєм ιρѕυм ∂σłσя ѕιт αмєт, ¢σηѕє#"
+
+#: poll/public/handlebars/poll_studio.handlebars
+msgid ""
+"This must have an image URL or text, and can have both.  If you add an "
+"image, you must also provide an alternative text that describes the image in"
+" a way that would allow someone to answer the poll if the image did not "
+"load."
+msgstr ""
+"Thïs müst hävé än ïmägé ÛRL ör téxt, änd çän hävé ßöth.  Ìf ýöü ädd än "
+"ïmägé, ýöü müst älsö prövïdé än ältérnätïvé téxt thät désçrïßés thé ïmägé ïn"
+" ä wäý thät wöüld ällöw söméöné tö änswér thé pöll ïf thé ïmägé dïd nöt "
+"löäd. Ⱡ'σяєм ιρѕυм ∂σłσя ѕιт αмєт, ¢σηѕє¢тєтυя α∂ιριѕι¢ιηg єłιт, ѕє∂ ∂σ "
+"єιυѕмσ∂ тємρσя ιη¢ι∂ι∂υηт υт łαвσяє єт ∂σłσяє мαgηα αłιqυα. υт єηιм α∂ мιηιм"
+" νєηιαм, qυιѕ ησѕтяυ∂ єχєя¢ιтαтιση υłłαм¢σ łαвσяιѕ ηιѕι υт αłιqυιρ єχ єα "
+"¢σммσ∂σ ¢σηѕєqυαт. ∂υιѕ αυтє ιяυяє ∂σłσя ιη яєρяєнєη∂єяιт ιη νσłυρтαтє νєłιт"
+" єѕѕє ¢ιłłυм ∂σłσяє єυ ƒυgιαт #"

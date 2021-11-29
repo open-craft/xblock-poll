@@ -130,3 +130,9 @@ Session.vim
 
 # KDE directory preferences
 .directory
+
+# Gecko logs
+geckodriver.log
+
+# Misc
+.DS_Store

@@ -15,27 +15,6 @@ msgstr ""
 "Language: ja_JP\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-#: poll/public/handlebars/poll_results.handlebars:5
-#: poll/public/handlebars/survey_results.handlebars:4
-msgid "Results"
-msgstr "結果"
-
-#: poll/public/handlebars/poll_results.handlebars:31
-#: poll/public/handlebars/survey_results.handlebars:39
-msgid "Submit"
-msgstr "提出"
-
-#: poll/public/handlebars/poll_results.handlebars:33
-#: poll/public/handlebars/survey_results.handlebars:41
-msgid "Results gathered from {total} respondent."
-msgid_plural "Results gathered from {total} respondents."
-msgstr[0] "回答者からの{合計}結果を集計しました。"
-
-#: poll/public/handlebars/poll_results.handlebars:37
-#: poll/public/handlebars/survey_results.handlebars:46
-msgid "Feedback"
-msgstr "フィードバック"
-
 #: poll/public/handlebars/poll_studio.handlebars:6
 msgid "move poll up"
 msgstr "投票を上に移動"
@@ -78,3 +57,24 @@ msgid ""
 "load."
 msgstr ""
 "これには画像URLまたはテキストが必要となりますが、両方指定できます。画像を追加する場合は、画像が読み込まれなかった場合に、画像を説明する代替テキストを指定し、投票に回答できるようにする必要もあります。"
+
+#: poll/public/handlebars/poll_results.handlebars:5
+#: poll/public/handlebars/survey_results.handlebars:4
+msgid "Results"
+msgstr "結果"
+
+#: poll/public/handlebars/poll_results.handlebars:31
+#: poll/public/handlebars/survey_results.handlebars:39
+msgid "Submit"
+msgstr "提出"
+
+#: poll/public/handlebars/poll_results.handlebars:33
+#: poll/public/handlebars/survey_results.handlebars:41
+msgid "Results gathered from {total} respondent."
+msgid_plural "Results gathered from {total} respondents."
+msgstr[0] "回答者からの{合計}結果を集計しました。"
+
+#: poll/public/handlebars/poll_results.handlebars:37
+#: poll/public/handlebars/survey_results.handlebars:46
+msgid "Feedback"
+msgstr "フィードバック"
