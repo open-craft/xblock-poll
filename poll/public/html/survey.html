@@ -11,18 +11,45 @@
           <span class="block-label-text">{% trans 'Survey' %}</span>
         </div>
         <hr class="sep-line poll-hr">
+
         <form>
-            <table class="survey-table">
-              <tr class="survey-row">
-                  <th class="survey-question survey-question-header" scope="row">
-                      <p class="survey-header-placeholder"></p>
-                  </th>
-                  {% for answer, label in answers %}
-                    <th id="poll-{{block_id}}-{{answer}}" class="survey-answer" scope="col">
-                        <span class="survey-answer-label">{{label}}</span>
+          {% if answers|length > 3 %}
+            <table class="survey-table survey-table--flat">
+              {% for key, question in questions %}
+                <tr class="survey-row survey-row__questions" role="group" aria-labelledby="poll-{{block_id}}-{{key}}">
+                    <th id="poll-{{block_id}}-{{key}}" class="survey-question" scope="row" colspan="{{answers|length}}">
+                        {% if question.img %}
+                            <div class="poll-image-td">
+                                <img src="{{question.img}}" alt="{{question.img_alt|default_if_none:''}}"/>
+                            </div>
+                        {% endif %}
+                      {{question.label|safe}}
                     </th>
+                </tr>
+
+                <tr class="survey-row survey-row__labels">
+                  {% for answer, label in answers %}
+                    <td class="survey-option" headers="poll-{{block_id}}-{{key}} poll-{{block_id}}-{{answer}}">
+                        <label for="{{key}}-{{forloop.counter}}">
+                            <input type="radio"
+                                name="{{key}}"
+                                id="{{key}}-{{forloop.counter}}"
+                                value="{{answer}}"{% if question.choice == answer %} checked{% endif %}
+                                {% if question.img_alt %}
+                                aria-label="{{question.img_alt}} {{label}}"
+                                {% else %}
+                                aria-label="{{question.label|striptags}} {{label}}"
+                                {% endif %}
+                            />
+                            <span class="survey-answer-label">{{label}}</span>
+                        </label>
+                    </td>
                   {% endfor %}
-              </tr>
+                </tr>
+              {% endfor %}
+            </table>
+          {% else %}
+            <table class="survey-table">
             {% for key, question in questions %}
                 <tr class="survey-row" role="group" aria-labelledby="poll-{{block_id}}-{{key}}">
                     <th id="poll-{{block_id}}-{{key}}" class="survey-question" scope="row">
@@ -31,36 +58,33 @@
                                 <img src="{{question.img}}" alt="{{question.img_alt|default_if_none:''}}"/>
                             </div>
                         {% endif %}
-                      {{question.label|safe}}
+                    {{question.label|safe}}
                     </th>
                 {% for answer, label in answers %}
                     <td class="survey-option" headers="poll-{{block_id}}-{{key}} poll-{{block_id}}-{{answer}}">
-                        {% with answer_count=forloop.counter %}
-                            {% for answer, label in answers %}
-                                {% if forloop.counter == answer_count %}
-                                    <label for="{{key}}-{{answer_count}}">
-                                        <input type="radio"
-                                               name="{{key}}"
-                                               id="{{key}}-{{forloop.counter}}"
-                                               value="{{answer}}"{% if question.choice == answer %} checked{% endif %}
-                                               {% if question.img_alt %}
-                                               aria-label="{{question.img_alt}} {{label}}"
-                                               {% else %}
-                                               aria-label="{{question.label|striptags}} {{label}}"
-                                               {% endif %}
-                                        />
-                                        <span class="visible-mobile-only">{{label}}</span>
-                                    </label>
+                        <label for="{{key}}-{{forloop.counter}}">
+                            <input type="radio"
+                                name="{{key}}"
+                                id="{{key}}-{{forloop.counter}}"
+                                value="{{answer}}"{% if question.choice == answer %} checked{% endif %}
+                                {% if question.img_alt %}
+                                aria-label="{{question.img_alt}} {{label}}"
+                                {% else %}
+                                aria-label="{{question.label|striptags}} {{label}}"
                                 {% endif %}
-                            {% endfor %}
-                        {% endwith %}
+                            />
+                            <span class="survey-answer-label">{{label}}</span>
+                        </label>
                     </td>
                 {% endfor %}
                 </tr>
             {% endfor %}
             </table>
+          {% endif %}
+
             <input class="input-main" type="button" name="poll-submit" value="{% trans 'Submit' %}" disabled />
         </form>
+
         <div class="poll-voting-thanks{% if not choices or can_vote %} poll-hidden{% endif %}"><span>{% trans 'Thank you.' %}</span></div>
         <div class="poll-submissions-count poll-hidden">
             {% blocktrans with submissions_count_s='<span class="poll-current-count">{{ submissions_count }}</span>' max_submissions_s='<span class="poll-max-submissions">{{ max_submissions }}</span>' %}
