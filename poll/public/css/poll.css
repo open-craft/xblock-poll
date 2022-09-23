@@ -160,11 +160,11 @@ li.poll-result .poll-image {
     border: 0;
 }
 
-.survey-table td{
+.survey-table td {
     text-align: center;
 }
 
-.survey-table td label{
+.survey-table td label {
     display: block;
     padding: 5px 0;
 }
@@ -212,6 +212,10 @@ li.poll-result .poll-image {
     text-align: center;
     vertical-align: middle;
     white-space: nowrap;
+}
+
+.survey-table.survey-table--vertical .survey-option label {
+    text-align: initial;
 }
 
 .survey-option input {

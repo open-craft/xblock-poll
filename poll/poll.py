@@ -845,6 +845,7 @@ class SurveyBlock(PollBase, CSVExportMixin):
             'choices': choices,
             # Offset so choices will always be True.
             'answers': self.answers,
+            'answers_need_wrap': any((len(a[1]) > 20 for a in self.answers)),
             'js_template': js_template,
             'questions': self.renderable_answers(self.questions, choices),
             'private_results': self.private_results,

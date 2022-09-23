@@ -13,7 +13,42 @@
         <hr class="sep-line poll-hr">
 
         <form>
-          {% if answers|length > 3 %}
+          {% if answers_need_wrap %}
+            <table class="survey-table survey-table--flat survey-table--vertical">
+            {% for key, question in questions %}
+                <tr class="survey-row survey-row__questions" role="group" aria-labelledby="poll-{{block_id}}-{{key}}">
+                    <th id="poll-{{block_id}}-{{key}}" class="survey-question" scope="row">
+                        {% if question.img %}
+                            <div class="poll-image-td">
+                                <img src="{{question.img}}" alt="{{question.img_alt|default_if_none:''}}"/>
+                            </div>
+                        {% endif %}
+                        {{question.label|safe}}
+                    </th>
+                </tr>
+
+                {% for answer, label in answers %}
+                <tr class="survey-row survey-row__labels">
+                    <td class="survey-option" headers="poll-{{block_id}}-{{key}} poll-{{block_id}}-{{answer}}">
+                        <label for="{{key}}-{{forloop.counter}}">
+                            <input type="radio"
+                                name="{{key}}"
+                                id="{{key}}-{{forloop.counter}}"
+                                value="{{answer}}"{% if question.choice == answer %} checked{% endif %}
+                                {% if question.img_alt %}
+                                aria-label="{{question.img_alt}} {{label}}"
+                                {% else %}
+                                aria-label="{{question.label|striptags}} {{label}}"
+                                {% endif %}
+                            />
+                            <span class="survey-answer-label">{{label}}</span>
+                        </label>
+                    </td>
+                </tr>
+                {% endfor %}
+            {% endfor %}
+            </table>
+          {% elif answers|length > 3 %}
             <table class="survey-table survey-table--flat">
               {% for key, question in questions %}
                 <tr class="survey-row survey-row__questions" role="group" aria-labelledby="poll-{{block_id}}-{{key}}">
