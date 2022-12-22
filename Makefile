@@ -32,11 +32,18 @@ node_requirements: ## Install requirements for handlebar templates i18n extracti
 	npm install
 
 python_requirements: ## install development environment requirements
+	pip install wheel
 	pip install -r requirements.txt --exists-action w
 	pip install -r requirements-dev.txt --exists-action w
+ifeq ($(VIRTUAL_ENV),)
 	cd ./src/xblock-sdk && \
-		pip install -r requirements/base.txt && \
-		pip install -r requirements/test.txt
+	pip install -r requirements/base.txt && \
+        pip install -r requirements/test.txt
+else
+	cd $(VIRTUAL_ENV)/src/xblock-sdk && \
+	pip install -r requirements/base.txt && \
+        pip install -r requirements/test.txt
+endif
 	pip install -e .
 
 requirements: node_requirements python_requirements ## install development environment requirements
