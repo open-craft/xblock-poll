@@ -1,6 +1,8 @@
+# Core requirements for using this application
+-c constraints.txt
+
 markdown
 -e git+https://github.com/openedx/xblock-utils.git@2.2.0#egg=xblock-utils
 ddt
 mock
-bleach==3.1.5
--e .
+bleach==5.0.0

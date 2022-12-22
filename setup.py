@@ -61,10 +61,8 @@ setup(
         'poll',
     ],
     install_requires=[
-        'XBlock>=1.2',
+        'XBlock<1.3',
         'markdown',
-        'ddt',
-        'mock',
         'bleach',
     ],
     entry_points={

@@ -1,0 +1,13 @@
+-c constraints.txt
+-r ci.txt # dependencies for setting up testing in CI
+
+# Internationalization and Localization requirements
+-e 'git+https://github.com/openedx/xblock-sdk.git@v0.5.1#egg=xblock-sdk==v0.5.1'
+
+Django>=2.2, <3.3
+
+django-appconf==1.0.4
+
+django-statici18n==1.8.2
+transifex-client==0.12.1
+edx-i18n-tools==0.9.2

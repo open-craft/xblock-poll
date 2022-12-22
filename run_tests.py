@@ -25,9 +25,6 @@ if __name__ == "__main__":
     # Configure a range of ports in case the default port of 8081 is in use
     os.environ.setdefault("DJANGO_LIVE_TEST_SERVER_ADDRESS", "localhost:8081-8099")
 
-    settings.INSTALLED_APPS.append('django_nose')
-    settings.TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
-
     # Silence too verbose Django logging
     logging.disable(logging.DEBUG)
 
