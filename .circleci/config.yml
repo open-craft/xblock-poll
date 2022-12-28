@@ -9,7 +9,9 @@ commands:
       - run:
           name: Install OS dependencies
           command: |
-            sudo apt update && sudo apt install -y nodejs npm gettext
+            sudo apt --fix-broken install && sudo apt update
+            sudo apt remove nodejs && sudo apt remove nodejs-doc
+            sudo apt install -y npm gettext
             # Upgrade nodejs after node-gyp installed properly
             curl -sL https://deb.nodesource.com/setup_16.x | sudo -E bash -
             sudo apt install -y nodejs
@@ -24,7 +26,7 @@ jobs:
     docker:
       # Always run with the minimum supported version
       # to avoid new language feature checkes like f-strings
-      - image: cimg/python:2.7
+      - image: circleci/python:3.8
     steps:
       - checkout
       - install-dependencies

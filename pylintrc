@@ -24,7 +24,10 @@ disable=
 	unused-argument,
 	useless-object-inheritance,
 	import-outside-toplevel,
-	super-with-arguments
+	super-with-arguments,
+	consider-using-f-string,
+	unspecified-encoding,
+	redundant-u-string-prefix
 
 [SIMILARITIES]
 min-similarity-lines=8
