@@ -1,0 +1,20 @@
+-c constraints.txt
+
+# Internationalization and Localization requirements
+-e 'git+https://github.com/openedx/xblock-sdk.git@v0.1.6#egg=xblock-sdk==v0.1.6 ; python_version == "2.7"'
+-e 'git+https://github.com/openedx/xblock-sdk.git@0.4.0#egg=xblock-sdk==0.4.0 ; python_version > "2.7"'
+
+Django~=1.11; python_version == '2.7'
+Django>=2.2, <3.3; python_version > '2.7'
+
+# Latest version(1.0.4) of django-appconf do not support python 2
+django-appconf==1.0.3; python_version == '2.7'
+django-appconf==1.0.4; python_version > '2.7'
+
+django-statici18n==1.8.2
+transifex-client==0.12.1
+edx-i18n-tools==0.5.0
+pycodestyle==2.4.0
+pylint
+tox==3.14.0
+django-nose==1.4.6
