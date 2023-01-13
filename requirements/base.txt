@@ -4,7 +4,7 @@
 #
 #    make upgrade
 #
--e git+https://github.com/openedx/xblock-utils.git@2.1.0#egg=xblock-utils
+-e git+https://github.com/openedx/xblock-utils.git@3.0.0#egg=xblock-utils
     # via -r requirements/base.in
 appdirs==1.4.4
     # via fs
