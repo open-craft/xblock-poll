@@ -46,7 +46,11 @@ quality: ## check coding style with pycodestyle and pylint
 node_requirements: ## Install requirements for handlebar templates i18n extraction
 	npm install
 
-python_requirements: ## install development environment requirements
+install_firefox:
+	mkdir -p test_helpers
+	cd test_helpers && wget "https://ftp.mozilla.org/pub/firefox/releases/67.0/linux-x86_64/en-US/firefox-67.0.tar.bz2" && tar -xjf firefox-67.0.tar.bz2
+
+python_requirements: install_firefox  ## install development environment requirements
 	pip install wheel
 	pip install -r requirements/base.txt --exists-action w
 	pip install -r requirements/dev.txt --exists-action w
@@ -59,6 +63,8 @@ else
 	pip install -r requirements/base.txt && \
         pip install -r requirements/test.txt
 endif
+	pip uninstall -y selenium
+	pip install selenium==3.4.1
 	pip install -e .
 
 requirements: node_requirements python_requirements ## install development environment requirements
@@ -81,8 +87,8 @@ linux_dev_test: ## Run tests in development environment to use custom firefox
 	PATH=.firefox/firefox/:.geckodriver/:$(PATH) make test
 
 test: ## run tests in the current virtualenv
-	mkdir -p var  # for var/workbench.log
-	python run_tests.py --with-coverage --cover-package=poll
+	mkdir -p var
+	PATH=test_helpers/firefox:$$PATH xvfb-run python run_tests.py
 
 selfcheck: ## check that the Makefile is well-formed
 	@echo "The Makefile is well-formed."
