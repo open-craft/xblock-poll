@@ -63,8 +63,6 @@ setup(
     install_requires=[
         'XBlock<1.3',
         'markdown',
-        'ddt',
-        'mock',
         'bleach',
     ],
     entry_points={

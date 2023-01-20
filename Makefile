@@ -46,10 +46,6 @@ quality: ## check coding style with pycodestyle and pylint
 node_requirements: ## Install requirements for handlebar templates i18n extraction
 	npm install
 
-install_firefox:
-	mkdir -p test_helpers
-	cd test_helpers && wget "https://ftp.mozilla.org/pub/firefox/releases/67.0/linux-x86_64/en-US/firefox-67.0.tar.bz2" && tar -xjf firefox-67.0.tar.bz2
-
 python_requirements: install_linux_dev_firefox  ## install development environment requirements
 	pip install wheel
 	pip install -r requirements/base.txt --exists-action w
@@ -84,7 +80,8 @@ install_linux_dev_firefox: ## Downloads custom version of firefox for Selenium i
 	cd .geckodriver && tar -xzf geckodriver-v0.26.0-linux64.tar.gz
 
 linux_dev_test: ## Run tests in development environment to use custom firefox
-	PATH=.firefox/firefox/:.geckodriver/:$(PATH) make test
+	mkdir -p var
+	PATH=.firefox/firefox/:.geckodriver/:$(PATH) xvfb-run python run_tests.py
 
 test: ## run tests in the current virtualenv
 	mkdir -p var
