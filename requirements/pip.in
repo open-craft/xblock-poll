@@ -1,5 +1,5 @@
 # Core dependencies for installing other packages
--c constraints.txt
+#-c constraints.txt
 
 pip
 setuptools

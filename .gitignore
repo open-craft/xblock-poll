@@ -12,6 +12,7 @@ __pycache__/
 
 # Selenium Firefox for Dev Testing
 .firefox
+test_helpers/
 
 # NodeJS
 node_modules

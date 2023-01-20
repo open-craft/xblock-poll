@@ -2,7 +2,7 @@
 
 .DEFAULT_GOAL := help
 
-FIREFOX_VERSION := "94.0.1"
+FIREFOX_VERSION := "67.0"
 FIREFOX_LINUX_ARCH := $(shell uname -m)
 
 help: ## display this help message
@@ -50,7 +50,7 @@ install_firefox:
 	mkdir -p test_helpers
 	cd test_helpers && wget "https://ftp.mozilla.org/pub/firefox/releases/67.0/linux-x86_64/en-US/firefox-67.0.tar.bz2" && tar -xjf firefox-67.0.tar.bz2
 
-python_requirements: install_firefox  ## install development environment requirements
+python_requirements: install_linux_dev_firefox  ## install development environment requirements
 	pip install wheel
 	pip install -r requirements/base.txt --exists-action w
 	pip install -r requirements/dev.txt --exists-action w
@@ -80,15 +80,15 @@ install_linux_dev_firefox: ## Downloads custom version of firefox for Selenium i
 		                --output .firefox/firefox.tar.bz2
 
 	cd .firefox && tar -xvjf firefox.tar.bz2
-	cd .geckodriver && wget https://github.com/mozilla/geckodriver/releases/download/v0.15.0/geckodriver-v0.15.0-linux64.tar.gz
-	cd .geckodriver && tar -xzf geckodriver-v0.15.0-linux64.tar.gz
+	cd .geckodriver && wget https://github.com/mozilla/geckodriver/releases/download/v0.26.0/geckodriver-v0.26.0-linux64.tar.gz
+	cd .geckodriver && tar -xzf geckodriver-v0.26.0-linux64.tar.gz
 
 linux_dev_test: ## Run tests in development environment to use custom firefox
 	PATH=.firefox/firefox/:.geckodriver/:$(PATH) make test
 
 test: ## run tests in the current virtualenv
 	mkdir -p var
-	PATH=test_helpers/firefox:$$PATH xvfb-run python run_tests.py
+	DJANGO_SETTINGS_MODULE=workbench.settings pytest
 
 selfcheck: ## check that the Makefile is well-formed
 	@echo "The Makefile is well-formed."

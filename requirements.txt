@@ -1,7 +1,6 @@
 markdown
--e git+https://github.com/openedx/xblock-utils.git@3.0.0#egg=xblock-utils
+-e git+https://github.com/openedx/xblock-utils.git@2.2.0#egg=xblock-utils
 ddt
 mock
-django-nose==1.4.6
 bleach==3.1.5
 -e .
