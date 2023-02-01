@@ -1,0 +1,41 @@
+name: Python CI
+on:
+  pull_request: {}
+  workflow_dispatch: {}
+  push:
+    branches: [master]
+
+concurrency:
+  group: "${{ github.workflow }}-${{ github.ref }}"
+  cancel-in-progress: true
+
+jobs:
+  commitlint:
+    uses: openedx/.github/.github/workflows/commitlint.yml@master
+
+  run_tests:
+    name: tests
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-20.04]
+        python-version: ['3.8']
+        toxenv: [py38-django32, quality]
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: setup python
+      uses: actions/setup-python@v4
+      with:
+        python-version: ${{ matrix.python-version }}
+
+    - name: Install pip
+      run: pip install -r requirements/pip.txt
+
+    - name: Install Dependencies
+      run: pip install -r requirements/ci.txt
+
+    - name: Run Tests
+      env:
+        TOXENV: ${{ matrix.toxenv }}
+      run: tox

@@ -1,6 +1,6 @@
 # Internationalization and Localization requirements
--e 'git://github.com/edx/xblock-sdk.git@v0.1.6#egg=xblock-sdk==v0.1.6 ; python_version == "2.7"'
--e 'git://github.com/edx/xblock-sdk.git#egg=xblock-sdk ; python_version > "2.7"'
+-e 'git+https://github.com/openedx/xblock-sdk.git@v0.1.6#egg=xblock-sdk==v0.1.6 ; python_version == "2.7"'
+-e 'git+https://github.com/openedx/xblock-sdk.git@0.4.0#egg=xblock-sdk==0.4.0 ; python_version > "2.7"'
 
 Django~=1.11; python_version == '2.7'
 Django>=2.2, <3.3; python_version > '2.7'
@@ -15,4 +15,3 @@ edx-i18n-tools==0.5.0
 pycodestyle==2.4.0
 pylint
 tox==3.14.0
-django-nose==1.4.6

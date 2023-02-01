@@ -1220,7 +1220,7 @@ class SurveyBlock(PollBase, CSVExportMixin):
 
         # Make sure the answer values are sane.
         for key, value in data.items():
-            if value not in answers.keys():
+            if value not in answers:
                 result['success'] = False
                 result['errors'].append(
                     self.ugettext(
