@@ -46,22 +46,20 @@ def package_data(pkg, roots):
 
 setup(
     name='xblock-poll',
-    version='1.12.0',
+    version='1.13.0',
     description='An XBlock for polling users.',
     classifiers=[
         'Development Status :: 5 - Production/Stable',
         'Intended Audience :: Education',
         'License :: OSI Approved :: GNU Affero General Public License v3 or later (AGPLv3+)',
         'Natural Language :: English',
-        'Programming Language :: Python :: 2.7',
-        'Programming Language :: Python :: 3.6',
         'Programming Language :: Python :: 3.8',
     ],
     packages=[
         'poll',
     ],
     install_requires=[
-        'XBlock<1.3',
+        'XBlock',
         'markdown',
         'bleach',
     ],
