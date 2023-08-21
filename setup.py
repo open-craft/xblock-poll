@@ -48,6 +48,7 @@ setup(
     name='xblock-poll',
     version='1.13.0',
     description='An XBlock for polling users.',
+    url='https://github.com/open-craft/xblock-poll',
     classifiers=[
         'Development Status :: 5 - Production/Stable',
         'Intended Audience :: Education',
