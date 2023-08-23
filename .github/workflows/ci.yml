@@ -10,8 +10,6 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  commitlint:
-    uses: openedx/.github/.github/workflows/commitlint.yml@master
 
   run_tests:
     name: tests
