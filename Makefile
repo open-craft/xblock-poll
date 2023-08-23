@@ -61,7 +61,6 @@ else
 endif
 	pip uninstall -y selenium
 	pip install selenium==3.4.1
-	pip install -e .
 
 requirements: node_requirements python_requirements ## install development environment requirements
 	@echo "Finished installing requirements."
