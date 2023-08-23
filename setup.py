@@ -52,6 +52,7 @@ setup(
     description='An XBlock for polling users.',
     long_description=README,
     long_description_content_type='text/markdown',
+    url='https://github.com/open-craft/xblock-poll',
     classifiers=[
         'Development Status :: 5 - Production/Stable',
         'Intended Audience :: Education',
