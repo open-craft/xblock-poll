@@ -44,10 +44,14 @@ def package_data(pkg, roots):
     return {pkg: data}
 
 
+README = open(os.path.join(os.path.dirname(__file__), 'README.md'), encoding="utf8").read()
+
 setup(
     name='xblock-poll',
     version='1.13.0',
     description='An XBlock for polling users.',
+    long_description=README,
+    long_description_content_type='text/markdown',
     url='https://github.com/open-craft/xblock-poll',
     classifiers=[
         'Development Status :: 5 - Production/Stable',
