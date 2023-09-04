@@ -10,7 +10,7 @@ dill==0.3.7
     # via pylint
 distlib==0.3.7
     # via virtualenv
-filelock==3.12.2
+filelock==3.12.3
     # via
     #   tox
     #   virtualenv
@@ -52,8 +52,9 @@ tox-battery==0.6.2
 typing-extensions==4.7.1
     # via
     #   astroid
+    #   filelock
     #   pylint
-virtualenv==20.24.3
+virtualenv==20.24.4
     # via tox
 wrapt==1.15.0
     # via astroid
