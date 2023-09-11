@@ -30,7 +30,7 @@ mock==5.1.0
     # via -r requirements/base.in
 python-dateutil==2.8.2
     # via xblock
-pytz==2023.3
+pytz==2023.3.post1
     # via xblock
 pyyaml==6.0.1
     # via xblock
