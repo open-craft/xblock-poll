@@ -36,31 +36,24 @@ upgrade: ## update the requirements/*.txt files with the latest packages satisfy
 	pip install -qr requirements/pip.txt
 	pip install -qr requirements/pip-tools.txt
 	$(PIP_COMPILE) -o requirements/base.txt requirements/base.in
+	$(PIP_COMPILE) -o requirements/test.txt requirements/test.in
+	$(PIP_COMPILE) -o requirements/quality.txt requirements/quality.in
 	$(PIP_COMPILE) -o requirements/ci.txt requirements/ci.in
 	$(PIP_COMPILE) -o requirements/dev.txt requirements/dev.in
+	sed -i '/^[dD]jango==/d' requirements/test.txt
 
 quality: ## check coding style with pycodestyle and pylint
-	pycodestyle poll --max-line-length=120
-	pylint poll
+	tox -e quality
 
 node_requirements: ## Install requirements for handlebar templates i18n extraction
 	npm install
 
-python_requirements: install_linux_dev_firefox  ## install development environment requirements
-	pip install wheel
-	pip install -r requirements/base.txt --exists-action w
-	pip install -r requirements/dev.txt --exists-action w
-ifeq ($(VIRTUAL_ENV),)
-	cd ./src/xblock-sdk && \
-	pip install -r requirements/base.txt && \
-        pip install -r requirements/test.txt
-else
-	cd $(VIRTUAL_ENV)/src/xblock-sdk && \
-	pip install -r requirements/base.txt && \
-        pip install -r requirements/test.txt
-endif
-	pip uninstall -y selenium
-	pip install selenium==3.4.1
+piptools: ## install pinned version of pip-compile and pip-sync
+	pip install -r requirements/pip.txt
+	pip install -r requirements/pip-tools.txt
+
+python_requirements: install_linux_dev_firefox piptools  ## install development environment requirements
+	pip-sync requirements/dev.txt requirements/private.*
 
 requirements: node_requirements python_requirements ## install development environment requirements
 	@echo "Finished installing requirements."

@@ -10,8 +10,9 @@ __pycache__/
 # C extensions
 *.so
 
-# Selenium Firefox for Dev Testing
+# Firefox and Geckodriver for selenium integration tests
 .firefox
+.geckodriver
 
 # NodeJS
 node_modules
