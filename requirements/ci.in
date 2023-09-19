@@ -4,5 +4,5 @@
 
 tox                       # Virtualenv management for tests
 tox-battery               # Makes tox aware of requirements file changes
-pycodestyle==2.4.0
+pycodestyle==2.11.0
 pylint
