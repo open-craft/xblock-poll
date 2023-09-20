@@ -10,3 +10,6 @@
 
 # Common constraints for edx repos
 -c https://raw.githubusercontent.com/edx/edx-lint/master/edx_lint/files/common_constraints.txt
+
+selenium==3.4.1
+bok-choy==0.7.1

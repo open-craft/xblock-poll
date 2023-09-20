@@ -18,20 +18,20 @@ jobs:
       matrix:
         os: [ubuntu-20.04]
         python-version: ['3.8']
-        toxenv: [py38-django32, quality, package]
+        toxenv: [py38-django32, py38-django42, quality, package]
 
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
     - name: setup python
       uses: actions/setup-python@v4
       with:
         python-version: ${{ matrix.python-version }}
 
     - name: Install pip
-      run: pip install -r requirements/pip.txt
+      run: make piptools
 
     - name: Install Dependencies
-      run: pip install -r requirements/ci.txt
+      run: pip-sync requirements/ci.txt
 
     - name: Run Tests
       env:

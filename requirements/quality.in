@@ -1,0 +1,7 @@
+# Requirements for code quality checks
+-c constraints.txt
+
+-r test.txt               # Core and testing dependencies for this package
+
+edx-lint                  # edX pylint rules and plugins
+pycodestyle               # PEP 8 compliance validation
