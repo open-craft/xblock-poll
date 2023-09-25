@@ -16,7 +16,7 @@ asgiref==3.7.2
     # via
     #   -r requirements/test.txt
     #   django
-astroid==2.15.6
+astroid==2.15.7
     # via
     #   pylint
     #   pylint-celery
@@ -30,11 +30,11 @@ bok-choy==0.7.1
     # via
     #   -c requirements/constraints.txt
     #   -r requirements/test.txt
-boto3==1.28.50
+boto3==1.28.53
     # via
     #   -r requirements/test.txt
     #   fs-s3fs
-botocore==1.31.50
+botocore==1.31.53
     # via
     #   -r requirements/test.txt
     #   boto3
@@ -62,7 +62,7 @@ click-log==0.4.0
     # via edx-lint
 code-annotations==1.5.0
     # via edx-lint
-cookiecutter==2.3.0
+cookiecutter==2.3.1
     # via
     #   -r requirements/test.txt
     #   xblock-sdk
