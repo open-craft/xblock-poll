@@ -22,11 +22,11 @@ bok-choy==0.7.1
     # via
     #   -c requirements/constraints.txt
     #   -r requirements/test.in
-boto3==1.28.50
+boto3==1.28.53
     # via
     #   -r requirements/base.txt
     #   fs-s3fs
-botocore==1.31.50
+botocore==1.31.53
     # via
     #   -r requirements/base.txt
     #   boto3
@@ -39,7 +39,7 @@ charset-normalizer==3.2.0
     # via requests
 click==8.1.7
     # via cookiecutter
-cookiecutter==2.3.0
+cookiecutter==2.3.1
     # via xblock-sdk
 coverage[toml]==7.3.1
     # via pytest-cov
