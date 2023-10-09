@@ -16,17 +16,17 @@ asgiref==3.7.2
     #   django
 binaryornot==0.4.4
     # via cookiecutter
-bleach[css]==6.0.0
+bleach[css]==6.1.0
     # via -r requirements/base.txt
 bok-choy==0.7.1
     # via
     #   -c requirements/constraints.txt
     #   -r requirements/test.in
-boto3==1.28.57
+boto3==1.28.62
     # via
     #   -r requirements/base.txt
     #   fs-s3fs
-botocore==1.31.57
+botocore==1.31.62
     # via
     #   -r requirements/base.txt
     #   boto3
@@ -41,7 +41,7 @@ click==8.1.7
     # via cookiecutter
 cookiecutter==2.4.0
     # via xblock-sdk
-coverage[toml]==7.3.1
+coverage[toml]==7.3.2
     # via pytest-cov
 ddt==1.6.0
     # via -r requirements/test.in
@@ -59,7 +59,7 @@ django-appconf==1.0.5
     #   django-statici18n
 django-statici18n==2.4.0
     # via -r requirements/base.txt
-edx-i18n-tools==1.2.0
+edx-i18n-tools==1.3.0
     # via -r requirements/test.in
 exceptiongroup==1.1.3
     # via pytest
@@ -97,13 +97,15 @@ lazy==1.6
 lxml==4.9.3
     # via
     #   -r requirements/base.txt
+    #   edx-i18n-tools
     #   xblock
     #   xblock-sdk
 mako==1.2.4
     # via
     #   -r requirements/base.txt
+    #   xblock
     #   xblock-utils
-markdown==3.4.4
+markdown==3.5
     # via -r requirements/base.txt
 markdown-it-py==3.0.0
     # via rich
@@ -183,9 +185,10 @@ selenium==3.4.1
     #   -r requirements/test.in
     #   bok-choy
     #   needle
-simplejson==3.19.1
+simplejson==3.19.2
     # via
     #   -r requirements/base.txt
+    #   xblock
     #   xblock-sdk
     #   xblock-utils
 six==1.16.0
@@ -202,7 +205,7 @@ sqlparse==0.4.4
     #   django
 text-unidecode==1.3
     # via python-slugify
-tinycss2==1.1.1
+tinycss2==1.2.1
     # via
     #   -r requirements/base.txt
     #   bleach
@@ -217,7 +220,7 @@ typing-extensions==4.8.0
     #   -r requirements/base.txt
     #   asgiref
     #   rich
-urllib3==1.26.16
+urllib3==1.26.17
     # via
     #   -r requirements/base.txt
     #   botocore
@@ -238,14 +241,14 @@ webob==1.8.7
     #   -r requirements/base.txt
     #   xblock
     #   xblock-sdk
-xblock[django]==1.8.0
+xblock[django]==1.8.1
     # via
     #   -r requirements/base.txt
     #   xblock-sdk
     #   xblock-utils
 xblock-sdk==0.7.0
     # via -r requirements/test.in
-xblock-utils==3.4.1
+xblock-utils==4.0.0
     # via -r requirements/base.txt
 zipp==3.17.0
     # via
