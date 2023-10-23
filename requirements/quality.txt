@@ -16,7 +16,7 @@ asgiref==3.7.2
     # via
     #   -r requirements/test.txt
     #   django
-astroid==2.15.8
+astroid==3.0.1
     # via
     #   pylint
     #   pylint-celery
@@ -32,11 +32,11 @@ bok-choy==0.7.1
     # via
     #   -c requirements/constraints.txt
     #   -r requirements/test.txt
-boto3==1.28.63
+boto3==1.28.68
     # via
     #   -r requirements/test.txt
     #   fs-s3fs
-botocore==1.31.63
+botocore==1.31.68
     # via
     #   -r requirements/test.txt
     #   boto3
@@ -49,7 +49,7 @@ chardet==5.2.0
     # via
     #   -r requirements/test.txt
     #   binaryornot
-charset-normalizer==3.3.0
+charset-normalizer==3.3.1
     # via
     #   -r requirements/test.txt
     #   requests
@@ -140,8 +140,6 @@ lazy==1.6
     #   -r requirements/test.txt
     #   bok-choy
     #   xblock
-lazy-object-proxy==1.9.0
-    # via astroid
 lxml==4.9.3
     # via
     #   -r requirements/test.txt
@@ -215,7 +213,7 @@ pygments==2.16.1
     # via
     #   -r requirements/test.txt
     #   rich
-pylint==2.17.7
+pylint==3.0.2
     # via
     #   edx-lint
     #   pylint-celery
@@ -223,7 +221,7 @@ pylint==2.17.7
     #   pylint-plugin-utils
 pylint-celery==0.3
     # via edx-lint
-pylint-django==2.5.3
+pylint-django==2.5.4
     # via edx-lint
 pylint-plugin-utils==0.8.2
     # via
@@ -332,7 +330,7 @@ typing-extensions==4.8.0
     #   astroid
     #   pylint
     #   rich
-urllib3==1.26.17
+urllib3==1.26.18
     # via
     #   -r requirements/test.txt
     #   botocore
@@ -353,8 +351,6 @@ webob==1.8.7
     #   -r requirements/test.txt
     #   xblock
     #   xblock-sdk
-wrapt==1.15.0
-    # via astroid
 xblock[django]==1.8.1
     # via
     #   -r requirements/test.txt
