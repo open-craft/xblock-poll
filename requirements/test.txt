@@ -24,11 +24,11 @@ bok-choy==0.7.1
     # via
     #   -c requirements/constraints.txt
     #   -r requirements/test.in
-boto3==1.28.68
+boto3==1.28.78
     # via
     #   -r requirements/base.txt
     #   fs-s3fs
-botocore==1.31.68
+botocore==1.31.78
     # via
     #   -r requirements/base.txt
     #   boto3
@@ -37,7 +37,7 @@ certifi==2023.7.22
     # via requests
 chardet==5.2.0
     # via binaryornot
-charset-normalizer==3.3.1
+charset-normalizer==3.3.2
     # via requests
 click==8.1.7
     # via cookiecutter
@@ -109,7 +109,7 @@ mako==1.2.4
     #   -r requirements/base.txt
     #   xblock
     #   xblock-utils
-markdown==3.5
+markdown==3.5.1
     # via -r requirements/base.txt
 markdown-it-py==3.0.0
     # via rich
@@ -146,13 +146,13 @@ pygments==2.16.1
     # via rich
 pypng==0.20220715.0
     # via xblock-sdk
-pytest==7.4.2
+pytest==7.4.3
     # via
     #   pytest-cov
     #   pytest-django
 pytest-cov==4.1.0
     # via -r requirements/test.in
-pytest-django==4.5.2
+pytest-django==4.6.0
     # via -r requirements/test.in
 python-dateutil==2.8.2
     # via
