@@ -10,9 +10,9 @@ asgiref==3.7.2
     # via django
 bleach[css]==6.1.0
     # via -r requirements/base.in
-boto3==1.28.78
+boto3==1.29.3
     # via fs-s3fs
-botocore==1.31.78
+botocore==1.32.3
     # via
     #   boto3
     #   s3transfer
@@ -43,7 +43,7 @@ lazy==1.6
     # via xblock
 lxml==4.9.3
     # via xblock
-mako==1.2.4
+mako==1.3.0
     # via
     #   xblock
     #   xblock-utils
