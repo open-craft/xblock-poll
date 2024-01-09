@@ -48,7 +48,7 @@ README = open(os.path.join(os.path.dirname(__file__), 'README.md'), encoding="ut
 
 setup(
     name='xblock-poll',
-    version='1.13.0',
+    version='1.13.1',
     description='An XBlock for polling users.',
     long_description=README,
     long_description_content_type='text/markdown',

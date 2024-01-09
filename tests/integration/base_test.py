@@ -22,9 +22,9 @@
 #
 
 from __future__ import absolute_import
-from xblockutils.base_test import SeleniumBaseTest
 from mock import patch
 
+from xblock.utils.base_test import SeleniumBaseTest
 
 # Default names for inputs for polls/surveys
 DEFAULT_SURVEY_NAMES = ('enjoy', 'recommend', 'learn')
