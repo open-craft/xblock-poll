@@ -33,11 +33,11 @@ bok-choy==0.7.1
     # via
     #   -c requirements/constraints.txt
     #   -r requirements/quality.txt
-boto3==1.34.23
+boto3==1.34.29
     # via
     #   -r requirements/quality.txt
     #   fs-s3fs
-botocore==1.34.23
+botocore==1.34.29
     # via
     #   -r requirements/quality.txt
     #   boto3
@@ -79,14 +79,14 @@ cookiecutter==2.5.0
     # via
     #   -r requirements/quality.txt
     #   xblock-sdk
-coverage[toml]==7.4.0
+coverage[toml]==7.4.1
     # via
     #   -r requirements/quality.txt
     #   coverage
     #   pytest-cov
 ddt==1.7.1
     # via -r requirements/quality.txt
-dill==0.3.7
+dill==0.3.8
     # via
     #   -r requirements/quality.txt
     #   pylint
@@ -239,7 +239,7 @@ platformdirs==4.1.0
     #   -r requirements/quality.txt
     #   pylint
     #   virtualenv
-pluggy==1.3.0
+pluggy==1.4.0
     # via
     #   -r requirements/ci.txt
     #   -r requirements/quality.txt
@@ -287,7 +287,7 @@ pyproject-hooks==1.0.0
     # via
     #   -r requirements/pip-tools.txt
     #   build
-pytest==7.4.4
+pytest==8.0.0
     # via
     #   -r requirements/quality.txt
     #   pytest-cov
@@ -302,7 +302,7 @@ python-dateutil==2.8.2
     #   arrow
     #   botocore
     #   xblock
-python-slugify==8.0.1
+python-slugify==8.0.2
     # via
     #   -r requirements/quality.txt
     #   code-annotations
@@ -433,7 +433,7 @@ wheel==0.42.0
     # via
     #   -r requirements/pip-tools.txt
     #   pip-tools
-xblock[django]==1.9.1
+xblock[django]==1.10.0
     # via
     #   -r requirements/quality.txt
     #   xblock
