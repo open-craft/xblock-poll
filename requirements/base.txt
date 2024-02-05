@@ -10,9 +10,9 @@ asgiref==3.7.2
     # via django
 bleach[css]==6.1.0
     # via -r requirements/base.in
-boto3==1.34.29
+boto3==1.34.34
     # via fs-s3fs
-botocore==1.34.29
+botocore==1.34.34
     # via
     #   boto3
     #   s3transfer
@@ -43,13 +43,13 @@ lazy==1.6
     # via xblock
 lxml==5.1.0
     # via xblock
-mako==1.3.0
+mako==1.3.2
     # via
     #   xblock
     #   xblock-utils
 markdown==3.5.2
     # via -r requirements/base.in
-markupsafe==2.1.4
+markupsafe==2.1.5
     # via
     #   mako
     #   xblock
@@ -59,7 +59,7 @@ python-dateutil==2.8.2
     # via
     #   botocore
     #   xblock
-pytz==2023.3.post1
+pytz==2024.1
     # via
     #   django
     #   xblock
