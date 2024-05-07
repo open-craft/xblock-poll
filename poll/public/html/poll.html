@@ -32,7 +32,9 @@
           {% endfor %}
         </div>
       </fieldset>
-      <input class="input-main" type="button" name="poll-submit" value="{% trans 'Submit' %}" disabled/>
+      <button type="button" class="submit btn-brand" disabled>
+          <span class="submit-label">{% trans 'Submit' %}</span>
+      </button>
     </form>
 
     <div class="poll-voting-thanks
@@ -61,15 +63,15 @@
   </div>
       {% if can_view_private_results %}
       <div class="view-results-button-wrapper">
-        <button class="view-results-button">{% trans 'View results' %}</button>
+          <button type="button" class="view-results-button btn-link btn-small"><span class="show-label">{% trans 'View results' %}</span></button>
       </div>
     {% endif %}
 </div>
 {% if can_view_private_results %}
   {% if not studio_edit %}
     <div class="export-results-button-wrapper">
-      <button class="export-results-button">{% trans "Export results to CSV" %}</button>
-      <button disabled class="download-results-button">{% trans "Download CSV" %}</button>
+      <button class="export-results-button btn-brand">{% trans "Export results to CSV" %}</button>
+      <button disabled class="download-results-button btn-brand">{% trans "Download CSV" %}</button>
       <p class="error-message poll-hidden"></p>
     </div>
   {% else %}

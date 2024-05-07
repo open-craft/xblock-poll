@@ -46,7 +46,7 @@ class TestSubmitButton(PollBaseTest):
         # Select the first choice
         answer_elements[1].click()
         # When an answer is selected, make sure submit is enabled.
-        self.wait_until_exists('input[name=poll-submit]:enabled')
+        self.wait_until_exists('button.submit:enabled')
 
         submit_button = self.get_submit()
         submit_button.click()

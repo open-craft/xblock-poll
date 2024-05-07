@@ -10,7 +10,7 @@ function PollUtil (runtime, element, pollType) {
         this.tallyURL = runtime.handlerUrl(element, 'get_results');
         this.csv_url= runtime.handlerUrl(element, 'csv_export');
         this.votedUrl = runtime.handlerUrl(element, 'student_voted');
-        this.submit = $('input[type=button]', element);
+        this.submit = $('button.submit', element);
         this.answers = $('input[type=radio]', element);
         this.errorMessage = $('.error-message', element);
 

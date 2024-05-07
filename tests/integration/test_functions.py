@@ -25,6 +25,8 @@ Tests a realistic, configured Poll to make sure that everything works as it
 should.
 """
 
+from selenium.common.exceptions import NoSuchElementException
+
 from .base_test import PollBaseTest
 
 
@@ -58,7 +60,7 @@ class TestPollFunctions(PollBaseTest):
         answer_elements[0].click()
 
         # When an answer is selected, make sure submit is enabled.
-        self.wait_until_exists('input[name=poll-submit]:enabled')
+        self.wait_until_exists('button.submit:enabled')
 
     def test_poll_submission(self):
         """
@@ -82,11 +84,11 @@ class TestPollFunctions(PollBaseTest):
         self.assertEqual(self.browser.find_element_by_css_selector('.poll-footnote').text,
                          'Results gathered from 100 respondents.')
 
-        self.assertFalse(self.browser.find_element_by_css_selector('input[name=poll-submit]').is_enabled())
+        self.assertRaises(NoSuchElementException, self.browser.find_element_by_css_selector, 'button.submit')
 
-    def test_submit_not_enabled_on_revisit(self):
+    def test_submit_not_present_on_revisit(self):
         """
-        Verify that revisiting the page post-vote does not re-enable the submit button.
+        Verify that revisiting the page post-vote does not show the submit button.
         """
         self.go_to_page('Poll Functions')
 
@@ -97,11 +99,10 @@ class TestPollFunctions(PollBaseTest):
 
         self.get_submit().click()
 
-        # Button will be replaced with a new disabled copy, not just disabled.
-        self.wait_until_exists('input[name=poll-submit]:disabled')
+        self.wait_until_exists('.poll-results-wrapper')
 
         self.go_to_page('Poll Functions')
-        self.assertFalse(self.get_submit().is_enabled())
+        self.assertRaises(NoSuchElementException, self.browser.find_element_by_css_selector, 'button.submit')
 
     def test_poll_options_a11y(self):
         """
@@ -250,9 +251,9 @@ class TestSurveyFunctions(PollBaseTest):
         self.assertTrue(self.browser.find_element_by_css_selector('.poll-feedback').text,
                         "Thank you\nfor running the tests.")
 
-    def test_submit_not_enabled_on_revisit(self):
+    def test_submit_not_present_on_revisit(self):
         """
-        Verify that revisiting the page post-vote does not re-enable the submit button.
+        Verify that revisiting the page post-vote does not show the submit button.
         """
         self.go_to_page('Survey Functions')
 
@@ -260,11 +261,10 @@ class TestSurveyFunctions(PollBaseTest):
 
         self.get_submit().click()
 
-        # Button will be replaced with a new disabled copy, not just disabled.
-        self.wait_until_exists('input[name=poll-submit]:disabled')
+        self.wait_until_exists('.poll-results-wrapper')
 
-        self.go_to_page('Poll Functions')
-        self.assertFalse(self.get_submit().is_enabled())
+        self.go_to_page('Survey Functions')
+        self.assertRaises(NoSuchElementException, self.browser.find_element_by_css_selector, 'button.submit')
 
     def test_survey_radio_ids_unique(self):
         """
