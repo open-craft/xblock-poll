@@ -22,3 +22,5 @@
 #
 
 from .poll import PollBlock, SurveyBlock
+
+__version__ = "1.13.0"
