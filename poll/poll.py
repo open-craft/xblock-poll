@@ -29,14 +29,19 @@ from collections import OrderedDict
 import pkg_resources
 from django import utils
 from markdown import markdown
+from web_fragments.fragment import Fragment
 from webob import Response
 from xblock.completable import XBlockCompletionMode
 from xblock.core import XBlock
 from xblock.fields import Boolean, Dict, Integer, List, Scope, String
-from web_fragments.fragment import Fragment
-from xblockutils.publish_event import PublishEventMixin
-from xblockutils.resources import ResourceLoader
-from xblockutils.settings import ThemableXBlockMixin, XBlockWithSettingsMixin
+try:
+    from xblock.utils.publish_event import PublishEventMixin
+    from xblock.utils.resources import ResourceLoader
+    from xblock.utils.settings import ThemableXBlockMixin, XBlockWithSettingsMixin
+except ModuleNotFoundError:  # For backward compatibility with releases older than Quince.
+    from xblockutils.publish_event import PublishEventMixin
+    from xblockutils.resources import ResourceLoader
+    from xblockutils.settings import ThemableXBlockMixin, XBlockWithSettingsMixin
 
 from .utils import DummyTranslationService, _, remove_markdown_and_html_tags
 
