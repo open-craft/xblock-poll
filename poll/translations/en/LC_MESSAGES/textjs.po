@@ -1,25 +1,20 @@
 msgid ""
 msgstr "Content-Type: text/plain; charset=utf-8\n"
 
-#: poll/public/handlebars/survey_results.handlebars:4
 #: poll/public/handlebars/poll_results.handlebars:5
+#: poll/public/handlebars/survey_results.handlebars:4
 msgid "Results"
 msgstr ""
 
-#: poll/public/handlebars/survey_results.handlebars:39
-#: poll/public/handlebars/poll_results.handlebars:31
-msgid "Submit"
-msgstr ""
-
-#: poll/public/handlebars/survey_results.handlebars:41
-#: poll/public/handlebars/poll_results.handlebars:33
+#: poll/public/handlebars/poll_results.handlebars:32
+#: poll/public/handlebars/survey_results.handlebars:40
 msgid "Results gathered from {total} respondent."
 msgid_plural "Results gathered from {total} respondents."
 msgstr[0] ""
 msgstr[1] ""
 
-#: poll/public/handlebars/survey_results.handlebars:46
-#: poll/public/handlebars/poll_results.handlebars:37
+#: poll/public/handlebars/poll_results.handlebars:36
+#: poll/public/handlebars/survey_results.handlebars:45
 msgid "Feedback"
 msgstr ""
 

@@ -1,5 +1,5 @@
 {
   "dependencies": {
-    "xgettext-template": "^4.0.2"
+    "xgettext-template": "^6.0.0"
   }
 }

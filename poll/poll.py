@@ -21,25 +21,27 @@
 # along with this program in a file in the toplevel directory called
 # "AGPLv3".  If not, see <http://www.gnu.org/licenses/>.
 #
-from __future__ import absolute_import
-
 import functools
 import json
 import time
 from collections import OrderedDict
 
 import pkg_resources
-import six
 from django import utils
 from markdown import markdown
+from web_fragments.fragment import Fragment
 from webob import Response
 from xblock.completable import XBlockCompletionMode
 from xblock.core import XBlock
 from xblock.fields import Boolean, Dict, Integer, List, Scope, String
-from web_fragments.fragment import Fragment
-from xblockutils.publish_event import PublishEventMixin
-from xblockutils.resources import ResourceLoader
-from xblockutils.settings import ThemableXBlockMixin, XBlockWithSettingsMixin
+try:
+    from xblock.utils.publish_event import PublishEventMixin
+    from xblock.utils.resources import ResourceLoader
+    from xblock.utils.settings import ThemableXBlockMixin, XBlockWithSettingsMixin
+except ModuleNotFoundError:  # For backward compatibility with releases older than Quince.
+    from xblockutils.publish_event import PublishEventMixin
+    from xblockutils.resources import ResourceLoader
+    from xblockutils.settings import ThemableXBlockMixin, XBlockWithSettingsMixin
 
 from .utils import DummyTranslationService, _, remove_markdown_and_html_tags
 
@@ -136,8 +138,8 @@ class CSVExportMixin(object):
 
         # Make sure we nail down our state before sending off an asynchronous task.
         async_result = export_csv_data.delay(
-            six.text_type(getattr(self.scope_ids, 'usage_id', None)),
-            six.text_type(getattr(self.runtime, 'course_id', 'course_id')),
+            str(getattr(self.scope_ids, 'usage_id', None)),
+            str(getattr(self.runtime, 'course_id', 'course_id')),
         )
         if not async_result.ready():
             self.active_export_task_id = async_result.id
@@ -204,7 +206,7 @@ class CSVExportMixin(object):
             else:
                 self.last_export_result = {'error': u'Unexpected result: {}'.format(repr(task_result.result))}
         else:
-            self.last_export_result = {'error': six.text_type(task_result.result)}
+            self.last_export_result = {'error': str(task_result.result)}
 
     def prepare_data(self):
         """
@@ -273,7 +275,7 @@ class PollBase(XBlock, ResourceMixin, PublishEventMixin):
         if hasattr(self, 'location'):
             return self.location.html_id()  # pylint: disable=no-member
 
-        return six.text_type(self.scope_ids.usage_id)
+        return str(self.scope_ids.usage_id)
 
     def img_alt_mandatory(self):
         """
@@ -952,7 +954,7 @@ class SurveyBlock(PollBase, CSVExportMixin):
             'can_view_private_results': self.can_view_private_results(),
             # a11y: Transfer block ID to enable creating unique ids for questions and answers in the template
             'block_id': self._get_block_id(),
-            'usage_id': six.text_type(self.scope_ids.usage_id),
+            'usage_id': str(self.scope_ids.usage_id),
         })
         return self.create_fragment(
             context,

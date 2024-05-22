@@ -43,7 +43,7 @@ class PollBaseTest(SeleniumBaseTest):
         self.translation_merge_patch.start()
 
     def get_submit(self):
-        return self.browser.find_element_by_css_selector('input[name="poll-submit"]')
+        return self.browser.find_element_by_css_selector('button.submit')
 
     def make_selections(self, names):
         """
