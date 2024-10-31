@@ -451,7 +451,7 @@ class PollBlock(PollBase, CSVExportMixin):
     """
     # pylint: disable=too-many-instance-attributes
 
-    display_name = String(default=_('Poll'))
+    display_name = String(default=_('סקר שביעות רצון יחידה פנימית'))
     question = String(default=_('What is your favorite color?'))
     # This will be converted into an OrderedDict.
     # Key, (Label, Image path)
@@ -883,21 +883,24 @@ class PollBlock(PollBase, CSVExportMixin):
 class SurveyBlock(PollBase, CSVExportMixin):
     # pylint: disable=too-many-instance-attributes
 
-    display_name = String(default=_('Survey'))
+    display_name = String(default=_('סקר שביעות רצון סיכום קורס'))
     # The display name affects how the block is labeled in the studio,
     # but either way we want it to say 'Poll' by default on the page.
-    block_name = String(default=_('Poll'))
+    block_name = String(default=_('סקר שביעות רצון'))
     answers = List(
         default=[
-            ('Y', _('Yes')),
-            ('N', _('No')),
-            ('M', _('Maybe'))
+            ('1', _('1')),
+            ('2', _('2')),
+            ('3', _('3')),
+            ('4', _('4')),
+            ('5', _('5')),
+
         ],
         scope=Scope.settings, help=_("Answer choices for this Survey")
     )
     questions = List(
         default=[
-            ('enjoy', {'label': _('Are you enjoying the course?'), 'img': None, 'img_alt': None}),
+            ('satisfaction', {'label': _('Are you enjoying the course?'), 'img': None, 'img_alt': None}),
             ('recommend', {
                 'label': _('Would you recommend this course to your friends?'),
                 'img': None,
