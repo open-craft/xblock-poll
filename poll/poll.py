@@ -1257,7 +1257,7 @@ class SurveyBlock(PollBase, CSVExportMixin):
 
         result = {'success': True, 'errors': []}
         feedback = data.get('feedback', '').strip()
-        block_name = data.get('display_name', '').strip()
+        display_name = data.get('display_name', '').strip()
         private_results = bool(data.get('private_results', False))
         max_submissions = self.get_max_submissions(self.ugettext, data, result, private_results)
 
@@ -1272,7 +1272,8 @@ class SurveyBlock(PollBase, CSVExportMixin):
         self.feedback = feedback
         self.private_results = private_results
         self.max_submissions = max_submissions
-        self.block_name = block_name
+        self.block_name = display_name
+        self.display_name = display_name
 
         # Tally will not be updated until the next attempt to use it, per
         # scoping limitations.
