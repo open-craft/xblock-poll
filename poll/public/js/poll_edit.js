@@ -108,6 +108,7 @@ function PollEditUtil(runtime, element, pollType) {
     this.empowerArrows = function(scope, topMarker, bottomMarker) {
         // Activates the arrows on rendered line items.
         $('.poll-move-up', scope).click(function (ev) {
+            ev.preventDefault();
             var tag = $(this).parents('li');
             if (tag.index() <= ($(topMarker).index() + 1)){
                 return;
@@ -115,9 +116,9 @@ function PollEditUtil(runtime, element, pollType) {
             tag.prev().before(tag);
             tag.fadeOut(0).fadeIn('slow', 'swing');
             self.scrollTo(tag);
-            ev.preventDefault();
         });
-        $('.poll-move-down', scope).click(function () {
+        $('.poll-move-down', scope).click(function (ev) {
+            ev.preventDefault();
             var tag = $(this).parents('li');
             if ((tag.index() >= ($(bottomMarker).index() - 1))) {
                 return;
@@ -125,7 +126,6 @@ function PollEditUtil(runtime, element, pollType) {
             tag.next().after(tag);
             tag.fadeOut(0).fadeIn('slow', 'swing');
             self.scrollTo(tag);
-            ev.preventDefault();
         });
     };
 
