@@ -1,0 +1,86 @@
+# 
+# Translators:
+# Monica Maria Crapanzano <m.crapanzano@estartup.it>, 2018
+# anna.ghetti <anna.ghetti@student.unife.it>, 2018
+# Butta Tutto <butta.tutto@gmail.com>, 2018
+# Fare Fare <fare@polito.it>, 2018
+# Transifex Bot <>, 2024
+# 
+msgid ""
+msgstr ""
+"Last-Translator: Transifex Bot <>, 2024\n"
+"Language-Team: Italian (Italy) (https://app.transifex.com/open-edx/teams/6205/it_IT/)\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Language: it_IT\n"
+"Plural-Forms: nplurals=3; plural=n == 1 ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;\n"
+
+#: poll/public/handlebars/poll_studio.handlebars:6
+msgid "move poll up"
+msgstr "muovi sondaggio all'insù"
+
+#: poll/public/handlebars/poll_studio.handlebars:7
+msgid "move poll down"
+msgstr "muovi sondaggio ingiù"
+
+#: poll/public/handlebars/poll_studio.handlebars:9
+msgid "Delete"
+msgstr "Cancella"
+
+#: poll/public/handlebars/poll_studio.handlebars:11
+msgid "Answer"
+msgstr "Risposta"
+
+#: poll/public/handlebars/poll_studio.handlebars:12
+msgid "Question"
+msgstr "Domanda"
+
+#: poll/public/handlebars/poll_studio.handlebars:16
+msgid "Image URL"
+msgstr "URL dell'immagine"
+
+#: poll/public/handlebars/poll_studio.handlebars:18
+msgid "Image alternative text"
+msgstr "Testo alternativo per l'immagine"
+
+#: poll/public/handlebars/poll_studio.handlebars:23
+msgid ""
+"You can make limited use of Markdown in answer texts, preferably only bold "
+"and italics."
+msgstr ""
+"Puoi usare in modo limitato la sintassi Markdown nel testo delle risposta, "
+"preferibilmente solo grassetto e corsivo si possono utilizzare."
+
+#: poll/public/handlebars/poll_studio.handlebars:27
+msgid ""
+"This must have an image URL or text, and can have both.  If you add an "
+"image, you must also provide an alternative text that describes the image in"
+" a way that would allow someone to answer the poll if the image did not "
+"load."
+msgstr ""
+"Questo deve avere un image URL o testo e può anche averli entrambi. Se "
+"aggiungi un'immagine, devi anche fornire un testo alternativo che descriva "
+"l'immagine in modo che questo possa consentire di rispondere al sondaggio "
+"anche se l'immagine non è stata correttamente caricata."
+
+#: poll/public/handlebars/poll_results.handlebars:5
+#: poll/public/handlebars/survey_results.handlebars:4
+msgid "Results"
+msgstr "Feedback"
+
+#: poll/public/handlebars/poll_results.handlebars:31
+#: poll/public/handlebars/survey_results.handlebars:39
+msgid "Submit"
+msgstr "Invia"
+
+#: poll/public/handlebars/poll_results.handlebars:33
+#: poll/public/handlebars/survey_results.handlebars:41
+msgid "Results gathered from {total} respondent."
+msgid_plural "Results gathered from {total} respondents."
+msgstr[0] "Risposte raccolte da {total} persone"
+msgstr[1] "Risposte raccolte da {total} persone"
+msgstr[2] "Risposte raccolte da {total} persone"
+
+#: poll/public/handlebars/poll_results.handlebars:37
+#: poll/public/handlebars/survey_results.handlebars:46
+msgid "Feedback"
+msgstr ""
