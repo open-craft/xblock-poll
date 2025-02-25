@@ -10,7 +10,7 @@ AGPLv3 licence (see the [LICENSE](LICENSE) file). It has been developed by [Open
 This XBlock enables a course author to create survey/poll elements to get
 feedback from students. The XBlocks can either be _poll_ or _survey_ XBlocks. _Poll_ XBlocks have one
 question, and a series of answers. _Survey_ XBlocks have several questions and a handful of (terse) answers that
-a student is expect to answer each one from (Such as 'True', and 'False', or 'Agree' or 'Disagree')
+a student is expected to answer each one from (Such as 'True', and 'False', or 'Agree' or 'Disagree')
 
 ## Feature Overview
 
@@ -20,7 +20,7 @@ are able to be enhanced with [Markdown](http://daringfireball.net/projects/markd
 and images. Formatting for images is handled by the XBlock's formatters to keep a consistent and sane user experience.
 
 The feedback section of a poll or survey is shown after a user has completed the block. It, along with a poll block's
-question field, are intended to make full use of Markdown.
+question field, is intended to make full use of Markdown.
 
 These blocks currently do not support grading.
 
@@ -47,7 +47,7 @@ Once there, look for the _Advanced Modules List_ and add `"poll"` and `"survey"`
 
 ![Advanced modules configuration](doc_img/advanced_modules_list.png)
 
-Save your changes, and you may now add a poll by clicking on the **Advanced Modules** button on the bottom of a
+Save your changes, and you may now add a poll by clicking on the **Advanced Modules** button at the bottom of a
 unit editing page and selecting either `Poll` or `Survey`.
 
 ## Poll Examples
@@ -70,7 +70,7 @@ radio button on the side.
 
 Polls may have several customizations. Feedback may be added to a poll for display after the user has submitted their
 answer. Answers may have images associated with them. The question, feedback, and answers are all permitted to contain
-[Markdown](http://daringfireball.net/projects/markdown/syntax) (as well as arbitrary HTML) and so may be customized in the studio (as discussed in the next chapter).
+[Markdown](http://daringfireball.net/projects/markdown/syntax) (as well as arbitrary HTML) and so maybe customized in the studio (as discussed in the next chapter).
 
 Here is an example of a poll that uses markdown in the question and the answers, and which uses images for each
 of the answers:
@@ -198,11 +198,11 @@ When you are finished customizing your poll or survey, click the `Save` button:
 
 ![Save button](doc_img/save_button.png)
 
-...or to discard your chances, hit `Cancel` instead:
+...or to discard your changes, hit `Cancel` instead:
 
 ![Cancel button](doc_img/cancel_link.png)
 
-Assuming you saved, your new poll or survey should be ready to go as soon as you publish your unit's changes.
+Assuming you saved it, your new poll or survey should be ready to go as soon as you publish your unit's changes.
 If there are any issues, you will receive an error message specifying anything that may not be quite right yet.
 
 ## Notes
@@ -239,7 +239,7 @@ The resulting events look like this for polls:
 
 When running inside the edX LMS, course staff members have the ability to view results without voting.
 If you want to grant members of other groups ability to view the results, you can configure the group
-names in the django settings using the `XBLOCK_POLL_EXTRA_VIEW_GROUPS` setting, for example:
+names in the Django settings using the `XBLOCK_POLL_EXTRA_VIEW_GROUPS` setting, for example:
 
 ```python
 XBLOCK_POLL_EXTRA_VIEW_GROUPS = ['poll_staff']
@@ -259,7 +259,7 @@ $ source poll-xblock/bin/activate
 $ make requirements
 ```
 
-Also ensure that the [Transifex client has the proper authentication](https://docs.transifex.com/client/init)
+Also, ensure that the [Transifex client has the proper authentication](https://docs.transifex.com/client/init)
 in the `~/.transifexrc` file.
 
 Push new strings to Transifex:
@@ -282,7 +282,7 @@ $ make build_dummy_translations
 
 ## Running Tests Locally
 
-The Selenium tests in this XBlock requires Firefox 94.0.1 (the exact version can be found in `Makefile`).
+The Selenium tests in this XBlock require Firefox 94.0.1 (the exact version can be found in `Makefile`).
 
 On Linux, it's possible to install it via the command `$ make install_linux_dev_firefox`, but you'd
 have to install it on MacOS [manually from the Mozilla website](https://support.mozilla.org/en-US/kb/install-older-version-of-firefox), or you can rely on Travis to do that for you on the cloud.
@@ -299,7 +299,7 @@ or something like that on MacOS:
 $ PATH="path/to/firefox/bin/directory:$PATH" make test
 ```
 
-To run tests using `tox`, simply run: `tox`. Please note that if not all supported python versions are installed, tox will compile and install python from source. For compilation it may need extra dependencies depending on your system.
+To run tests using `tox`, simply run: `tox`. Please note that if not all supported python versions are installed, tox will compile and install python from source. For compilation, it may need extra dependencies depending on your system.
 
 ## API for native mobile frontends
 
