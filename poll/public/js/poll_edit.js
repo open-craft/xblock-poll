@@ -101,7 +101,7 @@ function PollEditUtil(runtime, element, pollType) {
     this.empowerDeletes = function (scope) {
         // Activates the delete buttons on rendered line items.
         $('.poll-delete-answer', scope).click(function () {
-            $(this).parent().remove();
+            $(this).parent().parent().remove();
         });
     };
 
