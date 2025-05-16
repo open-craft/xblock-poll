@@ -89,7 +89,7 @@ class ResourceMixin(XBlockWithSettingsMixin, ThemableXBlockMixin):
         except IOError:
             return self.resource_string('public/js/translations/en/textjs.js')
 
-    def create_fragment(self, context, template, css, js, js_init):
+    def create_fragment(self, context, template, css, js, js_init):  # pylint: disable=too-many-positional-arguments
         frag = Fragment()
         frag.add_content(self.loader.render_django_template(
             template,
@@ -287,7 +287,7 @@ class PollBase(XBlock, ResourceMixin, PublishEventMixin):
         xblock_settings = settings_service.get_settings_bucket(self)
         return xblock_settings.get('IMG_ALT_MANDATORY', True)
 
-    def gather_items(self, data, result, noun, field, image=True):
+    def gather_items(self, data, result, noun, field, image=True):  # pylint: disable=too-many-positional-arguments
         """
         Gathers a set of label-img pairs from a data dict and puts them in order.
         """
