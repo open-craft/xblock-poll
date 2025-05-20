@@ -14,6 +14,14 @@ function PollEditUtil(runtime, element, pollType) {
         // Set up the editing form for a Poll or Survey.
         var temp = $('.poll-form-component', element).html();
 
+        // Hide error container initially
+        $('#poll-error-container', element).hide();
+        
+        // Allow clicking on the error message to dismiss it
+        $('#poll-error-container', element).click(function() {
+            $(this).hide();
+        });
+
         PollCommonUtil.init(Handlebars);
 
         self.answerTemplate = Handlebars.compile(temp);
@@ -234,6 +242,8 @@ function PollEditUtil(runtime, element, pollType) {
         data['private_results'] = eval($('#poll-private-results', element).val());
 
         if (notify) {
+            // Hide any previous error messages
+            $('#poll-error-container', element).hide();
             runtime.notify('save', {state: 'start', message: gettext("Saving")});
         }
         $.ajax({
@@ -246,9 +256,14 @@ function PollEditUtil(runtime, element, pollType) {
                 if (result['success'] && notify) {
                     runtime.notify('save', {state: 'end'})
                 } else if (notify) {
+                    // Format and display the error message
+                    var errorMessage = self.format_errors(result['errors']);
+                    $('#poll-error-message', element).html(errorMessage);
+                    $('#poll-error-container', element).show();
+                    
                     runtime.notify('error', {
                         'title': 'Error saving poll',
-                        'message': self.format_errors(result['errors'])
+                        'message': errorMessage
                     });
                 }
             }
