@@ -22,11 +22,11 @@ bok-choy==0.7.1
     # via
     #   -c /home/runner/work/xblock-poll/xblock-poll/requirements/constraints.txt
     #   -r requirements/test.in
-boto3==1.38.18
+boto3==1.38.23
     # via
     #   -r /home/runner/work/xblock-poll/xblock-poll/requirements/base.txt
     #   fs-s3fs
-botocore==1.38.18
+botocore==1.38.23
     # via
     #   -r /home/runner/work/xblock-poll/xblock-poll/requirements/base.txt
     #   boto3
@@ -37,11 +37,11 @@ chardet==5.2.0
     # via binaryornot
 charset-normalizer==3.4.2
     # via requests
-click==8.2.0
+click==8.2.1
     # via cookiecutter
 cookiecutter==2.6.0
     # via xblock-sdk
-coverage[toml]==7.8.0
+coverage[toml]==7.8.2
     # via pytest-cov
 ddt==1.7.2
     # via -r requirements/test.in
@@ -171,7 +171,7 @@ requests==2.32.3
     #   xblock-sdk
 rich==14.0.0
     # via cookiecutter
-s3transfer==0.12.0
+s3transfer==0.13.0
     # via
     #   -r /home/runner/work/xblock-poll/xblock-poll/requirements/base.txt
     #   boto3
