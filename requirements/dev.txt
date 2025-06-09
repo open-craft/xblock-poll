@@ -31,11 +31,11 @@ bok-choy==0.7.1
     # via
     #   -c /home/runner/work/xblock-poll/xblock-poll/requirements/constraints.txt
     #   -r /home/runner/work/xblock-poll/xblock-poll/requirements/quality.txt
-boto3==1.38.27
+boto3==1.38.32
     # via
     #   -r /home/runner/work/xblock-poll/xblock-poll/requirements/quality.txt
     #   fs-s3fs
-botocore==1.38.27
+botocore==1.38.32
     # via
     #   -r /home/runner/work/xblock-poll/xblock-poll/requirements/quality.txt
     #   boto3
@@ -91,7 +91,7 @@ distlib==0.3.9
     # via
     #   -r /home/runner/work/xblock-poll/xblock-poll/requirements/ci.txt
     #   virtualenv
-django==4.2.21
+django==4.2.22
     # via
     #   -c https://raw.githubusercontent.com/edx/edx-lint/master/edx_lint/files/common_constraints.txt
     #   -r /home/runner/work/xblock-poll/xblock-poll/requirements/quality.txt
@@ -250,6 +250,7 @@ pycodestyle==2.13.0
 pygments==2.19.1
     # via
     #   -r /home/runner/work/xblock-poll/xblock-poll/requirements/quality.txt
+    #   pytest
     #   rich
 pylint==3.3.7
     # via
@@ -280,7 +281,7 @@ pyproject-hooks==1.2.0
     #   -r /home/runner/work/xblock-poll/xblock-poll/requirements/pip-tools.txt
     #   build
     #   pip-tools
-pytest==8.3.5
+pytest==8.4.0
     # via
     #   -r /home/runner/work/xblock-poll/xblock-poll/requirements/quality.txt
     #   pytest-cov
@@ -362,7 +363,7 @@ tinycss2==1.4.0
     # via
     #   -r /home/runner/work/xblock-poll/xblock-poll/requirements/quality.txt
     #   bleach
-tomlkit==0.13.2
+tomlkit==0.13.3
     # via
     #   -r /home/runner/work/xblock-poll/xblock-poll/requirements/quality.txt
     #   pylint
