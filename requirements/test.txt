@@ -22,16 +22,16 @@ bok-choy==0.7.1
     # via
     #   -c /home/runner/work/xblock-poll/xblock-poll/requirements/constraints.txt
     #   -r requirements/test.in
-boto3==1.38.27
+boto3==1.38.36
     # via
     #   -r /home/runner/work/xblock-poll/xblock-poll/requirements/base.txt
     #   fs-s3fs
-botocore==1.38.27
+botocore==1.38.36
     # via
     #   -r /home/runner/work/xblock-poll/xblock-poll/requirements/base.txt
     #   boto3
     #   s3transfer
-certifi==2025.4.26
+certifi==2025.6.15
     # via requests
 chardet==5.2.0
     # via binaryornot
@@ -41,7 +41,7 @@ click==8.2.1
     # via cookiecutter
 cookiecutter==2.6.0
     # via xblock-sdk
-coverage[toml]==7.8.2
+coverage[toml]==7.9.1
     # via pytest-cov
 ddt==1.7.2
     # via -r requirements/test.in
@@ -132,18 +132,22 @@ path==16.16.0
 pillow==11.2.1
     # via needle
 pluggy==1.6.0
-    # via pytest
+    # via
+    #   pytest
+    #   pytest-cov
 polib==1.2.0
     # via edx-i18n-tools
 pygments==2.19.1
-    # via rich
+    # via
+    #   pytest
+    #   rich
 pypng==0.20220715.0
     # via xblock-sdk
-pytest==8.3.5
+pytest==8.4.0
     # via
     #   pytest-cov
     #   pytest-django
-pytest-cov==6.1.1
+pytest-cov==6.2.1
     # via -r requirements/test.in
 pytest-django==4.11.1
     # via -r requirements/test.in
@@ -165,7 +169,7 @@ pyyaml==6.0.2
     #   cookiecutter
     #   edx-i18n-tools
     #   xblock
-requests==2.32.3
+requests==2.32.4
     # via
     #   cookiecutter
     #   xblock-sdk

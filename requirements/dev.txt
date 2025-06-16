@@ -31,11 +31,11 @@ bok-choy==0.7.1
     # via
     #   -c /home/runner/work/xblock-poll/xblock-poll/requirements/constraints.txt
     #   -r /home/runner/work/xblock-poll/xblock-poll/requirements/quality.txt
-boto3==1.38.27
+boto3==1.38.36
     # via
     #   -r /home/runner/work/xblock-poll/xblock-poll/requirements/quality.txt
     #   fs-s3fs
-botocore==1.38.27
+botocore==1.38.36
     # via
     #   -r /home/runner/work/xblock-poll/xblock-poll/requirements/quality.txt
     #   boto3
@@ -44,7 +44,7 @@ build==1.2.2.post1
     # via
     #   -r /home/runner/work/xblock-poll/xblock-poll/requirements/pip-tools.txt
     #   pip-tools
-certifi==2025.4.26
+certifi==2025.6.15
     # via
     #   -r /home/runner/work/xblock-poll/xblock-poll/requirements/quality.txt
     #   requests
@@ -77,7 +77,7 @@ cookiecutter==2.6.0
     # via
     #   -r /home/runner/work/xblock-poll/xblock-poll/requirements/quality.txt
     #   xblock-sdk
-coverage[toml]==7.8.2
+coverage[toml]==7.9.1
     # via
     #   -r /home/runner/work/xblock-poll/xblock-poll/requirements/quality.txt
     #   pytest-cov
@@ -91,7 +91,7 @@ distlib==0.3.9
     # via
     #   -r /home/runner/work/xblock-poll/xblock-poll/requirements/ci.txt
     #   virtualenv
-django==4.2.21
+django==4.2.23
     # via
     #   -c https://raw.githubusercontent.com/edx/edx-lint/master/edx_lint/files/common_constraints.txt
     #   -r /home/runner/work/xblock-poll/xblock-poll/requirements/quality.txt
@@ -236,6 +236,7 @@ pluggy==1.6.0
     #   -r /home/runner/work/xblock-poll/xblock-poll/requirements/ci.txt
     #   -r /home/runner/work/xblock-poll/xblock-poll/requirements/quality.txt
     #   pytest
+    #   pytest-cov
     #   tox
 polib==1.2.0
     # via
@@ -250,6 +251,7 @@ pycodestyle==2.13.0
 pygments==2.19.1
     # via
     #   -r /home/runner/work/xblock-poll/xblock-poll/requirements/quality.txt
+    #   pytest
     #   rich
 pylint==3.3.7
     # via
@@ -280,12 +282,12 @@ pyproject-hooks==1.2.0
     #   -r /home/runner/work/xblock-poll/xblock-poll/requirements/pip-tools.txt
     #   build
     #   pip-tools
-pytest==8.3.5
+pytest==8.4.0
     # via
     #   -r /home/runner/work/xblock-poll/xblock-poll/requirements/quality.txt
     #   pytest-cov
     #   pytest-django
-pytest-cov==6.1.1
+pytest-cov==6.2.1
     # via -r /home/runner/work/xblock-poll/xblock-poll/requirements/quality.txt
 pytest-django==4.11.1
     # via -r /home/runner/work/xblock-poll/xblock-poll/requirements/quality.txt
@@ -311,7 +313,7 @@ pyyaml==6.0.2
     #   cookiecutter
     #   edx-i18n-tools
     #   xblock
-requests==2.32.3
+requests==2.32.4
     # via
     #   -r /home/runner/work/xblock-poll/xblock-poll/requirements/quality.txt
     #   cookiecutter
@@ -362,7 +364,7 @@ tinycss2==1.4.0
     # via
     #   -r /home/runner/work/xblock-poll/xblock-poll/requirements/quality.txt
     #   bleach
-tomlkit==0.13.2
+tomlkit==0.13.3
     # via
     #   -r /home/runner/work/xblock-poll/xblock-poll/requirements/quality.txt
     #   pylint
