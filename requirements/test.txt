@@ -10,7 +10,7 @@ appdirs==1.4.4
     #   fs
 arrow==1.3.0
     # via cookiecutter
-asgiref==3.9.1
+asgiref==3.9.2
     # via
     #   -r requirements/base.txt
     #   django
@@ -22,11 +22,11 @@ bok-choy==0.7.1
     # via
     #   -c requirements/constraints.txt
     #   -r requirements/test.in
-boto3==1.40.35
+boto3==1.40.40
     # via
     #   -r requirements/base.txt
     #   fs-s3fs
-botocore==1.40.35
+botocore==1.40.40
     # via
     #   -r requirements/base.txt
     #   boto3
@@ -88,7 +88,7 @@ lazy==1.6
     #   -r requirements/base.txt
     #   bok-choy
     #   xblock
-lxml[html-clean]==6.0.1
+lxml[html-clean]==6.0.2
     # via
     #   -r requirements/base.txt
     #   edx-i18n-tools
@@ -106,7 +106,7 @@ markdown==3.9
     # via -r requirements/base.txt
 markdown-it-py==4.0.0
     # via rich
-markupsafe==3.0.2
+markupsafe==3.0.3
     # via
     #   -r requirements/base.txt
     #   jinja2
@@ -163,7 +163,7 @@ pytz==2025.2
     # via
     #   -r requirements/base.txt
     #   xblock
-pyyaml==6.0.2
+pyyaml==6.0.3
     # via
     #   -r requirements/base.txt
     #   cookiecutter
@@ -185,7 +185,7 @@ selenium==3.4.1
     #   -r requirements/test.in
     #   bok-choy
     #   needle
-simplejson==3.20.1
+simplejson==3.20.2
     # via
     #   -r requirements/base.txt
     #   xblock
