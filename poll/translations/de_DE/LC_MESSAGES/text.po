@@ -266,11 +266,8 @@ msgstr "Frage/Eingabeaufforderung"
 
 #: poll/public/html/poll_edit.html:16
 #, python-format
-msgid ""
-"\n"
-"                    %(link_start)sMarkdown Syntax%(link_end)s is supported.\n"
-"                "
-msgstr "\n%(link_start)s Markdown Syntax %(link_end)s wird unterstützt."
+msgid "%(link_start)sMarkdown Syntax%(link_end)s is supported."
+msgstr "%(link_start)sMarkdown Syntax%(link_end)s wird unterstützt."
 
 #: poll/public/html/poll_edit.html:23
 msgid "Enter the prompt for the user."
@@ -285,12 +282,8 @@ msgid ""
 msgstr "\n%(link_start)sMarkdown Syntax%(link_end)s wird unterstützt."
 
 #: poll/public/html/poll_edit.html:36
-msgid ""
-"\n"
-"                    This text will be displayed for the user as some extra feedback after they have\n"
-"                    submitted their response to the poll.\n"
-"                "
-msgstr "\nDieser Text wird dem Nutzer als zusätzliches Feedback angezeigt, nachdem er seine \nAntwort auf die Umfrage abgegeben hat."
+msgid "This text will be displayed for the user as some extra feedback after they have submitted their response to the poll."
+msgstr "Dieser Text wird dem Nutzer als zusätzliches Feedback angezeigt, nachdem er seine Antwort auf die Umfrage abgegeben hat."
 
 #: poll/public/html/poll_edit.html:44
 msgid "Private Results"
@@ -314,35 +307,20 @@ msgstr "maximale Versuche"
 
 #: poll/public/html/poll_edit.html:63
 #, python-format
-msgid ""
-"\n"
-"                    Maximum number of times a user may submit a poll. %(bold_start)sSetting this to a value other than 1 will imply that\n"
-"                    'Private Results' should be true.%(bold_end)s Setting it to 0 will allow infinite resubmissions.\n"
-"                "
-msgstr "\nMaximale Anzahl von Versuchen, die ein Benutzer eine Umfrage nutzen darf. Wenn Sie diesen Wert %(bold_start)s auf einen anderen als 1 setzen, bedeutet dies, dass\n'Private Ergebnisse' auf \"True\" gesetzt sind. Das Setzen von %(bold_end)s auf 0 erlaubt unendliche Wiedervorlagen."
+msgid "Maximum number of times a user may submit a poll. %(bold_start)sSetting this to a value other than 1 will imply that 'Private Results' should be true.%(bold_end)s Setting it to 0 will allow infinite resubmissions."
+msgstr "Maximale Anzahl von Versuchen, die ein Benutzer eine Umfrage nutzen darf. Wenn Sie diesen Wert %(bold_start)sauf einen anderen als 1 setzen, bedeutet dies, dass'Private Ergebnisse' auf True gesetzt sind. Das Setzen von %(bold_end)s auf 0 erlaubt unendliche Wiedervorlagen."
 
 #: poll/public/html/poll_edit.html:71
 msgid "Notes:"
 msgstr "Hinweise:"
 
 #: poll/public/html/poll_edit.html:72
-msgid ""
-"\n"
-"                    If you change an answer's text, all students who voted for that choice will have their votes updated to\n"
-"                    the new text. You'll want to avoid changing an answer from something like 'True' to 'False', accordingly.\n"
-"                    If you delete an answer, any votes for that answer will also be deleted. Students whose choices are deleted\n"
-"                    may vote again, but will not lose course progress.\n"
-"                "
-msgstr "\nWenn Sie den Text einer Antwort ändern, werden alle Schüler, die für diese Wahl gestimmt haben, ihre Stimmen auf \nden neuen Text aktualisiert. Sie sollten es vermeiden, eine Antwort von 'True' in 'False' zu ändern.\nWenn Sie eine Antwort löschen, werden auch alle Stimmen für diese Antwort gelöscht. Schüler, deren Auswahl gelöscht wurde, \nkönnen erneut abstimmen, verlieren aber den Kursfortschritt nicht."
+msgid "If you change an answer's text, all students who voted for that choice will have their votes updated to the new text. You'll want to avoid changing an answer from something like 'True' to 'False', accordingly. If you delete an answer, any votes for that answer will also be deleted. Students whose choices are deleted may vote again, but will not lose course progress."
+msgstr "Wenn Sie den Text einer Antwort ändern, werden alle Schüler, die für diese Wahl gestimmt haben, ihre Stimmen auf den neuen Text aktualisiert. Sie sollten es vermeiden, eine Antwort von 'True' in 'False' zu ändern. Wenn Sie eine Antwort löschen, werden auch alle Stimmen für diese Antwort gelöscht. Schüler, deren Auswahl gelöscht wurde, können erneut abstimmen, verlieren aber den Kursfortschritt nicht."
 
 #: poll/public/html/poll_edit.html:81
-msgid ""
-"\n"
-"                        Questions must be similarly cared for. If a question's text is changed, any votes for that question will remain.\n"
-"                        If a question is deleted, any student who previously took the survey will be permitted to retake it, but will not\n"
-"                        lose course progress.\n"
-"                    "
-msgstr "\nDie Fragen müssen in ähnlicher Weise bearbeitet werden. Wenn der Text einer Frage geändert wird, bleiben alle Stimmen für diese Frage erhalten.\nWenn eine Frage gelöscht wird, kann jeder Student, der zuvor an der Umfrage teilgenommen hat, diese wiederholen, \nverliert aber nicht den Kursfortschritt."
+msgid "Questions must be similarly cared for. If a question's text is changed, any votes for that question will remain. If a question is deleted, any student who previously took the survey will be permitted to retake it, but will not lose course progress."
+msgstr "Die Fragen müssen in ähnlicher Weise bearbeitet werden. Wenn der Text einer Frage geändert wird, bleiben alle Stimmen für diese Frage erhalten. Wenn eine Frage gelöscht wird, kann jeder Student, der zuvor an der Umfrage teilgenommen hat, diese wiederholen, verliert aber nicht den Kursfortschritt."
 
 #: poll/public/html/poll_edit.html:97
 msgid "Add Answer"
