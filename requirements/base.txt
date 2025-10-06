@@ -6,19 +6,19 @@
 #
 appdirs==1.4.4
     # via fs
-asgiref==3.9.2
+asgiref==3.10.0
     # via django
 bleach[css]==6.2.0
     # via -r requirements/base.in
-boto3==1.40.40
+boto3==1.40.45
     # via fs-s3fs
-botocore==1.40.40
+botocore==1.40.45
     # via
     #   boto3
     #   s3transfer
-django==4.2.24
+django==4.2.25
     # via
-    #   -c https:/raw.githubusercontent.com/edx/edx-lint/master/edx_lint/files/common_constraints.txt
+    #   -c https://raw.githubusercontent.com/edx/edx-lint/master/edx_lint/files/common_constraints.txt
     #   django-appconf
     #   django-statici18n
     #   openedx-django-pyfs
