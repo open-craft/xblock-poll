@@ -12,7 +12,7 @@ arrow==1.3.0
     # via
     #   -r requirements/quality.txt
     #   cookiecutter
-asgiref==3.9.2
+asgiref==3.10.0
     # via
     #   -r requirements/quality.txt
     #   django
@@ -31,11 +31,11 @@ bok-choy==0.7.1
     # via
     #   -c requirements/constraints.txt
     #   -r requirements/quality.txt
-boto3==1.40.40
+boto3==1.40.45
     # via
     #   -r requirements/quality.txt
     #   fs-s3fs
-botocore==1.40.40
+botocore==1.40.45
     # via
     #   -r requirements/quality.txt
     #   boto3
@@ -44,7 +44,7 @@ build==1.3.0
     # via
     #   -r requirements/pip-tools.txt
     #   pip-tools
-certifi==2025.8.3
+certifi==2025.10.5
     # via
     #   -r requirements/quality.txt
     #   requests
@@ -91,9 +91,9 @@ distlib==0.4.0
     # via
     #   -r requirements/ci.txt
     #   virtualenv
-django==4.2.24
+django==4.2.25
     # via
-    #   -c https:/raw.githubusercontent.com/edx/edx-lint/master/edx_lint/files/common_constraints.txt
+    #   -c https://raw.githubusercontent.com/edx/edx-lint/master/edx_lint/files/common_constraints.txt
     #   -r requirements/quality.txt
     #   django-appconf
     #   django-statici18n
@@ -134,7 +134,7 @@ iniconfig==2.1.0
     # via
     #   -r requirements/quality.txt
     #   pytest
-isort==6.0.1
+isort==6.1.0
     # via
     #   -r requirements/quality.txt
     #   pylint
@@ -160,7 +160,7 @@ lxml[html-clean]==6.0.2
     #   lxml-html-clean
     #   xblock
     #   xblock-sdk
-lxml-html-clean==0.4.2
+lxml-html-clean==0.4.3
     # via
     #   -r requirements/quality.txt
     #   lxml
@@ -219,7 +219,7 @@ pillow==11.3.0
     # via
     #   -r requirements/quality.txt
     #   needle
-pip-tools==7.5.0
+pip-tools==7.5.1
     # via -r requirements/pip-tools.txt
 platformdirs==4.4.0
     # via
@@ -249,7 +249,7 @@ pygments==2.19.2
     #   -r requirements/quality.txt
     #   pytest
     #   rich
-pylint==3.3.8
+pylint==3.3.9
     # via
     #   -r requirements/quality.txt
     #   edx-lint
