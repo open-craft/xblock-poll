@@ -43,7 +43,11 @@ except ModuleNotFoundError:  # For backward compatibility with releases older th
     from xblockutils.resources import ResourceLoader
     from xblockutils.settings import ThemableXBlockMixin, XBlockWithSettingsMixin
 
-from .utils import DummyTranslationService, _, remove_markdown_and_html_tags
+from .utils import (
+    DummyTranslationService, _, remove_markdown_and_html_tags,
+    get_xblock_i18n, add_translations_to_studio_context, add_translations_to_student_context
+)
+
 
 try:
     # pylint: disable=import-error, bad-option-value, ungrouped-imports
@@ -558,8 +562,9 @@ class PollBlock(PollBase, CSVExportMixin):
         """
         if not context:
             context = {}
-        js_template = self.resource_string('public/handlebars/poll_results.handlebars')
 
+        js_template = self.resource_string('public/handlebars/poll_results.handlebars')
+        i18n = get_xblock_i18n(self.runtime)
         choice = self.get_choice()
 
         context.update({
@@ -578,7 +583,10 @@ class PollBlock(PollBase, CSVExportMixin):
             'can_view_private_results': self.can_view_private_results(),
             # a11y: Transfer block ID to enable creating unique ids for questions and answers in the template
             'block_id': self._get_block_id(),
+
         })
+
+        add_translations_to_student_context(context, i18n)
 
         if self.choice:
             detail, total = self.tally_detail()
@@ -625,7 +633,7 @@ class PollBlock(PollBase, CSVExportMixin):
     def studio_view(self, context=None):
         if not context:
             context = {}
-
+        i18n = get_xblock_i18n(self.runtime)
         js_template = self.resource_string('public/handlebars/poll_studio.handlebars')
         context.update({
             'question': self.question,
@@ -634,7 +642,11 @@ class PollBlock(PollBase, CSVExportMixin):
             'feedback': self.feedback,
             'js_template': js_template,
             'max_submissions': self.max_submissions,
+
         })
+
+        add_translations_to_studio_context(context, i18n)
+
         return self.create_fragment(
             context,
             template="public/html/poll_edit.html",
@@ -932,6 +944,7 @@ class SurveyBlock(PollBase, CSVExportMixin):
         """
         if not context:
             context = {}
+        i18n = get_xblock_i18n(self.runtime)
 
         js_template = self.resource_string('public/handlebars/survey_results.handlebars')
 
@@ -956,6 +969,8 @@ class SurveyBlock(PollBase, CSVExportMixin):
             'block_id': self._get_block_id(),
             'usage_id': str(self.scope_ids.usage_id),
         })
+
+        add_translations_to_student_context(context, i18n)
         return self.create_fragment(
             context,
             template="public/html/survey.html",
@@ -1010,6 +1025,7 @@ class SurveyBlock(PollBase, CSVExportMixin):
         if not context:
             context = {}
 
+        i18n = get_xblock_i18n(self.runtime)
         js_template = self.resource_string('public/handlebars/poll_studio.handlebars')
         context.update({
             'feedback': self.feedback,
@@ -1019,6 +1035,8 @@ class SurveyBlock(PollBase, CSVExportMixin):
             'max_submissions': self.max_submissions,
             'multiquestion': True,
         })
+
+        add_translations_to_studio_context(context, i18n)
         return self.create_fragment(
             context,
             template="public/html/poll_edit.html",

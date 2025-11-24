@@ -54,7 +54,7 @@
                 <span class="submit-label">{% trans 'Submit' %}</span>
             </button>
         </form>
-        <div class="poll-voting-thanks{% if not choices or can_vote %} poll-hidden{% endif %}"><span>{% trans 'Thank you.' %}</span></div>
+        <div class="poll-voting-thanks{% if not choices or can_vote %} poll-hidden{% endif %}"><span>{{ t_thanks }}</span></div>
         <div class="poll-submissions-count poll-hidden">
             {% blocktrans with submissions_count_s='<span class="poll-current-count">{{ submissions_count }}</span>' max_submissions_s='<span class="poll-max-submissions">{{ max_submissions }}</span>' %}
                 You have used {{ submissions_count_s }} out of {{ max_submissions_s }} submissions.
@@ -72,7 +72,7 @@
 
         {% if can_view_private_results %}
             <div class="view-results-button-wrapper">
-                <button type="button" class="view-results-button btn-link btn-small"><span class="show-label">{% trans 'View results' %}</span></button>
+                <button type="button" class="view-results-button btn-link btn-small"><span class="show-label">{{ t_view_results }}</span></button>
             </div>
         {% endif %}
     </div>
@@ -80,8 +80,8 @@
 {% if can_view_private_results %}
   {% if not studio_edit %}
     <div class="export-results-button-wrapper">
-      <button class="export-results-button btn-brand">{% trans "Export results to CSV" %}</button>
-      <button disabled class="download-results-button btn-brand">{% trans "Download CSV" %}</button>
+      <button class="export-results-button btn-brand">{{ t_export }}</button>
+      <button disabled class="download-results-button btn-brand">{{ t_download }}</button>
       <p class="error-message poll-hidden"></p>
     </div>
   {% else %}

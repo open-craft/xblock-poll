@@ -323,10 +323,7 @@ msgstr "Qüéstïön/Prömpt Ⱡ'σяєм ιρѕυм ∂σłσя ѕιт α#"
 
 #: poll/public/html/poll_edit.html
 #, python-format
-msgid ""
-"\n"
-"                    %(link_start)sMarkdown Syntax%(link_end)s is supported.\n"
-"                "
+msgid "%(link_start)sMarkdown Syntax%(link_end)s is supported."
 msgstr ""
 "\n"
 "                    %(link_start)sMärkdöwn Sýntäx%(link_end)s ïs süppörtéd.\n"
