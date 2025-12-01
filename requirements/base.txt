@@ -10,9 +10,9 @@ asgiref==3.11.0
     # via django
 bleach[css]==6.3.0
     # via -r requirements/base.in
-boto3==1.41.2
+boto3==1.41.5
     # via fs-s3fs
-botocore==1.41.2
+botocore==1.41.5
     # via
     #   boto3
     #   s3transfer
@@ -72,7 +72,7 @@ six==1.17.0
     #   fs
     #   fs-s3fs
     #   python-dateutil
-sqlparse==0.5.3
+sqlparse==0.5.4
     # via django
 tinycss2==1.4.0
     # via bleach

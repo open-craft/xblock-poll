@@ -31,11 +31,11 @@ bok-choy==0.7.1
     # via
     #   -c requirements/constraints.txt
     #   -r requirements/quality.txt
-boto3==1.41.2
+boto3==1.41.5
     # via
     #   -r requirements/quality.txt
     #   fs-s3fs
-botocore==1.41.2
+botocore==1.41.5
     # via
     #   -r requirements/quality.txt
     #   boto3
@@ -344,7 +344,7 @@ six==1.17.0
     #   fs-s3fs
     #   python-dateutil
     #   tox
-sqlparse==0.5.3
+sqlparse==0.5.4
     # via
     #   -r requirements/quality.txt
     #   django
