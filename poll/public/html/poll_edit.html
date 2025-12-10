@@ -12,36 +12,29 @@
         </li>
         {% if not multiquestion %}
             <li class="field comp-setting-entry is-set">
-                <h2><label for="poll-question-editor">{% trans 'Question/Prompt' %}</label></h2>
-                {% blocktrans with link_start='<a href="//daringfireball.net/projects/markdown/syntax" target="_blank">' link_end='</a>' %}
-                    {{link_start}}Markdown Syntax{{link_end}} is supported.
-                {% endblocktrans %}
+                <h2><label for="poll-question-editor">{{ t_question_prompt }}</label></h2>
+                    {{ t_markdown_supported|safe }}
                 <div id="poll-question-editor-container">
                     <textarea class="input setting-input" name="question" id="poll-question-editor"
                               aria-describedby="poll-question-editor-help">{{question}}</textarea>
                 </div>
-                <span class="tip setting-help" id="poll-question-editor-help">{% trans 'Enter the prompt for the user.' %}</span>
+                <span class="tip setting-help" id="poll-question-editor-help">{{ t_enter_prompt_help }}</span>
             </li>
         {% endif %}
         <li class="field comp-setting-entry is-set">
             <h2><label for="poll-feedback-editor">{% trans 'Feedback' %}</label></h2>
-            {% blocktrans with link_start='<a href="//daringfireball.net/projects/markdown/syntax" target="_blank">' link_end='</a>' %}
-                {{link_start}}Markdown Syntax{{link_end}} is supported.
-            {% endblocktrans %}
+                 {{ t_markdown_supported|safe }}
             <div id="poll-feedback-editor-container">
                 <textarea class="input setting-input" name="feedback" id="poll-feedback-editor"
                           aria-describedby="poll-feedback-editor-help">{{feedback}}</textarea>
             </div>
             <span class="tip setting-help" id="poll-feedback-editor-help">
-                {% blocktrans %}
-                    This text will be displayed for the user as some extra feedback after they have
-                    submitted their response to the poll.
-                {% endblocktrans %}
+                {{ t_extra_feedback }}
             </span>
         </li>
         <li class="field comp-setting-entry is-set">
             <div class="wrapper-comp-setting">
-                <label class="label setting-label poll-setting-label" for="poll-private-results">{% trans 'Private Results' %}</label>
+                <label class="label setting-label poll-setting-label" for="poll-private-results">{{ t_private_results }} </label>
                 <select id="poll-private-results" class="input setting-input" name="private_results"
                         aria-describedby="poll-private-results-help">
                     <!-- So far as I can see, there's not a proper style for checkboxes. LTI module does it this way. -->
@@ -50,39 +43,27 @@
                 </select>
             </div>
             <span class="tip setting-help" id="poll-private-results-help">
-                {% trans "If this is set to True, don't display results of the poll to the user." %}
+                {{ t_set_private }}
             </span>
         </li>
         <li class="field comp-setting-entry is-set">
             <div class="wrapper-comp-setting">
-                <label class="label setting-label poll-setting-label" for="poll-max-submissions">{% trans 'Maximum Submissions' %}</label>
+                <label class="label setting-label poll-setting-label" for="poll-max-submissions">{{ t_max_submissions }}</label>
                 <input id="poll-max-submissions" type="number" min="0" step="1" value="{{ max_submissions }}"
                        aria-describedby="poll-max-submissions-help"/>
             </div>
             <span class="tip setting-help" id="poll-max-submissions-help">
-                {% blocktrans with bold_start='<strong>' bold_end='</strong>' %}
-                    Maximum number of times a user may submit a poll. {{bold_start}}Setting this to a value other than 1 will imply that
-                    'Private Results' should be true.{{bold_end}} Setting it to 0 will allow infinite resubmissions.
-                {% endblocktrans %}
+                {{ t_max_submissions_help|safe }}
             </span>
         </li>
         <li class="field comp-setting-entry is-set">
             <p>
-                <strong>{% trans 'Notes:' %}</strong>
-                {% blocktrans %}
-                    If you change an answer's text, all students who voted for that choice will have their votes updated to
-                    the new text. You'll want to avoid changing an answer from something like 'True' to 'False', accordingly.
-                    If you delete an answer, any votes for that answer will also be deleted. Students whose choices are deleted
-                    may vote again, but will not lose course progress.
-                {% endblocktrans %}
+                <strong>{{ t_notes }}</strong>
+                {{ t_answer_change_warning }}
             </p>
             {%  if multiquestion %}
                 <p>
-                    {% blocktrans %}
-                        Questions must be similarly cared for. If a question's text is changed, any votes for that question will remain.
-                        If a question is deleted, any student who previously took the survey will be permitted to retake it, but will not
-                        lose course progress.
-                    {% endblocktrans %}
+                    {{ t_question_help }}
                 </p>
             {% endif %}
         </li>
@@ -94,11 +75,11 @@
     <div class="xblock-actions">
         <ul>
             <li class="action-item" id="poll-add-answer">
-                <a href="#" class="button action-button" class="poll-add-item-link" onclick="return false;">{% trans 'Add Answer' %}</a>
+                <a href="#" class="button action-button" class="poll-add-item-link" onclick="return false;">{{ t_add_answer }}</a>
             </li>
             {% if multiquestion %}
                 <li class="action-item" id="poll-add-question">
-                    <a href="#" class="button action-button" class="poll-add-item-link" onclick="return false;">{% trans 'Add Question' %}</a>
+                    <a href="#" class="button action-button" class="poll-add-item-link" onclick="return false;">{{ t_add_question}}</a>
                 </li>
             {% endif %}
             <li class="action-item">
