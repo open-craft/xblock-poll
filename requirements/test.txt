@@ -22,11 +22,11 @@ bok-choy==0.7.1
     # via
     #   -c requirements/constraints.txt
     #   -r requirements/test.in
-boto3==1.42.4
+boto3==1.42.9
     # via
     #   -r requirements/base.txt
     #   fs-s3fs
-botocore==1.42.4
+botocore==1.42.9
     # via
     #   -r requirements/base.txt
     #   boto3
@@ -41,7 +41,7 @@ click==8.3.1
     # via cookiecutter
 cookiecutter==2.6.0
     # via xblock-sdk
-coverage[toml]==7.12.0
+coverage[toml]==7.13.0
     # via pytest-cov
 ddt==1.7.2
     # via -r requirements/test.in
@@ -208,9 +208,9 @@ tinycss2==1.4.0
     # via
     #   -r requirements/base.txt
     #   bleach
-tzdata==2025.2
+tzdata==2025.3
     # via arrow
-urllib3==2.6.0
+urllib3==2.6.2
     # via
     #   -r requirements/base.txt
     #   botocore
