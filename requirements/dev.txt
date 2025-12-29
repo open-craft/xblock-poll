@@ -31,11 +31,11 @@ bok-choy==0.7.1
     # via
     #   -c requirements/constraints.txt
     #   -r requirements/quality.txt
-boto3==1.42.4
+boto3==1.42.17
     # via
     #   -r requirements/quality.txt
     #   fs-s3fs
-botocore==1.42.4
+botocore==1.42.17
     # via
     #   -r requirements/quality.txt
     #   boto3
@@ -77,7 +77,7 @@ cookiecutter==2.6.0
     # via
     #   -r requirements/quality.txt
     #   xblock-sdk
-coverage[toml]==7.12.0
+coverage[toml]==7.13.1
     # via
     #   -r requirements/quality.txt
     #   pytest-cov
@@ -110,7 +110,7 @@ edx-i18n-tools==1.9.0
     # via -r requirements/quality.txt
 edx-lint==5.6.0
     # via -r requirements/quality.txt
-filelock==3.20.0
+filelock==3.20.1
     # via
     #   -r requirements/ci.txt
     #   tox
@@ -344,7 +344,7 @@ six==1.17.0
     #   fs-s3fs
     #   python-dateutil
     #   tox
-sqlparse==0.5.4
+sqlparse==0.5.5
     # via
     #   -r requirements/quality.txt
     #   django
@@ -370,11 +370,11 @@ tox==3.28.0
     #   tox-battery
 tox-battery==0.6.2
     # via -r requirements/ci.txt
-tzdata==2025.2
+tzdata==2025.3
     # via
     #   -r requirements/quality.txt
     #   arrow
-urllib3==2.6.0
+urllib3==2.6.2
     # via
     #   -r requirements/quality.txt
     #   botocore
@@ -403,7 +403,7 @@ wheel==0.45.1
     # via
     #   -r requirements/pip-tools.txt
     #   pip-tools
-xblock[django]==5.2.0
+xblock[django]==5.3.0
     # via
     #   -r requirements/quality.txt
     #   xblock-sdk
