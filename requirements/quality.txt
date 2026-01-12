@@ -30,11 +30,11 @@ bok-choy==0.7.1
     # via
     #   -c requirements/constraints.txt
     #   -r requirements/test.txt
-boto3==1.42.21
+boto3==1.42.25
     # via
     #   -r requirements/test.txt
     #   fs-s3fs
-botocore==1.42.21
+botocore==1.42.25
     # via
     #   -r requirements/test.txt
     #   boto3
@@ -74,7 +74,7 @@ ddt==1.7.2
     # via -r requirements/test.txt
 dill==0.4.0
     # via pylint
-django==5.2.9
+django==5.2.10
     # via
     #   -c https://raw.githubusercontent.com/edx/edx-lint/master/edx_lint/files/common_constraints.txt
     #   -r requirements/test.txt
@@ -309,7 +309,7 @@ tzdata==2025.3
     # via
     #   -r requirements/test.txt
     #   arrow
-urllib3==2.6.2
+urllib3==2.6.3
     # via
     #   -r requirements/test.txt
     #   botocore
