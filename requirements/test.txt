@@ -22,11 +22,11 @@ bok-choy==0.7.1
     # via
     #   -c requirements/constraints.txt
     #   -r requirements/test.in
-boto3==1.42.21
+boto3==1.42.30
     # via
     #   -r requirements/base.txt
     #   fs-s3fs
-botocore==1.42.21
+botocore==1.42.30
     # via
     #   -r requirements/base.txt
     #   boto3
@@ -210,7 +210,7 @@ tinycss2==1.4.0
     #   bleach
 tzdata==2025.3
     # via arrow
-urllib3==2.6.2
+urllib3==2.6.3
     # via
     #   -r requirements/base.txt
     #   botocore
