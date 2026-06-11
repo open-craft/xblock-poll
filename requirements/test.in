@@ -15,3 +15,5 @@ openedx-django-pyfs       # required by the workbench
 edx-i18n-tools            # For i18n_tool dummy
 
 xblock-sdk                # workbench
+# Old package, provides selenium test base.
+xblock-utils
