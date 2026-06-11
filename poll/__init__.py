@@ -3,7 +3,7 @@
 # Copyright (C) 2015 McKinsey Academy
 #
 # Authors:
-#          Jonathan Piacenti <jonathan@opencraft.com>
+#          Fox Piacenti <fox@opencraft.com>
 #
 # This software's license gives you freedom; you can copy, convey,
 # propagate, redistribute and/or modify this program under the terms of
@@ -23,4 +23,4 @@
 
 from .poll import PollBlock, SurveyBlock
 
-__version__ = "1.15.1"
+__version__ = "1.16.0"
