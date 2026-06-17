@@ -6,7 +6,6 @@ max-line-length=120
 
 [MESSAGES CONTROL]
 disable=
-	abstract-class-not-used,
 	broad-except,
 	cyclic-import,
 	fixme,
@@ -15,7 +14,6 @@ disable=
 	maybe-no-member,
 	missing-docstring,
 	protected-access,
-	star-args,
 	too-few-public-methods,
 	too-many-public-methods,
 	too-many-ancestors,

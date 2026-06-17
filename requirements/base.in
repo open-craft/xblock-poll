@@ -3,5 +3,5 @@
 
 markdown
 django-statici18n
-xblock-utils
 bleach[css]
+XBlock

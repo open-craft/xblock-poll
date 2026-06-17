@@ -26,7 +26,6 @@ import json
 import time
 from collections import OrderedDict
 
-import pkg_resources
 from django import utils
 from markdown import markdown
 from web_fragments.fragment import Fragment
@@ -34,14 +33,9 @@ from webob import Response
 from xblock.completable import XBlockCompletionMode
 from xblock.core import XBlock
 from xblock.fields import Boolean, Dict, Integer, List, Scope, String
-try:
-    from xblock.utils.publish_event import PublishEventMixin
-    from xblock.utils.resources import ResourceLoader
-    from xblock.utils.settings import ThemableXBlockMixin, XBlockWithSettingsMixin
-except ModuleNotFoundError:  # For backward compatibility with releases older than Quince.
-    from xblockutils.publish_event import PublishEventMixin
-    from xblockutils.resources import ResourceLoader
-    from xblockutils.settings import ThemableXBlockMixin, XBlockWithSettingsMixin
+from xblock.utils.publish_event import PublishEventMixin
+from xblock.utils.resources import ResourceLoader
+from xblock.utils.settings import ThemableXBlockMixin, XBlockWithSettingsMixin
 
 from .utils import DummyTranslationService, _, remove_markdown_and_html_tags
 
@@ -70,12 +64,6 @@ class ResourceMixin(XBlockWithSettingsMixin, ThemableXBlockMixin):
         'locations': ["public/css/themes/lms.css"]
     }
 
-    @staticmethod
-    def resource_string(path):
-        """Handy helper for getting resources from our kit."""
-        data = pkg_resources.resource_string(__name__, path)
-        return data.decode("utf8")
-
     @property
     def i18n_service(self):
         """ Obtains translation service """
@@ -83,11 +71,11 @@ class ResourceMixin(XBlockWithSettingsMixin, ThemableXBlockMixin):
 
     def get_translation_content(self):
         try:
-            return self.resource_string('public/js/translations/{lang}/textjs.js'.format(
+            return self.loader.load_unicode('public/js/translations/{lang}/textjs.js'.format(
                 lang=utils.translation.to_locale(utils.translation.get_language()),
             ))
         except IOError:
-            return self.resource_string('public/js/translations/en/textjs.js')
+            return self.loader.load_unicode('public/js/translations/en/textjs.js')
 
     def create_fragment(self, context, template, css, js, js_init):  # pylint: disable=too-many-positional-arguments
         frag = Fragment()
@@ -100,11 +88,11 @@ class ResourceMixin(XBlockWithSettingsMixin, ThemableXBlockMixin):
             self.runtime.local_resource_url(self, 'public/js/vendor/handlebars.js')
         )
 
-        frag.add_css(self.resource_string(css))
+        frag.add_css(self.loader.load_unicode(css))
 
         frag.add_javascript(self.get_translation_content())
-        frag.add_javascript(self.resource_string('public/js/poll_common.js'))
-        frag.add_javascript(self.resource_string(js))
+        frag.add_javascript(self.loader.load_unicode('public/js/poll_common.js'))
+        frag.add_javascript(self.loader.load_unicode(js))
         frag.initialize_js(js_init)
         self.include_theme_files(frag)
         return frag
@@ -558,7 +546,7 @@ class PollBlock(PollBase, CSVExportMixin):
         """
         if not context:
             context = {}
-        js_template = self.resource_string('public/handlebars/poll_results.handlebars')
+        js_template = self.loader.load_unicode('public/handlebars/poll_results.handlebars')
 
         choice = self.get_choice()
 
@@ -626,7 +614,7 @@ class PollBlock(PollBase, CSVExportMixin):
         if not context:
             context = {}
 
-        js_template = self.resource_string('public/handlebars/poll_studio.handlebars')
+        js_template = self.loader.load_unicode('public/handlebars/poll_studio.handlebars')
         context.update({
             'question': self.question,
             'display_name': self.display_name,
@@ -933,7 +921,7 @@ class SurveyBlock(PollBase, CSVExportMixin):
         if not context:
             context = {}
 
-        js_template = self.resource_string('public/handlebars/survey_results.handlebars')
+        js_template = self.loader.load_unicode('public/handlebars/survey_results.handlebars')
 
         choices = self.get_choices()
 
@@ -1010,7 +998,7 @@ class SurveyBlock(PollBase, CSVExportMixin):
         if not context:
             context = {}
 
-        js_template = self.resource_string('public/handlebars/poll_studio.handlebars')
+        js_template = self.loader.load_unicode('public/handlebars/poll_studio.handlebars')
         context.update({
             'feedback': self.feedback,
             'display_name': self.block_name,
