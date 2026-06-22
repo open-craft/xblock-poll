@@ -22,13 +22,13 @@ bok-choy==0.7.1
     # via
     #   -c requirements/constraints.txt
     #   -r requirements/test.in
-boto3==1.43.28
+boto3==1.43.34
     # via fs-s3fs
-botocore==1.43.28
+botocore==1.43.34
     # via
     #   boto3
     #   s3transfer
-certifi==2026.5.20
+certifi==2026.6.17
     # via requests
 charset-normalizer==3.4.7
     # via requests
@@ -36,7 +36,7 @@ click==8.4.1
     # via cookiecutter
 cookiecutter==2.7.1
     # via xblock-sdk
-coverage[toml]==7.14.1
+coverage[toml]==7.14.2
     # via pytest-cov
 ddt==1.7.2
     # via -r requirements/test.in
@@ -146,7 +146,7 @@ pymongo==4.17.0
     #   edx-opaque-keys
 pypng==0.20220715.0
     # via xblock-sdk
-pytest==9.0.3
+pytest==9.1.1
     # via
     #   pytest-cov
     #   pytest-django
@@ -178,7 +178,7 @@ requests==2.34.2
     #   xblock-sdk
 rich==15.0.0
     # via cookiecutter
-s3transfer==0.18.0
+s3transfer==0.19.0
     # via boto3
 selenium==3.4.1
     # via
@@ -237,7 +237,7 @@ webob==1.8.10
     #   -r requirements/base.txt
     #   xblock
     #   xblock-sdk
-xblock[django]==6.2.0
+xblock[django]==6.3.0
     # via
     #   -r requirements/base.txt
     #   xblock-sdk
