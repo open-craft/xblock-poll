@@ -27,7 +27,6 @@ import time
 from collections import OrderedDict
 
 from django import utils
-from markdown import markdown
 from web_fragments.fragment import Fragment
 from webob import Response
 from xblock.completable import XBlockCompletionMode
@@ -37,7 +36,7 @@ from xblock.utils.publish_event import PublishEventMixin
 from xblock.utils.resources import ResourceLoader
 from xblock.utils.settings import ThemableXBlockMixin, XBlockWithSettingsMixin
 
-from .utils import DummyTranslationService, _, remove_markdown_and_html_tags
+from .utils import DummyTranslationService, _, remove_markdown_and_html_tags, render_markdown
 
 try:
     # pylint: disable=import-error, bad-option-value, ungrouped-imports
@@ -249,7 +248,7 @@ class PollBase(XBlock, ResourceMixin, PublishEventMixin):
         """
         Convert all items' labels into markdown.
         """
-        return [(key, {'label': markdown(value['label']), 'img': value['img'], 'img_alt': value.get('img_alt')})
+        return [(key, {'label': render_markdown(value['label']), 'img': value['img'], 'img_alt': value.get('img_alt')})
                 for key, value in items]
 
     def _get_block_id(self):
@@ -553,10 +552,10 @@ class PollBlock(PollBase, CSVExportMixin):
         context.update({
             'choice': choice,
             'answers': self.markdown_items(self.answers),
-            'question': markdown(self.question),
+            'question': render_markdown(self.question),
             'private_results': self.private_results,
             # Mustache is treating an empty string as true.
-            'feedback': markdown(self.feedback) or False,
+            'feedback': render_markdown(self.feedback) or False,
             'js_template': js_template,
             'any_img': self.any_image(self.answers),
             'display_name': self.display_name,
@@ -651,10 +650,10 @@ class PollBlock(PollBase, CSVExportMixin):
             self.publish_event_from_dict(self.event_namespace + '.view_results', {})
             detail, total = self.tally_detail()
         return {
-            'question': markdown(self.question),
+            'question': render_markdown(self.question),
             'tally': detail,
             'total': total,
-            'feedback': markdown(self.feedback),
+            'feedback': render_markdown(self.feedback),
             'plural': total > 1,
             'display_name': self.display_name,
             'any_img': self.any_image(self.answers),
@@ -934,7 +933,7 @@ class SurveyBlock(PollBase, CSVExportMixin):
             'private_results': self.private_results,
             'any_img': self.any_image(self.questions),
             # Mustache is treating an empty string as true.
-            'feedback': markdown(self.feedback) or False,
+            'feedback': render_markdown(self.feedback) or False,
             'block_name': self.block_name,
             'can_vote': self.can_vote(),
             'submissions_count': self.submissions_count,
@@ -1148,7 +1147,7 @@ class SurveyBlock(PollBase, CSVExportMixin):
             ],
             'tally': detail,
             'total': total,
-            'feedback': markdown(self.feedback),
+            'feedback': render_markdown(self.feedback),
             'plural': total > 1,
             'block_name': self.block_name,
             # a11y: Transfer block ID to enable creating unique ids for questions and answers in the template
