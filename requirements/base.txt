@@ -51,11 +51,11 @@ six==1.17.0
     #   python-dateutil
 sqlparse==0.5.5
     # via django
-stevedore==5.8.0
+stevedore==5.9.0
     # via edx-opaque-keys
 tinycss2==1.5.1
     # via bleach
-typing-extensions==4.15.0
+typing-extensions==4.16.0
     # via edx-opaque-keys
 webencodings==0.5.1
     # via
