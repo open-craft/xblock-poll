@@ -31,16 +31,16 @@ bok-choy==0.7.1
     # via
     #   -c requirements/constraints.txt
     #   -r requirements/quality.txt
-boto3==1.43.34
+boto3==1.43.46
     # via
     #   -r requirements/quality.txt
     #   fs-s3fs
-botocore==1.43.34
+botocore==1.43.46
     # via
     #   -r requirements/quality.txt
     #   boto3
     #   s3transfer
-build==1.5.0
+build==1.5.1
     # via
     #   -r requirements/pip-tools.txt
     #   pip-tools
@@ -48,11 +48,11 @@ certifi==2026.6.17
     # via
     #   -r requirements/quality.txt
     #   requests
-charset-normalizer==3.4.7
+charset-normalizer==3.4.9
     # via
     #   -r requirements/quality.txt
     #   requests
-click==8.4.1
+click==8.4.2
     # via
     #   -r requirements/pip-tools.txt
     #   -r requirements/quality.txt
@@ -73,7 +73,7 @@ cookiecutter==2.7.1
     # via
     #   -r requirements/quality.txt
     #   xblock-sdk
-coverage[toml]==7.14.2
+coverage[toml]==7.15.1
     # via
     #   -r requirements/quality.txt
     #   pytest-cov
@@ -87,7 +87,7 @@ distlib==0.4.3
     # via
     #   -r requirements/ci.txt
     #   virtualenv
-django==5.2.15
+django==5.2.16
     # via
     #   -c https://raw.githubusercontent.com/edx/edx-lint/master/edx_lint/files/common_constraints.txt
     #   -r requirements/quality.txt
@@ -114,7 +114,7 @@ edx-opaque-keys==4.0.0
     # via
     #   -r requirements/quality.txt
     #   xblock
-filelock==3.29.4
+filelock==3.29.7
     # via
     #   -r requirements/ci.txt
     #   python-discovery
@@ -153,7 +153,7 @@ jmespath==1.1.0
     #   -r requirements/quality.txt
     #   boto3
     #   botocore
-lazy==1.6
+lazy==2.0
     # via
     #   -r requirements/quality.txt
     #   bok-choy
@@ -221,7 +221,7 @@ path==16.16.0
     # via
     #   -r requirements/quality.txt
     #   edx-i18n-tools
-pillow==12.2.0
+pillow==12.3.0
     # via
     #   -r requirements/quality.txt
     #   needle
@@ -267,7 +267,7 @@ pylint-celery==0.3
     # via
     #   -r requirements/quality.txt
     #   edx-lint
-pylint-django==2.7.0
+pylint-django==2.8.0
     # via
     #   -r requirements/quality.txt
     #   edx-lint
@@ -304,7 +304,7 @@ python-dateutil==2.9.0.post0
     #   arrow
     #   botocore
     #   xblock
-python-discovery==1.4.2
+python-discovery==1.4.4
     # via
     #   -r requirements/ci.txt
     #   virtualenv
@@ -333,7 +333,7 @@ rich==15.0.0
     # via
     #   -r requirements/quality.txt
     #   cookiecutter
-s3transfer==0.19.0
+s3transfer==0.19.1
     # via
     #   -r requirements/quality.txt
     #   boto3
@@ -363,7 +363,7 @@ sqlparse==0.5.5
     # via
     #   -r requirements/quality.txt
     #   django
-stevedore==5.8.0
+stevedore==5.9.0
     # via
     #   -r requirements/quality.txt
     #   code-annotations
@@ -387,11 +387,11 @@ tox==3.28.0
     #   tox-battery
 tox-battery==0.6.2
     # via -r requirements/ci.txt
-typing-extensions==4.15.0
+typing-extensions==4.16.0
     # via
     #   -r requirements/quality.txt
     #   edx-opaque-keys
-tzdata==2026.2
+tzdata==2026.3
     # via
     #   -r requirements/quality.txt
     #   arrow
@@ -400,7 +400,7 @@ urllib3==2.7.0
     #   -r requirements/quality.txt
     #   botocore
     #   requests
-virtualenv==21.5.1
+virtualenv==21.6.1
     # via
     #   -r requirements/ci.txt
     #   tox
@@ -423,7 +423,7 @@ wheel==0.47.0
     # via
     #   -r requirements/pip-tools.txt
     #   pip-tools
-xblock[django]==6.3.0
+xblock[django]==6.3.1
     # via
     #   -r requirements/quality.txt
     #   xblock-sdk

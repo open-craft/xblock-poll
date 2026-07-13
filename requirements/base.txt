@@ -10,7 +10,7 @@ asgiref==3.11.1
     # via django
 bleach[css]==6.4.0
     # via -r requirements/base.in
-django==5.2.15
+django==5.2.16
     # via
     #   -c https://raw.githubusercontent.com/edx/edx-lint/master/edx_lint/files/common_constraints.txt
     #   django-appconf
@@ -51,11 +51,11 @@ six==1.17.0
     #   python-dateutil
 sqlparse==0.5.5
     # via django
-stevedore==5.8.0
+stevedore==5.9.0
     # via edx-opaque-keys
 tinycss2==1.5.1
     # via bleach
-typing-extensions==4.15.0
+typing-extensions==4.16.0
     # via edx-opaque-keys
 webencodings==0.5.1
     # via
@@ -63,7 +63,7 @@ webencodings==0.5.1
     #   tinycss2
 webob==1.8.10
     # via xblock
-xblock==6.3.0
+xblock==6.3.1
     # via -r requirements/base.in
 
 # The following packages are considered to be unsafe in a requirements file:

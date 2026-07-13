@@ -22,21 +22,21 @@ bok-choy==0.7.1
     # via
     #   -c requirements/constraints.txt
     #   -r requirements/test.in
-boto3==1.43.34
+boto3==1.43.46
     # via fs-s3fs
-botocore==1.43.34
+botocore==1.43.46
     # via
     #   boto3
     #   s3transfer
 certifi==2026.6.17
     # via requests
-charset-normalizer==3.4.7
+charset-normalizer==3.4.9
     # via requests
-click==8.4.1
+click==8.4.2
     # via cookiecutter
 cookiecutter==2.7.1
     # via xblock-sdk
-coverage[toml]==7.14.2
+coverage[toml]==7.15.1
     # via pytest-cov
 ddt==1.7.2
     # via -r requirements/test.in
@@ -84,7 +84,7 @@ jmespath==1.1.0
     # via
     #   boto3
     #   botocore
-lazy==1.6
+lazy==2.0
     # via
     #   bok-choy
     #   xblock
@@ -128,7 +128,7 @@ packaging==26.2
     # via pytest
 path==16.16.0
     # via edx-i18n-tools
-pillow==12.2.0
+pillow==12.3.0
     # via needle
 pluggy==1.6.0
     # via
@@ -178,7 +178,7 @@ requests==2.34.2
     #   xblock-sdk
 rich==15.0.0
     # via cookiecutter
-s3transfer==0.19.0
+s3transfer==0.19.1
     # via boto3
 selenium==3.4.1
     # via
@@ -203,7 +203,7 @@ sqlparse==0.5.5
     # via
     #   -r requirements/base.txt
     #   django
-stevedore==5.8.0
+stevedore==5.9.0
     # via
     #   -r requirements/base.txt
     #   edx-opaque-keys
@@ -213,11 +213,11 @@ tinycss2==1.5.1
     # via
     #   -r requirements/base.txt
     #   bleach
-typing-extensions==4.15.0
+typing-extensions==4.16.0
     # via
     #   -r requirements/base.txt
     #   edx-opaque-keys
-tzdata==2026.2
+tzdata==2026.3
     # via arrow
 urllib3==2.7.0
     # via
@@ -237,7 +237,7 @@ webob==1.8.10
     #   -r requirements/base.txt
     #   xblock
     #   xblock-sdk
-xblock[django]==6.3.0
+xblock[django]==6.3.1
     # via
     #   -r requirements/base.txt
     #   xblock-sdk
