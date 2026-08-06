@@ -31,11 +31,11 @@ bok-choy==0.7.1
     # via
     #   -c requirements/constraints.txt
     #   -r requirements/quality.txt
-boto3==1.43.51
+boto3==1.43.56
     # via
     #   -r requirements/quality.txt
     #   fs-s3fs
-botocore==1.43.51
+botocore==1.43.56
     # via
     #   -r requirements/quality.txt
     #   boto3
@@ -44,7 +44,7 @@ build==1.5.0
     # via
     #   -r requirements/pip-tools.txt
     #   pip-tools
-certifi==2026.6.17
+certifi==2026.7.22
     # via
     #   -r requirements/quality.txt
     #   requests
@@ -114,7 +114,7 @@ edx-opaque-keys==4.0.0
     # via
     #   -r requirements/quality.txt
     #   xblock
-filelock==3.31.0
+filelock==3.32.0
     # via
     #   -r requirements/ci.txt
     #   python-discovery
@@ -227,7 +227,7 @@ pillow==12.3.0
     #   needle
 pip-tools==7.6.0
     # via -r requirements/pip-tools.txt
-platformdirs==4.10.1
+platformdirs==4.11.0
     # via
     #   -r requirements/ci.txt
     #   -r requirements/quality.txt
@@ -304,7 +304,7 @@ python-dateutil==2.9.0.post0
     #   arrow
     #   botocore
     #   xblock
-python-discovery==1.4.4
+python-discovery==1.5.0
     # via
     #   -r requirements/ci.txt
     #   virtualenv
@@ -313,7 +313,7 @@ python-slugify==8.0.4
     #   -r requirements/quality.txt
     #   code-annotations
     #   cookiecutter
-pytz==2026.2
+pytz==2026.3.post1
     # via
     #   -r requirements/quality.txt
     #   xblock
@@ -333,7 +333,7 @@ rich==15.0.0
     # via
     #   -r requirements/quality.txt
     #   cookiecutter
-s3transfer==0.19.1
+s3transfer==0.19.2
     # via
     #   -r requirements/quality.txt
     #   boto3
@@ -400,7 +400,7 @@ urllib3==2.7.0
     #   -r requirements/quality.txt
     #   botocore
     #   requests
-virtualenv==21.6.1
+virtualenv==21.7.0
     # via
     #   -r requirements/ci.txt
     #   tox
