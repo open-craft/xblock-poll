@@ -659,7 +659,7 @@ class PollBlock(PollBase, CSVExportMixin):
             'tally': detail,
             'total': total,
             'feedback': render_markdown(self.feedback),
-            'plural': total > 1,
+            'plural': total is not None and total > 1,
             'display_name': self.display_name,
             'any_img': self.any_image(self.answers),
             # a11y: Transfer block ID to enable creating unique ids for questions and answers in the template
@@ -1153,7 +1153,7 @@ class SurveyBlock(PollBase, CSVExportMixin):
             'tally': detail,
             'total': total,
             'feedback': render_markdown(self.feedback),
-            'plural': total > 1,
+            'plural': total is not None and total > 1,
             'block_name': self.block_name,
             # a11y: Transfer block ID to enable creating unique ids for questions and answers in the template
             'block_id': self._get_block_id()

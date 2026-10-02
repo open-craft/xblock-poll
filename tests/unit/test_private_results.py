@@ -18,13 +18,17 @@ class TestPrivateResults(unittest.TestCase):
         runtime = MockRuntime()
         if staff is not None:
             runtime.user_is_staff = staff
-        data = {'display_name': 'Fixture', 'private_results': private, 'submissions_count': 2}
+        data = {'display_name': 'Fixture', 'question': 'Fixture question', 'feedback': 'Fixture feedback',
+                'block_name': 'Fixture block', 'private_results': private, 'submissions_count': 2}
         if provider is PollBlock:
-            data.update(answers=[['yes', {'label': 'Yes'}]], choice='yes', tally={'yes': 7})
+            data.update(answers=[['yes', {'label': 'Yes', 'img': ''}]], choice='yes', tally={'yes': 7})
         else:
-            data.update(questions=[['question', {'label': 'Question'}]], answers=[['yes', 'Yes']],
+            data.update(questions=[['question', {'label': 'Question', 'img': ''}]], answers=[['yes', 'Yes']],
                         choices={'question': 'yes'}, tally={'question': {'yes': 7}})
-        return provider(runtime, DictFieldData(data), None)
+        block = provider(runtime, DictFieldData(data), None)
+        block.location = Mock()
+        block.location.html_id.return_value = 'fixture-block'
+        return block
 
     def test_unprivileged_export_handlers_refuse_before_side_effects(self):
         for provider in (PollBlock, SurveyBlock):
@@ -105,3 +109,13 @@ class TestPrivateResults(unittest.TestCase):
                     response = block.handle('student_view_user_state', make_request('', method='GET'))
                     self.assertEqual(response.status_int, 200)
                     self.assertEqual(response.json['tally'], block.tally)
+
+    def test_private_results_handler_returns_hidden_results_without_server_error(self):
+        for provider in (PollBlock, SurveyBlock):
+            with self.subTest(provider=provider):
+                block = self.block(provider)
+                response = block.handle('get_results', make_request('{}'))
+                self.assertEqual(response.status_int, 200)
+                self.assertEqual(response.json['tally'], {})
+                self.assertIsNone(response.json['total'])
+                self.assertIs(response.json['plural'], False)
