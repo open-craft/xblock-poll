@@ -31,6 +31,7 @@ from web_fragments.fragment import Fragment
 from webob import Response
 from xblock.completable import XBlockCompletionMode
 from xblock.core import XBlock
+from xblock.exceptions import JsonHandlerError
 from xblock.fields import Boolean, Dict, Integer, List, Scope, String
 from xblock.utils.publish_event import PublishEventMixin
 from xblock.utils.resources import ResourceLoader
@@ -120,6 +121,8 @@ class CSVExportMixin(object):
         """
         Asynchronously export given data as a CSV file.
         """
+        if not self.can_view_private_results():
+            raise JsonHandlerError(403, "Forbidden")
         # Launch task
         from .tasks import export_csv_data  # Import here since this is edX LMS specific
 
@@ -141,6 +144,8 @@ class CSVExportMixin(object):
         Return current export's pending status, previous result,
         and the download URL.
         """
+        if not self.can_view_private_results():
+            raise JsonHandlerError(403, "Forbidden")
         return self._get_export_status()
 
     def _get_export_status(self):
@@ -599,7 +604,7 @@ class PollBlock(PollBase, CSVExportMixin):
         """
         response = {
             'choice': self.get_choice(),
-            'tally': self.tally,
+            'tally': self.tally if not self.private_results or self.can_view_private_results() else {},
             'submissions_count': self.submissions_count,
         }
 
@@ -972,7 +977,7 @@ class SurveyBlock(PollBase, CSVExportMixin):
         """
         response = {
             'choices': self.get_choices(),
-            'tally': self.tally,
+            'tally': self.tally if not self.private_results or self.can_view_private_results() else {},
             'submissions_count': self.submissions_count,
         }
 
